@@ -27,7 +27,7 @@ public class App {
         });
 
         // Creation d'un bouton
-        JButton button = new JButton("click");
+        JButton button = new JButton("cliquez ici pour fermer");
 
         // On place le bouton a un endroit dans la fenetre
         button.setBounds(130, 100, 100, 40);
