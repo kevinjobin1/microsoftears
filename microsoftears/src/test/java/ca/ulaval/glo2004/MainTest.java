@@ -11,7 +11,7 @@ import org.junit.Test;
  * projet. Par contre, il peut s'averer utile de faire quelques tests pour certaines method pour s'assurer qu'elle retourne
  * bien ce qu'elle devrait retourner
  */
-public class AppTest 
+public class MainTest
 {
     /**
      * Exemple de test avec JUnit
