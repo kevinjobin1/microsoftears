@@ -137,6 +137,8 @@ public class MainWindow extends JFrame
         this.selectedElementCreationMode = newMode;
     }
 
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JPanel buttonTopPanel;
     private ButtonGroup createElementButtonGroup;
@@ -150,6 +152,7 @@ public class MainWindow extends JFrame
     private JToggleButton plancherButton;
     private JMenuItem quitMenuItem;
     private JMenuBar topMenuBar;
-    // End of variables declaration//GEN-END:variables
+
+
 }
 

@@ -13,6 +13,7 @@ public class DrawingPanel extends JPanel implements Serializable {
     private MainWindow mainWindow;
 
     public DrawingPanel(){
+
     }
 
     public DrawingPanel(MainWindow mainWindow) {
