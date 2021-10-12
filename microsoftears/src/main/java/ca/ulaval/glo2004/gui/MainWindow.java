@@ -2,6 +2,8 @@ package ca.ulaval.glo2004.gui;
 
 import ca.ulaval.glo2004.domain.PlanController;
 import ca.ulaval.glo2004.domain.PlanController.ElementModes;
+import ca.ulaval.glo2004.gui.afficheur.DrawingPanel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -10,6 +12,16 @@ public class MainWindow extends JFrame
 {
     public PlanController controller;
     public ElementModes selectedElementCreationMode;
+    private ApplicationMode actualMode;
+
+    // Ces attributs servent à la gestion du déplacement.
+    public Point actualMousePoint = new Point();
+    public Point delta = new Point();
+
+    public enum ApplicationMode {
+        SELECT,ADD
+    }
+
     public MainWindow()
     {
         controller = new PlanController();
@@ -17,12 +29,11 @@ public class MainWindow extends JFrame
     }
 
     private void initComponents() {
-
         createElementButtonGroup = new ButtonGroup();
         mainPanel = new JPanel();
         buttonTopPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        plancherButton = new JToggleButton();
-        hayonButton = new JToggleButton();
+        hayonButton = new javax.swing.JToggleButton();
+        plancherButton = new javax.swing.JToggleButton();
         mainScrollPane = new JScrollPane();
         drawingPanel = new DrawingPanel(this);
         topMenuBar = new JMenuBar();
@@ -31,8 +42,8 @@ public class MainWindow extends JFrame
         quitMenuItem = new JMenuItem();
         editMenu = new JMenu();
 
-        createElementButtonGroup.add(plancherButton);
         createElementButtonGroup.add(hayonButton);
+        createElementButtonGroup.add(plancherButton);
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Microsoftears");
@@ -57,11 +68,25 @@ public class MainWindow extends JFrame
         });
         buttonTopPanel.add(hayonButton);
 
+
+
         mainPanel.add(buttonTopPanel, BorderLayout.NORTH);
 
         drawingPanel.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
                 drawingPanelMousePressed(e);
+            }
+        });
+
+        drawingPanel.addMouseWheelListener(new MouseAdapter() {
+            public void mouseWheelMoved(MouseWheelEvent e) {
+                drawingPanelMouseWheelMoved(e);
+            }
+        });
+
+        drawingPanel.addMouseMotionListener(new MouseAdapter() {
+            public void mouseMoved(MouseEvent e) {
+                drawingPanelMouseMoved(e);
             }
         });
 
@@ -127,17 +152,30 @@ public class MainWindow extends JFrame
     }//GEN-LAST:event_hayonButtonActionPerformed
 
     private void drawingPanelMousePressed(MouseEvent e) {//GEN-FIRST:event_drawingPanelMousePressed
-        Point mousePoint = e.getPoint();
+        Point mousePoint = drawingPanel.getGridPosition(e.getPoint());
+        System.out.format("GridPoint: (%f, %f)", mousePoint.getX(), mousePoint.getY());
+        System.out.format("MousePoint: (%f, %f)", e.getPoint().getX(), e.getPoint().getY());
         ElementModes actualMode = this.selectedElementCreationMode;
         this.controller.addElement(actualMode,mousePoint);
         drawingPanel.repaint();
     }//GEN-LAST:event_drawingPanelMousePressed
 
+    private void drawingPanelMouseMoved(MouseEvent e) {//GEN-FIRST:event_drawingPanelMouseMoved
+    }//GEN-LAST:event_drawingPanelMouseMoved
+
+    private void drawingPanelMouseWheelMoved(MouseWheelEvent e) {//GEN-FIRST:event_drawingPanelMouseWheelMoved
+        int wheelRotation = e.getWheelRotation();
+        Point mousePoint = drawingPanel.getGridPosition(e.getPoint());
+        System.out.format("WheelRotation: %d", wheelRotation);
+        drawingPanel.setScale(wheelRotation);
+        System.out.format("SetCenter: (%f, %f)", mousePoint.getX(), mousePoint.getY());
+        // drawingPanel.setCenter(mousePoint);
+        drawingPanel.repaint();
+    }//GEN-LAST:event_drawingPanelMouseWheelMoved
+
     public void setMode(ElementModes newMode) {
         this.selectedElementCreationMode = newMode;
     }
-
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JPanel buttonTopPanel;
@@ -152,7 +190,6 @@ public class MainWindow extends JFrame
     private JToggleButton plancherButton;
     private JMenuItem quitMenuItem;
     private JMenuBar topMenuBar;
-
 
 }
 
