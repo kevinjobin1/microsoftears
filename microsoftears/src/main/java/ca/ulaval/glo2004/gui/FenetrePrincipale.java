@@ -17,10 +17,7 @@ public class FenetrePrincipale extends JFrame
     // Ces attributs servent à la gestion du déplacement.
     public Point actualMousePoint = new Point();
     public Point delta = new Point();
-    private JRadioButton radioButton1;
-    private JCheckBox checkBox1;
-    private JCheckBox checkBox2;
-    private JCheckBox checkBox3;
+
 
     public enum ApplicationMode {
         SELECT,ADD
