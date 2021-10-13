@@ -1,20 +1,39 @@
 package ca.ulaval.glo2004.domain;
 
+import ca.ulaval.glo2004.utilitaires.Polygone;
+
 import java.awt.Color;
-import java.awt.Point;
 
 public abstract class Composante {
 
-    private Point point;
+    private TypeComposante type;
+    private Polygone polygone;
+    private Color couleur;
 
-    public Composante(Point point){
-        this.point = point;
+    public Composante() {
     }
 
-    public Point getPoint() {
-        return point;
+    public Color getCouleur() {
+        return couleur;
     }
 
-    public abstract Color getColor();
+    public void setCouleur(Color couleur) {
+        this.couleur = couleur;
+    }
 
+    public Polygone getPolygone() {
+        return polygone;
+    }
+
+    public void setPolygone(Polygone polygone) {
+        this.polygone = polygone;
+    }
+
+    public TypeComposante getType() {
+        return type;
+    }
+
+    public void setType(TypeComposante type) {
+        this.type = type;
+    }
 }

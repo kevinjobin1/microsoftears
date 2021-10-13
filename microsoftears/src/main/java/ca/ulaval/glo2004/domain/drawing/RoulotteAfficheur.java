@@ -6,14 +6,14 @@ import java.util.List;
 import ca.ulaval.glo2004.domain.RoulotteController;
 import ca.ulaval.glo2004.domain.Composante;
 
-public class PlanDrawer {
-
+public class RoulotteAfficheur {
+/*
     private final RoulotteController controller;
     private Dimension initialDimension;
     private int radius = 50;
 
 
-    public PlanDrawer(RoulotteController controller, Dimension initialDimension) {
+    public RoulotteAfficheur(RoulotteController controller, Dimension initialDimension) {
         this.controller = controller;
         this.initialDimension = initialDimension;
     }
@@ -110,6 +110,6 @@ public class PlanDrawer {
 
 
 
-
+*/
 }
 

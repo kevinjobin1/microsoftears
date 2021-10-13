@@ -1,19 +1,15 @@
 package ca.ulaval.glo2004.domain;
 
+import ca.ulaval.glo2004.utilitaires.Pouce;
+
 import java.awt.Color;
 import java.awt.Point;
 
 public class Hayon extends Composante {
 
-    private Color color;
-
-    public Hayon(Point point) {
-        super(point);
-        this.color = Color.ORANGE;
-    }
-
-    public Color getColor(){
-        return color;
-    }
+    private Pouce epaisseur;
+    private Pouce distancePoutre;
+    private Pouce distancePlancher;
+    private Pouce epaisseurTraitScie;
 }
 

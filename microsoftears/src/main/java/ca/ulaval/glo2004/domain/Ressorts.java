@@ -1,4 +1,4 @@
 package ca.ulaval.glo2004.domain;
 
-public class Ressorts {
+public class Ressorts extends Composante{
 }

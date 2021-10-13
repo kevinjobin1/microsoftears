@@ -1,4 +1,4 @@
 package ca.ulaval.glo2004.domain;
 
-public class Toit {
+public class Toit extends Composante{
 }

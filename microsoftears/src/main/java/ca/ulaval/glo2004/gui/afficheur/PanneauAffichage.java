@@ -1,6 +1,6 @@
 package ca.ulaval.glo2004.gui.afficheur;
 
-import ca.ulaval.glo2004.domain.drawing.PlanDrawer;
+import ca.ulaval.glo2004.domain.drawing.RoulotteAfficheur;
 import ca.ulaval.glo2004.gui.FenetrePrincipale;
 
 import java.awt.*;
@@ -86,7 +86,7 @@ public class PanneauAffichage extends JPanel implements Serializable {
             }
 
             // end grid
-            PlanDrawer mainDrawer = new PlanDrawer(fenetrePrincipale.controller,initialDimension);
+            RoulotteAfficheur mainDrawer = new RoulotteAfficheur(fenetrePrincipale.controller,initialDimension);
             mainDrawer.draw(g);
         }
 

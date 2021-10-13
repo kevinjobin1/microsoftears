@@ -1,15 +1,12 @@
 package ca.ulaval.glo2004.gui;
 
-import ca.ulaval.glo2004.domain.RoulotteController;
-import ca.ulaval.glo2004.domain.RoulotteController.ElementModes;
-import ca.ulaval.glo2004.gui.afficheur.PanneauAffichage;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
 public class FenetrePrincipale extends JFrame
-{
+{/*
     public RoulotteController controller;
     public ElementModes selectedElementCreationMode;
     private ApplicationMode actualMode;
@@ -191,6 +188,6 @@ public class FenetrePrincipale extends JFrame
     private JToggleButton plancherButton;
     private JMenuItem quitMenuItem;
     private JMenuBar topMenuBar;
-
+*/
 }
 

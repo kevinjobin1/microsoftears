@@ -1,4 +1,10 @@
 package ca.ulaval.glo2004.domain;
 
-public class MurSeparateur {
+import ca.ulaval.glo2004.utilitaires.Pouce;
+
+public class MurSeparateur extends Composante{
+
+    private Pouce epaisseur;
+    private Pouce hauteur;
+    private Pouce distancePoutreArriere;
 }
