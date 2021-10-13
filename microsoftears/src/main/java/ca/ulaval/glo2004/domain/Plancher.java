@@ -1,8 +1,10 @@
 package ca.ulaval.glo2004.domain;
 
 
-public class Plancher extends Composante {
+import ca.ulaval.glo2004.utilitaires.Pouce;
 
-    public Plancher() {
-    }
+public class Plancher extends Composante {
+    private Pouce epaisseur;
+    private Pouce margeAvant;
+    private Pouce margeArriere;
 }

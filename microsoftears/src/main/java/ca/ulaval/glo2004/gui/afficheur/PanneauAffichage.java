@@ -9,7 +9,7 @@ import java.io.Serializable;
 import javax.swing.JPanel;
 
 // afficheurMicroRoulotte
-public class PanneauAffichage extends JPanel implements Serializable {
+public class PanneauAffichage extends JPanel implements Serializable {/*
 
     public Dimension initialDimension;
     private FenetrePrincipale fenetrePrincipale;
@@ -188,7 +188,7 @@ public class PanneauAffichage extends JPanel implements Serializable {
         return inches;
     }
 
-
+*/
 }
 
 
