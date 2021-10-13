@@ -1,74 +1,183 @@
 package ca.ulaval.glo2004.gui;
 
+import ca.ulaval.glo2004.domain.RoulotteController;
+import ca.ulaval.glo2004.domain.TypeComposante;
+import ca.ulaval.glo2004.gui.afficheur.PanneauAffichage;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class FenetrePrincipale extends JFrame
-{/*
+public class FenetrePrincipale extends JFrame {
+
+    //Declaration des variables graphiques
+    private JPanel mainPanel;
+    private JPanel boutonsTopPanel;
+    private ButtonGroup boutonsTopGroup;
+    private JButton nouveauButton;
+    private JButton chargerButton;
+    private JButton undoButton;
+    private JButton redoButton;
+    private JButton saveButton;
+    private JButton deleteButton;
+    private JButton exportButton;
+    private JTabbedPane barreOnglets;
+    private JToolBar barreOutils;
+    private JScrollPane mainScrollPane;
+    private PanneauAffichage panneauAffichage;
+    private JButton ajoutBouton;
+
+    // Déclaration variables non-graphiques
     public RoulotteController controller;
-    public ElementModes selectedElementCreationMode;
-    private ApplicationMode actualMode;
+    public TypeComposante composanteChoisie;
+    private TypeAction actionChoisie;
 
     // Ces attributs servent à la gestion du déplacement.
     public Point actualMousePoint = new Point();
     public Point delta = new Point();
 
-
-    public enum ApplicationMode {
-        SELECT,ADD
+    public enum TypeAction {
+        SELECT, ADD, DELETE
     }
 
-    public FenetrePrincipale()
-    {
+    public FenetrePrincipale() {
         controller = new RoulotteController();
         initComponents();
     }
 
     private void initComponents() {
-        createElementButtonGroup = new ButtonGroup();
         mainPanel = new JPanel();
-        buttonTopPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        hayonButton = new javax.swing.JToggleButton();
-        plancherButton = new javax.swing.JToggleButton();
+        boutonsTopPanel = new JPanel();
+        boutonsTopGroup= new ButtonGroup();
+        barreOnglets = new JTabbedPane();
+        barreOutils = new JToolBar();
         mainScrollPane = new JScrollPane();
         panneauAffichage = new PanneauAffichage(this);
-        topMenuBar = new JMenuBar();
-        fileMenu = new JMenu();
-        openMenuItem = new JMenuItem();
-        quitMenuItem = new JMenuItem();
-        editMenu = new JMenu();
+        nouveauButton = new javax.swing.JButton();
+        chargerButton = new javax.swing.JButton();
+        undoButton = new javax.swing.JButton();
+        redoButton = new javax.swing.JButton();
+        saveButton = new javax.swing.JButton();
+        deleteButton =  new javax.swing.JButton();
+        exportButton = new javax.swing.JButton();
+        ajoutBouton = new javax.swing.JButton();
 
-        createElementButtonGroup.add(hayonButton);
-        createElementButtonGroup.add(plancherButton);
 
+        //======== boutonsTopGroup =========
+
+        boutonsTopGroup.add(nouveauButton);
+        boutonsTopGroup.add(chargerButton);
+        boutonsTopGroup.add(undoButton);
+        boutonsTopGroup.add(redoButton);
+        boutonsTopGroup.add(saveButton);
+        boutonsTopGroup.add(deleteButton);
+        boutonsTopGroup.add(exportButton);
+
+        //======== FenetrePrincipale ========
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Microsoftears");
 
+        //======== mainPanel ========
+
         mainPanel.setLayout(new BorderLayout());
+        
+        //======== boutonsTopPanel ========
+        boutonsTopPanel.setPreferredSize(new Dimension(400, 45));
+        boutonsTopPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 
-        buttonTopPanel.setPreferredSize(new Dimension(400, 35));
-
-        plancherButton.setText("Plancher");
-        plancherButton.addActionListener(new ActionListener() {
+        // ==== Bouton nouveau projet =======
+        nouveauButton.setText("Nouveau");
+        nouveauButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                plancherButtonActionPerformed(e);
+                nouveauButtonActionPerformed(e);
             }
         });
-        buttonTopPanel.add(plancherButton);
+        boutonsTopPanel.add(nouveauButton);
 
-        hayonButton.setText("Hayon");
-        hayonButton.addActionListener(new ActionListener() {
+        // ==== Bouton charger un projet =======
+        chargerButton.setText("Charger");
+        chargerButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                hayonButtonActionPerformed(e);
+                chargerButtonActionPerformed(e);
             }
         });
-        buttonTopPanel.add(hayonButton);
+        boutonsTopPanel.add(chargerButton);
 
+        // ==== Bouton revenir en arrière =======
+        undoButton.setText("Revenir");
+        undoButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                undoButtonActionPerformed(e);
+            }
+        });
+        boutonsTopPanel.add(undoButton);
 
+        // ==== Bouton refaire une action =======
+        redoButton.setText("Refaire");
+        redoButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                redoButtonActionPerformed(e);
+            }
+        });
+        boutonsTopPanel.add(redoButton);
 
-        mainPanel.add(buttonTopPanel, BorderLayout.NORTH);
+        // ==== Bouton enregistrer un projet =======
+        saveButton.setText("Enregistrer");
+        saveButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                saveButtonActionPerformed(e);
+            }
+        });
+        boutonsTopPanel.add(saveButton);
+
+        // ==== Bouton supprimer un projet  =======
+        deleteButton.setText("Supprimer");
+        deleteButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                deleteButtonActionPerformed(e);
+            }
+        });
+        boutonsTopPanel.add(deleteButton);
+
+        // ==== Bouton exporter un projet  =======
+        exportButton.setText("Exporter");
+        exportButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                exportButtonActionPerformed(e);
+            }
+        });
+        boutonsTopPanel.add(exportButton);
+        
+        mainPanel.add(boutonsTopPanel, BorderLayout.NORTH);
+        
+        
+
+        //======== barreOnglets ========
+
+        barreOnglets.setPreferredSize(new Dimension(300, 900));
+        barreOnglets.addTab("Tab1", makePanel("This is tab 1"));
+        barreOnglets.addTab("Tab2", makePanel("This is tab 2"));
+        barreOnglets.addTab("Tab3", makePanel("This is tab 3"));
+        barreOnglets.addTab("Tab4", makePanel("This is tab 4"));
+
+        mainPanel.add(barreOnglets, BorderLayout.EAST);
+
+        //======== barreOutils ========
+
+        barreOutils.setOrientation(SwingConstants.VERTICAL);
+    
+        //---- ajoutBouton ----
+        
+        ajoutBouton.setText("(logo)");
+        barreOutils.add(ajoutBouton);
+
+        mainPanel.add(barreOutils, BorderLayout.WEST);
+
+        //======== mainScrollPane ========
+
+        mainScrollPane.setSize(new Dimension(800, 400));
+
+        mainPanel.add(mainScrollPane, BorderLayout.CENTER);
 
         panneauAffichage.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
@@ -90,6 +199,7 @@ public class FenetrePrincipale extends JFrame
 
         GroupLayout drawingPanelLayout = new GroupLayout(panneauAffichage);
         panneauAffichage.setLayout(drawingPanelLayout);
+
         drawingPanelLayout.setHorizontalGroup(
                 drawingPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGap(0, 888, Short.MAX_VALUE)
@@ -103,25 +213,12 @@ public class FenetrePrincipale extends JFrame
 
         mainPanel.add(mainScrollPane, BorderLayout.CENTER);
 
-        fileMenu.setText("Fichier");
 
-        openMenuItem.setText("Ouvrir");
-        fileMenu.add(openMenuItem);
 
-        quitMenuItem.setText("Quitter");
-        quitMenuItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                quitMenuItemActionPerformed(e);
-            }
-        });
-        fileMenu.add(quitMenuItem);
+        pack();
+        setLocationRelativeTo(getOwner());
 
-        topMenuBar.add(fileMenu);
 
-        editMenu.setText("Éditer");
-        topMenuBar.add(editMenu);
-
-        setJMenuBar(topMenuBar);
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -135,26 +232,39 @@ public class FenetrePrincipale extends JFrame
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
-    private void plancherButtonActionPerformed(ActionEvent e) {//GEN-FIRST:event_plancherButtonActionPerformed
-        this.setMode(ElementModes.PLANCHER);
-    }//GEN-LAST:event_plancherButtonActionPerformed
+    private void exportButtonActionPerformed(ActionEvent e) {
+    }
+
+    private void deleteButtonActionPerformed(ActionEvent e) {
+    }
+
+    private void saveButtonActionPerformed(ActionEvent e) {
+    }
+
+    private void redoButtonActionPerformed(ActionEvent e) {
+    }
+
+    private void undoButtonActionPerformed(ActionEvent e) {
+    }
+
+    private void chargerButtonActionPerformed(ActionEvent e) {
+    }
+
+    private void nouveauButtonActionPerformed(ActionEvent e) {
+    }
 
     private void quitMenuItemActionPerformed(ActionEvent e) {//GEN-FIRST:event_quitMenuItemActionPerformed
         System.exit(0);
     }//GEN-LAST:event_quitMenuItemActionPerformed
 
-    private void hayonButtonActionPerformed(ActionEvent e) {//GEN-FIRST:event_hayonButtonActionPerformed
-        this.setMode(ElementModes.HAYON);
-    }//GEN-LAST:event_hayonButtonActionPerformed
-
     private void drawingPanelMousePressed(MouseEvent e) {//GEN-FIRST:event_drawingPanelMousePressed
         Point mousePoint = panneauAffichage.getGridPosition(e.getPoint());
         System.out.format("GridPoint: (%f, %f)", mousePoint.getX(), mousePoint.getY());
         System.out.format("MousePoint: (%f, %f)", e.getPoint().getX(), e.getPoint().getY());
-        ElementModes actualMode = this.selectedElementCreationMode;
-        this.controller.addElement(actualMode,mousePoint);
+        TypeComposante composanteChoisie = this.composanteChoisie;
+        this.controller.ajouterComposante(composanteChoisie,mousePoint);
         panneauAffichage.repaint();
     }//GEN-LAST:event_drawingPanelMousePressed
 
@@ -171,23 +281,17 @@ public class FenetrePrincipale extends JFrame
         panneauAffichage.repaint();
     }//GEN-LAST:event_drawingPanelMouseWheelMoved
 
-    public void setMode(ElementModes newMode) {
-        this.selectedElementCreationMode = newMode;
+    public void setAction(TypeAction newAction) {
+        this.actionChoisie = newAction;
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private JPanel buttonTopPanel;
-    private ButtonGroup createElementButtonGroup;
-    private PanneauAffichage panneauAffichage;
-    private JMenu editMenu;
-    private JMenu fileMenu;
-    private JPanel mainPanel;
-    private JScrollPane mainScrollPane;
-    private JMenuItem openMenuItem;
-    private JToggleButton hayonButton;
-    private JToggleButton plancherButton;
-    private JMenuItem quitMenuItem;
-    private JMenuBar topMenuBar;
-*/
+    private static JPanel makePanel(String text) {
+        JPanel panel = new JPanel();
+        panel.add(new Label(text));
+        panel.setLayout(new GridLayout(1, 1));
+        return panel;
+    }
+
 }
+
 

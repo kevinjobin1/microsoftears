@@ -17,7 +17,6 @@ public class App {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         FenetrePrincipale fenetrePrincipale = new FenetrePrincipale();
         fenetrePrincipale.setExtendedState(fenetrePrincipale.getExtendedState() | JFrame.MAXIMIZED_BOTH);
         fenetrePrincipale.setVisible(true);

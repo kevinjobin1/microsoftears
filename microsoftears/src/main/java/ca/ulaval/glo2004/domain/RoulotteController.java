@@ -20,4 +20,7 @@ public class RoulotteController {
 
     public RoulotteController() {
     }
+
+        public void ajouterComposante(TypeComposante composanteChoisie, Point mousePoint) {
+        }
 }
