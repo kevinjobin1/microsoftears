@@ -7,4 +7,6 @@ public class MurSeparateur extends Composante{
     private Pouce epaisseur;
     private Pouce hauteur;
     private Pouce distancePoutreArriere;
+
+
 }

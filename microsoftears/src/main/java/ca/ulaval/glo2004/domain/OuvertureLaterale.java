@@ -2,9 +2,25 @@ package ca.ulaval.glo2004.domain;
 
 import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Pouce;
+import ca.ulaval.glo2004.utilitaires.Rectangle;
 
 public class OuvertureLaterale extends Composante{
-    private Pouce hauteur;
-    private Pouce largeur;
-    private PointPouce centre;
+    private Rectangle rectangle;
+
+
+    public OuvertureLaterale(Rectangle rectangle) {
+        this.rectangle = rectangle;
+    }
+
+    public OuvertureLaterale() {
+        this.rectangle = new Rectangle();
+    }
+
+    public Rectangle getRectangle() {
+        return rectangle;
+    }
+
+    public void setRectangle(Rectangle rectangle) {
+        this.rectangle = rectangle;
+    }
 }
