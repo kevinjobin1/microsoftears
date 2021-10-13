@@ -1,25 +1,22 @@
 package ca.ulaval.glo2004.domain;
 
 import java.awt.*;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
 import java.util.List;
-import java.util.zip.ZipEntry;
 
-public class PlanController {
+public class RoulotteController {
 
-        private Plan plan;
+        private MicroRoulotte plan;
 
         public enum ElementModes {
             HAYON,PLANCHER
         }
 
-        public PlanController (Plan plan){
+        public RoulotteController(MicroRoulotte plan){
             this.plan = plan;
         }
 
-        public PlanController() {
-            plan = new Plan();
+        public RoulotteController() {
+            plan = new MicroRoulotte();
 
         }
 
@@ -44,7 +41,7 @@ public class PlanController {
             }
         }
 
-    public List<Element> getElementList() {
+    public List<Composante> getElementList() {
             return plan.getElementList();
         }
 

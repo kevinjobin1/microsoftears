@@ -1,37 +1,36 @@
 package ca.ulaval.glo2004.domain;
 
-import java.awt.*;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Plan {
+public class MicroRoulotte {
 
     private final int PLAN_HEIGHT = 480;
     private final int PLAN_WIDTH = 960;
     private final int PLAN_SIZE = PLAN_HEIGHT * PLAN_WIDTH;
 
-    private List<Element> elementList;
+    private List<Composante> composanteList;
 
-    public Plan(){
-        elementList = new LinkedList<>();
+    public MicroRoulotte(){
+        composanteList = new LinkedList<>();
     }
 
-    public void add(Element aElement){
-        elementList.add(aElement);
+    public void add(Composante aComposante){
+        composanteList.add(aComposante);
     }
 
     public void scaleElements(){
-        for(Element aElement : elementList) {
+        for(Composante aComposante : composanteList) {
 
         }
     }
 
     public boolean isEmpty() {
-        return elementList.isEmpty();
+        return composanteList.isEmpty();
     }
 
-    public List<Element> getElementList() {
-        return elementList;
+    public List<Composante> getElementList() {
+        return composanteList;
     }
 
     public int getHeight() {
@@ -43,7 +42,7 @@ public class Plan {
     public int getSize(){return PLAN_SIZE;}
 
     public int getNumberOfElements() {
-        return elementList.size();
+        return composanteList.size();
     }
 
 }

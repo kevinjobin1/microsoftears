@@ -1,20 +1,18 @@
 package ca.ulaval.glo2004.gui.afficheur;
 
 import ca.ulaval.glo2004.domain.drawing.PlanDrawer;
-import ca.ulaval.glo2004.gui.MainWindow;
+import ca.ulaval.glo2004.gui.FenetrePrincipale;
 
 import java.awt.*;
-import java.awt.event.*;
 import java.awt.geom.AffineTransform;
 import java.io.Serializable;
 import javax.swing.JPanel;
-import javax.swing.border.BevelBorder;
 
 // afficheurMicroRoulotte
-public class DrawingPanel extends JPanel implements Serializable {
+public class PanneauAffichage extends JPanel implements Serializable {
 
     public Dimension initialDimension;
-    private MainWindow mainWindow;
+    private FenetrePrincipale fenetrePrincipale;
     private final int GRID_SIZE = 20000;
     private final double MAX_SCALE = 6;
     private final double MIN_SCALE = 0.3;
@@ -27,8 +25,8 @@ public class DrawingPanel extends JPanel implements Serializable {
     private Color lightLightLightGray;
     
 
-    public DrawingPanel(MainWindow mainWindow) {
-        this.mainWindow = mainWindow;
+    public PanneauAffichage(FenetrePrincipale fenetrePrincipale) {
+        this.fenetrePrincipale = fenetrePrincipale;
         int width = (java.awt.Toolkit.getDefaultToolkit().getScreenSize().width);
         setPreferredSize(new Dimension(width,1));
         setVisible(true);
@@ -47,7 +45,7 @@ public class DrawingPanel extends JPanel implements Serializable {
     @Override
     protected void paintComponent(Graphics g)
     {
-        if (mainWindow != null){
+        if (fenetrePrincipale != null){
             super.paintComponent(g);
 
             Graphics2D g2d = (Graphics2D) g;
@@ -88,7 +86,7 @@ public class DrawingPanel extends JPanel implements Serializable {
             }
 
             // end grid
-            PlanDrawer mainDrawer = new PlanDrawer(mainWindow.controller,initialDimension);
+            PlanDrawer mainDrawer = new PlanDrawer(fenetrePrincipale.controller,initialDimension);
             mainDrawer.draw(g);
         }
 
@@ -159,12 +157,12 @@ public class DrawingPanel extends JPanel implements Serializable {
         return new Point (gridX, gridY);
     }
 
-    public MainWindow getMainWindow(){
-        return mainWindow;
+    public FenetrePrincipale getMainWindow(){
+        return fenetrePrincipale;
     }
 
-    public void setMainWindow(MainWindow mainWindow){
-        this.mainWindow = mainWindow;
+    public void setMainWindow(FenetrePrincipale fenetrePrincipale){
+        this.fenetrePrincipale = fenetrePrincipale;
     }
 
     public Dimension getInitialDimension(){

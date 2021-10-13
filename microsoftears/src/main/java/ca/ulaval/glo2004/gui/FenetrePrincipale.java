@@ -1,16 +1,16 @@
 package ca.ulaval.glo2004.gui;
 
-import ca.ulaval.glo2004.domain.PlanController;
-import ca.ulaval.glo2004.domain.PlanController.ElementModes;
-import ca.ulaval.glo2004.gui.afficheur.DrawingPanel;
+import ca.ulaval.glo2004.domain.RoulotteController;
+import ca.ulaval.glo2004.domain.RoulotteController.ElementModes;
+import ca.ulaval.glo2004.gui.afficheur.PanneauAffichage;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class MainWindow extends JFrame
+public class FenetrePrincipale extends JFrame
 {
-    public PlanController controller;
+    public RoulotteController controller;
     public ElementModes selectedElementCreationMode;
     private ApplicationMode actualMode;
 
@@ -26,9 +26,9 @@ public class MainWindow extends JFrame
         SELECT,ADD
     }
 
-    public MainWindow()
+    public FenetrePrincipale()
     {
-        controller = new PlanController();
+        controller = new RoulotteController();
         initComponents();
     }
 
@@ -39,7 +39,7 @@ public class MainWindow extends JFrame
         hayonButton = new javax.swing.JToggleButton();
         plancherButton = new javax.swing.JToggleButton();
         mainScrollPane = new JScrollPane();
-        drawingPanel = new DrawingPanel(this);
+        panneauAffichage = new PanneauAffichage(this);
         topMenuBar = new JMenuBar();
         fileMenu = new JMenu();
         openMenuItem = new JMenuItem();
@@ -76,26 +76,26 @@ public class MainWindow extends JFrame
 
         mainPanel.add(buttonTopPanel, BorderLayout.NORTH);
 
-        drawingPanel.addMouseListener(new MouseAdapter() {
+        panneauAffichage.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
                 drawingPanelMousePressed(e);
             }
         });
 
-        drawingPanel.addMouseWheelListener(new MouseAdapter() {
+        panneauAffichage.addMouseWheelListener(new MouseAdapter() {
             public void mouseWheelMoved(MouseWheelEvent e) {
                 drawingPanelMouseWheelMoved(e);
             }
         });
 
-        drawingPanel.addMouseMotionListener(new MouseAdapter() {
+        panneauAffichage.addMouseMotionListener(new MouseAdapter() {
             public void mouseMoved(MouseEvent e) {
                 drawingPanelMouseMoved(e);
             }
         });
 
-        GroupLayout drawingPanelLayout = new GroupLayout(drawingPanel);
-        drawingPanel.setLayout(drawingPanelLayout);
+        GroupLayout drawingPanelLayout = new GroupLayout(panneauAffichage);
+        panneauAffichage.setLayout(drawingPanelLayout);
         drawingPanelLayout.setHorizontalGroup(
                 drawingPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGap(0, 888, Short.MAX_VALUE)
@@ -105,7 +105,7 @@ public class MainWindow extends JFrame
                         .addGap(0, 303, Short.MAX_VALUE)
         );
 
-        mainScrollPane.setViewportView(drawingPanel);
+        mainScrollPane.setViewportView(panneauAffichage);
 
         mainPanel.add(mainScrollPane, BorderLayout.CENTER);
 
@@ -156,12 +156,12 @@ public class MainWindow extends JFrame
     }//GEN-LAST:event_hayonButtonActionPerformed
 
     private void drawingPanelMousePressed(MouseEvent e) {//GEN-FIRST:event_drawingPanelMousePressed
-        Point mousePoint = drawingPanel.getGridPosition(e.getPoint());
+        Point mousePoint = panneauAffichage.getGridPosition(e.getPoint());
         System.out.format("GridPoint: (%f, %f)", mousePoint.getX(), mousePoint.getY());
         System.out.format("MousePoint: (%f, %f)", e.getPoint().getX(), e.getPoint().getY());
         ElementModes actualMode = this.selectedElementCreationMode;
         this.controller.addElement(actualMode,mousePoint);
-        drawingPanel.repaint();
+        panneauAffichage.repaint();
     }//GEN-LAST:event_drawingPanelMousePressed
 
     private void drawingPanelMouseMoved(MouseEvent e) {//GEN-FIRST:event_drawingPanelMouseMoved
@@ -169,12 +169,12 @@ public class MainWindow extends JFrame
 
     private void drawingPanelMouseWheelMoved(MouseWheelEvent e) {//GEN-FIRST:event_drawingPanelMouseWheelMoved
         int wheelRotation = e.getWheelRotation();
-        Point mousePoint = drawingPanel.getGridPosition(e.getPoint());
+        Point mousePoint = panneauAffichage.getGridPosition(e.getPoint());
         System.out.format("WheelRotation: %d", wheelRotation);
-        drawingPanel.setScale(wheelRotation);
+        panneauAffichage.setScale(wheelRotation);
         System.out.format("SetCenter: (%f, %f)", mousePoint.getX(), mousePoint.getY());
         // drawingPanel.setCenter(mousePoint);
-        drawingPanel.repaint();
+        panneauAffichage.repaint();
     }//GEN-LAST:event_drawingPanelMouseWheelMoved
 
     public void setMode(ElementModes newMode) {
@@ -184,7 +184,7 @@ public class MainWindow extends JFrame
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JPanel buttonTopPanel;
     private ButtonGroup createElementButtonGroup;
-    private DrawingPanel drawingPanel;
+    private PanneauAffichage panneauAffichage;
     private JMenu editMenu;
     private JMenu fileMenu;
     private JPanel mainPanel;

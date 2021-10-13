@@ -1,22 +1,19 @@
 package ca.ulaval.glo2004.domain.drawing;
 
 import java.awt.*;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.Rectangle2D;
 import java.util.List;
 
-import ca.ulaval.glo2004.domain.PlanController;
-import ca.ulaval.glo2004.domain.Element;
+import ca.ulaval.glo2004.domain.RoulotteController;
+import ca.ulaval.glo2004.domain.Composante;
 
 public class PlanDrawer {
 
-    private final PlanController controller;
+    private final RoulotteController controller;
     private Dimension initialDimension;
     private int radius = 50;
 
 
-    public PlanDrawer(PlanController controller, Dimension initialDimension) {
+    public PlanDrawer(RoulotteController controller, Dimension initialDimension) {
         this.controller = controller;
         this.initialDimension = initialDimension;
     }
@@ -28,10 +25,10 @@ public class PlanDrawer {
     }
 
     private void drawElements(Graphics g) {
-        List<Element> elements = controller.getElementList();
-        for (Element element: elements){
-            Point elementPoint = element.getPoint();
-            Color color = element.getColor();
+        List<Composante> composantes = controller.getElementList();
+        for (Composante composante : composantes){
+            Point elementPoint = composante.getPoint();
+            Color color = composante.getColor();
             int posX =  (int) elementPoint.getX();
             int posY =  (int) elementPoint.getY();
             int width = radius * 2;
