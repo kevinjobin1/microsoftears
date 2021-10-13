@@ -1,5 +1,6 @@
 package ca.ulaval.glo2004.domain;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class RoulotteController {
