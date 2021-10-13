@@ -4,16 +4,19 @@ import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Pouce;
 import ca.ulaval.glo2004.utilitaires.Rectangle;
 
-public class AideDesign extends Composante{
+public class MurBrute extends Composante{
 
     private Rectangle rectangle;
 
-    public AideDesign(Rectangle rectangle) {
+    public MurBrute(Rectangle rectangle) {
         this.rectangle = rectangle;
     }
 
-    public AideDesign() {
-        this.rectangle = new Rectangle();
+    public MurBrute() {
+        Pouce longueur=new Pouce(96,0,0);
+        Pouce hauteur=new Pouce(48,0,0);
+        PointPouce centre = new PointPouce(); //à modifier
+        this.rectangle = new Rectangle(longueur, hauteur, centre);
     }
 
     public Rectangle getRectangle() {

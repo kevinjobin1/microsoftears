@@ -11,5 +11,6 @@ public class Hayon extends Composante {
     private Pouce distancePoutre;
     private Pouce distancePlancher;
     private Pouce epaisseurTraitScie;
+
 }
 
