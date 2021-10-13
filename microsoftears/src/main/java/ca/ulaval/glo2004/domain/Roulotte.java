@@ -3,7 +3,7 @@ package ca.ulaval.glo2004.domain;
 import java.util.LinkedList;
 import java.util.List;
 
-public class MicroRoulotte {
+public class Roulotte {
 
     private final int PLAN_HEIGHT = 480;
     private final int PLAN_WIDTH = 960;
@@ -11,7 +11,7 @@ public class MicroRoulotte {
 
     private List<Composante> composanteList;
 
-    public MicroRoulotte(){
+    public Roulotte(){
         composanteList = new LinkedList<>();
     }
 

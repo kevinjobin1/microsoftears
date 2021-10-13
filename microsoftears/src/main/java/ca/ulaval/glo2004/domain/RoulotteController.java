@@ -5,18 +5,18 @@ import java.util.List;
 
 public class RoulotteController {
 
-        private MicroRoulotte plan;
+        private Roulotte plan;
 
         public enum ElementModes {
             HAYON,PLANCHER
         }
 
-        public RoulotteController(MicroRoulotte plan){
+        public RoulotteController(Roulotte plan){
             this.plan = plan;
         }
 
         public RoulotteController() {
-            plan = new MicroRoulotte();
+            plan = new Roulotte();
 
         }
 
