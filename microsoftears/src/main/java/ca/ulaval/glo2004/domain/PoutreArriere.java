@@ -7,5 +7,9 @@ public class PoutreArriere extends Composante{
     private Pouce longueur;
     private Pouce hauteur;
     private PointPouce centre;
+
+    public PoutreArriere(RoulotteController parent) {
+        super(parent);
+    }
 }
 

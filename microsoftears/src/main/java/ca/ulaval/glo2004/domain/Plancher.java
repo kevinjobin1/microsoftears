@@ -7,4 +7,8 @@ public class Plancher extends Composante {
     private Pouce epaisseur;
     private Pouce margeAvant;
     private Pouce margeArriere;
+
+    public Plancher(RoulotteController parent) {
+        super(parent);
+    }
 }

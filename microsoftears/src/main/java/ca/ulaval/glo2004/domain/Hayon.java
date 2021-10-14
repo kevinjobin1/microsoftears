@@ -12,5 +12,8 @@ public class Hayon extends Composante {
     private Pouce distancePlancher;
     private Pouce epaisseurTraitScie;
 
+    public Hayon(RoulotteController parent) {
+        super(parent);
+    }
 }
 

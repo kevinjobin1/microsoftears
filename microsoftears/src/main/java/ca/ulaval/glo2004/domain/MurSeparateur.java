@@ -9,4 +9,7 @@ public class MurSeparateur extends Composante{
     private Pouce distancePoutreArriere;
 
 
+    public MurSeparateur(RoulotteController parent) {
+        super(parent);
+    }
 }

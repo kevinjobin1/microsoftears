@@ -8,11 +8,13 @@ public class MurBrute extends Composante{
 
     private Rectangle rectangle;
 
-    public MurBrute(Rectangle rectangle) {
+    public MurBrute(Rectangle rectangle, RoulotteController parent) {
+        super(parent);
         this.rectangle = rectangle;
     }
 
-    public MurBrute() {
+    public MurBrute(RoulotteController parent) {
+        super(parent);
         Pouce longueur=new Pouce(96,0,0);
         Pouce hauteur=new Pouce(48,0,0);
         PointPouce centre = new PointPouce(); //à modifier

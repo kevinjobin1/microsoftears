@@ -2,14 +2,16 @@ package ca.ulaval.glo2004.domain;
 
 import ca.ulaval.glo2004.utilitaires.Pouce;
 
-public class ContreplaqueExterieur {
+public class ContreplaqueExterieur extends Composante {
     private Pouce epaisseur;
 
-    public ContreplaqueExterieur(Pouce epaisseur) {
+    public ContreplaqueExterieur(Pouce epaisseur, RoulotteController parent) {
+        super(parent);
         this.epaisseur = epaisseur;
     }
 
-    public ContreplaqueExterieur() {
+    public ContreplaqueExterieur(RoulotteController parent) {
+        super(parent);
         this.epaisseur = new Pouce(0,1,4);
     }
 

@@ -2,15 +2,17 @@ package ca.ulaval.glo2004.domain;
 
 import ca.ulaval.glo2004.utilitaires.Polygone;
 
-import java.awt.Color;
+import java.awt.*;
 
 public abstract class Composante {
 
+    public RoulotteController parent;
     private TypeComposante type;
     private Polygone polygone;
     private Color couleur;
 
-    public Composante() {
+    public Composante(RoulotteController parent) {
+        this.parent = parent;
     }
 
     public Color getCouleur() {

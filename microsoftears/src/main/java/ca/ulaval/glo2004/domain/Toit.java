@@ -4,4 +4,8 @@ import ca.ulaval.glo2004.utilitaires.Pouce;
 
 public class Toit extends Composante{
     private Pouce epaisseur;
+
+    public Toit(RoulotteController parent) {
+        super(parent);
+    }
 }

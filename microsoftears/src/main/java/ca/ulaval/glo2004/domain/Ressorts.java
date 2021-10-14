@@ -9,4 +9,8 @@ public class Ressorts extends Composante{
     private PointPouce position2;
     private double force;
     private Pouce longueur;
+
+    public Ressorts(RoulotteController parent) {
+        super(parent);
+    }
 }

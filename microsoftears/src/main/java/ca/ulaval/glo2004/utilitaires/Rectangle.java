@@ -17,14 +17,31 @@ public class Rectangle extends Forme{
     @Override
     public LinkedList<PointPouce> getPointsContour() {
         LinkedList<PointPouce> listePoints = new LinkedList<>();
-        listePoints.add(new PointPouce(new Pouce(centre.getX().toDouble()+longueur.toDouble()/2),
-                new Pouce(centre.getY().toDouble()-hauteur.toDouble()/2))); //coin en haut à droite
-        listePoints.add(new PointPouce(new Pouce(centre.getX().toDouble()-longueur.toDouble()/2),
-                new Pouce(centre.getY().toDouble()-hauteur.toDouble()/2))); //coin en haut à gauche
-        listePoints.add(new PointPouce(new Pouce(centre.getX().toDouble()-longueur.toDouble()/2),
-                new Pouce(centre.getY().toDouble()+hauteur.toDouble()/2))); //coin en bas à gauche
-        listePoints.add(new PointPouce(new Pouce(centre.getX().toDouble()+longueur.toDouble()/2),
-                new Pouce(centre.getY().toDouble()+hauteur.toDouble()/2))); //coin en bas à droite
+
+        //coin en haut à droite
+        listePoints.add(new PointPouce(
+                new Pouce(centre.getX().toDouble()+longueur.toDouble()/2, true),
+                new Pouce(centre.getY().toDouble()-hauteur.toDouble()/2, true))
+        );
+
+        //coin en haut à gauche
+        listePoints.add(new PointPouce(
+                new Pouce(centre.getX().toDouble()-longueur.toDouble()/2, true),
+                new Pouce(centre.getY().toDouble()-hauteur.toDouble()/2, true))
+        );
+
+        //coin en bas à gauche
+        listePoints.add(new PointPouce(
+                new Pouce(centre.getX().toDouble()-longueur.toDouble()/2, true),
+                new Pouce(centre.getY().toDouble()+hauteur.toDouble()/2, true))
+        );
+
+        //coin en bas à droite
+        listePoints.add(new PointPouce(
+                new Pouce(centre.getX().toDouble()+longueur.toDouble()/2, true),
+                new Pouce(centre.getY().toDouble()+hauteur.toDouble()/2, true))
+        );
+
         return listePoints;
     }
 }

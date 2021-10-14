@@ -11,8 +11,10 @@ import java.awt.event.*;
 public class FenetrePrincipale extends JFrame {
 
     //Declaration des variables graphiques
+    private final Dimension DIMENSIONS_MINIMALES = new Dimension(1080,720);
     private JPanel mainPanel;
     private JPanel boutonsTopPanel;
+    private BarreMenu barreMenu;
     private ButtonGroup boutonsTopGroup;
     private JButton nouveauButton;
     private JButton chargerButton;
@@ -36,6 +38,15 @@ public class FenetrePrincipale extends JFrame {
     public Point actualMousePoint = new Point();
     public Point delta = new Point();
 
+    public void showHayonActionPerformed(ActionEvent e) {
+    }
+
+    public void showPlancherActionPerformed(ActionEvent e) {
+    }
+
+    public void showMurIntActionPerformed(ActionEvent e) {
+    }
+
     public enum TypeAction {
         SELECT, ADD, DELETE
     }
@@ -47,6 +58,7 @@ public class FenetrePrincipale extends JFrame {
 
     private void initComponents() {
         mainPanel = new JPanel();
+        barreMenu = new BarreMenu(this);
         boutonsTopPanel = new JPanel();
         boutonsTopGroup= new ButtonGroup();
         barreOnglets = new JTabbedPane();
@@ -61,6 +73,10 @@ public class FenetrePrincipale extends JFrame {
         deleteButton =  new javax.swing.JButton();
         exportButton = new javax.swing.JButton();
         ajoutBouton = new javax.swing.JButton();
+
+        //======== barre de menu ===========
+        barreMenu.setBorder(null);
+        this.setJMenuBar(barreMenu);
 
 
         //======== boutonsTopGroup =========
@@ -213,13 +229,6 @@ public class FenetrePrincipale extends JFrame {
 
         mainPanel.add(mainScrollPane, BorderLayout.CENTER);
 
-
-
-        pack();
-        setLocationRelativeTo(getOwner());
-
-
-
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -232,6 +241,7 @@ public class FenetrePrincipale extends JFrame {
         );
 
         pack();
+
     }
 
     private void exportButtonActionPerformed(ActionEvent e) {
@@ -254,6 +264,44 @@ public class FenetrePrincipale extends JFrame {
 
     private void nouveauButtonActionPerformed(ActionEvent e) {
     }
+
+    public void nouveauProjetActionPerformed(ActionEvent e) {
+    }
+
+    public void sauvegarderProjetActionPerformed(ActionEvent e) {
+    }
+
+    public void ouvrirProjetActionPerformed(ActionEvent e) {
+    }
+
+    public void exporterProjetActionPerformed(ActionEvent e) {
+    }
+
+    public void quitterActionPerformed(ActionEvent e) {
+        System.exit(0);
+    }
+
+    public void undoActionPerformed(ActionEvent e) {
+    }
+
+    public void redoActionPerformed(ActionEvent e) {
+    }
+
+    public void supprimerActionPerformed(ActionEvent e) {
+    }
+
+    public void zoomInActionPerformed(ActionEvent e) {
+    }
+
+    public void zoomOutActionPerformed(ActionEvent e) {
+    }
+
+    public void optionsActionPerformed(ActionEvent e) {
+    }
+
+    public void aboutActionPerformed(ActionEvent e) {
+    }
+
 
     private void quitMenuItemActionPerformed(ActionEvent e) {//GEN-FIRST:event_quitMenuItemActionPerformed
         System.exit(0);

@@ -23,7 +23,7 @@ public class Ellipse extends Forme {
             double x, y;
             x = hauteur.toDouble() / 2 * Math.sin(Math.toRadians(i/360)) + centre.getX().toDouble();
             y = longueur.toDouble() / 2 * Math.cos(Math.toRadians(i/360)) + centre.getY().toDouble();
-            listePoints.add(new PointPouce(new Pouce(x), new Pouce(y)));
+            listePoints.add(new PointPouce(new Pouce(x, true), new Pouce(y, true)));
         }
         return listePoints;
     }

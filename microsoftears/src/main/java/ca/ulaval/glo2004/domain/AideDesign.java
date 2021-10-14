@@ -8,11 +8,13 @@ public class AideDesign extends Composante{
 
     private Rectangle rectangle;
 
-    public AideDesign(Rectangle rectangle) {
+    public AideDesign(Rectangle rectangle, RoulotteController parent) {
+        super(parent);
         this.rectangle = rectangle;
     }
 
-    public AideDesign() {
+    public AideDesign(RoulotteController parent) {
+        super(parent);
         this.rectangle = new Rectangle();
     }
 

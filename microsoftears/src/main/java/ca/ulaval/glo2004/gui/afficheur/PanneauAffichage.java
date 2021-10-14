@@ -9,7 +9,7 @@ import java.io.Serializable;
 import javax.swing.JPanel;
 
 // afficheurMicroRoulotte
-public class PanneauAffichage extends JPanel implements Serializable {/*
+public class PanneauAffichage extends JPanel implements Serializable {
 
     public Dimension initialDimension;
     private FenetrePrincipale fenetrePrincipale;
@@ -84,15 +84,13 @@ public class PanneauAffichage extends JPanel implements Serializable {/*
                 g.setColor(lightGray);
                 drawGrid(g, 250);
             }
+            // end grid
 
-/*            // end grid
+          /*
             RoulotteAfficheur mainDrawer = new RoulotteAfficheur(fenetrePrincipale.controller,initialDimension);
             mainDrawer.draw(g);*/
-        }
-
-
     }
-
+    }
 
     public void drawGrid(Graphics g, int scale){
 
@@ -188,9 +186,7 @@ public class PanneauAffichage extends JPanel implements Serializable {/*
         return inches;
     }
 
-*/
-}
-
+    }
 
 
 
