@@ -9,7 +9,7 @@ public class Rectangle extends Forme{
     }
 
     @Override
-    public LinkedList<PointPouce> getPointsContour() {
+    public Polygone getPolygone() {
         LinkedList<PointPouce> listePoints = new LinkedList<>();
 
         //coin en haut à droite
@@ -36,6 +36,6 @@ public class Rectangle extends Forme{
                 new Pouce(this.getCentre().getY().toDouble()+this.getHauteur().toDouble()/2, true))
         );
 
-        return listePoints;
+        return new Polygone(listePoints);
     }
 }

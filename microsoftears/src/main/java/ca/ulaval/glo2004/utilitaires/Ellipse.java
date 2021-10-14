@@ -11,7 +11,7 @@ public class Ellipse extends Forme {
 
     @Override
     //à tester
-    public LinkedList<PointPouce> getPointsContour() {
+    public Polygone getPolygone() {
         int nombrePoints = 1000;
         LinkedList<PointPouce> listePoints = new LinkedList<>();
         for(int i = 0; i < nombrePoints; i++) {
@@ -20,6 +20,6 @@ public class Ellipse extends Forme {
             y = this.getLongueur().toDouble() / 2 * Math.cos(Math.toRadians(i/360)) + this.getCentre().getY().toDouble();
             listePoints.add(new PointPouce(new Pouce(x, true), new Pouce(y, true)));
         }
-        return listePoints;
+        return new Polygone(listePoints);
     }
 }
