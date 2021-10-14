@@ -1,5 +1,6 @@
 package ca.ulaval.glo2004.domain;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class RoulotteController {
@@ -18,4 +19,7 @@ public class RoulotteController {
 
     public RoulotteController() {
     }
+
+        public void ajouterComposante(TypeComposante composanteChoisie, Point mousePoint) {
+        }
 }

@@ -85,9 +85,9 @@ public class PanneauAffichage extends JPanel implements Serializable {/*
                 drawGrid(g, 250);
             }
 
-            // end grid
+/*            // end grid
             RoulotteAfficheur mainDrawer = new RoulotteAfficheur(fenetrePrincipale.controller,initialDimension);
-            mainDrawer.draw(g);
+            mainDrawer.draw(g);*/
         }
 
 
