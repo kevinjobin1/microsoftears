@@ -5,7 +5,7 @@ import javax.swing.*;
 import ca.ulaval.glo2004.gui.FenetrePrincipale;
 import com.formdev.flatlaf.FlatDarculaLaf;
 
-public class App {
+public class Microsoftears {
 
     public static void main(String[] args) {
 
@@ -18,6 +18,7 @@ public class App {
             e.printStackTrace();
         }
         FenetrePrincipale fenetrePrincipale = new FenetrePrincipale();
+        fenetrePrincipale.setTitle("Microsoftears");
         fenetrePrincipale.setExtendedState(fenetrePrincipale.getExtendedState() | JFrame.MAXIMIZED_BOTH);
         fenetrePrincipale.setVisible(true);
     }

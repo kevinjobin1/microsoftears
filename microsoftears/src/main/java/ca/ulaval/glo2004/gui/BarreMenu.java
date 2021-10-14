@@ -178,21 +178,24 @@ public class BarreMenu extends JMenuBar
             }
         });
 
-        showHayonMenuItem = new JCheckBoxMenuItem("Hayon", (Icone.ZOOMM.getImage(15,15)));
+        showHayonMenuItem = new JCheckBoxMenuItem("Hayon");
+        showHayonMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_0, ActionEvent.CTRL_MASK));
         showHayonMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 parent.showHayonActionPerformed(e);
             }
         });
 
-        showPlancherMenuItem = new JCheckBoxMenuItem("Plancher", (Icone.ZOOMM.getImage(15,15)));
+        showPlancherMenuItem = new JCheckBoxMenuItem("Plancher");
+        showPlancherMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, ActionEvent.CTRL_MASK));
         showPlancherMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 parent.showPlancherActionPerformed(e);
             }
         });
 
-        showMurIntMenuItem = new JCheckBoxMenuItem("Mur Intérieur", (Icone.ZOOMM.getImage(15,15)));
+        showMurIntMenuItem = new JCheckBoxMenuItem("Mur Intérieur");
+        showMurIntMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_2, ActionEvent.CTRL_MASK));
         showMurIntMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 parent.showMurIntActionPerformed(e);
