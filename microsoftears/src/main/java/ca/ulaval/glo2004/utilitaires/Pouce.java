@@ -61,14 +61,8 @@ public class Pouce
         // mesure est en pouce, on convertit de double vers entier + fraction
         int pouceEntier = (int) Math.floor(mesure);
         double reste = mesure - pouceEntier;
-        int digitsDec = String.valueOf(reste).length() - 2;
-        int denom = 1;
-        for (int i = 0; i < digitsDec; i++) {
-            reste *= 10;
-            denom *= 10;
-        }
-        int num = (int) Math.round(reste);
-
+        int denom = 64; //plus petite fraction de pouce
+        int num = (int) Math.round(reste*denom);
 
         this.pouces = pouceEntier;
         this.numerateur = num;
