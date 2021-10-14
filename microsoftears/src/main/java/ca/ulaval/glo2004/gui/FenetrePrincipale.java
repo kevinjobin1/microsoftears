@@ -3,33 +3,43 @@ package ca.ulaval.glo2004.gui;
 import ca.ulaval.glo2004.domain.RoulotteController;
 import ca.ulaval.glo2004.domain.TypeComposante;
 import ca.ulaval.glo2004.gui.afficheur.PanneauAffichage;
-
+import org.kordamp.ikonli.swing.FontIcon;
+import org.kordamp.ikonli.bootstrapicons.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
 public class FenetrePrincipale extends JFrame {
 
-    //Declaration des variables graphiques
+    // Dimensions
     private final Dimension DIMENSIONS_MINIMALES = new Dimension(1080,720);
-    private JPanel mainPanel;
-    private JPanel boutonsTopPanel;
+
+    // Composantes graphiques du Frame
+    private JPanel mainPanel,
+                 bottomPanel,
+                 boutonsTopPanel;
     private BarreMenu barreMenu;
-    private ButtonGroup boutonsTopGroup;
-    private JButton nouveauButton;
-    private JButton chargerButton;
-    private JButton undoButton;
-    private JButton redoButton;
-    private JButton saveButton;
-    private JButton deleteButton;
-    private JButton exportButton;
+    private JButton nouveauButton,
+                     chargerButton,
+                     undoButton,
+                     redoButton,
+                     saveButton,
+                     deleteButton,
+                     zoomInButton,
+                    zoomOutButton,
+                    dragButton,
+                    ajoutComposanteButton,
+                    dessinerButton,
+                    remplirButton,
+                    removeComposanteButton,
+                     exportButton;
     private JTabbedPane barreOnglets;
     private JToolBar barreOutils;
     private JScrollPane mainScrollPane;
     private PanneauAffichage panneauAffichage;
-    private JButton ajoutBouton;
+    private JLabel positionSouris;
 
-    // Déclaration variables non-graphiques
+    // Éléments rattachés non-graphiques
     public RoulotteController controller;
     public TypeComposante composanteChoisie;
     private TypeAction actionChoisie;
@@ -37,15 +47,6 @@ public class FenetrePrincipale extends JFrame {
     // Ces attributs servent à la gestion du déplacement.
     public Point actualMousePoint = new Point();
     public Point delta = new Point();
-
-    public void showHayonActionPerformed(ActionEvent e) {
-    }
-
-    public void showPlancherActionPerformed(ActionEvent e) {
-    }
-
-    public void showMurIntActionPerformed(ActionEvent e) {
-    }
 
     public enum TypeAction {
         SELECT, ADD, DELETE
@@ -58,9 +59,9 @@ public class FenetrePrincipale extends JFrame {
 
     private void initComponents() {
         mainPanel = new JPanel();
+        bottomPanel = new JPanel();
         barreMenu = new BarreMenu(this);
         boutonsTopPanel = new JPanel();
-        boutonsTopGroup= new ButtonGroup();
         barreOnglets = new JTabbedPane();
         barreOutils = new JToolBar();
         mainScrollPane = new JScrollPane();
@@ -72,30 +73,36 @@ public class FenetrePrincipale extends JFrame {
         saveButton = new javax.swing.JButton();
         deleteButton =  new javax.swing.JButton();
         exportButton = new javax.swing.JButton();
-        ajoutBouton = new javax.swing.JButton();
+        zoomInButton = new javax.swing.JButton();
+        zoomOutButton = new javax.swing.JButton();
+        dragButton  = new javax.swing.JButton();
+        ajoutComposanteButton  = new javax.swing.JButton();
+        dessinerButton  = new javax.swing.JButton();
+        remplirButton  = new javax.swing.JButton();
+        removeComposanteButton  = new javax.swing.JButton();
 
-        //======== barre de menu ===========
-        barreMenu.setBorder(null);
-        this.setJMenuBar(barreMenu);
-
-
-        //======== boutonsTopGroup =========
-
-        boutonsTopGroup.add(nouveauButton);
-        boutonsTopGroup.add(chargerButton);
-        boutonsTopGroup.add(undoButton);
-        boutonsTopGroup.add(redoButton);
-        boutonsTopGroup.add(saveButton);
-        boutonsTopGroup.add(deleteButton);
-        boutonsTopGroup.add(exportButton);
+        positionSouris = new JLabel();
+        
 
         //======== FenetrePrincipale ========
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Microsoftears");
 
+        //======== barre de menu ===========
+        barreMenu.setBorder(null);
+        this.setJMenuBar(barreMenu);
+        
+
         //======== mainPanel ========
 
         mainPanel.setLayout(new BorderLayout());
+
+        //======== panel du bas ==========
+        positionSouris.setText("Position(0,0)");
+        bottomPanel.add(positionSouris);
+        bottomPanel.setLayout(new GridLayout(1, 1));
+        mainPanel.add(bottomPanel, BorderLayout.SOUTH);
+        
         
         //======== boutonsTopPanel ========
         boutonsTopPanel.setPreferredSize(new Dimension(400, 45));
@@ -108,6 +115,7 @@ public class FenetrePrincipale extends JFrame {
                 nouveauButtonActionPerformed(e);
             }
         });
+
         boutonsTopPanel.add(nouveauButton);
 
         // ==== Bouton charger un projet =======
@@ -163,7 +171,6 @@ public class FenetrePrincipale extends JFrame {
             }
         });
         boutonsTopPanel.add(exportButton);
-        
         mainPanel.add(boutonsTopPanel, BorderLayout.NORTH);
         
         
@@ -171,21 +178,67 @@ public class FenetrePrincipale extends JFrame {
         //======== barreOnglets ========
 
         barreOnglets.setPreferredSize(new Dimension(300, 900));
-        barreOnglets.addTab("Tab1", makePanel("This is tab 1"));
-        barreOnglets.addTab("Tab2", makePanel("This is tab 2"));
-        barreOnglets.addTab("Tab3", makePanel("This is tab 3"));
-        barreOnglets.addTab("Tab4", makePanel("This is tab 4"));
+        barreOnglets.addTab("Hayon", makeTabPanel("Informations du hayon..."));
+        barreOnglets.addTab("Plancher", makeTabPanel("Informations du plancher..."));
+        barreOnglets.addTab("Mur Int.", makeTabPanel("Informations du mur intérieur..."));
+        barreOnglets.addTab("Mur Ext.", makeTabPanel("Informations du mur extérieur..."));
 
         mainPanel.add(barreOnglets, BorderLayout.EAST);
 
         //======== barreOutils ========
 
         barreOutils.setOrientation(SwingConstants.VERTICAL);
+        barreOutils.setMargin(new Insets(5,5,5,5));
+        barreOutils.addSeparator();
     
-        //---- ajoutBouton ----
+        //======== zoomInButton ========
         
-        ajoutBouton.setText("(logo)");
-        barreOutils.add(ajoutBouton);
+        FontIcon zoomInButtonIcon = FontIcon.of(BootstrapIcons.ZOOM_IN, 20, Color.WHITE);
+        zoomInButton.setIcon(zoomInButtonIcon);
+        barreOutils.add(zoomInButton);
+        barreOutils.addSeparator();
+
+        //======== zoomOutButton ========
+
+        FontIcon zoomOutButtonIcon = FontIcon.of(BootstrapIcons.ZOOM_OUT, 20, Color.WHITE);
+        zoomOutButton.setIcon(zoomInButtonIcon);
+        barreOutils.add(zoomOutButton);
+        barreOutils.addSeparator();
+
+        //======== dragButton ============
+
+        FontIcon dragButtonIcon = FontIcon.of(BootstrapIcons.ARROWS_MOVE, 20, Color.WHITE);
+        dragButton.setIcon(dragButtonIcon);
+        barreOutils.add(dragButton);
+        barreOutils.addSeparator();
+
+        //======== ajoutComposanteButton ============
+
+        FontIcon ajoutComposanteButtonIcon = FontIcon.of(BootstrapIcons.PLUS_CIRCLE, 20, Color.WHITE);
+        ajoutComposanteButton.setIcon(ajoutComposanteButtonIcon);
+        barreOutils.add(ajoutComposanteButton);
+        barreOutils.addSeparator();
+
+        //======== dessinerComposanteButton ============
+
+        FontIcon dessinerButtonIcon = FontIcon.of(BootstrapIcons.PENCIL, 20, Color.WHITE);
+        dessinerButton.setIcon(dessinerButtonIcon);
+        barreOutils.add(dessinerButton);
+        barreOutils.addSeparator();
+
+        //======== removeComposanteButton ============
+
+        FontIcon removeComposanteButtonIcon = FontIcon.of(BootstrapIcons.TRASH, 20, Color.WHITE);
+        removeComposanteButton.setIcon(removeComposanteButtonIcon);
+        barreOutils.add(removeComposanteButton);
+        barreOutils.addSeparator();
+
+        //======== remplirButton ============
+
+        FontIcon remplirButtonIcon = FontIcon.of(BootstrapIcons.PAINT_BUCKET, 20, Color.WHITE);
+        remplirButton.setIcon(remplirButtonIcon);
+        barreOutils.add(remplirButton);
+        barreOutils.addSeparator();
 
         mainPanel.add(barreOutils, BorderLayout.WEST);
 
@@ -302,6 +355,16 @@ public class FenetrePrincipale extends JFrame {
     public void aboutActionPerformed(ActionEvent e) {
     }
 
+    public void showHayonActionPerformed(ActionEvent e) {
+    }
+
+    public void showPlancherActionPerformed(ActionEvent e) {
+    }
+
+    public void showMurIntActionPerformed(ActionEvent e) {
+    }
+
+
 
     private void quitMenuItemActionPerformed(ActionEvent e) {//GEN-FIRST:event_quitMenuItemActionPerformed
         System.exit(0);
@@ -317,6 +380,7 @@ public class FenetrePrincipale extends JFrame {
     }//GEN-LAST:event_drawingPanelMousePressed
 
     private void drawingPanelMouseMoved(MouseEvent e) {//GEN-FIRST:event_drawingPanelMouseMoved
+        this.positionSouris.setText("Position (" + e.getX() + "," + e.getY() + ")");
     }//GEN-LAST:event_drawingPanelMouseMoved
 
     private void drawingPanelMouseWheelMoved(MouseWheelEvent e) {//GEN-FIRST:event_drawingPanelMouseWheelMoved
@@ -333,10 +397,10 @@ public class FenetrePrincipale extends JFrame {
         this.actionChoisie = newAction;
     }
 
-    private static JPanel makePanel(String text) {
+    private static JPanel makeTabPanel(String text) {
         JPanel panel = new JPanel();
-        panel.add(new Label(text));
-        panel.setLayout(new GridLayout(1, 1));
+        panel.setLayout(new BorderLayout());
+        panel.add(new Label(text), BorderLayout.CENTER);
         return panel;
     }
 

@@ -1,7 +1,8 @@
 package ca.ulaval.glo2004.gui;
 
-import ca.ulaval.glo2004.gui.controles.Icone;
-
+import com.formdev.flatlaf.icons.*;
+import org.kordamp.ikonli.swing.*;
+import org.kordamp.ikonli.bootstrapicons.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -71,7 +72,7 @@ public class BarreMenu extends JMenuBar
         add(aideMenu);
 
         //Création des sous-item dans le Menu Fichier
-        nouveauMenuItem = new JMenuItem("Nouveau...",(Icone.NOUVEAU.getImage(20,20)));
+        nouveauMenuItem = new JMenuItem("Nouveau...", new FlatFileViewFileIcon());
         nouveauMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.ALT_MASK));
         nouveauMenuItem.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
@@ -79,7 +80,7 @@ public class BarreMenu extends JMenuBar
         }
     });
 
-        ouvrirMenuItem = new JMenuItem("Ouvrir...",(Icone.OUVRIR2.getImage(20,20)));
+        ouvrirMenuItem = new JMenuItem("Ouvrir...", new FlatTreeOpenIcon());
         ouvrirMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
         ouvrirMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -90,7 +91,7 @@ public class BarreMenu extends JMenuBar
         recentMenuItem = new JMenuItem("Récent");
         recentMenuItem.setMnemonic(KeyEvent.VK_R);
 
-        sauvegarderMenuItem = new JMenuItem("Sauvegarder",(Icone.SAUVEGARDER2.getImage(20,20)));
+        sauvegarderMenuItem = new JMenuItem("Sauvegarder",new FlatFileViewFloppyDriveIcon());
         sauvegarderMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
         sauvegarderMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -98,7 +99,9 @@ public class BarreMenu extends JMenuBar
             }
         });
 
-        exportMenuItem = new JMenuItem("Exporter",(Icone.EXPORTER.getImage(20,20)));
+        FontIcon icon = FontIcon.of(BootstrapIcons.ARROW_BAR_RIGHT, 15, Color.white);
+
+        exportMenuItem = new JMenuItem("Exporter", icon);
         exportMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, ActionEvent.CTRL_MASK));
         exportMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -106,7 +109,7 @@ public class BarreMenu extends JMenuBar
             }
         });
 
-        quitterMenuItem = new JMenuItem("Quitter", Icone.QUITTER.getImage(20,20));
+        quitterMenuItem = new JMenuItem("Quitter", new FlatInternalFrameCloseIcon());
         quitterMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, ActionEvent.CTRL_MASK));
         quitterMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -129,7 +132,7 @@ public class BarreMenu extends JMenuBar
         fichierMenu.add(quitterMenuItem);
 
         //Création des sous-item dans le Menu Edition
-        revenirMenuItem = new JMenuItem("Revenir", (Icone.ANNULER.getImage(15,15)));
+        revenirMenuItem = new JMenuItem("Revenir");
         revenirMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, ActionEvent.CTRL_MASK));
         revenirMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -137,7 +140,7 @@ public class BarreMenu extends JMenuBar
             }
         });
 
-        retablirMenuItem = new JMenuItem("Rétablir", (Icone.REVENIR.getImage(15,15)));
+        retablirMenuItem = new JMenuItem("Rétablir");
         retablirMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Y, ActionEvent.CTRL_MASK));
         retablirMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -146,7 +149,7 @@ public class BarreMenu extends JMenuBar
         });
 
 
-        supprimerMenuItem = new JMenuItem("Supprimer", (Icone.SUPPRIMER.getImage(15,15)));
+        supprimerMenuItem = new JMenuItem("Supprimer");
         supprimerMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, ActionEvent.ALT_MASK));
         retablirMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -162,7 +165,7 @@ public class BarreMenu extends JMenuBar
         editionMenu.add(supprimerMenuItem);
 
         //Création des sous-item dans le menu Affichage
-        agrandirMenuItem = new JMenuItem("Aggrandir", (Icone.ZOOMP.getImage(15, 15)));
+        agrandirMenuItem = new JMenuItem("Aggrandir", new FlatInternalFrameMaximizeIcon());
         agrandirMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_EQUALS, ActionEvent.CTRL_MASK));
         agrandirMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -170,7 +173,7 @@ public class BarreMenu extends JMenuBar
             }
         });
 
-        reduireMenuItem = new JMenuItem("Réduire", (Icone.ZOOMM.getImage(15,15)));
+        reduireMenuItem = new JMenuItem("Réduire", new FlatInternalFrameRestoreIcon());
         reduireMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_MINUS, ActionEvent.CTRL_MASK));
         reduireMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -202,6 +205,7 @@ public class BarreMenu extends JMenuBar
             }
         });
 
+        // TODO : ajouter ici les autres JCheckBoxMenuItem pour chacune des composantes et aide au design
 
         JSeparator separator4 = new JSeparator();
         
@@ -213,7 +217,7 @@ public class BarreMenu extends JMenuBar
         affichageMenu.add(showMurIntMenuItem);
 
         //Création des sous-item dans le Menu Outils
-        optionsMenuItem = new JMenuItem("Options", (Icone.PARAMETRES.getImage(15,15)));
+        optionsMenuItem = new JMenuItem("Options");
         optionsMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F1, ActionEvent.CTRL_MASK));
         optionsMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -256,7 +260,7 @@ public class BarreMenu extends JMenuBar
         outilsMenu.add(optionsMenuItem);
 
 
-        aboutMenuItem = new JMenuItem("À propos", (Icone.ABOUT.getImage(20,20)));
+        aboutMenuItem = new JMenuItem("À propos");
         aboutMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F3, ActionEvent.CTRL_MASK));
         aboutMenuItem.addActionListener(new ActionListener() {
                        public void actionPerformed(ActionEvent e) {

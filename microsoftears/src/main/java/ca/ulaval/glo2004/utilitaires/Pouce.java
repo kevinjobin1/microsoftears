@@ -221,9 +221,10 @@ public class Pouce
         return new Pouce(pouces, numerateur, denominateur);
     }
 
-    // TODO : à vérifier car int -> division float
+    // TODO : à vérifier
     public double toDouble(){
-        return this.getPouces()+(this.getNumerateur()/this.getDenominateur());
+
+        return (double) this.getPouces() + this.getNumerateur() / this.getDenominateur();
     }
 
     /** Calcul du plus grand dénominateur commun (pgdc)

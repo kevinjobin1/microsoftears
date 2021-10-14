@@ -5,6 +5,8 @@ import javax.swing.*;
 import ca.ulaval.glo2004.gui.FenetrePrincipale;
 import com.formdev.flatlaf.FlatDarculaLaf;
 
+import java.awt.*;
+
 public class Microsoftears {
 
     public static void main(String[] args) {
