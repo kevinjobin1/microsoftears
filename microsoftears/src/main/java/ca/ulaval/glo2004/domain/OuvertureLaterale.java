@@ -15,7 +15,6 @@ public class OuvertureLaterale extends Composante{
 
     public OuvertureLaterale(RoulotteController parent) {
         super(parent);
-        this.rectangle = new Rectangle();
     }
 
     public Rectangle getRectangle() {

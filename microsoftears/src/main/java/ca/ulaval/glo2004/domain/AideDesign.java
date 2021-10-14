@@ -1,6 +1,8 @@
 package ca.ulaval.glo2004.domain;
 
+import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Polygone;
+import ca.ulaval.glo2004.utilitaires.Pouce;
 import ca.ulaval.glo2004.utilitaires.Rectangle;
 
 public class AideDesign extends Composante{
@@ -16,7 +18,8 @@ public class AideDesign extends Composante{
 
     public AideDesign(RoulotteController parent) {
         super(parent);
-        this.rectangle = new Rectangle();
+        this.rectangle = new Rectangle(new Pouce(12), new Pouce(12),
+                new PointPouce(new Pouce(50), new Pouce(50)));
         this.setType(TypeComposante.AIDE_DESIGN);
         this.setPolygone(rectangle.getPolygone());
     }
