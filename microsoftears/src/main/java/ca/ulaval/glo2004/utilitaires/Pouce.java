@@ -29,9 +29,27 @@ public class Pouce
      @param milimetres The value to assign to inches.
      */
 
-    public Pouce(double milimetres)
+    //problème potentiel avec Pouce(double pouce)
+    public Pouce(float milimetres)
     {
        this.milimetres = milimetres;
+    }
+
+
+    //à tester
+    public Pouce(double pouce){
+        int pouceEntier = (int) pouce;
+        double reste = pouce - pouceEntier;
+        int digitsDec = String.valueOf(reste).length() - 2;
+        int denom = 1;
+        for(int i = 0; i < digitsDec; i++){
+            reste *= 10;
+            denom *= 10;
+        }
+        int num = (int) Math.round(reste);
+        this.pouces = pouceEntier;
+        this.numerateur = num;
+        this.denominateur = denom;
     }
 
     /**
@@ -66,6 +84,22 @@ public class Pouce
     public int getPouces()
     {
         return pouces;
+    }
+
+    public int getNumerateur() {
+        return numerateur;
+    }
+
+    public void setNumerateur(int numerateur) {
+        this.numerateur = numerateur;
+    }
+
+    public int getDenominateur() {
+        return denominateur;
+    }
+
+    public void setDenominateur(int denominateur) {
+        this.denominateur = denominateur;
     }
 
     /**
@@ -136,5 +170,7 @@ public class Pouce
         return newObject;
     }
 
-
+    public double toDouble(){
+        return this.getPouces()+this.getNumerateur()/this.getDenominateur();
+    }
 }
