@@ -6,26 +6,47 @@ import ca.ulaval.glo2004.utilitaires.Rectangle;
 
 public class MurBrute extends Composante{
 
+    private Pouce longueur;
+    private Pouce largeur;
+    private PointPouce centre;
     private Rectangle rectangle;
 
-    public MurBrute(Rectangle rectangle, RoulotteController parent) {
+    public MurBrute(RoulotteController parent, Pouce longueur, Pouce largeur, PointPouce centre) {
         super(parent);
-        this.rectangle = rectangle;
+        this.longueur = longueur;
+        this.largeur = largeur;
+        this.centre = centre;
+        this.setType(TypeComposante.MUR_BRUTE);
     }
 
     public MurBrute(RoulotteController parent) {
         super(parent);
-        Pouce longueur=new Pouce(96,0,0);
-        Pouce hauteur=new Pouce(48,0,0);
-        PointPouce centre = new PointPouce(); //à modifier
-        this.rectangle = new Rectangle(longueur, hauteur, centre);
+        this.rectangle = new Rectangle(new Pouce(96), new Pouce(48), new PointPouce());
+        this.setPolygone(rectangle.getPolygone());
+        this.setType(TypeComposante.MUR_BRUTE);
     }
 
-    public Rectangle getRectangle() {
-        return rectangle;
+    public Pouce getLongueur() {
+        return longueur;
     }
 
-    public void setRectangle(Rectangle rectangle) {
-        this.rectangle = rectangle;
+    public void setLongueur(Pouce longueur) {
+        this.longueur = longueur;
+    }
+
+    public Pouce getLargeur() {
+        return largeur;
+    }
+
+    public void setLargeur(Pouce largeur) {
+        this.largeur = largeur;
+    }
+
+    public PointPouce getCentre() {
+        return centre;
+    }
+
+    public void setCentre(PointPouce centre) {
+        this.centre = centre;
     }
 }

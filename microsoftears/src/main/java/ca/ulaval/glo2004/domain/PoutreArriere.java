@@ -5,18 +5,45 @@ import ca.ulaval.glo2004.utilitaires.Pouce;
 import ca.ulaval.glo2004.utilitaires.Rectangle;
 
 public class PoutreArriere extends Composante{
+    private Pouce longueur;
+    private Pouce largeur;
+    private PointPouce centre;
     private Rectangle rectangle;
+
+    public PoutreArriere(RoulotteController parent, Pouce longueur, Pouce largeur, PointPouce centre) {
+        super(parent);
+        this.longueur = longueur;
+        this.largeur = largeur;
+        this.centre = centre;
+        this.setType(TypeComposante.POUTRE_ARRIERE);
+    }
 
     public PoutreArriere(RoulotteController parent) {
         super(parent);
     }
 
-    public Rectangle getRectangle() {
-        return rectangle;
+    public Pouce getLongueur() {
+        return longueur;
     }
 
-    public void setRectangle(Rectangle rectangle) {
-        this.rectangle = rectangle;
+    public void setLongueur(Pouce longueur) {
+        this.longueur = longueur;
+    }
+
+    public Pouce getLargeur() {
+        return largeur;
+    }
+
+    public void setLargeur(Pouce largeur) {
+        this.largeur = largeur;
+    }
+
+    public PointPouce getCentre() {
+        return centre;
+    }
+
+    public void setCentre(PointPouce centre) {
+        this.centre = centre;
     }
 }
 

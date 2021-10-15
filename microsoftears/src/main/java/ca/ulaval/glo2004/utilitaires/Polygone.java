@@ -1,6 +1,5 @@
 package ca.ulaval.glo2004.utilitaires;
 
-import java.awt.geom.Area;
 import java.util.LinkedList;
 
 public class Polygone {

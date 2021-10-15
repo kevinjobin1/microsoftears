@@ -7,7 +7,8 @@ public enum TypeComposante {
     POUTRE_ARRIERE,
     RESSORTS,
     TOIT,
-    MUR_LATERAL,
+    MUR_BRUTE,
     AIDE_DESIGN,
-    OUVERTURE_LATERALE
+    OUVERTURE_LATERALE,
+    PROFIL
 }
