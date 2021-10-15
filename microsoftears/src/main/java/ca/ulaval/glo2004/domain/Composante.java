@@ -16,6 +16,14 @@ public abstract class Composante {
         this.couleur = Color.BLACK;
     }
 
+    public RoulotteController getParent() {
+        return parent;
+    }
+
+    public void setParent(RoulotteController parent) {
+        this.parent = parent;
+    }
+
     public Color getCouleur() {
         return couleur;
     }

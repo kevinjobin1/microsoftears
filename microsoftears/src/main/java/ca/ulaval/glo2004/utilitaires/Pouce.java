@@ -189,7 +189,15 @@ public class Pouce
         return new Pouce(poucesEntier, num, denom);
     }
 
+    //à coder
+    public Pouce diviser(double mesure){
+        return null;
+    }
 
+    //à coder
+    public Pouce multiplier(double mesure){
+        return null;
+    }
 
     /**
      Cette méthode vérifie que deux mesures sont égales.

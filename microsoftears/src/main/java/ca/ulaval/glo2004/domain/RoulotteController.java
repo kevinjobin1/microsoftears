@@ -21,6 +21,89 @@ public class RoulotteController {
     public RoulotteController() {
     }
 
-        public void ajouterComposante(TypeComposante composanteChoisie, Point mousePoint) {
-        }
+    public ArrayList<Composante> getListeComposantes() {
+        return listeComposantes;
+    }
+
+    public Profil getProfil() {
+        return profil;
+    }
+
+    public void setProfil(Profil profil) {
+        this.profil = profil;
+    }
+
+    public Hayon getHayon() {
+        return hayon;
+    }
+
+    public void setHayon(Hayon hayon) {
+        this.hayon = hayon;
+    }
+
+    public Ressorts getRessorts() {
+        return ressorts;
+    }
+
+    public void setRessorts(Ressorts ressorts) {
+        this.ressorts = ressorts;
+    }
+
+    public MurBrute getMurBrute() {
+        return murBrute;
+    }
+
+    public void setMurBrute(MurBrute murBrute) {
+        this.murBrute = murBrute;
+    }
+
+    public MurSeparateur getMurSeparateur() {
+        return murSeparateur;
+    }
+
+    public void setMurSeparateur(MurSeparateur murSeparateur) {
+        this.murSeparateur = murSeparateur;
+    }
+
+    public Plancher getPlancher() {
+        return plancher;
+    }
+
+    public void setPlancher(Plancher plancher) {
+        this.plancher = plancher;
+    }
+
+    public PoutreArriere getPoutreArriere() {
+        return poutreArriere;
+    }
+
+    public void setPoutreArriere(PoutreArriere poutreArriere) {
+        this.poutreArriere = poutreArriere;
+    }
+
+    public Toit getToit() {
+        return toit;
+    }
+
+    public void setToit(Toit toit) {
+        this.toit = toit;
+    }
+
+    public ArrayList<OuvertureLaterale> getListeOuverturesLaterales() {
+        return listeOuverturesLaterales;
+    }
+
+    public void setListeOuverturesLaterales(ArrayList<OuvertureLaterale> listeOuverturesLaterales) {
+        this.listeOuverturesLaterales = listeOuverturesLaterales;
+    }
+
+    public ArrayList<AideDesign> getListeAidesDesign() {
+        return listeAidesDesign;
+    }
+
+    public void setListeAidesDesign(ArrayList<AideDesign> listeAidesDesign) {
+        this.listeAidesDesign = listeAidesDesign;
+    }
+
+    public void ajouterComposante(TypeComposante composanteChoisie, Point mousePoint) {}
 }
