@@ -11,7 +11,7 @@ import java.awt.event.*;
 
 public class FenetrePrincipale extends JFrame {
     // ColorPicker
-    final Color couleurs[] = { Color.RED, Color.BLUE, Color.BLACK, Color.WHITE };
+    protected Color couleurChoisie;
     // Dimensions
     private final Dimension DIMENSIONS_MINIMALES = new Dimension(1080,720);
 

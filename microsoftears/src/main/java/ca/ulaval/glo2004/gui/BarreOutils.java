@@ -17,8 +17,10 @@ public class BarreOutils extends JToolBar {
             ajoutComposanteButton,
             dessinerButton,
             remplirButton,
-            removeComposanteButton;
+            removeComposanteButton,
+            couleurButton;
     private JPopupMenu ajoutComposantePopup;
+    private JColorChooser couleurChooser;
     private JComboBox couleursBox;
     
     public BarreOutils(FenetrePrincipale parent)
@@ -37,26 +39,31 @@ public class BarreOutils extends JToolBar {
         this.addSeparator();
 
         //======== Boutons ========
-        zoomInButton = creerBouton(BootstrapIcons.ZOOM_IN);
-        zoomOutButton = creerBouton(BootstrapIcons.ZOOM_OUT);
-        dragButton  = creerBouton(BootstrapIcons.ARROWS_MOVE);
-        ajoutComposanteButton  = creerBouton(BootstrapIcons.PLUS_CIRCLE);
+        zoomInButton = creerBouton(BootstrapIcons.ZOOM_IN, 20, Color.WHITE);
+        zoomOutButton = creerBouton(BootstrapIcons.ZOOM_OUT, 20, Color.WHITE);
+        dragButton  = creerBouton(BootstrapIcons.ARROWS_MOVE, 20, Color.WHITE);
+        ajoutComposanteButton  = creerBouton(BootstrapIcons.PLUS_CIRCLE, 20, Color.WHITE);
         ajoutComposantePopup = creerAjoutComposantePopup();
-        dessinerButton  = creerBouton(BootstrapIcons.PENCIL);
-        remplirButton  = creerBouton(BootstrapIcons.TRASH);
-        removeComposanteButton  = creerBouton(BootstrapIcons.PAINT_BUCKET);
-        couleursBox = new JComboBox(parent.couleurs);
-        couleursBox.setEditable(true);
-        couleursBox.setEditor(new CouleurComboBoxEditor(Color.WHITE));
-        couleursBox.setPreferredSize(new Dimension(40,20));
-        couleursBox.setMaximumSize( couleursBox.getPreferredSize() );
-        this.add(couleursBox);
+        dessinerButton  = creerBouton(BootstrapIcons.PENCIL, 20, Color.WHITE);
+        remplirButton  = creerBouton(BootstrapIcons.TRASH, 20, Color.WHITE);
+        removeComposanteButton  = creerBouton(BootstrapIcons.PAINT_BUCKET, 20, Color.WHITE);
+        couleurButton = creerBouton(BootstrapIcons.SQUARE_FILL, 20, Color.WHITE);
+        couleurChooser = new JColorChooser();
 
         //======= Actions ========
         ajoutComposanteButton.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
                 // on affiche le popup menu lorsque le user clique sur le bouton ajout de la barre d'outils
                 ajoutComposantePopup.show(e.getComponent(), e.getX(), e.getY());
+            }
+        });
+
+        couleurButton.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                // on affiche le colorchooser lorsque le user clique sur le carré, et on change pour la couleur choisie
+                parent.couleurChoisie = JColorChooser.showDialog(couleurChooser, "Palette de couleurs", couleurButton.getBackground());
+                FontIcon nouvelIcone = FontIcon.of(BootstrapIcons.SQUARE_FILL, 20, parent.couleurChoisie);
+                couleurButton.setIcon(nouvelIcone);
             }
         });
     }
@@ -80,78 +87,14 @@ public class BarreOutils extends JToolBar {
         return popup;
     }
 
-    private JButton creerBouton(BootstrapIcons icone){
+
+    private JButton creerBouton(BootstrapIcons icone, int taille, Color couleur){
         JButton bouton = new javax.swing.JButton();
-        FontIcon fontIcon = FontIcon.of(icone, 20, Color.WHITE);
+        FontIcon fontIcon = FontIcon.of(icone, taille, couleur);
         bouton.setIcon(fontIcon);
         this.add(bouton);
         this.addSeparator();
         return bouton;
-    }
-
-    class CouleurComboBoxEditor implements ComboBoxEditor {
-        final protected JButton editor;
-        protected EventListenerList listenerList = new EventListenerList();
-
-        public CouleurComboBoxEditor(Color initialColor) {
-            editor = new JButton("");
-            editor.setBackground(initialColor);
-            ActionListener actionListener = new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    Color currentBackground = editor.getBackground();
-                    Color color = JColorChooser.showDialog(editor, "Choix de couleurs", currentBackground);
-                    if ((color != null) && (currentBackground != color)) {
-                        editor.setBackground(color);
-                        fireActionEvent(color);
-                    }
-                }
-            };
-            editor.addActionListener(actionListener);
-        }
-
-        public void addActionListener(ActionListener l) {
-            listenerList.add(ActionListener.class, l);
-        }
-
-        public Component getEditorComponent() {
-            return editor;
-        }
-
-        public Object getItem() {
-            return editor.getBackground();
-        }
-
-        public void removeActionListener(ActionListener l) {
-            listenerList.remove(ActionListener.class, l);
-        }
-
-        public void selectAll() {
-            // Ignore
-        }
-
-        public void setItem(Object newValue) {
-            if (newValue instanceof Color) {
-                Color color = (Color) newValue;
-                editor.setBackground(color);
-            } else {
-                try {
-                    Color color = Color.decode(newValue.toString());
-                    editor.setBackground(color);
-                } catch (NumberFormatException e) {
-                }
-            }
-        }
-
-        protected void fireActionEvent(Color color) {
-            Object listeners[] = listenerList.getListenerList();
-            for (int i = listeners.length - 2; i >= 0; i -= 2) {
-                if (listeners[i] == ActionListener.class) {
-                    ActionEvent actionEvent = new ActionEvent(editor, ActionEvent.ACTION_PERFORMED, color
-                            .toString());
-                    ((ActionListener) listeners[i + 1]).actionPerformed(actionEvent);
-                }
-            }
-        }
     }
 
 }

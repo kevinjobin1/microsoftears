@@ -135,7 +135,7 @@ public class Pouce
 
     public String toString()
     {
-        return getPouces() + "-" + getNumerateur() + "/" +  getDenominateur() + "\"";
+        return this.getNumerateur() != 0 ? getPouces() + "-" + getNumerateur() + "/" +  getDenominateur() + "\"" : getPouces() + "\"";
     }
 
     /**
