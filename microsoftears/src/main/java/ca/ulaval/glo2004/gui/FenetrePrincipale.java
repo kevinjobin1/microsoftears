@@ -10,7 +10,8 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class FenetrePrincipale extends JFrame {
-
+    // ColorPicker
+    final Color couleurs[] = { Color.RED, Color.BLUE, Color.BLACK, Color.WHITE };
     // Dimensions
     private final Dimension DIMENSIONS_MINIMALES = new Dimension(1080,720);
 
@@ -25,16 +26,9 @@ public class FenetrePrincipale extends JFrame {
                      redoButton,
                      saveButton,
                      deleteButton,
-                     zoomInButton,
-                    zoomOutButton,
-                    dragButton,
-                    ajoutComposanteButton,
-                    dessinerButton,
-                    remplirButton,
-                    removeComposanteButton,
                      exportButton;
     private JTabbedPane barreOnglets;
-    private JToolBar barreOutils;
+    private BarreOutils barreOutils;
     private JScrollPane mainScrollPane;
     private PanneauAffichage panneauAffichage;
     private JLabel positionSouris;
@@ -63,7 +57,7 @@ public class FenetrePrincipale extends JFrame {
         barreMenu = new BarreMenu(this);
         boutonsTopPanel = new JPanel();
         barreOnglets = new JTabbedPane();
-        barreOutils = new JToolBar();
+        barreOutils = new BarreOutils(this);
         mainScrollPane = new JScrollPane();
         panneauAffichage = new PanneauAffichage(this);
         nouveauButton = new javax.swing.JButton();
@@ -73,13 +67,7 @@ public class FenetrePrincipale extends JFrame {
         saveButton = new javax.swing.JButton();
         deleteButton =  new javax.swing.JButton();
         exportButton = new javax.swing.JButton();
-        zoomInButton = new javax.swing.JButton();
-        zoomOutButton = new javax.swing.JButton();
-        dragButton  = new javax.swing.JButton();
-        ajoutComposanteButton  = new javax.swing.JButton();
-        dessinerButton  = new javax.swing.JButton();
-        remplirButton  = new javax.swing.JButton();
-        removeComposanteButton  = new javax.swing.JButton();
+
 
         positionSouris = new JLabel();
         
@@ -187,60 +175,6 @@ public class FenetrePrincipale extends JFrame {
 
         //======== barreOutils ========
 
-        barreOutils.setOrientation(SwingConstants.VERTICAL);
-        barreOutils.setMargin(new Insets(5,5,5,5));
-        barreOutils.addSeparator();
-    
-        //======== zoomInButton ========
-
-        // TODO : créer une fonction pour ajouter des boutons automatiquement ?
-        
-        FontIcon zoomInButtonIcon = FontIcon.of(BootstrapIcons.ZOOM_IN, 20, Color.WHITE);
-        zoomInButton.setIcon(zoomInButtonIcon);
-        barreOutils.add(zoomInButton);
-        barreOutils.addSeparator();
-
-        //======== zoomOutButton ========
-
-        FontIcon zoomOutButtonIcon = FontIcon.of(BootstrapIcons.ZOOM_OUT, 20, Color.WHITE);
-        zoomOutButton.setIcon(zoomInButtonIcon);
-        barreOutils.add(zoomOutButton);
-        barreOutils.addSeparator();
-
-        //======== dragButton ============
-
-        FontIcon dragButtonIcon = FontIcon.of(BootstrapIcons.ARROWS_MOVE, 20, Color.WHITE);
-        dragButton.setIcon(dragButtonIcon);
-        barreOutils.add(dragButton);
-        barreOutils.addSeparator();
-
-        //======== ajoutComposanteButton ============
-
-        FontIcon ajoutComposanteButtonIcon = FontIcon.of(BootstrapIcons.PLUS_CIRCLE, 20, Color.WHITE);
-        ajoutComposanteButton.setIcon(ajoutComposanteButtonIcon);
-        barreOutils.add(ajoutComposanteButton);
-        barreOutils.addSeparator();
-
-        //======== dessinerComposanteButton ============
-
-        FontIcon dessinerButtonIcon = FontIcon.of(BootstrapIcons.PENCIL, 20, Color.WHITE);
-        dessinerButton.setIcon(dessinerButtonIcon);
-        barreOutils.add(dessinerButton);
-        barreOutils.addSeparator();
-
-        //======== removeComposanteButton ============
-
-        FontIcon removeComposanteButtonIcon = FontIcon.of(BootstrapIcons.TRASH, 20, Color.WHITE);
-        removeComposanteButton.setIcon(removeComposanteButtonIcon);
-        barreOutils.add(removeComposanteButton);
-        barreOutils.addSeparator();
-
-        //======== remplirButton ============
-
-        FontIcon remplirButtonIcon = FontIcon.of(BootstrapIcons.PAINT_BUCKET, 20, Color.WHITE);
-        remplirButton.setIcon(remplirButtonIcon);
-        barreOutils.add(remplirButton);
-        barreOutils.addSeparator();
 
         mainPanel.add(barreOutils, BorderLayout.WEST);
 
