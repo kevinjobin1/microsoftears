@@ -90,17 +90,29 @@ public class TestPouce extends TestCase {
     }
 
     @Test
-    // test methode soustraire dans Pouce
+    // test methode construire à partir d'une mesure double en pouces
     public void testConstructeurPouceDouble(){
         print("---- testConstructeurPouceDouble -------");
         double mesure = 0.984252; // 25 mm en pouces
         Pouce resultat = new Pouce(mesure);
 
-        print("Mesure en pouce: " + resultat);
+        print("Mesure en pouce: " + resultat + "(" + resultat.toDouble() + "\")");
         print("Mesure en mm: " + resultat.getMilimetres());
     }
 
-        public static void print(String string){
+    @Test
+    // test methode construire à partir d'une mesure en milimètres
+    public void testConstructeurMilimetres(){
+        print("---- testConstructeurMilimetres -------");
+        int mesure = 25; // equivalent à (0.984375" ou 0-63/64")
+        Pouce resultat = new Pouce(mesure);
+
+        print("Mesure en pouce: " + resultat + "(" + resultat.toDouble() + "\")");
+        print("Mesure en mm: " + resultat.getMilimetres());
+    }
+
+
+    public static void print(String string){
             System.out.println(string);
         }
 

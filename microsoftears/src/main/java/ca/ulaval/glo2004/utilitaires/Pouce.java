@@ -45,41 +45,40 @@ public class Pouce
     }
 
     /**
-     Ce constructeur acceptes une mesure en milimetres ou en pouces.
-     @param mesure double représentant la mesure (en pouces (") ou milimètre (mm))
+     Ce constructeur acceptes une mesure en pouces.
+     @param mesurePouce double représentant la mesure en pouces (")
      */
-    // TODO: à tester pour savoir si ça fonctionne!
 
-    public Pouce(double mesure)
+    public Pouce(double mesurePouce)
     {
         // on convertit la mesure en milimètres
-        this.milimetres = (int) (mesure * MM_PAR_POUCE);
+        this.milimetres = (int) (mesurePouce * MM_PAR_POUCE);
 
         // on convertit la mesure de double vers entier + fraction
-        int pouceEntier = (int) Math.floor(mesure);
-        double reste = mesure - pouceEntier;
-        int digitsDec = String.valueOf(reste).length() - 2;
-        int denom = 1;
-        for (int i = 0; i < digitsDec; i++) {
-            reste *= 10;
-            denom *= 10;
-        }
-        int num = (int) Math.round(reste);
-
-        this.pouces = pouceEntier;
-        this.numerateur = num;
-        this.denominateur = denom;
+        int[] poucesConvertis = convertiPouceDecimalEnFraction(mesurePouce);
+        this.pouces = poucesConvertis[0];
+        this.numerateur = poucesConvertis[1];
+        this.denominateur = poucesConvertis[2];
         simplifier();
 
         }
-        /** Ce constructeur acceptes une mesure en milimetres ou en pouces.
-            @param poucesEntier (int) représentant la mesure en pouces (") entières (sans fraction)
+        /** Ce constructeur acceptes une mesure en milimetres.
+            @param mesureMM (int) représentant la mesure en milimetres
         */
 
-        public Pouce(int poucesEntier){
-        this.pouces = poucesEntier;
-        this.numerateur = 0;
-        this.denominateur = 1;
+        public Pouce(int mesureMM){
+
+        this.milimetres = mesureMM;
+
+        // on convertit la mesure en pouces
+        double mesurePouce = mesureMM / MM_PAR_POUCE;
+
+        // on convertit la mesure double vers entier + fraction
+        int[] poucesConvertis = convertiPouceDecimalEnFraction(mesurePouce);
+        this.pouces = poucesConvertis[0];
+        this.numerateur = poucesConvertis[1];
+        this.denominateur = poucesConvertis[2];
+        simplifier();
         }
 
     /**
@@ -224,10 +223,13 @@ public class Pouce
         return new Pouce(pouces, numerateur, denominateur);
     }
 
-    // TODO : à vérifier
     public double toDouble(){
+        double num = getNumerateur();
+        double denom = getDenominateur();
+        double pouces = getPouces();
+        double mesureEnDouble = pouces + (num/denom);
 
-        return (double) this.getPouces() + this.getNumerateur() / this.getDenominateur();
+        return mesureEnDouble;
     }
 
     /** Calcul du plus grand dénominateur commun (pgdc)
@@ -251,5 +253,20 @@ public class Pouce
         fraction[0] = num/pgdc;
         fraction[1] = denom/pgdc;
         return fraction;
+    }
+
+    static private int[] convertiPouceDecimalEnFraction(double mesure){
+
+        int entier = (int) Math.floor(mesure);
+        double reste = mesure - entier;
+        double nbDecimales = String.valueOf(reste).length()-2;
+        double denom = Math.pow(10, nbDecimales);
+        double num = Math.pow(10, nbDecimales) * reste;
+
+        // on arrondit au 1/64" près
+        int precisionPouce = 64;
+        int numArrondi = (int) Math.round((num * precisionPouce) / denom);
+
+        return new int[]{entier, numArrondi, precisionPouce};
     }
 }
