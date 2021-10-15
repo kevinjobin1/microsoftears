@@ -13,6 +13,7 @@ public abstract class Composante {
 
     public Composante(RoulotteController parent) {
         this.parent = parent;
+        this.couleur = Color.BLACK;
     }
 
     public Color getCouleur() {
@@ -27,7 +28,7 @@ public abstract class Composante {
         return polygone;
     }
 
-    public void setPolygone(Polygone polygone) {
+    protected void setPolygone(Polygone polygone) {
         this.polygone = polygone;
     }
 

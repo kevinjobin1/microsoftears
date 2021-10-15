@@ -16,12 +16,17 @@ public class MurBrute extends Composante{
         this.longueur = longueur;
         this.largeur = largeur;
         this.centre = centre;
+        this.rectangle = new Rectangle(this.longueur,this.largeur,this.centre);
         this.setType(TypeComposante.MUR_BRUTE);
+        this.setPolygone(rectangle.getPolygone());
     }
 
     public MurBrute(RoulotteController parent) {
         super(parent);
-        this.rectangle = new Rectangle(new Pouce(96), new Pouce(48), new PointPouce());
+        this.longueur = new Pouce(96);
+        this.largeur = new Pouce(48);
+        this.centre = new PointPouce();
+        this.rectangle = new Rectangle(longueur, largeur, centre);
         this.setPolygone(rectangle.getPolygone());
         this.setType(TypeComposante.MUR_BRUTE);
     }

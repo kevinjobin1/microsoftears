@@ -15,9 +15,12 @@ public class OuvertureLaterale extends Composante{
         this.longueur = longueur;
         this.largeur = largeur;
         this.centre = centre;
+        this.rectangle = new Rectangle(longueur, largeur, centre);
+        this.setPolygone(rectangle.getPolygone());
         this.setType(TypeComposante.OUVERTURE_LATERALE);
     }
 
+    //à coder
     public OuvertureLaterale(RoulotteController parent) {
         super(parent);
     }

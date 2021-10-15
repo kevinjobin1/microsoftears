@@ -12,6 +12,8 @@ public class Hayon extends Composante {
     private Pouce distancePlancher;
     private Pouce epaisseurTraitScie;
 
+
+    //à compléter
     public Hayon(RoulotteController parent, Pouce epaisseur, Pouce distancePoutre, Pouce distancePlancher, Pouce epaisseurTraitScie) {
         super(parent);
         this.epaisseur = epaisseur;
@@ -19,8 +21,10 @@ public class Hayon extends Composante {
         this.distancePlancher = distancePlancher;
         this.epaisseurTraitScie = epaisseurTraitScie;
         this.setType(TypeComposante.HAYON);
+        //this.setPolygone();
     }
 
+    //à coder
     public Hayon(RoulotteController parent) {
         super(parent);
     }

@@ -17,9 +17,11 @@ public class Plancher extends Composante {
         this.margeAvant = margeAvant;
         this.margeArriere = margeArriere;
         this.rectangle = new Rectangle(this.getLongueur(), this.epaisseur, this.getCentre());
+        this.setPolygone(rectangle.getPolygone());
         this.setType(TypeComposante.PLANCHER);
     }
 
+    //à coder
     public Plancher(RoulotteController parent) {
         super(parent);
     }

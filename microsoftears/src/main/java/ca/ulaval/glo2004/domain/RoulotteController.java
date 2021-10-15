@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class RoulotteController {
 
         private ArrayList<Composante> listeComposantes;
+        private Profil profil;
         private Hayon hayon;
         private Ressorts ressorts;
         private MurBrute murBrute;
