@@ -11,6 +11,8 @@ public class PointPouce {
     }
 
     public PointPouce() {
+        x = new Pouce(50);
+        y = new Pouce(50);
     }
 
     public Pouce getX() {
