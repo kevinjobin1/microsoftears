@@ -12,17 +12,25 @@ public class ProfilEllipse extends Composante{
     private PointPouce centre;
     private Ellipse ellipse;
 
-    //à coder
     public ProfilEllipse(RoulotteController parent, Pouce longueur, Pouce hauteur, PointPouce centre) {
         super(parent);
         this.longueur = longueur;
         this.hauteur = hauteur;
         this.centre = centre;
+        this.ellipse = new Ellipse(this.longueur,this.hauteur,this.centre);
+        this.setPolygone(ellipse.getPolygone());
+        this.setType(TypeComposante.PROFIL_ELLIPSE);
     }
 
-    //à coder
+    //à compléter
     public ProfilEllipse(RoulotteController parent) {
         super(parent);
+        //this.longueur = ;
+        //this.hauteur = ;
+        //this.centre = ;
+        this.ellipse = new Ellipse(longueur,hauteur,centre);
+        this.setPolygone(ellipse.getPolygone());
+        this.setType(TypeComposante.PROFIL_ELLIPSE);
     }
 
     public Pouce getLongueur() {

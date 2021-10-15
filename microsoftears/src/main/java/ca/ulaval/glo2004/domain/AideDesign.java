@@ -25,9 +25,9 @@ public class AideDesign extends Composante{
 
     public AideDesign(RoulotteController parent) {
         super(parent);
-        this.longueur = new Pouce(12);
-        this.largeur = new Pouce(12);
-        this.centre = new PointPouce(new Pouce(50), new Pouce(50));
+        this.longueur = new Pouce(12,0,1);
+        this.largeur = new Pouce(12,0,1);
+        this.centre = new PointPouce(new Pouce(50,0,1), new Pouce(50,0,1));
         this.rectangle = new Rectangle(longueur, largeur, centre);
         this.setType(TypeComposante.AIDE_DESIGN);
         this.setPolygone(rectangle.getPolygone());

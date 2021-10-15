@@ -36,7 +36,7 @@ public abstract class Composante {
         return type;
     }
 
-    public void setType(TypeComposante type) {
+    protected void setType(TypeComposante type) {
         this.type = type;
     }
 }

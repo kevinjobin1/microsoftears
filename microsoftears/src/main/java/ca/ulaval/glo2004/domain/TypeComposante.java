@@ -10,5 +10,6 @@ public enum TypeComposante {
     MUR_BRUTE,
     AIDE_DESIGN,
     OUVERTURE_LATERALE,
-    PROFIL
+    PROFIL_BEZIER,
+    PROFIL_ELLIPSE
 }
