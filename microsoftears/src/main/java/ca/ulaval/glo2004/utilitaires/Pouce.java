@@ -5,7 +5,7 @@ public class Pouce
     private int pouces;
     private int numerateur;
     private int denominateur;
-    private double milimetres;
+    private int milimetres;
     private final double MM_PAR_POUCE = 25.4;
 
     /**
@@ -23,10 +23,14 @@ public class Pouce
         }
 
         else if (numerateur == 0) {
-            denominateur = 1;
+            this.pouces = pouces;
+            this.numerateur = numerateur;
+            this.denominateur = 1;
+            this.milimetres = (int) ((int) MM_PAR_POUCE * toDouble());
+            simplifier();
         }
 
-        else if (numerateur < 0 || denominateur < 0) {
+        else if (numerateur < 0 || denominateur < 0 || pouces < 0) {
             throw new IllegalArgumentException("La fraction est négative.");
         }
 
@@ -35,8 +39,8 @@ public class Pouce
             this.pouces = pouces;
             this.numerateur = numerateur;
             this.denominateur = denominateur;
-            this.milimetres = MM_PAR_POUCE * toDouble();
-            simplifierFraction();
+            this.milimetres = (int) ((int) MM_PAR_POUCE * toDouble());
+            simplifier();
         }
     }
 
@@ -46,28 +50,26 @@ public class Pouce
      */
     // TODO: à tester pour savoir si ça fonctionne!
 
-    public Pouce(double mesure, boolean estPouce)
+    public Pouce(double mesure)
     {
-        // on convertit si la mesure est en milimètres
+        // on convertit la mesure en milimètres
+        this.milimetres = (int) (mesure * MM_PAR_POUCE);
 
-        if (estPouce){
-            this.milimetres = mesure * MM_PAR_POUCE;
-        }
-        else {
-            this.milimetres = mesure;
-            mesure /= MM_PAR_POUCE;
-        }
-
-        // mesure est en pouce, on convertit de double vers entier + fraction
+        // on convertit la mesure de double vers entier + fraction
         int pouceEntier = (int) Math.floor(mesure);
         double reste = mesure - pouceEntier;
-        int denom = 64; //plus petite fraction de pouce
-        int num = (int) Math.round(reste*denom);
+        int digitsDec = String.valueOf(reste).length() - 2;
+        int denom = 1;
+        for (int i = 0; i < digitsDec; i++) {
+            reste *= 10;
+            denom *= 10;
+        }
+        int num = (int) Math.round(reste);
 
         this.pouces = pouceEntier;
         this.numerateur = num;
         this.denominateur = denom;
-        simplifierFraction();
+        simplifier();
 
         }
         /** Ce constructeur acceptes une mesure en milimetres ou en pouces.
@@ -98,6 +100,13 @@ public class Pouce
         this.pouces = pouces;
     }
 
+    public int getMilimetres() {
+        return milimetres;
+    }
+
+    public void setMilimetres(int milimetres) {
+        this.milimetres = milimetres;
+    }
 
     public int getPouces()
     {
@@ -127,7 +136,7 @@ public class Pouce
 
     public String toString()
     {
-        return getPouces() + "-" + getNumerateur() + "/" +  getDenominateur();
+        return getPouces() + "-" + getNumerateur() + "/" +  getDenominateur() + "\"";
     }
 
     /**
@@ -230,9 +239,17 @@ public class Pouce
         return (denom == 0 ? num : plusGrandDenominateurCommun(denom, num % denom));
     }
 
-    private void simplifierFraction(){
+    private void simplifier(){
         int pgdc = plusGrandDenominateurCommun(numerateur, denominateur);
         this.setNumerateur(numerateur/pgdc);
         this.setDenominateur(denominateur/pgdc);
+    }
+
+    public static int[] simplifierFraction(int num, int denom){
+        int pgdc = plusGrandDenominateurCommun(num, denom);
+        int[] fraction = new int[2];
+        fraction[0] = num/pgdc;
+        fraction[1] = denom/pgdc;
+        return fraction;
     }
 }

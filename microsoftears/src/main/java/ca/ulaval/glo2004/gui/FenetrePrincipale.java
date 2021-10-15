@@ -192,6 +192,8 @@ public class FenetrePrincipale extends JFrame {
         barreOutils.addSeparator();
     
         //======== zoomInButton ========
+
+        // TODO : créer une fonction pour ajouter des boutons automatiquement ?
         
         FontIcon zoomInButtonIcon = FontIcon.of(BootstrapIcons.ZOOM_IN, 20, Color.WHITE);
         zoomInButton.setIcon(zoomInButtonIcon);

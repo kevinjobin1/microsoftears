@@ -18,7 +18,7 @@ public class Ellipse extends Forme {
             double x, y;
             x = this.getHauteur().toDouble() / 2 * Math.sin(Math.toRadians(i/360)) + this.getCentre().getX().toDouble();
             y = this.getLongueur().toDouble() / 2 * Math.cos(Math.toRadians(i/360)) + this.getCentre().getY().toDouble();
-            listePoints.add(new PointPouce(new Pouce(x, true), new Pouce(y, true)));
+            listePoints.add(new PointPouce(new Pouce(x), new Pouce(y)));
         }
         return new Polygone(listePoints);
     }

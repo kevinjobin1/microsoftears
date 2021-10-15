@@ -1,9 +1,12 @@
 package ca.ulaval.glo2004;
 
+import junit.framework.*;
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-
+import ca.ulaval.glo2004.utilitaires.*;
+import ca.ulaval.glo2004.gui.*;
+import ca.ulaval.glo2004.domain.*;
 import org.junit.Test;
 
 /**
@@ -11,8 +14,8 @@ import org.junit.Test;
  * projet. Par contre, il peut s'averer utile de faire quelques tests pour certaines method pour s'assurer qu'elle retourne
  * bien ce qu'elle devrait retourner
  */
-public class MainTest
-{
+
+public class TestJUnit {
     /**
      * Exemple de test avec JUnit
      */
@@ -34,4 +37,12 @@ public class MainTest
         assertThat('x').isNotEqualTo('y');
         assertThat(10).isGreaterThan(5);
     }
+
+
+
+    public static void print(String string){
+        System.out.println(string);
+    }
+
+
 }

@@ -14,26 +14,26 @@ public class Rectangle extends Forme{
 
         //coin en haut à droite
         listePoints.add(new PointPouce(
-                new Pouce(this.getCentre().getX().toDouble()+this.getLongueur().toDouble()/2, true),
-                new Pouce(this.getCentre().getY().toDouble()-this.getHauteur().toDouble()/2, true))
+                new Pouce(this.getCentre().getX().toDouble()+this.getLongueur().toDouble()/2),
+                new Pouce(this.getCentre().getY().toDouble()-this.getHauteur().toDouble()/2))
         );
 
         //coin en haut à gauche
         listePoints.add(new PointPouce(
-                new Pouce(this.getCentre().getX().toDouble()-this.getLongueur().toDouble()/2, true),
-                new Pouce(this.getCentre().getY().toDouble()-this.getHauteur().toDouble()/2, true))
+                new Pouce(this.getCentre().getX().toDouble()-this.getLongueur().toDouble()/2),
+                new Pouce(this.getCentre().getY().toDouble()-this.getHauteur().toDouble()/2))
         );
 
         //coin en bas à gauche
         listePoints.add(new PointPouce(
-                new Pouce(this.getCentre().getX().toDouble()-this.getLongueur().toDouble()/2, true),
-                new Pouce(this.getCentre().getY().toDouble()+this.getHauteur().toDouble()/2, true))
+                new Pouce(this.getCentre().getX().toDouble()-this.getLongueur().toDouble()/2),
+                new Pouce(this.getCentre().getY().toDouble()+this.getHauteur().toDouble()/2))
         );
 
         //coin en bas à droite
         listePoints.add(new PointPouce(
-                new Pouce(this.getCentre().getX().toDouble()+this.getLongueur().toDouble()/2, true),
-                new Pouce(this.getCentre().getY().toDouble()+this.getHauteur().toDouble()/2, true))
+                new Pouce(this.getCentre().getX().toDouble()+this.getLongueur().toDouble()/2),
+                new Pouce(this.getCentre().getY().toDouble()+this.getHauteur().toDouble()/2))
         );
 
         return new Polygone(listePoints);
