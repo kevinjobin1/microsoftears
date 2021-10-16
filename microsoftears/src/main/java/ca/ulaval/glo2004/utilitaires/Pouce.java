@@ -189,14 +189,24 @@ public class Pouce
         return new Pouce(poucesEntier, num, denom);
     }
 
-    //à coder
+    //à tester
     public Pouce diviser(double mesure){
-        return null;
+        int num = this.getPouces()*this.getDenominateur()+this.getNumerateur();
+        int denom = (int) (this.getDenominateur()*mesure);
+        int entier = (int) Math.floor(num / denom);
+        num -= (entier*this.getDenominateur());
+        int[] fraction = this.simplifierFraction(num,denom);
+
+        return new Pouce(entier, fraction[0], fraction[1]);
     }
 
-    //à coder
+    //à tester
     public Pouce multiplier(double mesure){
-        return null;
+        int num = (int) ((this.getNumerateur()+this.getPouces()*this.getDenominateur())*mesure);
+        int entier = (int) Math.floor(num / this.getDenominateur());
+        num -= (entier*this.getDenominateur());
+        int[] fraction = this.simplifierFraction(num, this.getDenominateur());
+        return new Pouce(entier, fraction[0], fraction[1]);
     }
 
     /**

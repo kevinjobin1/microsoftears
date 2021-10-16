@@ -50,6 +50,7 @@ public class MurSeparateur extends Composante{
         this.distancePoutreArriere = distancePoutreArriere;
     }
 
+    //à tester
     private PointPouce getCentre(){
         PoutreArriere poutre = this.getParent().getPoutreArriere();
         MurBrute mur = this.getParent().getMurBrute();
