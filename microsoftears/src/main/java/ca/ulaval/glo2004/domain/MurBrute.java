@@ -23,8 +23,8 @@ public class MurBrute extends Composante{
 
     public MurBrute(RoulotteController parent) {
         super(parent);
-        this.longueur = new Pouce(96);
-        this.largeur = new Pouce(48);
+        this.longueur = new Pouce(96,0,1);
+        this.largeur = new Pouce(48,0,1);
         this.centre = new PointPouce();
         this.rectangle = new Rectangle(longueur, largeur, centre);
         this.setPolygone(rectangle.getPolygone());
