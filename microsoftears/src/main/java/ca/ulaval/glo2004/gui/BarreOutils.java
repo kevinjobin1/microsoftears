@@ -34,8 +34,7 @@ public class BarreOutils extends JToolBar {
         //======== this ========
 
         this.setOrientation(SwingConstants.VERTICAL);
-        this.setMargin(new Insets(10,5,5,5));
-        this.setFloatable(false);
+        this.setMargin(new Insets(150,5,5,5));
         this.addSeparator();
 
         //======== Boutons ========

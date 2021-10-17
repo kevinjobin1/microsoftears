@@ -6,41 +6,37 @@ import ca.ulaval.glo2004.gui.FenetrePrincipale;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.io.Serializable;
-import javax.swing.JPanel;
+import javax.swing.*;
+import javax.swing.border.BevelBorder;
 
 // afficheurMicroRoulotte
 public class PanneauAffichage extends JPanel implements Serializable {
 
     public Dimension initialDimension;
     private FenetrePrincipale fenetrePrincipale;
-    private final int GRID_SIZE = 20000;
-    private final double MAX_SCALE = 6;
-    private final double MIN_SCALE = 0.3;
+    //private final int GRID_SIZE = 125000;
     public double scale;
-    public double centerX;
-    public double centerY;
+    private double panneauLeft;
+    private double panneauTop;
+    private double deltaX;
+    private double deltaY;
     public int pixelsToInchesRatio = 10;
-    private Color lightGray;
-    private Color lightLightGray;
-    private Color lightLightLightGray;
     
 
     public PanneauAffichage(FenetrePrincipale fenetrePrincipale) {
         this.fenetrePrincipale = fenetrePrincipale;
-        int width = (java.awt.Toolkit.getDefaultToolkit().getScreenSize().width);
-        setPreferredSize(new Dimension(width,1));
+        int width = 1035;
+        int height = 737;
+        setPreferredSize(new Dimension(width, height));
+        setMaximumSize(getPreferredSize());
         setVisible(true);
-        int height = (int)(width * 0.5);
-        initialDimension = new Dimension(width,height);
-        lightGray = new Color(30,30,30);
-        lightLightGray = new Color(70,70,70);
-        lightLightLightGray = new Color(110,110,110);
+        initialDimension = new Dimension(width, height);
+        this.setBackground(Color.DARK_GRAY);
         scale = 1;
-        centerX = 0;
-        centerY = 0;
+        panneauLeft = 0;
+        panneauTop = 0;
 
     }
-    
 
     @Override
     protected void paintComponent(Graphics g)
@@ -51,40 +47,43 @@ public class PanneauAffichage extends JPanel implements Serializable {
             Graphics2D g2d = (Graphics2D) g;
             double width = initialDimension.getWidth(); // real width of canvas
             double height = initialDimension.getHeight(); // real height of canvas
-
             AffineTransform oldAf = g2d.getTransform();
             AffineTransform af = new AffineTransform(oldAf);
-            af.translate((width/2) - ((width/2-centerX)*(scale))  ,
-                    (height/2) -((height/2-centerY)*(scale)));
             af.scale(scale, scale);
+            af.translate(-deltaX, -deltaY);
             g2d.setTransform(af);
+            g2d.setColor(Color.WHITE);
+            g2d.fillRect(0,0,(int) width, (int) height);
 
-            //white background
-            g.setColor(Color.gray);
-            g.fillRect(0-GRID_SIZE/2, 0-GRID_SIZE/2, GRID_SIZE, GRID_SIZE);
+            g2d.setColor(Color.gray);
+            g2d.fillRect(250, 250,250,250);
+
+            /*//white background
             g.setColor(Color.white);
+            g.fillRect(0-GRID_SIZE/2, 0-GRID_SIZE/2, GRID_SIZE, GRID_SIZE);
+            g.setColor(Color.gray);
 
             //grid
             if (scale >= 0.02 && scale <= 0.2){
-                g.setColor(lightGray);
+                g.setColor(ligneGrilleCouleur);
                 drawGrid(g, 250);
             }
             if (scale > 0.2 && scale <= 0.6){
 
-                g.setColor(lightLightGray);
+                g.setColor(ligneInterieurGrilleCouleur);
                 drawGrid(g, 50);
-                g.setColor(lightGray);
+                g.setColor(ligneGrilleCouleur);
                 drawGrid(g, 250);
             }
             if (scale >0.6 ){
-                g.setColor(lightLightLightGray);
+                g.setColor(ligneInterieurGrilleCouleur);
                 drawGrid(g, 10);
-                g.setColor(lightLightGray);
+                g.setColor(ligneInterieurGrilleCouleur);
                 drawGrid(g, 50);
-                g.setColor(lightGray);
+                g.setColor(ligneGrilleCouleur);
                 drawGrid(g, 250);
             }
-            // end grid
+            // end grid*/
 
           /*
             RoulotteAfficheur mainDrawer = new RoulotteAfficheur(fenetrePrincipale.controller,initialDimension);
@@ -92,7 +91,7 @@ public class PanneauAffichage extends JPanel implements Serializable {
     }
     }
 
-    public void drawGrid(Graphics g, int scale){
+    /*public void drawGrid(Graphics g, int scale){
 
         for (int i = -GRID_SIZE/2; i <=GRID_SIZE/2; i = i+scale){
             g.drawLine(-GRID_SIZE/2, i, GRID_SIZE/2 , i);
@@ -102,28 +101,14 @@ public class PanneauAffichage extends JPanel implements Serializable {
             g.drawLine( i, -GRID_SIZE/2, i,GRID_SIZE/2 );
         }
         g.setColor(Color.white);
-    }
+    }*/
 
     public void setCenter(Point mousePoint){
-        int limit = GRID_SIZE/2 + 750;
-
-        centerX += mousePoint.getX() * (scale - 1);
-        centerY += mousePoint.getY() * (scale - 1);
-
-        if (centerX > limit){
-            centerX = limit;
-        }
-        if (centerX < -limit){
-            centerX = -limit;
-        }
-        if (centerY < -limit){
-            centerY = -limit;
-        }
-        if (centerY > limit){
-            centerY = limit;
-        }
-
-        System.out.format("CenterX: %f \n CenterY: %f \n", centerX, centerY);
+        //TODO: à faire, zoom en fonction de la position de la souris,
+        // il faut tenir compte du déplacement du centre réel de l'objet Graphics
+        // pour l'instant le zoom/position fonctionne seulement si on reste à l'intérieur de la forme...
+           deltaX = (mousePoint.getX() * scale) - mousePoint.getX();
+           deltaY = (mousePoint.getY() * scale) - mousePoint.getY();
     }
 
     public void setScale(int wheelRotation){
@@ -131,28 +116,31 @@ public class PanneauAffichage extends JPanel implements Serializable {
         double scaleFactor = 0;
 
         if (Math.abs(wheelRotation) >= 1){
-            scaleFactor = 1.1;
+            scaleFactor = 1.01;
         }
 
         if (wheelRotation <= -1){
-            if (scale < 6){
-                scale *= scaleFactor;
-            }
-        }
-        else if (wheelRotation >= 1){
             if (scale > 0.03){
                 scale /= scaleFactor;
             }
+            System.out.println("Zoom out: " + scale);
+        }
+        else if (wheelRotation >= 1){
+            if (scale < 6){
+                scale *= scaleFactor;
+
+            System.out.println("Zoom in: " + scale);
         }
 
     }
+    }
 
-    public Point getGridPosition(Point mousePoint) {
+    public Point getPosition(Point mousePoint) {
+            //TODO: à refaire, pas du tout le bon calcul
+        //int gridX = (int) ((mousePoint.getX()/scale) - (((1/scale) - 1) * (initialDimension.getWidth()/2)) - centerX);
+        //int gridY = (int) ((mousePoint.getY()/scale) - (((1/scale) - 1) * (initialDimension.getHeight()/2)) - centerY);
 
-        int gridX = (int) ((mousePoint.getX()/scale) - (((1/scale) - 1) * (initialDimension.getWidth()/2)) - centerX);
-        int gridY = (int) ((mousePoint.getY()/scale) - (((1/scale) - 1) * (initialDimension.getHeight()/2)) - centerY);
-
-        return new Point (gridX, gridY);
+        return new Point (0,0);
     }
 
     public FenetrePrincipale getMainWindow(){
