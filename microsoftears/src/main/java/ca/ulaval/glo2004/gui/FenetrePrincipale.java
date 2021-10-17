@@ -18,6 +18,7 @@ public class FenetrePrincipale extends JFrame {
     // Composantes graphiques du Frame
     private JPanel mainPanel,
                  bottomPanel,
+                centerPanel,
                  boutonsTopPanel;
     private BarreMenu barreMenu;
     private JButton nouveauButton,
@@ -54,6 +55,7 @@ public class FenetrePrincipale extends JFrame {
     private void initComponents() {
         mainPanel = new JPanel();
         bottomPanel = new JPanel();
+        centerPanel = new JPanel();
         barreMenu = new BarreMenu(this);
         boutonsTopPanel = new JPanel();
         barreOnglets = new JTabbedPane();
@@ -88,16 +90,20 @@ public class FenetrePrincipale extends JFrame {
         //======== panel du bas ==========
         positionSouris.setText("Position(0,0)");
         bottomPanel.add(positionSouris);
-        bottomPanel.setLayout(new GridLayout(1, 1));
+        bottomPanel.setLayout(new FlowLayout(FlowLayout.LEFT,10,10));
         mainPanel.add(bottomPanel, BorderLayout.SOUTH);
         
         
         //======== boutonsTopPanel ========
-        boutonsTopPanel.setPreferredSize(new Dimension(400, 45));
-        boutonsTopPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        boutonsTopPanel.setPreferredSize(new Dimension(400, 50));
+        boutonsTopPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 15, 10));
 
         // ==== Bouton nouveau projet =======
-        nouveauButton.setText("Nouveau");
+        FontIcon nouveauButtonIcon = FontIcon.of(BootstrapIcons.FILE_EARMARK_PLUS_FILL, 30, Color.WHITE);
+        nouveauButton.setIcon(nouveauButtonIcon);
+        nouveauButton.setPreferredSize(new Dimension(32,32));
+        nouveauButton.setBackground(null);
+        nouveauButton.setBorder(null);
         nouveauButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 nouveauButtonActionPerformed(e);
@@ -107,7 +113,11 @@ public class FenetrePrincipale extends JFrame {
         boutonsTopPanel.add(nouveauButton);
 
         // ==== Bouton charger un projet =======
-        chargerButton.setText("Charger");
+        FontIcon chargerButtonIcon = FontIcon.of(BootstrapIcons.FOLDER2_OPEN, 30, Color.WHITE);
+        chargerButton.setIcon(chargerButtonIcon);
+        chargerButton.setPreferredSize(new Dimension(32,32));
+        chargerButton.setBackground(null);
+        chargerButton.setBorder(null);
         chargerButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 chargerButtonActionPerformed(e);
@@ -116,7 +126,11 @@ public class FenetrePrincipale extends JFrame {
         boutonsTopPanel.add(chargerButton);
 
         // ==== Bouton revenir en arrière =======
-        undoButton.setText("Revenir");
+        FontIcon undoButtonIcon = FontIcon.of(BootstrapIcons.ARROW_LEFT, 30, Color.WHITE);
+        undoButton.setIcon(undoButtonIcon);
+        undoButton.setPreferredSize(new Dimension(32,32));
+        undoButton.setBackground(null);
+        undoButton.setBorder(null);
         undoButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 undoButtonActionPerformed(e);
@@ -125,7 +139,11 @@ public class FenetrePrincipale extends JFrame {
         boutonsTopPanel.add(undoButton);
 
         // ==== Bouton refaire une action =======
-        redoButton.setText("Refaire");
+        FontIcon redoButtonIcon = FontIcon.of(BootstrapIcons.ARROW_RIGHT, 30, Color.WHITE);
+        redoButton.setIcon(redoButtonIcon);
+        redoButton.setPreferredSize(new Dimension(32,32));
+        redoButton.setBackground(null);
+        redoButton.setBorder(null);
         redoButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 redoButtonActionPerformed(e);
@@ -134,7 +152,11 @@ public class FenetrePrincipale extends JFrame {
         boutonsTopPanel.add(redoButton);
 
         // ==== Bouton enregistrer un projet =======
-        saveButton.setText("Enregistrer");
+        FontIcon saveButtonIcon = FontIcon.of(BootstrapIcons.SAVE, 30, Color.WHITE);
+        saveButton.setIcon(saveButtonIcon);
+        saveButton.setPreferredSize(new Dimension(32,32));
+        saveButton.setBackground(null);
+        saveButton.setBorder(null);
         saveButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 saveButtonActionPerformed(e);
@@ -143,7 +165,11 @@ public class FenetrePrincipale extends JFrame {
         boutonsTopPanel.add(saveButton);
 
         // ==== Bouton supprimer un projet  =======
-        deleteButton.setText("Supprimer");
+        FontIcon deleteButtonIcon = FontIcon.of(BootstrapIcons.TRASH_FILL, 30, Color.WHITE);
+        deleteButton.setIcon(deleteButtonIcon);
+        deleteButton.setPreferredSize(new Dimension(32,32));
+        deleteButton.setBackground(null);
+        deleteButton.setBorder(null);
         deleteButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 deleteButtonActionPerformed(e);
@@ -152,7 +178,11 @@ public class FenetrePrincipale extends JFrame {
         boutonsTopPanel.add(deleteButton);
 
         // ==== Bouton exporter un projet  =======
-        exportButton.setText("Exporter");
+        FontIcon exportButtonIcon = FontIcon.of(BootstrapIcons.ARROW_BAR_RIGHT, 30, Color.WHITE);
+        exportButton.setIcon(exportButtonIcon);
+        exportButton.setPreferredSize(new Dimension(32,32));
+        exportButton.setBackground(null);
+        exportButton.setBorder(null);
         exportButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 exportButtonActionPerformed(e);
@@ -178,11 +208,9 @@ public class FenetrePrincipale extends JFrame {
 
         mainPanel.add(barreOutils, BorderLayout.WEST);
 
-        //======== mainScrollPane ========
+        //======== Panneau d'affichage ========
 
-        mainScrollPane.setSize(new Dimension(800, 400));
-
-        mainPanel.add(mainScrollPane, BorderLayout.CENTER);
+        mainScrollPane = new JScrollPane(centerPanel);
 
         panneauAffichage.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
@@ -202,20 +230,19 @@ public class FenetrePrincipale extends JFrame {
             }
         });
 
-        GroupLayout drawingPanelLayout = new GroupLayout(panneauAffichage);
-        panneauAffichage.setLayout(drawingPanelLayout);
+        GroupLayout panneauAffichageLayout = new GroupLayout(panneauAffichage);
+        panneauAffichage.setLayout(panneauAffichageLayout);
 
-        drawingPanelLayout.setHorizontalGroup(
-                drawingPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+        panneauAffichageLayout.setHorizontalGroup(
+                panneauAffichageLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGap(0, 888, Short.MAX_VALUE)
         );
-        drawingPanelLayout.setVerticalGroup(
-                drawingPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+        panneauAffichageLayout.setVerticalGroup(
+                panneauAffichageLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGap(0, 303, Short.MAX_VALUE)
         );
 
         mainScrollPane.setViewportView(panneauAffichage);
-
         mainPanel.add(mainScrollPane, BorderLayout.CENTER);
 
         GroupLayout layout = new GroupLayout(getContentPane());
@@ -254,52 +281,51 @@ public class FenetrePrincipale extends JFrame {
     private void nouveauButtonActionPerformed(ActionEvent e) {
     }
 
-    public void nouveauProjetActionPerformed(ActionEvent e) {
+    protected void nouveauProjetActionPerformed(ActionEvent e) {
     }
 
-    public void sauvegarderProjetActionPerformed(ActionEvent e) {
+    protected void sauvegarderProjetActionPerformed(ActionEvent e) {
     }
 
-    public void ouvrirProjetActionPerformed(ActionEvent e) {
+    protected void ouvrirProjetActionPerformed(ActionEvent e) {
     }
 
-    public void exporterProjetActionPerformed(ActionEvent e) {
+    protected void exporterProjetActionPerformed(ActionEvent e) {
     }
 
-    public void quitterActionPerformed(ActionEvent e) {
+    protected void quitterActionPerformed(ActionEvent e) {
         System.exit(0);
     }
 
-    public void undoActionPerformed(ActionEvent e) {
+    protected void undoActionPerformed(ActionEvent e) {
     }
 
-    public void redoActionPerformed(ActionEvent e) {
+    protected void redoActionPerformed(ActionEvent e) {
     }
 
-    public void supprimerActionPerformed(ActionEvent e) {
+    protected void supprimerActionPerformed(ActionEvent e) {
     }
 
-    public void zoomInActionPerformed(ActionEvent e) {
+    protected void zoomInActionPerformed(ActionEvent e) {
     }
 
-    public void zoomOutActionPerformed(ActionEvent e) {
+    protected void zoomOutActionPerformed(ActionEvent e) {
     }
 
-    public void optionsActionPerformed(ActionEvent e) {
+    protected void optionsActionPerformed(ActionEvent e) {
     }
 
-    public void aboutActionPerformed(ActionEvent e) {
+    protected void aboutActionPerformed(ActionEvent e) {
     }
 
-    public void showHayonActionPerformed(ActionEvent e) {
+    protected void showHayonActionPerformed(ActionEvent e) {
     }
 
-    public void showPlancherActionPerformed(ActionEvent e) {
+    protected void showPlancherActionPerformed(ActionEvent e) {
     }
 
-    public void showMurIntActionPerformed(ActionEvent e) {
+    protected void showMurIntActionPerformed(ActionEvent e) {
     }
-
 
 
     private void quitMenuItemActionPerformed(ActionEvent e) {//GEN-FIRST:event_quitMenuItemActionPerformed
@@ -307,25 +333,24 @@ public class FenetrePrincipale extends JFrame {
     }//GEN-LAST:event_quitMenuItemActionPerformed
 
     private void drawingPanelMousePressed(MouseEvent e) {//GEN-FIRST:event_drawingPanelMousePressed
-        Point mousePoint = panneauAffichage.getGridPosition(e.getPoint());
-        System.out.format("GridPoint: (%f, %f)", mousePoint.getX(), mousePoint.getY());
-        System.out.format("MousePoint: (%f, %f)", e.getPoint().getX(), e.getPoint().getY());
+        Point mousePoint = panneauAffichage.getPosition(e.getPoint());
         TypeComposante composanteChoisie = this.composanteChoisie;
         this.controller.ajouterComposante(composanteChoisie,mousePoint);
         panneauAffichage.repaint();
     }//GEN-LAST:event_drawingPanelMousePressed
 
     private void drawingPanelMouseMoved(MouseEvent e) {//GEN-FIRST:event_drawingPanelMouseMoved
+        this.actualMousePoint = new Point(e.getX(), e.getY());
         this.positionSouris.setText("Position (" + e.getX() + "," + e.getY() + ")");
     }//GEN-LAST:event_drawingPanelMouseMoved
 
     private void drawingPanelMouseWheelMoved(MouseWheelEvent e) {//GEN-FIRST:event_drawingPanelMouseWheelMoved
+
         int wheelRotation = e.getWheelRotation();
-        Point mousePoint = panneauAffichage.getGridPosition(e.getPoint());
-        System.out.format("WheelRotation: %d", wheelRotation);
+        Point mousePoint = new Point(e.getX(),e.getY());
+
         panneauAffichage.setScale(wheelRotation);
-        System.out.format("SetCenter: (%f, %f)", mousePoint.getX(), mousePoint.getY());
-        // drawingPanel.setCenter(mousePoint);
+        panneauAffichage.setCenter(mousePoint);
         panneauAffichage.repaint();
     }//GEN-LAST:event_drawingPanelMouseWheelMoved
 
