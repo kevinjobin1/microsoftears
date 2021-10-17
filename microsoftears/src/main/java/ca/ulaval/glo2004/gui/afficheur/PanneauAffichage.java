@@ -25,15 +25,13 @@ public class PanneauAffichage extends JPanel implements Serializable {
 
     public PanneauAffichage(FenetrePrincipale fenetrePrincipale) {
         this.fenetrePrincipale = fenetrePrincipale;
-        setBorder(new javax.swing.border.BevelBorder(BevelBorder.LOWERED));
         int width = 1035;
         int height = 737;
         setPreferredSize(new Dimension(width, height));
         setMaximumSize(getPreferredSize());
         setVisible(true);
         initialDimension = new Dimension(width, height);
-        this.setBackground(Color.WHITE);
-        this.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.BLACK));
+        this.setBackground(Color.DARK_GRAY);
         scale = 1;
         panneauLeft = 0;
         panneauTop = 0;
@@ -54,9 +52,11 @@ public class PanneauAffichage extends JPanel implements Serializable {
             af.scale(scale, scale);
             af.translate(-deltaX, -deltaY);
             g2d.setTransform(af);
+            g2d.setColor(Color.WHITE);
+            g2d.fillRect(0,0,(int) width, (int) height);
 
             g2d.setColor(Color.gray);
-            g2d.fillRect(0,0,250,250);
+            g2d.fillRect(250, 250,250,250);
 
             /*//white background
             g.setColor(Color.white);
@@ -104,10 +104,11 @@ public class PanneauAffichage extends JPanel implements Serializable {
     }*/
 
     public void setCenter(Point mousePoint){
-        //TODO: à faire, zoom en fonction de la position de la souris
-
-           deltaX = mousePoint.getX() * scale - mousePoint.getX();
-           deltaY = mousePoint.getY() * scale - mousePoint.getY();
+        //TODO: à faire, zoom en fonction de la position de la souris,
+        // il faut tenir compte du déplacement du centre réel de l'objet Graphics
+        // pour l'instant le zoom/position fonctionne seulement si on reste à l'intérieur de la forme...
+           deltaX = (mousePoint.getX() * scale) - mousePoint.getX();
+           deltaY = (mousePoint.getY() * scale) - mousePoint.getY();
     }
 
     public void setScale(int wheelRotation){
