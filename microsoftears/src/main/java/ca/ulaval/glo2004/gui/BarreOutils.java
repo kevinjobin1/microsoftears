@@ -70,12 +70,17 @@ public class BarreOutils extends JToolBar {
     private JPopupMenu creerAjoutComposantePopup() {
         JPopupMenu popup = new JPopupMenu("Ajout composante");
 
-        popup.add(new JMenuItem(new AbstractAction("Hayon") {
+        // icone pour le symbole "+"
+        FontIcon icone = FontIcon.of(BootstrapIcons.PLUS, 20, Color.WHITE);
+
+        // item dans le popup menu (les composantes et aide au design)
+
+        popup.add(new JMenuItem(new AbstractAction("Hayon", icone) {
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(parent, "Ajout d'hayon selectionné");
             }
         }));
-        popup.add(new JMenuItem(new AbstractAction("Plancher") {
+        popup.add(new JMenuItem(new AbstractAction("Plancher", icone) {
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(parent, "Ajout de plancher selectionné");
             }
