@@ -56,13 +56,16 @@ public class Plancher extends Composante {
         this.margeArriere = margeArriere;
     }
 
-    //à coder
+    //à tester
     private PointPouce getCentre(){
-        return null;
+        MurBrute mur = parent.getMurBrute();
+        Pouce x = mur.getCentre().getX().add(mur.getLongueur().diviser(2)).diff(margeAvant).diff(getLongueur().diviser(2));
+        Pouce y = mur.getLargeur().diviser(2).add(mur.getCentre().getY()).diff(this.epaisseur.diviser(2));
+        return new PointPouce(x,y);
     }
 
-    //à coder
+    //à tester
     private Pouce getLongueur(){
-        return null;
+        return this.parent.getMurBrute().getLongueur().diff(this.margeArriere).diff(this.margeAvant);
     }
 }
