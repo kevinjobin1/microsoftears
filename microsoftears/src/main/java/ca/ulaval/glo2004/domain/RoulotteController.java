@@ -101,7 +101,7 @@ public class RoulotteController {
         return listeAidesDesign;
     }
 
-    public void setListeAidesDesign(ArrayList<AideDesign> listeAidesDesign) {
+    private void setListeAidesDesign(ArrayList<AideDesign> listeAidesDesign) {
         this.listeAidesDesign = listeAidesDesign;
     }
 

@@ -12,11 +12,13 @@ public class Ressorts extends Composante{
     public Ressorts(RoulotteController parent, double poidsHayon) {
         super(parent);
         this.poidsHayon = poidsHayon;
+        this.setType(TypeComposante.RESSORTS);
     }
 
     public Ressorts(RoulotteController parent) {
         super(parent);
         this.poidsHayon = 50;
+        this.setType(TypeComposante.RESSORTS);
     }
 
     private PointPouce[] calculerPositionRessorts(){
@@ -25,6 +27,14 @@ public class Ressorts extends Composante{
 
     public PointPouce[] getPosition() {
         return position;
+    }
+
+    public Pouce getLongueur() {
+        return longueur;
+    }
+
+    public double getForce() {
+        return force;
     }
 
     public double getPoidsHayon() {
