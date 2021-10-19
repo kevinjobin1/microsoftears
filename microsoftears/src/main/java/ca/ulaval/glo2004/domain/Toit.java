@@ -13,14 +13,14 @@ public class Toit extends Composante{
         super(parent);
         this.epaisseur = epaisseur;
         this.setType(TypeComposante.TOIT);
-        this.setPolygone(new Polygone(this.getPointsContour()));
+        this.setPolygone(getPolygone());
     }
 
     public Toit(RoulotteController parent) {
         super(parent);
         this.epaisseur = new Pouce(2,1,4);
         this.setType(TypeComposante.TOIT);
-        this.setPolygone(new Polygone(this.getPointsContour()));
+        this.setPolygone(getPolygone());
     }
 
     public Pouce getEpaisseur() {
@@ -31,8 +31,9 @@ public class Toit extends Composante{
         this.epaisseur = epaisseur;
     }
 
+    @Override
     //à coder
-    private LinkedList<PointPouce> getPointsContour(){
+    public Polygone getPolygone(){
         return null;
     }
 }
