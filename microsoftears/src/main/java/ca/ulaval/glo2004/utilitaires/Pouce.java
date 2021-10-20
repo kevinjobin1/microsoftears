@@ -227,6 +227,25 @@ public class Pouce
         return resultat;
     }
 
+    //à coder
+    public  boolean plusGrand(Pouce mesure){
+        return true;
+    }
+
+    //à coder
+    public  boolean plusGrandEgal(Pouce mesure){
+        return true;
+    }
+    //à coder
+    public  boolean plusPetit(Pouce mesure){
+        return true;
+    }
+
+    //à coder
+    public  boolean plusPetitEgal(Pouce mesure){
+        return true;
+    }
+
     /**
      The copy method makes a copy of the
      the calling object.

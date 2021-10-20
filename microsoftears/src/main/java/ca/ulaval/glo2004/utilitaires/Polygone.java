@@ -4,20 +4,20 @@ import java.util.LinkedList;
 
 public class Polygone {
 
-    private LinkedList listePoints;
+    private LinkedList<PointPouce> listePoints;
 
-    public Polygone(LinkedList listePoints) {
+    public Polygone(LinkedList<PointPouce> listePoints) {
         this.listePoints = listePoints;
     }
 
     public Polygone() {
     }
 
-    public LinkedList getListePoints() {
+    public LinkedList<PointPouce> getListePoints() {
         return listePoints;
     }
 
-    public void setListePoints(LinkedList listePoints) {
+    public void setListePoints(LinkedList<PointPouce> listePoints) {
         this.listePoints = listePoints;
     }
 }

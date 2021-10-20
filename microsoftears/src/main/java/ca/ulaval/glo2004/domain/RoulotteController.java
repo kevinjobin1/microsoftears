@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class RoulotteController {
 
         private ArrayList<Composante> listeComposantes;
-        private Profil profil;
+        private MurProfile Murprofile;
         private Hayon hayon;
         private Ressorts ressorts;
         private MurBrute murBrute;
@@ -25,12 +25,12 @@ public class RoulotteController {
         return listeComposantes;
     }
 
-    public Profil getProfil() {
-        return profil;
+    public MurProfile getProfil() {
+        return Murprofile;
     }
 
-    public void setProfil(Profil profil) {
-        this.profil = profil;
+    public void setProfil(MurProfile profil) {
+        this.Murprofile = profil;
     }
 
     public Hayon getHayon() {
