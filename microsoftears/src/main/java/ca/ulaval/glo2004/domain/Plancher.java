@@ -68,4 +68,8 @@ public class Plancher extends Composante {
     private Pouce getLongueur(){
         return this.parent.getMurBrute().getLongueur().diff(this.margeArriere).diff(this.margeAvant);
     }
+
+    public Rectangle getRectangle() {
+        return rectangle;
+    }
 }

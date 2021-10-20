@@ -25,12 +25,12 @@ public class RoulotteController {
         return listeComposantes;
     }
 
-    public MurProfile getProfil() {
+    public MurProfile getMurprofile() {
         return Murprofile;
     }
 
-    public void setProfil(MurProfile profil) {
-        this.Murprofile = profil;
+    public void setMurprofile(MurProfile murprofile) {
+        Murprofile = murprofile;
     }
 
     public Hayon getHayon() {

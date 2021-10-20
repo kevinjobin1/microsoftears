@@ -111,6 +111,7 @@ public class MurProfile extends Composante{
                 }
             }
             listesEllipses[j] = (LinkedList<PointPouce>) listesEllipses[j].subList(indiceDepart,indiceFin);
+
             if (listesEllipses[j].isEmpty()){
                 listesEllipses[j].add(listePointMur.get(j));
             }

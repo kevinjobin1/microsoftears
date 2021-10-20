@@ -3,6 +3,7 @@ package ca.ulaval.glo2004.domain;
 import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Polygone;
 import ca.ulaval.glo2004.utilitaires.Pouce;
+import ca.ulaval.glo2004.utilitaires.Rectangle;
 
 import java.awt.Color;
 import java.awt.Point;
@@ -25,7 +26,7 @@ public class Hayon extends Composante {
         this.epaisseurTraitScie = epaisseurTraitScie;
         this.rayonArcCercle = rayonArcCercle;
         this.setType(TypeComposante.HAYON);
-        this.setPolygone(new Polygone(this.getPointsContour()));
+        this.setPolygone(getPolygone());
     }
 
 
@@ -37,7 +38,7 @@ public class Hayon extends Composante {
         this.epaisseurTraitScie = new Pouce(0,1,16);
         this.rayonArcCercle = new Pouce(2,3,8);
         this.setType(TypeComposante.HAYON);
-        this.setPolygone(new Polygone(this.getPointsContour()));
+        this.setPolygone(getPolygone());
     }
 
     public Pouce getEpaisseur() {
@@ -73,7 +74,36 @@ public class Hayon extends Composante {
     }
 
     //à coder
-    private LinkedList<PointPouce> getPointsContour(){
+    @Override
+    public Polygone getPolygone(){
+        LinkedList<PointPouce> PointsProfil= parent.getMurprofile().getPolygone().getListePoints();
+        Rectangle plancher = parent.getPlancher().getRectangle();
+
+        Pouce xDepart = parent.getPoutreArriere().getCentre().getX().
+                diff(parent.getPoutreArriere().getLongueur().diviser(2)).diff(distancePoutre);
+        Pouce xFin = plancher.getCentre().getX().
+                diff(plancher.getLongueur().diviser(2)).diff(distancePlancher);
+        Pouce yMinFin = parent.getMurBrute().getCentre().getY().add(parent.getMurBrute().getLargeur().diviser(2)).diff(plancher.getHauteur());
+
+        LinkedList<PointPouce> PointsHayon = new LinkedList<PointPouce>();
+        int indiceDepart = 0;
+        int indiceFin = 0;
+        for (int i = 0; i <= PointsProfil.size(); i++){
+            if(indiceDepart == 0 && PointsProfil.get(i).getX().equals(xDepart)){
+                indiceDepart = i;
+            }
+            if(PointsProfil.get(i).getX().equals(xFin) && PointsProfil.get(i).getY().plusGrandEgal(yMinFin)){
+                indiceFin = i + 1;
+            }
+            if(indiceDepart != 0 && indiceFin == 0){
+                PointPouce point1 = PointsProfil.get(i - 1);
+                PointPouce point2 = PointsProfil.get(i + 1);
+                double pente = point2.getY().diff(point1.getY()).diviser(point2.getX().diff(point1.getX()));
+                double pentePerpendiculaire = -1/pente;
+                //à continuer ou repenser
+            }
+        }
+
         return null;
     }
 }

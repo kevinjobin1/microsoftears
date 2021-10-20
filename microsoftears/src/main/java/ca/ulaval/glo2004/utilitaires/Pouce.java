@@ -200,6 +200,12 @@ public class Pouce
         return new Pouce(entier, fraction[0], fraction[1]);
     }
 
+    //à coder
+    public double diviser(Pouce pouce){
+        return 0;
+    }
+
+
     //à tester
     public Pouce multiplier(double mesure){
         int num = (int) ((this.getNumerateur()+this.getPouces()*this.getDenominateur())*mesure);
