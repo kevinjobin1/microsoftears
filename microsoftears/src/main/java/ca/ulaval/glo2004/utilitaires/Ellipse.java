@@ -4,7 +4,7 @@ import java.util.LinkedList;
 
 public class Ellipse extends Forme {
 
-    public static int NOMBRE_POINTS = 1000;
+    public static int NOMBRE_POINTS = 1000;  //de préférence un multiple de 4
 
     public Ellipse(Pouce longueur, Pouce hauteur, PointPouce centre) {
         super(longueur, hauteur, centre);

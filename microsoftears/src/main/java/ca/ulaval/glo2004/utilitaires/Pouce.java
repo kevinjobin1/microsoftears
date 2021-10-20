@@ -227,7 +227,7 @@ public class Pouce
         return resultat;
     }
 
-    //à coder
+    //à coder mais pas encore utilisé
     public  boolean plusGrand(Pouce mesure){
         return true;
     }
@@ -236,7 +236,8 @@ public class Pouce
     public  boolean plusGrandEgal(Pouce mesure){
         return true;
     }
-    //à coder
+
+    //à coder mais pas encore utilisé
     public  boolean plusPetit(Pouce mesure){
         return true;
     }

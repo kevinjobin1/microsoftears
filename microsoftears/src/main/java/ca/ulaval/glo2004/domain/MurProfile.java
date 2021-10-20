@@ -4,6 +4,7 @@ import ca.ulaval.glo2004.utilitaires.Ellipse;
 import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Polygone;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class MurProfile extends Composante{
@@ -87,58 +88,39 @@ public class MurProfile extends Composante{
         LinkedList<PointPouce> listeEllipse3 = (LinkedList<PointPouce>) profilEllipses[3].getPolygone().getListePoints().
                 subList(Math.round(Ellipse.NOMBRE_POINTS*3/4), Math.round(Ellipse.NOMBRE_POINTS-1));
 
-        LinkedList<PointPouce> liste0 = new LinkedList<PointPouce>(); //listeEllipse0 coupés par le murBrute
-        LinkedList<PointPouce> liste1 = new LinkedList<PointPouce>(); //listeEllipse1 coupés par le murBrute
-        LinkedList<PointPouce> liste2 = new LinkedList<PointPouce>(); //listeEllipse2 coupés par le murBrute
-        LinkedList<PointPouce> liste3 = new LinkedList<PointPouce>(); //listeEllipse3 coupés par le murBrute
+        LinkedList<PointPouce>[] listesEllipses = new LinkedList[4];
+        listesEllipses[0] = listeEllipse0;
+        listesEllipses[1] = listeEllipse1;
+        listesEllipses[2] = listeEllipse2;
+        listesEllipses[3] = listeEllipse3;
 
-        for(int i = 0; i < listeEllipse0.size(); i++) {
-            PointPouce point = listeEllipse0.get(i);
-            if (point.getX().plusPetitEgal(listePointMur.get(0).getX())
-            && point.getY().plusGrandEgal(listePointMur.get(0).getY())) {
-                liste0.add(point);
+        LinkedList<PointPouce> listeRetour;
+
+        int indiceDepart;
+        int indiceFin;
+        for (int j = 0; j < listesEllipses.length; j++){
+            indiceDepart = 0;
+            indiceFin = 0;
+            for (int i = 0; i < listeEllipse0.size(); i++) {
+                PointPouce point = listeEllipse0.get(i);
+                if (point.getX().equals(listePointMur.get(j).getX())) {
+                    indiceDepart = i;
+                }
+                if (i >= indiceDepart && point.getY().equals(listePointMur.get(j).getY())) {
+                    indiceFin = i + 1;
+                }
+            }
+            listesEllipses[j] = (LinkedList<PointPouce>) listesEllipses[j].subList(indiceDepart,indiceFin);
+            if (listesEllipses[j].isEmpty()){
+                listesEllipses[j].add(listePointMur.get(j));
             }
         }
 
-        for(int i = 0; i < listeEllipse1.size(); i++) {
-            PointPouce point = listeEllipse1.get(i);
-            if (point.getX().plusGrandEgal(listePointMur.get(1).getX())
-                    && point.getY().plusGrandEgal(listePointMur.get(1).getY())) {
-                liste1.add(point);
-            }
-        }
+        listeRetour = listesEllipses[0];
+        listeRetour.addAll(listesEllipses[1]);
+        listeRetour.addAll(listesEllipses[2]);
+        listeRetour.addAll(listesEllipses[3]);
 
-        for(int i = 0; i < listeEllipse2.size(); i++) {
-            PointPouce point = listeEllipse2.get(i);
-            if (point.getX().plusGrandEgal(listePointMur.get(2).getX())
-                    && point.getY().plusPetitEgal(listePointMur.get(2).getY())) {
-                liste2.add(point);
-            }
-        }
-
-        for(int i = 0; i < listeEllipse3.size(); i++) {
-            PointPouce point = listeEllipse3.get(i);
-            if (point.getX().plusPetitEgal(listePointMur.get(3).getX())
-                    && point.getY().plusPetitEgal(listePointMur.get(3).getY())) {
-                liste3.add(point);
-            }
-        }
-        if(liste0.isEmpty())
-            liste0.add(listePointMur.get(0));
-
-        if(liste1.isEmpty())
-            liste1.add(listePointMur.get(1));
-
-        if(liste2.isEmpty())
-            liste2.add(listePointMur.get(2));
-
-        if(liste3.isEmpty())
-            liste3.add(listePointMur.get(3));
-
-        liste0.addAll(liste1);
-        liste0.addAll(liste2);
-        liste0.addAll(liste3);
-
-        return liste0;
+        return listeRetour;
     }
 }
