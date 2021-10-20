@@ -31,6 +31,8 @@ public class MurProfile extends Composante{
         this.profilEllipses[2] = new ProfilEllipse(parent);
         this.profilEllipses[3] = new ProfilEllipse(parent);
         this.profilBezier = new ProfilBezier(parent);
+        this.setType(TypeComposante.MUR_PROFILE);
+        this.setPolygone(getPolygone());
     }
 
     public ProfilEllipse[] getProfilEllipses() {
@@ -49,41 +51,73 @@ public class MurProfile extends Composante{
         this.mode = mode;
     }
 
-    //à tester
     @Override
     public Polygone getPolygone(){
-        LinkedList<PointPouce> listePointMur = parent.getMurBrute().getPolygone().getListePoints();
-        LinkedList<PointPouce> liste0 = new LinkedList<PointPouce>(); //liste de points de l'éllipse0 coupés par le murBrute
-        LinkedList<PointPouce> liste1 = new LinkedList<PointPouce>(); //liste de points de l'éllipse1 coupés par le murBrute
-        LinkedList<PointPouce> liste2 = new LinkedList<PointPouce>(); //liste de points de l'éllipse2 coupés par le murBrute
-        LinkedList<PointPouce> liste3 = new LinkedList<PointPouce>(); //liste de points de l'éllipse3 coupés par le murBrute
+        Polygone retour;
+        if(mode){
+            retour = new Polygone(listePointsModeEllipse());
+        } else {
+            retour = new Polygone(listePointsModeBezier());
+        }
+        return retour;
+    }
 
-        for(int i = 0; i < profilEllipses[0].getPolygone().getListePoints().size(); i++) {
-            PointPouce point = profilEllipses[0].getPolygone().getListePoints().get(i);
+    //à coder
+    private LinkedList<PointPouce> listePointsModeBezier() {
+        return null;
+    }
+
+    //à tester
+    private LinkedList<PointPouce> listePointsModeEllipse(){
+        LinkedList<PointPouce> listePointMur = parent.getMurBrute().getPolygone().getListePoints();
+
+        //cadran en haut à droite de l'éllipse0
+        LinkedList<PointPouce> listeEllipse0 = (LinkedList<PointPouce>) profilEllipses[0].getPolygone().getListePoints().
+                subList(0, Math.round(Ellipse.NOMBRE_POINTS/4-1));
+
+        //cadran en haut à gauche de l'éllipse1
+        LinkedList<PointPouce> listeEllipse1 = (LinkedList<PointPouce>) profilEllipses[1].getPolygone().getListePoints().
+                subList(Math.round(Ellipse.NOMBRE_POINTS/4), Math.round(Ellipse.NOMBRE_POINTS/2-1));
+
+        //cadran en bas à gauche de l'éllipse2
+        LinkedList<PointPouce> listeEllipse2 = (LinkedList<PointPouce>) profilEllipses[2].getPolygone().getListePoints().
+                subList(Math.round(Ellipse.NOMBRE_POINTS/2), Math.round(Ellipse.NOMBRE_POINTS*3/4-1));
+
+        //cadran en bas à droite de l'éllipse3
+        LinkedList<PointPouce> listeEllipse3 = (LinkedList<PointPouce>) profilEllipses[3].getPolygone().getListePoints().
+                subList(Math.round(Ellipse.NOMBRE_POINTS*3/4), Math.round(Ellipse.NOMBRE_POINTS-1));
+
+        LinkedList<PointPouce> liste0 = new LinkedList<PointPouce>(); //listeEllipse0 coupés par le murBrute
+        LinkedList<PointPouce> liste1 = new LinkedList<PointPouce>(); //listeEllipse1 coupés par le murBrute
+        LinkedList<PointPouce> liste2 = new LinkedList<PointPouce>(); //listeEllipse2 coupés par le murBrute
+        LinkedList<PointPouce> liste3 = new LinkedList<PointPouce>(); //listeEllipse3 coupés par le murBrute
+
+        for(int i = 0; i < listeEllipse0.size(); i++) {
+            PointPouce point = listeEllipse0.get(i);
             if (point.getX().plusPetitEgal(listePointMur.get(0).getX())
             && point.getY().plusGrandEgal(listePointMur.get(0).getY())) {
                 liste0.add(point);
             }
         }
 
-        for(int i = 0; i < profilEllipses[1].getPolygone().getListePoints().size(); i++) {
-            PointPouce point = profilEllipses[1].getPolygone().getListePoints().get(i);
+        for(int i = 0; i < listeEllipse1.size(); i++) {
+            PointPouce point = listeEllipse1.get(i);
             if (point.getX().plusGrandEgal(listePointMur.get(1).getX())
                     && point.getY().plusGrandEgal(listePointMur.get(1).getY())) {
                 liste1.add(point);
             }
         }
 
-        for(int i = 0; i < profilEllipses[2].getPolygone().getListePoints().size(); i++) {
-            PointPouce point = profilEllipses[2].getPolygone().getListePoints().get(i);
+        for(int i = 0; i < listeEllipse2.size(); i++) {
+            PointPouce point = listeEllipse2.get(i);
             if (point.getX().plusGrandEgal(listePointMur.get(2).getX())
                     && point.getY().plusPetitEgal(listePointMur.get(2).getY())) {
                 liste2.add(point);
             }
         }
 
-        for(int i = 0; i < profilEllipses[3].getPolygone().getListePoints().size(); i++) {
-            PointPouce point = profilEllipses[3].getPolygone().getListePoints().get(i);
+        for(int i = 0; i < listeEllipse3.size(); i++) {
+            PointPouce point = listeEllipse3.get(i);
             if (point.getX().plusPetitEgal(listePointMur.get(3).getX())
                     && point.getY().plusPetitEgal(listePointMur.get(3).getY())) {
                 liste3.add(point);
@@ -105,6 +139,6 @@ public class MurProfile extends Composante{
         liste0.addAll(liste2);
         liste0.addAll(liste3);
 
-        return new Polygone(liste0);
+        return liste0;
     }
 }

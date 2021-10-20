@@ -5,6 +5,7 @@ import ca.ulaval.glo2004.utilitaires.Polygone;
 
 import java.util.LinkedList;
 
+//à repenser peut-être (ajout d'une classe pointBezier?)
 public class ProfilBezier extends Composante{
 
     private LinkedList<PointPouce> pointsBezier;
