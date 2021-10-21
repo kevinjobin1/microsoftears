@@ -1,9 +1,6 @@
 package ca.ulaval.glo2004.domain;
 
-import ca.ulaval.glo2004.utilitaires.PointPouce;
-import ca.ulaval.glo2004.utilitaires.Polygone;
-import ca.ulaval.glo2004.utilitaires.Pouce;
-import ca.ulaval.glo2004.utilitaires.Rectangle;
+import ca.ulaval.glo2004.utilitaires.*;
 
 import java.awt.Color;
 
@@ -75,13 +72,14 @@ public class Hayon extends Composante {
     }
 
     //à tester
+    //marche sûrement pas mais très près d'une version fonctionnelle
     @Override
     public Polygone getPolygone(){
         LinkedList<PointPouce> pointsProfil= parent.getMurprofile().getPolygone().getListePoints();
         Rectangle plancher = parent.getPlancher().getRectangle();
 
         Pouce xDepart = parent.getPoutreArriere().getCentre().getX().
-                diff(parent.getPoutreArriere().getLongueur().diviser(2)).diff(distancePoutre);
+                diff(parent.getPoutreArriere().getLongueur().diviser(2)).diff(distancePoutre).diff(rayonArcCercle);
         Pouce xFin = plancher.getCentre().getX().
                 diff(plancher.getLongueur().diviser(2)).diff(distancePlancher);
         Pouce yMinFin = parent.getMurBrute().getCentre().getY().add(parent.getMurBrute().getLargeur().diviser(2)).diff(plancher.getHauteur());
@@ -91,6 +89,10 @@ public class Hayon extends Composante {
 
         int indiceDepart = 0;
         int indiceFin = 0;
+        double pente;
+        double angleNormale;
+        Pouce x;
+        Pouce y;
         for (int i = 0; i <= pointsProfil.size(); i++){
             if(indiceDepart == 0 && pointsProfil.get(i).getX().equals(xDepart)){
                 indiceDepart = i;
@@ -101,14 +103,21 @@ public class Hayon extends Composante {
             if(indiceDepart != 0 && indiceFin == 0){
                 PointPouce point1 = pointsProfil.get(i - 1);
                 PointPouce point2 = pointsProfil.get(i + 1);
-                double pente = point2.getY().diff(point1.getY()).diviser(point2.getX().diff(point1.getX()));
-                double angleNormale = Math.atan(-1/pente);
-                Pouce x = epaisseur.multiplier(Math.cos(angleNormale)).add(pointsProfil.get(i).getX());
-                Pouce y = epaisseur.multiplier(Math.sin(angleNormale)).add(pointsProfil.get(i).getY());
+                pente = point2.getY().diff(point1.getY()).diviser(point2.getX().diff(point1.getX()));
+                angleNormale = Math.atan(-1/pente);
+                x = epaisseur.add(epaisseurTraitScie).multiplier(Math.cos(angleNormale)).add(pointsProfil.get(i).getX());
+                y = epaisseur.add(epaisseurTraitScie).multiplier(Math.sin(angleNormale)).add(pointsProfil.get(i).getY());
                 pointsHayon.add(new PointPouce(x,y));
             }
         }
         Collections.reverse(pointsHayon);
+
+        PointPouce pointCercle = pointsHayon.getLast();
+        for (int i = 1; i <= Ellipse.NOMBRE_POINTS/4; i++) {
+            x = rayonArcCercle.multiplier(Math.cos(Math.toRadians(270 + 90 * i / (Ellipse.NOMBRE_POINTS / 4)))).add(pointCercle.getX());
+            y = rayonArcCercle.multiplier(Math.cos(Math.toRadians(270 + 90 * i / (Ellipse.NOMBRE_POINTS / 4)))).add(pointCercle.getY());
+            pointsHayon.add(new PointPouce(x,y));
+        }
         retour = (LinkedList<PointPouce>) pointsProfil.subList(indiceDepart,indiceFin);
         retour.addAll(pointsHayon);
         return new Polygone(retour);
