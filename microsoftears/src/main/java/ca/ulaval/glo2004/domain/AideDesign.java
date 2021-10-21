@@ -4,7 +4,7 @@ import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Pouce;
 import ca.ulaval.glo2004.utilitaires.Rectangle;
 
-import java.awt.*;
+
 
 public class AideDesign extends Composante{
 

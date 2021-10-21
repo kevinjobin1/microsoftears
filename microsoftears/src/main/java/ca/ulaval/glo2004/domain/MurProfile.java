@@ -4,7 +4,6 @@ import ca.ulaval.glo2004.utilitaires.Ellipse;
 import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Polygone;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class MurProfile extends Composante{

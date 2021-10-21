@@ -4,7 +4,6 @@ import ca.ulaval.glo2004.utilitaires.Ellipse;
 import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Pouce;
 
-import java.util.ArrayList;
 
 public class ProfilEllipse extends Composante{
     private Pouce longueur;
