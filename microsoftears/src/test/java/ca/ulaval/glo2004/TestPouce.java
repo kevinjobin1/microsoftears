@@ -19,13 +19,16 @@ public class TestPouce extends TestCase {
         protected int pouces, numerateur, denominateur;
         protected Pouce testPouce1;
         protected Pouce testPouce2;
+        protected Pouce testPouce3;
         protected Pouce resultatAdd;
         protected Pouce resultatDiff;
+
 
         // On assigne les valeurs qu'on veut tester plusieurs fois
         protected void setUp(){
             this.testPouce1 = new Pouce(3,1,2);
             this.testPouce2 = new Pouce(4,2,3);
+            this.testPouce3 = new Pouce(1,3,4);
             this.resultatAdd = new Pouce(8,1,6);
             this.resultatDiff = new Pouce(1, 1, 6);
         }
@@ -53,6 +56,18 @@ public class TestPouce extends TestCase {
 
     }
 
+    @Test
+    // test methode multiplier dans Pouce
+    public void testMultiplierPouce(){
+        assertThat(testPouce1.multiplier(2).equals(new Pouce(7,0,1))).isTrue();
+        assertThat(testPouce2.multiplier(-3).equals(new Pouce(-14,0,1))).isTrue();
+    }
+    @Test
+    public void testDiviserPouce(){
+        assertThat(testPouce1.diviser(2).equals(new Pouce(1,3,4))).isTrue();
+        assertThat(testPouce2.diviser(-2).equals(new Pouce(-2,1,-3))).isTrue();
+        //assertThat(testPouce1.diviser(testPouce3) == 2).isTrue();
+    }
         @Test
         // test methode additionner dans Pouce
         public void testAddPouce(){

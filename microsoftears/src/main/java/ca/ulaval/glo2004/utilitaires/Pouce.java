@@ -7,6 +7,7 @@ public class Pouce
     private int denominateur;
     private int milimetres;
     private final double MM_PAR_POUCE = 25.4;
+    private static final int PRECISION_POUCE = 64;
 
     /**
      Ce constructeur acceptes une mesure en pouce qui sont attribués aux champs pouces,
@@ -29,13 +30,7 @@ public class Pouce
             this.milimetres = (int) ((int) MM_PAR_POUCE * toDouble());
             simplifier();
         }
-
-        else if (numerateur < 0 || denominateur < 0 || pouces < 0) {
-            throw new IllegalArgumentException("La fraction est négative.");
-        }
-
         else {
-
             this.pouces = pouces;
             this.numerateur = numerateur;
             this.denominateur = denominateur;
@@ -189,12 +184,11 @@ public class Pouce
         return new Pouce(poucesEntier, num, denom);
     }
 
-    //à tester
     public Pouce diviser(double mesure){
         int num = this.getPouces()*this.getDenominateur()+this.getNumerateur();
         int denom = (int) (this.getDenominateur()*mesure);
         int entier = (int) Math.floor(num / denom);
-        num -= (entier*this.getDenominateur());
+        num -= Math.abs(denom*entier);
         int[] fraction = this.simplifierFraction(num,denom);
 
         return new Pouce(entier, fraction[0], fraction[1]);
@@ -202,11 +196,11 @@ public class Pouce
 
     //à coder
     public double diviser(Pouce pouce){
+
         return 0;
     }
 
 
-    //à tester
     public Pouce multiplier(double mesure){
         int num = (int) ((this.getNumerateur()+this.getPouces()*this.getDenominateur())*mesure);
         int entier = (int) Math.floor(num / this.getDenominateur());
@@ -233,7 +227,7 @@ public class Pouce
         return resultat;
     }
 
-    //à coder mais pas encore utilisé
+    //à coder
     public  boolean plusGrand(Pouce mesure){
         return true;
     }
