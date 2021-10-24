@@ -71,7 +71,7 @@ public class Hayon extends Composante {
         this.epaisseurTraitScie = epaisseurTraitScie;
     }
 
-    //à tester
+    //à tester (je vais attendre de pouvoir l'afficher)
     //marche sûrement pas mais très près d'une version fonctionnelle
     @Override
     public Polygone getPolygone(){

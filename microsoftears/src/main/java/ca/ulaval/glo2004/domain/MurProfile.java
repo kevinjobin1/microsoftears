@@ -3,6 +3,7 @@ package ca.ulaval.glo2004.domain;
 import ca.ulaval.glo2004.utilitaires.Ellipse;
 import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Polygone;
+import ca.ulaval.glo2004.utilitaires.Pouce;
 
 import java.util.LinkedList;
 
@@ -26,10 +27,18 @@ public class MurProfile extends Composante{
     public MurProfile(RoulotteController parent, boolean mode) {
         super(parent);
         this.mode = mode;
-        this.profilEllipses[0] = new ProfilEllipse(parent); //ellipse en haut à droite
-        this.profilEllipses[1] = new ProfilEllipse(parent);
-        this.profilEllipses[2] = new ProfilEllipse(parent);
-        this.profilEllipses[3] = new ProfilEllipse(parent);
+        this.profilEllipses[0] = new ProfilEllipse(parent, new Pouce(5,0,1), new Pouce(5,0,1),
+                parent.getMurBrute().getPolygone().getListePoints().get(0)); //ellipse en haut à droite
+
+        this.profilEllipses[1] = new ProfilEllipse(parent, new Pouce(5,0,1), new Pouce(5,0,1),
+                parent.getMurBrute().getPolygone().getListePoints().get(1)); //ellipse en haut à gauche
+
+        this.profilEllipses[2] = new ProfilEllipse(parent, new Pouce(5,0,1), new Pouce(5,0,1),
+                parent.getMurBrute().getPolygone().getListePoints().get(2)); //ellipse en bas à gauche
+
+        this.profilEllipses[3] = new ProfilEllipse(parent, new Pouce(5,0,1), new Pouce(5,0,1),
+                parent.getMurBrute().getPolygone().getListePoints().get(3)); //ellipse en bas à droite
+
         this.profilBezier = new ProfilBezier(parent);
         this.setType(TypeComposante.MUR_PROFILE);
         this.setPolygone(getPolygone());
@@ -67,7 +76,7 @@ public class MurProfile extends Composante{
         return null;
     }
 
-    //à tester
+    //à tester (je vais attendre de pouvoir l'afficher)
     private LinkedList<PointPouce> listePointsModeEllipse(){
         LinkedList<PointPouce> listePointMur = parent.getMurBrute().getPolygone().getListePoints();
 

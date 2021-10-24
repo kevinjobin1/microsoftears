@@ -11,7 +11,6 @@ public class Ellipse extends Forme {
     }
 
     @Override
-    //à tester
     public Polygone getPolygone() {
 
         LinkedList<PointPouce> listePoints = new LinkedList<>();

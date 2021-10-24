@@ -21,7 +21,7 @@ public class ProfilEllipse extends Composante{
         this.setType(TypeComposante.PROFIL_ELLIPSE);
     }
 
-    //à compléter
+    //à compléter ou enlever
     public ProfilEllipse(RoulotteController parent) {
         super(parent);
         //this.longueur = ;

@@ -6,7 +6,7 @@ import java.awt.*;
 
 public abstract class Composante {
 
-    public RoulotteController parent;
+    protected RoulotteController parent;
     private TypeComposante type;
     private Polygone polygone;
     private Color couleur;
