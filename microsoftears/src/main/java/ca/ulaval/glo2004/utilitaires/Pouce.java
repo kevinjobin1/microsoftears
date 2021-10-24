@@ -130,7 +130,7 @@ public class Pouce
 
     public String toString()
     {
-        return this.getNumerateur() != 0 ? getPouces() + "-" + getNumerateur() + "/" +  getDenominateur() + "\"" : getPouces() + "\"";
+        return this.getNumerateur() != 0 ? getPouces() + " " + getNumerateur() + "/" +  getDenominateur() + "\"" : getPouces() + "\"";
     }
 
     /**
@@ -185,12 +185,10 @@ public class Pouce
     }
 
     public Pouce diviser(double mesure){
-        int num = this.getPouces()*this.getDenominateur()+this.getNumerateur();
-        int denom = (int) (this.getDenominateur()*mesure);
-        int entier = (int) Math.floor(num / denom);
-        num -= Math.abs(denom*entier);
-        int[] fraction = this.simplifierFraction(num,denom);
-
+        double num = ((double)numerateur/denominateur + pouces) * PRECISION_POUCE/mesure;
+        int entier = (int) (num / PRECISION_POUCE);
+        num -= PRECISION_POUCE*entier;
+        int[] fraction = this.simplifierFraction((int)Math.round(num),PRECISION_POUCE);
         return new Pouce(entier, fraction[0], fraction[1]);
     }
 
@@ -202,10 +200,10 @@ public class Pouce
 
 
     public Pouce multiplier(double mesure){
-        int num = (int) ((this.getNumerateur()+this.getPouces()*this.getDenominateur())*mesure);
-        int entier = (int) Math.floor(num / this.getDenominateur());
-        num -= (entier*this.getDenominateur());
-        int[] fraction = this.simplifierFraction(num, this.getDenominateur());
+            double num = ((double)numerateur/denominateur + pouces) * PRECISION_POUCE * mesure;
+            int entier = (int) (num / PRECISION_POUCE);
+            num -= entier * PRECISION_POUCE;
+            int[] fraction = this.simplifierFraction((int) Math.round(num), PRECISION_POUCE);
         return new Pouce(entier, fraction[0], fraction[1]);
     }
 
@@ -227,7 +225,7 @@ public class Pouce
         return resultat;
     }
 
-    //à coder
+    //à coder mais pas encore utilisé
     public  boolean plusGrand(Pouce mesure){
         return true;
     }
@@ -242,7 +240,7 @@ public class Pouce
         return true;
     }
 
-    //à coder
+    //à coder mais pas encore utilisé
     public  boolean plusPetitEgal(Pouce mesure){
         return true;
     }

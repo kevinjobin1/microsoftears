@@ -61,11 +61,13 @@ public class TestPouce extends TestCase {
     public void testMultiplierPouce(){
         assertThat(testPouce1.multiplier(2).equals(new Pouce(7,0,1))).isTrue();
         assertThat(testPouce2.multiplier(-3).equals(new Pouce(-14,0,1))).isTrue();
+        assertThat(testPouce2.multiplier(1.01).equals(new Pouce(4,23,32))).isTrue();
+        assertThat(testPouce2.multiplier(0.9).equals(new Pouce(4,13,64))).isTrue();
     }
     @Test
     public void testDiviserPouce(){
         assertThat(testPouce1.diviser(2).equals(new Pouce(1,3,4))).isTrue();
-        assertThat(testPouce2.diviser(-2).equals(new Pouce(-2,1,-3))).isTrue();
+        assertThat(testPouce2.diviser(-2).equals(new Pouce(-2,-21,64))).isTrue();
         //assertThat(testPouce1.diviser(testPouce3) == 2).isTrue();
     }
         @Test

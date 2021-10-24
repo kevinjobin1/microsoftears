@@ -15,6 +15,11 @@ public class PointPouce {
         y = new Pouce(50);
     }
 
+    @Override
+    public String toString() {
+        return "PointPouce[x=" + x.toString() + ", y=" + y.toString() + "]";
+    }
+
     public Pouce getX() {
         return x;
     }
