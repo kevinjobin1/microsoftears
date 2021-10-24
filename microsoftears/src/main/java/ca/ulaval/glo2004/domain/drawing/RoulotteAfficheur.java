@@ -7,6 +7,24 @@ import ca.ulaval.glo2004.domain.RoulotteController;
 import ca.ulaval.glo2004.domain.Composante;
 
 public class RoulotteAfficheur {
+
+    RoulotteController roulotte;
+
+    //à coder
+    public void afficher(Graphics g){
+    }
+
+    //à coder
+    private void afficherPolygone(Graphics g){
+    }
+
+    //à coder
+    private void afficherRessort(Graphics g){
+    }
+
+    //à coder
+    private void afficherBezier(Graphics g){
+    }
 /*
     private final RoulotteController controller;
     private Dimension initialDimension;
