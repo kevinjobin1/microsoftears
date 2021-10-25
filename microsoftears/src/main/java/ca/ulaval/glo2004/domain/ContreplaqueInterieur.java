@@ -5,7 +5,7 @@ import ca.ulaval.glo2004.utilitaires.Pouce;
 public class ContreplaqueInterieur extends Composante{
     private Pouce epaisseur;
 
-    //à compléter
+    //todo
     public ContreplaqueInterieur(RoulotteController parent, Pouce epaisseur) {
         super(parent);
         this.epaisseur = epaisseur;

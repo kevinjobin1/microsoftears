@@ -32,7 +32,7 @@ public class Toit extends Composante{
     }
 
     @Override
-    //à coder
+    //todo: semblable à hayon (Lucas peut le faire)
     public Polygone getPolygone(){
         return null;
     }

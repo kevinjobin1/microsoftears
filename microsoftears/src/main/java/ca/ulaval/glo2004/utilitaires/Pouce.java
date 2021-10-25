@@ -192,9 +192,8 @@ public class Pouce
         return new Pouce(entier, fraction[0], fraction[1]);
     }
 
-    //à coder
+    //todo
     public double diviser(Pouce pouce){
-
         return 0;
     }
 
@@ -230,7 +229,7 @@ public class Pouce
         return true;
     }
 
-    //à coder
+    //todo
     public  boolean plusGrandEgal(Pouce mesure){
         return true;
     }
@@ -300,9 +299,8 @@ public class Pouce
         double num = Math.pow(10, nbDecimales) * reste;
 
         // on arrondit au 1/64" près
-        int precisionPouce = 64;
-        int numArrondi = (int) Math.round((num * precisionPouce) / denom);
+        int numArrondi = (int) Math.round((num * PRECISION_POUCE) / denom);
 
-        return new int[]{entier, numArrondi, precisionPouce};
+        return new int[]{entier, numArrondi, PRECISION_POUCE};
     }
 }

@@ -20,7 +20,7 @@ public class PoutreArriere extends Composante{
         this.setPolygone(rectangle.getPolygone());
     }
     
-    //à compléter
+    //todo
     public PoutreArriere(RoulotteController parent) {
         super(parent);
         this.longueur = new Pouce(2,0,1);

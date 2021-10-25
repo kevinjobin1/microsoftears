@@ -23,7 +23,7 @@ public class MurProfile extends Composante{
      */
     private boolean mode;
 
-    //à compléter
+    //todo
     public MurProfile(RoulotteController parent, boolean mode) {
         super(parent);
         this.mode = mode;
@@ -71,7 +71,7 @@ public class MurProfile extends Composante{
         return retour;
     }
 
-    //à coder
+    //todo
     private LinkedList<PointPouce> listePointsModeBezier() {
         return null;
     }

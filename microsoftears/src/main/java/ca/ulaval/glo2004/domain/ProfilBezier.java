@@ -17,7 +17,7 @@ public class ProfilBezier extends Composante{
         this.setPolygone(new Polygone(this.pointsBezier));
     }
 
-    //à compléter
+    //todo
     public ProfilBezier(RoulotteController parent) {
         super(parent);
         //this.pointsBezier = ;
