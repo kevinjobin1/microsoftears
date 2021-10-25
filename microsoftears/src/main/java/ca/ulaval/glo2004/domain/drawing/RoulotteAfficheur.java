@@ -10,19 +10,22 @@ public class RoulotteAfficheur {
 
     RoulotteController roulotte;
 
-    //todo
+    //todo: tout afficher
     public void afficher(Graphics g){
+        afficherPolygone(g);
+        afficherRessort(g);
+        afficherBezier(g);
     }
 
-    //todo
+    //todo: lier les points de la liste du polygone par une ligne
     private void afficherPolygone(Graphics g){
     }
 
-    //todo
+    //todo: représenter les points des 2 ressorts par des petits cercles
     private void afficherRessort(Graphics g){
     }
 
-    //todo
+    //todo: représenter les points par des petits cercles et lier les points par une ligne
     private void afficherBezier(Graphics g){
     }
 
