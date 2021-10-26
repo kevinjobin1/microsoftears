@@ -1,10 +1,13 @@
 package ca.ulaval.glo2004.gui;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
+
 
 public class BarreOnglet extends JTabbedPane {
     public FenetrePrincipale parent;
+
 
     public BarreOnglet(FenetrePrincipale parent)
     {
@@ -30,10 +33,30 @@ public class BarreOnglet extends JTabbedPane {
     }
 
     private static JPanel creerTabPanel(String text) {
+        Border whiteLine = BorderFactory.createLineBorder(Color.white);
+
+        //A border that puts 10 extra pixels at the sides and
+        //bottom of each pane.
+        Border panelEdge = BorderFactory.createEmptyBorder(0,10,10,10);
         JPanel panel = new JPanel();
-        panel.setLayout(new BorderLayout());
-        panel.add(new Label(text), BorderLayout.CENTER);
+        panel.setBorder(panelEdge);
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+        //panel.add(new Label(text), BorderLayout.CENTER);
+        addBorder(whiteLine, text, panel);
         return panel;
+    }
+
+    static void addBorder(Border border, String description, Container container){
+        JPanel contour = new JPanel(false);
+        JLabel label = new JLabel(description, JLabel.CENTER);
+        contour.setLayout(new GridLayout(1, 1));
+        contour.add(label);
+        contour.setBorder(border);
+
+        container.add(Box.createRigidArea(new Dimension(0,10)));
+        container.add(contour);
+
     }
 
 }
