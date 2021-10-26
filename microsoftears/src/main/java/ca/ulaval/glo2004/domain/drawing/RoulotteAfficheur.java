@@ -1,6 +1,7 @@
 package ca.ulaval.glo2004.domain.drawing;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 import ca.ulaval.glo2004.domain.RoulotteController;
@@ -33,11 +34,11 @@ public class RoulotteAfficheur
     //à coder
     private void afficherPolygones(Graphics g)
     {
-        List<Polygone> polygones = roulotte.getPolygoneList();
+        ArrayList<Composante> composantes = roulotte.getListeComposantes();
         Graphics2D g2d = (Graphics2D) g;
-        for(Polygone polygone: polygones)
+        for(Composante composante: composantes)
         {
-            g2d.draw(polygone);
+            g2d.draw(composante);
         }
 
     }
