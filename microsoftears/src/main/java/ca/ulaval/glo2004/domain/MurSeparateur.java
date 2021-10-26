@@ -22,8 +22,7 @@ public class MurSeparateur extends Composante{
     }
 
     //todo
-    public MurSeparateur(RoulotteController parent) {
-        super(parent);
+    public MurSeparateur(RoulotteController parent) {super(parent);
     }
 
     public Pouce getEpaisseur() {
