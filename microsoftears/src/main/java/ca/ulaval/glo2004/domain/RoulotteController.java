@@ -1,7 +1,10 @@
 package ca.ulaval.glo2004.domain;
 
+import ca.ulaval.glo2004.utilitaires.Polygone;
+
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class RoulotteController {
 
@@ -106,4 +109,8 @@ public class RoulotteController {
     }
 
     public void ajouterComposante(TypeComposante composanteChoisie, Point mousePoint) {}
+
+    public List<Polygone> getPolygoneList() {;
+        return null;
+    }
 }
