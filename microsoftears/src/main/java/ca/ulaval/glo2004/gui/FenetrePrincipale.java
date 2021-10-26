@@ -58,7 +58,7 @@ public class FenetrePrincipale extends JFrame {
         centerPanel = new JPanel();
         barreMenu = new BarreMenu(this);
         boutonsTopPanel = new JPanel();
-        barreOnglets = new JTabbedPane();
+        barreOnglets = new BarreOnglet(this);
         barreOutils = new BarreOutils(this);
         mainScrollPane = new JScrollPane();
         panneauAffichage = new PanneauAffichage(this);
@@ -194,12 +194,6 @@ public class FenetrePrincipale extends JFrame {
         
 
         //======== barreOnglets ========
-
-        barreOnglets.setPreferredSize(new Dimension(300, 900));
-        barreOnglets.addTab("Hayon", makeTabPanel("Informations du hayon..."));
-        barreOnglets.addTab("Plancher", makeTabPanel("Informations du plancher..."));
-        barreOnglets.addTab("Mur Int.", makeTabPanel("Informations du mur intérieur..."));
-        barreOnglets.addTab("Mur Ext.", makeTabPanel("Informations du mur extérieur..."));
 
         mainPanel.add(barreOnglets, BorderLayout.EAST);
 
@@ -355,13 +349,6 @@ public class FenetrePrincipale extends JFrame {
 
     public void setAction(TypeAction newAction) {
         this.actionChoisie = newAction;
-    }
-
-    private static JPanel makeTabPanel(String text) {
-        JPanel panel = new JPanel();
-        panel.setLayout(new BorderLayout());
-        panel.add(new Label(text), BorderLayout.CENTER);
-        return panel;
     }
 
 }
