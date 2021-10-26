@@ -3,7 +3,7 @@ package ca.ulaval.glo2004.utilitaires;
 import java.awt.*;
 import java.util.LinkedList;
 
-public class Polygone {
+public class Polygone extends Polygon {
 
     private LinkedList<PointPouce> listePoints;
 

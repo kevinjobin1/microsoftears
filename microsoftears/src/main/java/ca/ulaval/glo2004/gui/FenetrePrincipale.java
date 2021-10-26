@@ -30,7 +30,7 @@ public class FenetrePrincipale extends JFrame {
                      exportButton;
     private JTabbedPane barreOnglets;
     private BarreOutils barreOutils;
-    private JScrollPane mainScrollPane;
+    public JScrollPane mainScrollPane;
     private PanneauAffichage panneauAffichage;
     private JLabel positionSouris;
 
@@ -333,7 +333,7 @@ public class FenetrePrincipale extends JFrame {
     }//GEN-LAST:event_quitMenuItemActionPerformed
 
     private void drawingPanelMousePressed(MouseEvent e) {//GEN-FIRST:event_drawingPanelMousePressed
-        Point mousePoint = panneauAffichage.getPosition(e.getPoint());
+        Point mousePoint = controller.getPosition(e.getPoint());
         TypeComposante composanteChoisie = this.composanteChoisie;
         this.controller.ajouterComposante(composanteChoisie,mousePoint);
         panneauAffichage.repaint();
@@ -348,9 +348,8 @@ public class FenetrePrincipale extends JFrame {
 
         int wheelRotation = e.getWheelRotation();
         Point mousePoint = new Point(e.getX(),e.getY());
-
-        panneauAffichage.setScale(wheelRotation);
-        panneauAffichage.setCenter(mousePoint);
+        controller.setScale(wheelRotation, mousePoint);
+        controller.setCenter(mousePoint);
         panneauAffichage.repaint();
     }//GEN-LAST:event_drawingPanelMouseWheelMoved
 

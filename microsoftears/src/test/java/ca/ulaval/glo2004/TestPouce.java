@@ -6,7 +6,6 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
 
 import static com.google.common.truth.Truth.assertThat;
 
@@ -127,7 +126,6 @@ public class TestPouce extends TestCase {
         print("Mesure en pouce: " + resultat + "(" + resultat.toDouble() + "\")");
         print("Mesure en mm: " + resultat.getMilimetres());
     }
-
 
     public static void print(String string){
             System.out.println(string);
