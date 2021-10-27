@@ -30,7 +30,7 @@ public class FenetrePrincipale extends JFrame {
                      exportButton;
     private JTabbedPane barreOnglets;
     private BarreOutils barreOutils;
-    private JScrollPane mainScrollPane;
+    public JScrollPane mainScrollPane;
     private PanneauAffichage panneauAffichage;
     private JLabel positionSouris;
 
@@ -58,7 +58,7 @@ public class FenetrePrincipale extends JFrame {
         centerPanel = new JPanel();
         barreMenu = new BarreMenu(this);
         boutonsTopPanel = new JPanel();
-        barreOnglets = new JTabbedPane();
+        barreOnglets = new BarreOnglet(this);
         barreOutils = new BarreOutils(this);
         mainScrollPane = new JScrollPane();
         panneauAffichage = new PanneauAffichage(this);
@@ -195,12 +195,6 @@ public class FenetrePrincipale extends JFrame {
 
         //======== barreOnglets ========
 
-        barreOnglets.setPreferredSize(new Dimension(300, 900));
-        barreOnglets.addTab("Hayon", makeTabPanel("Informations du hayon..."));
-        barreOnglets.addTab("Plancher", makeTabPanel("Informations du plancher..."));
-        barreOnglets.addTab("Mur Int.", makeTabPanel("Informations du mur intérieur..."));
-        barreOnglets.addTab("Mur Ext.", makeTabPanel("Informations du mur extérieur..."));
-
         mainPanel.add(barreOnglets, BorderLayout.EAST);
 
         //======== barreOutils ========
@@ -333,7 +327,7 @@ public class FenetrePrincipale extends JFrame {
     }//GEN-LAST:event_quitMenuItemActionPerformed
 
     private void drawingPanelMousePressed(MouseEvent e) {//GEN-FIRST:event_drawingPanelMousePressed
-        Point mousePoint = panneauAffichage.getPosition(e.getPoint());
+        Point mousePoint = controller.getPosition(e.getPoint());
         TypeComposante composanteChoisie = this.composanteChoisie;
         this.controller.ajouterComposante(composanteChoisie,mousePoint);
         panneauAffichage.repaint();
@@ -348,21 +342,13 @@ public class FenetrePrincipale extends JFrame {
 
         int wheelRotation = e.getWheelRotation();
         Point mousePoint = new Point(e.getX(),e.getY());
-
-        panneauAffichage.setScale(wheelRotation);
-        panneauAffichage.setCenter(mousePoint);
+        controller.setScale(wheelRotation, mousePoint);
+        controller.setCenter(mousePoint);
         panneauAffichage.repaint();
     }//GEN-LAST:event_drawingPanelMouseWheelMoved
 
     public void setAction(TypeAction newAction) {
         this.actionChoisie = newAction;
-    }
-
-    private static JPanel makeTabPanel(String text) {
-        JPanel panel = new JPanel();
-        panel.setLayout(new BorderLayout());
-        panel.add(new Label(text), BorderLayout.CENTER);
-        return panel;
     }
 
 }

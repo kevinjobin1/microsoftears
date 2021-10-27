@@ -3,8 +3,9 @@ package ca.ulaval.glo2004.domain;
 import ca.ulaval.glo2004.utilitaires.Polygone;
 
 import java.awt.*;
+import java.awt.geom.Area;
 
-public abstract class Composante {
+public abstract class Composante extends Area {
 
     protected RoulotteController parent;
     private TypeComposante type;

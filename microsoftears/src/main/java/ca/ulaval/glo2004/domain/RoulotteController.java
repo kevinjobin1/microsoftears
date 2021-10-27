@@ -17,6 +17,19 @@ public class RoulotteController {
         private ArrayList<OuvertureLaterale> listeOuverturesLaterales;
         private ArrayList<AideDesign> listeAidesDesign;
 
+        // controle de l'affichage
+        public int width = 1035;
+        public int height = 735;
+        public double scale = 1;
+        public double zoom;
+        public int origineX = 0;
+        public int origineY = 0;
+        public int offsetX = 0;
+        public int offsetY = 0;
+        public int visibleWidth;
+        public int visibleHeight;
+        public int pixelsToInchesRatio = 10;
+
 
     public RoulotteController() {
     }
@@ -106,4 +119,67 @@ public class RoulotteController {
     }
 
     public void ajouterComposante(TypeComposante composanteChoisie, Point mousePoint) {}
+
+    public void setScale(int wheelRotation, Point mousePoint){
+
+        double scaleFactor = 0.1;
+        wheelRotation = wheelRotation < 0 ? 1 : -1;
+        zoom = Math.exp(wheelRotation * scaleFactor);
+
+        offsetX = (int) -(mousePoint.getX());
+        offsetY = (int) -(mousePoint.getY());
+
+        int mouseX = (int) (mousePoint.getX());
+        int mouseY = (int) (mousePoint.getY());
+
+        origineX -= mouseX/(scale * zoom) - mouseX/scale;
+        origineY -= mouseY/(scale * zoom) - mouseY/scale;
+
+        scale = scale * zoom;
+        visibleHeight = (int) (height/scale);
+        visibleWidth = (int) (width/scale);
+
+        System.out.println(" Scale: " + scale);
+        System.out.println(" Rapport (%): " + ((1/scale) * 100) + "%");
+        System.out.println(" WheelRotation: " + wheelRotation);
+        System.out.println(" Zoom: " + zoom);
+        System.out.println(" MousePoint(X,Y): (" + mousePoint.getX() + "," + mousePoint.getY() + ")");
+        System.out.println(" Origine(X,Y): (" + origineX + "," + origineY + ")");
+        System.out.println(" Offset(X,Y): (" + offsetX + "," + offsetY + ")");
+        System.out.println(" VisibleDimension(width, height): (" + visibleWidth + "," + visibleHeight + ")");
+        System.out.println();
+
+
+
+    }
+
+    public void setCenter(Point mousePoint){
+        //TODO: à faire, zoom en fonction de la position de la souris,
+        // il faut tenir compte du déplacement du centre réel de l'objet Graphics
+        // pour l'instant le zoom/position fonctionne seulement si on reste à l'intérieur de la forme...
+
+
+    }
+
+    public Point getPosition(Point mousePoint) {
+        //TODO: à refaire, pas du tout le bon calcul
+        //int gridX = (int) ((mousePoint.getX()/scale) - (((1/scale) - 1) * (initialDimension.getWidth()/2)) - centerX);
+        //int gridY = (int) ((mousePoint.getY()/scale) - (((1/scale) - 1) * (initialDimension.getHeight()/2)) - centerY);
+
+        return new Point (0,0);
+    }
+
+    public int getPixelsToInchesRatio() {
+        return this.pixelsToInchesRatio;
+    }
+
+    public int inchesToPixel(int inches){
+        int pixels = inches * pixelsToInchesRatio;
+        return pixels;
+    }
+
+    public int pixelsToInches(int pixels){
+        int inches = pixels / this.getPixelsToInchesRatio();
+        return inches;
+    }
 }
