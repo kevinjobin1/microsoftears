@@ -76,7 +76,7 @@ public class BarreMenu extends JMenuBar
         nouveauMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.ALT_MASK));
         nouveauMenuItem.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
-            parent.nouveauProjetActionPerformed(e);
+            nouveauProjetActionPerformed(e);
         }
     });
 
@@ -84,7 +84,7 @@ public class BarreMenu extends JMenuBar
         ouvrirMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
         ouvrirMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                parent.ouvrirProjetActionPerformed(e);
+                ouvrirProjetActionPerformed(e);
             }
         });
 
@@ -95,7 +95,7 @@ public class BarreMenu extends JMenuBar
         sauvegarderMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
         sauvegarderMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                parent.sauvegarderProjetActionPerformed(e);
+                sauvegarderProjetActionPerformed(e);
             }
         });
 
@@ -105,7 +105,7 @@ public class BarreMenu extends JMenuBar
         exportMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, ActionEvent.CTRL_MASK));
         exportMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                parent.exporterProjetActionPerformed(e);
+                exporterProjetActionPerformed(e);
             }
         });
 
@@ -113,7 +113,7 @@ public class BarreMenu extends JMenuBar
         quitterMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, ActionEvent.CTRL_MASK));
         quitterMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                parent.quitterActionPerformed(e);
+                quitterMenuItemActionPerformed(e);
             }
         });
 
@@ -136,7 +136,7 @@ public class BarreMenu extends JMenuBar
         revenirMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, ActionEvent.CTRL_MASK));
         revenirMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                parent.undoActionPerformed(e);
+                undoActionPerformed(e);
             }
         });
 
@@ -144,7 +144,7 @@ public class BarreMenu extends JMenuBar
         retablirMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Y, ActionEvent.CTRL_MASK));
         retablirMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                parent.redoActionPerformed(e);
+                redoActionPerformed(e);
             }
         });
 
@@ -153,7 +153,7 @@ public class BarreMenu extends JMenuBar
         supprimerMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, ActionEvent.ALT_MASK));
         retablirMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                parent.supprimerActionPerformed(e);
+                supprimerActionPerformed(e);
             }
         });
 
@@ -169,7 +169,7 @@ public class BarreMenu extends JMenuBar
         agrandirMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_EQUALS, ActionEvent.CTRL_MASK));
         agrandirMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                parent.zoomInActionPerformed(e);
+                zoomInActionPerformed(e);
             }
         });
 
@@ -177,7 +177,7 @@ public class BarreMenu extends JMenuBar
         reduireMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_MINUS, ActionEvent.CTRL_MASK));
         reduireMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                parent.zoomOutActionPerformed(e);
+                zoomOutActionPerformed(e);
             }
         });
 
@@ -185,7 +185,7 @@ public class BarreMenu extends JMenuBar
         showHayonMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_0, ActionEvent.CTRL_MASK));
         showHayonMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                parent.showHayonActionPerformed(e);
+                showHayonActionPerformed(e);
             }
         });
 
@@ -193,7 +193,7 @@ public class BarreMenu extends JMenuBar
         showPlancherMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, ActionEvent.CTRL_MASK));
         showPlancherMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                parent.showPlancherActionPerformed(e);
+                showPlancherActionPerformed(e);
             }
         });
 
@@ -201,7 +201,7 @@ public class BarreMenu extends JMenuBar
         showMurIntMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_2, ActionEvent.CTRL_MASK));
         showMurIntMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                parent.showMurIntActionPerformed(e);
+                showMurIntActionPerformed(e);
             }
         });
 
@@ -221,28 +221,28 @@ public class BarreMenu extends JMenuBar
         optionsMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F1, ActionEvent.CTRL_MASK));
         optionsMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                parent.optionsActionPerformed(e);
+                optionsActionPerformed(e);
             }
         });
 
         JRadioButtonMenuItem selectMurInt = new JRadioButtonMenuItem("Mur Intérieur");
         //bselection.addActionListener(new ActionListener() {
         //            public void actionPerformed(ActionEvent e) {
-        //                parent.murIntActionPerformed(e);
+        //                murIntActionPerformed(e);
         //            }
         //        });
 
         JRadioButtonMenuItem selectMurExt = new JRadioButtonMenuItem("Mur Extérieur");
         //bselection.addActionListener(new ActionListener() {
         //            public void actionPerformed(ActionEvent e) {
-        //                parent.murExtActionPerformed(e);
+        //                murExtActionPerformed(e);
         //            }
         //        });
 
         JRadioButtonMenuItem selectPlancher = new JRadioButtonMenuItem("Plancher");
         //bselection.addActionListener(new ActionListener() {
         //            public void actionPerformed(ActionEvent e) {
-        //                parent.plancherActionPerformed(e);
+        //                plancherActionPerformed(e);
         //            }
         //        });
 
@@ -264,10 +264,56 @@ public class BarreMenu extends JMenuBar
         aboutMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F3, ActionEvent.CTRL_MASK));
         aboutMenuItem.addActionListener(new ActionListener() {
                        public void actionPerformed(ActionEvent e) {
-                           parent.aboutActionPerformed(e);
+                           aboutActionPerformed(e);
                        }});
         aideMenu.add(aboutMenuItem);
 
+    }
+
+    protected void nouveauProjetActionPerformed(ActionEvent e) {
+    }
+
+    protected void sauvegarderProjetActionPerformed(ActionEvent e) {
+    }
+
+    protected void ouvrirProjetActionPerformed(ActionEvent e) {
+    }
+
+    protected void exporterProjetActionPerformed(ActionEvent e) {
+    }
+
+    protected void undoActionPerformed(ActionEvent e) {
+    }
+
+    protected void redoActionPerformed(ActionEvent e) {
+    }
+
+    protected void supprimerActionPerformed(ActionEvent e) {
+    }
+
+    protected void zoomInActionPerformed(ActionEvent e) {
+    }
+
+    protected void zoomOutActionPerformed(ActionEvent e) {
+    }
+
+    protected void optionsActionPerformed(ActionEvent e) {
+    }
+
+    protected void aboutActionPerformed(ActionEvent e) {
+    }
+
+    protected void showHayonActionPerformed(ActionEvent e) {
+    }
+
+    protected void showPlancherActionPerformed(ActionEvent e) {
+    }
+
+    protected void showMurIntActionPerformed(ActionEvent e) {
+    }
+
+    private void quitterMenuItemActionPerformed(ActionEvent e) {
+        System.exit(0);
     }
 
 }

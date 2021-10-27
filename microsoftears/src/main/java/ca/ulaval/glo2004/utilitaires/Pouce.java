@@ -303,4 +303,8 @@ public class Pouce
 
         return new int[]{entier, numArrondi, PRECISION_POUCE};
     }
+
+    public int toPixel(int ratio) {
+        return (int) (this.toDouble() * ratio);
+    }
 }

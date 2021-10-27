@@ -28,7 +28,7 @@ public class BarreOnglet extends JTabbedPane {
         this.addTab("Mur Ext.",creerTabPanel("Informations du mur extérieur..."));
     }
 
-    private static void ajouterOnglet(String nomOnglet){
+    private void ajouterOnglet(){
         // TODO: automatiser l'ajout d'un onglet
     }
 

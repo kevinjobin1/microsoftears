@@ -2,7 +2,11 @@ package ca.ulaval.glo2004.gui.afficheur;
 
 import ca.ulaval.glo2004.domain.drawing.RoulotteAfficheur;
 import ca.ulaval.glo2004.gui.FenetrePrincipale;
+import ca.ulaval.glo2004.gui.FenetrePrincipale;
+import ca.ulaval.glo2004.utilitaires.PointPouce;
+
 import java.awt.*;
+import java.awt.event.*;
 import java.awt.geom.AffineTransform;
 import java.io.Serializable;
 import javax.swing.*;
@@ -10,77 +14,45 @@ import javax.swing.*;
 public class PanneauAffichage extends JPanel implements Serializable {
 
     public Dimension initialDimension;
-    private FenetrePrincipale fenetrePrincipale;
+    private FenetrePrincipale parent;
     private int width = 1035;
     private int height = 737;
     
 
-    public PanneauAffichage(FenetrePrincipale fenetrePrincipale) {
-        this.fenetrePrincipale = fenetrePrincipale;
+    public PanneauAffichage(FenetrePrincipale parent) {
+        this.parent = parent;
         setVisible(true);
         initialDimension = new Dimension(width, height);
-        this.setBackground(Color.DARK_GRAY);
+        this.setBackground(Color.WHITE);
     }
 
     @Override
     protected void paintComponent(Graphics g)
     {
-        if (fenetrePrincipale != null){
+        if (parent != null){
             super.paintComponent(g);
-            RoulotteAfficheur mainDrawer = new RoulotteAfficheur(fenetrePrincipale.controller,new Dimension(width, height));
-            mainDrawer.afficher(g);
+            RoulotteAfficheur afficheurRoulotte = new RoulotteAfficheur(parent.controller, new Dimension(width, height));
+            Graphics2D g2d = (Graphics2D) g;
+            this.setAntiAlias(g2d, true);
+            afficheurRoulotte.afficher(g2d);
 
-            /*//white background
-            g.setColor(Color.white);
-            g.fillRect(0-GRID_SIZE/2, 0-GRID_SIZE/2, GRID_SIZE, GRID_SIZE);
-            g.setColor(Color.gray);
-
-            //grid
-            if (scale >= 0.02 && scale <= 0.2){
-                g.setColor(ligneGrilleCouleur);
-                drawGrid(g, 250);
-            }
-            if (scale > 0.2 && scale <= 0.6){
-
-                g.setColor(ligneInterieurGrilleCouleur);
-                drawGrid(g, 50);
-                g.setColor(ligneGrilleCouleur);
-                drawGrid(g, 250);
-            }
-            if (scale >0.6 ){
-                g.setColor(ligneInterieurGrilleCouleur);
-                drawGrid(g, 10);
-                g.setColor(ligneInterieurGrilleCouleur);
-                drawGrid(g, 50);
-                g.setColor(ligneGrilleCouleur);
-                drawGrid(g, 250);
-            }
-            // end grid*/
-
-          /*
-            RoulotteAfficheur mainDrawer = new RoulotteAfficheur(fenetrePrincipale.controller,initialDimension);
-            mainDrawer.draw(g);*/
     }
     }
 
-    /*public void drawGrid(Graphics g, int scale){
+    public static void setAntiAlias(Graphics2D g2d, boolean isAntiAlias) {
+        RenderingHints renderHints = new RenderingHints(RenderingHints.KEY_ANTIALIASING,
+                isAntiAlias ? RenderingHints.VALUE_ANTIALIAS_ON : RenderingHints.VALUE_ANTIALIAS_OFF);
+        renderHints.put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 
-        for (int i = -GRID_SIZE/2; i <=GRID_SIZE/2; i = i+scale){
-            g.drawLine(-GRID_SIZE/2, i, GRID_SIZE/2 , i);
-        }
-
-        for (int i = -GRID_SIZE/2; i <=GRID_SIZE/2; i = i+scale){
-            g.drawLine( i, -GRID_SIZE/2, i,GRID_SIZE/2 );
-        }
-        g.setColor(Color.white);
-    }*/
+        g2d.setRenderingHints(renderHints);
+    }
 
     public FenetrePrincipale getMainWindow(){
-        return fenetrePrincipale;
+        return parent;
     }
 
-    public void setMainWindow(FenetrePrincipale fenetrePrincipale){
-        this.fenetrePrincipale = fenetrePrincipale;
+    public void setMainWindow(FenetrePrincipale parent){
+        this.parent = parent;
     }
 
     public Dimension getInitialDimension(){
@@ -91,7 +63,18 @@ public class PanneauAffichage extends JPanel implements Serializable {
         this.initialDimension = newDimension;
     }
 
+    public PointPouce getPositionReelle(Point position) {
+        return new PointPouce();
     }
+
+    public Point getPositionGrille(Point position) {
+        return new Point();
+    }
+
+    public int getRatio() {
+        return parent.controller.pixelsToInchesRatio;
+    }
+}
 
 
 
