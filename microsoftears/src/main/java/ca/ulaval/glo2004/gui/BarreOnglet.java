@@ -28,12 +28,13 @@ public class BarreOnglet extends JTabbedPane {
         this.addTab("Mur Ext.",creerTabPanel("Informations du mur extérieur..."));
     }
 
-    private static void ajouterOnglet(String nomOnglet){
+    private void ajouterOnglet(){
         // TODO: automatiser l'ajout d'un onglet
     }
 
     private static JPanel creerTabPanel(String text) {
-        Border whiteLine = BorderFactory.createLineBorder(Color.white);
+        //Border whiteLine = BorderFactory.createLineBorder(Color.white);
+        Border line = BorderFactory.createLoweredBevelBorder();
 
         //A border that puts 10 extra pixels at the sides and
         //bottom of each pane.
@@ -43,11 +44,12 @@ public class BarreOnglet extends JTabbedPane {
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
         //panel.add(new Label(text), BorderLayout.CENTER);
-        addBorder(whiteLine, text, panel);
+        addBorder(line, "test", panel);
+        addBorder(line, text, panel);
         return panel;
     }
 
-    static void addBorder(Border border, String description, Container container){
+   public static void addBorder(Border border, String description, Container container){
         JPanel contour = new JPanel(false);
         JLabel label = new JLabel(description, JLabel.CENTER);
         contour.setLayout(new GridLayout(1, 1));
@@ -56,7 +58,6 @@ public class BarreOnglet extends JTabbedPane {
 
         container.add(Box.createRigidArea(new Dimension(0,10)));
         container.add(contour);
-
     }
 
 }

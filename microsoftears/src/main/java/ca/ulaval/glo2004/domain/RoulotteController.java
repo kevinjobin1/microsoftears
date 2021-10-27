@@ -1,11 +1,15 @@
 package ca.ulaval.glo2004.domain;
 
+import ca.ulaval.glo2004.utilitaires.Pouce;
+
 import java.awt.*;
 import java.util.ArrayList;
 
 public class RoulotteController {
 
         private ArrayList<Composante> listeComposantes;
+        private ArrayList<OuvertureLaterale> listeOuverturesLaterales;
+        private ArrayList<AideDesign> listeAidesDesign;
         private MurProfile Murprofile;
         private Hayon hayon;
         private Ressorts ressorts;
@@ -14,10 +18,11 @@ public class RoulotteController {
         private Plancher plancher;
         private PoutreArriere poutreArriere;
         private Toit toit;
-        private ArrayList<OuvertureLaterale> listeOuverturesLaterales;
-        private ArrayList<AideDesign> listeAidesDesign;
+
 
         // controle de l'affichage
+        //public Pouce largeur;
+        //public Pouce hauteur;
         public int width = 1035;
         public int height = 735;
         public double scale = 1;
@@ -32,6 +37,12 @@ public class RoulotteController {
 
 
     public RoulotteController() {
+        this.listeComposantes = new ArrayList<Composante>();
+        this.listeOuverturesLaterales = new ArrayList<OuvertureLaterale>();
+        this.listeAidesDesign = new ArrayList<AideDesign>();
+        // Dimensions
+        //this.largeur = new Pouce(96,0,1);
+        //this.hauteur = new Pouce(48, 0,0);
     }
 
     public ArrayList<Composante> getListeComposantes() {
@@ -162,9 +173,7 @@ public class RoulotteController {
     }
 
     public Point getPosition(Point mousePoint) {
-        //TODO: à refaire, pas du tout le bon calcul
-        //int gridX = (int) ((mousePoint.getX()/scale) - (((1/scale) - 1) * (initialDimension.getWidth()/2)) - centerX);
-        //int gridY = (int) ((mousePoint.getY()/scale) - (((1/scale) - 1) * (initialDimension.getHeight()/2)) - centerY);
+        //TODO: à refaire, pas du tout le bon calcul, on cherche à savoir si le point est dans le plan ou non
 
         return new Point (0,0);
     }

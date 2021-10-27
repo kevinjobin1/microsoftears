@@ -8,6 +8,10 @@ public class Rectangle extends Forme{
         super(longueur, hauteur, centre);
     }
 
+    public Rectangle(Pouce longueur, Pouce hauteur) {
+        super(longueur, hauteur, new PointPouce(longueur.diviser(2), hauteur.diviser(2)));
+    }
+
     @Override
     public Polygone getPolygone() {
         LinkedList<PointPouce> listePoints = new LinkedList<>();
