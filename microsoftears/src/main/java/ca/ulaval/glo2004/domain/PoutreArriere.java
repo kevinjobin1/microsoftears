@@ -1,6 +1,7 @@
 package ca.ulaval.glo2004.domain;
 
 import ca.ulaval.glo2004.utilitaires.PointPouce;
+import ca.ulaval.glo2004.utilitaires.Polygone;
 import ca.ulaval.glo2004.utilitaires.Pouce;
 import ca.ulaval.glo2004.utilitaires.Rectangle;
 
@@ -53,6 +54,18 @@ public class PoutreArriere extends Composante{
 
     public void setCentre(PointPouce centre) {
         this.centre = centre;
+    }
+
+    private boolean estDansCourbe(){
+        return true;
+    }
+
+    //todo cas particulier que le polygone est dans la courbe
+    @Override
+    public Polygone getPolygone() {
+
+
+        return null;
     }
 }
 

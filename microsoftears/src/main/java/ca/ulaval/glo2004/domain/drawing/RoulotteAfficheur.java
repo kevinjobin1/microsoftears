@@ -9,10 +9,10 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import ca.ulaval.glo2004.domain.RoulotteController;
-import ca.ulaval.glo2004.domain.Composante;
+import ca.ulaval.glo2004.domain.*;
 import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Polygone;
+import ca.ulaval.glo2004.utilitaires.Pouce;
 
 public class RoulotteAfficheur
 {
@@ -27,9 +27,11 @@ public class RoulotteAfficheur
         this.dimension = dimension;
     }
 
-    public void afficher(Graphics g)
+    //todo rendre ça propre
+    public void afficher(Graphics2D g2d)
     {
-        Graphics2D g2d = (Graphics2D) g;
+        Hayon mur = new Hayon(roulotte);
+        roulotte.getListeComposantes().add(mur);
         afficherPlan(g2d);
         afficherPolygones(g2d);
         AffineTransform af = new AffineTransform();
@@ -46,27 +48,27 @@ public class RoulotteAfficheur
         g2d.draw(plan);
     }
 
-    //à tester
     private void afficherPolygones(Graphics2D g2d)
     {
+        g2d.setColor(Color.BLUE);
         ArrayList<Composante> composantes = roulotte.getListeComposantes();
         if (!composantes.isEmpty()) {
             LinkedList<PointPouce> polygoneList;
-            int x1, y1, x2, y2;
+            int x, y;
+            GeneralPath path = new GeneralPath();
             for (Composante composante : composantes) {
                 polygoneList = composante.getPolygone().getListePoints();
                 for (int i = 0; i < polygoneList.size(); i++){
-                    x1 = polygoneList.get(i).getX().toPixel();
-                    y1 = polygoneList.get(i).getX().toPixel();
-                    if (i+1 < polygoneList.size()) {
-                        x2 = polygoneList.get(i + 1).getX().toPixel();
-                        y2 = polygoneList.get(i + 1).getX().toPixel();
-                    } else {
-                        x2 = polygoneList.get(0).getX().toPixel();
-                        y2 = polygoneList.get(0).getX().toPixel();
+                    x = polygoneList.get(i).getX().toPixel();
+                    y = polygoneList.get(i).getY().toPixel();
+                    if(i == 0) {
+                        path.moveTo(x, y);
+                    }else{
+                        path.lineTo(x ,y);
                     }
-                    g2d.drawLine(x1,y1,x2,y2);
                 }
+                path.closePath();
+                g2d.draw(path);
             }
         }
     }

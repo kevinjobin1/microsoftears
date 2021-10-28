@@ -11,8 +11,8 @@ public class PointPouce {
     }
 
     public PointPouce() {
-        x = new Pouce(50);
-        y = new Pouce(50);
+        x = new Pouce(50,0,1);
+        y = new Pouce(50,0,1);
     }
 
     public PointPouce(int pixelX, int pixelY) {
