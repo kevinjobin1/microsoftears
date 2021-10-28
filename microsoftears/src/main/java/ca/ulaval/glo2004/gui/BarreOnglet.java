@@ -32,8 +32,8 @@ public class BarreOnglet extends JTabbedPane {
         this.addTab("Mur Ext.",creerTabPanel("Informations du mur extérieur..."));*/
 
         this.addTab("Hayon", creerTabPanel("Hayon"));
-        //this.addTab("Plancher",creerTabPanel());
-        //this.addTab("Mur Int.",creerTabPanel());
+        this.addTab("Plancher",creerTabPanel("Plancher"));
+        //this.addTab("Poutre",creerTabPanel("Poutre"));
         //this.addTab("Mur Ext.",creerTabPanel());
     }
 
@@ -64,7 +64,7 @@ public class BarreOnglet extends JTabbedPane {
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
         addBorder(line,"", panel);
-        addBorder(line,"Hayon", panel);
+        addBorder(line,composante, panel);
         return panel;
     }
 
@@ -72,15 +72,18 @@ public class BarreOnglet extends JTabbedPane {
     /**
      * Adds borders to the panels inside the tabbed pane
      * Adds borders to containers and inserts a label inside the container
-     * @param border
-     * @param container
+     * @param border creates border from border factory
+     * @param container holds a container
      */
    public static void addBorder(Border border, String composante, Container container){
 
        JPanel contour = new JPanel(false);
 
-       if (composante == "Hayon"){
+       if (composante.equals("Hayon")){
            contour = creerPanelInfoHayon();
+       }
+       if (composante.equals("Plancher")){
+           contour = creerPanelInfoPlancher();
        }
 
         //label is added to the panel and acts as the text in initialiser function
@@ -119,6 +122,35 @@ public class BarreOnglet extends JTabbedPane {
         //panel.setLayout(layout);
 
         //for loop will include all of the elements in liste
+        for (int i = 0; i < pairs; i++){
+            JLabel liste = new JLabel(labels[i], JLabel.LEFT);
+            panel.add(liste);
+            JTextField textField = new JTextField(0);
+            liste.setLabelFor(textField);
+            panel.add(textField);
+        }
+        return panel;
+    }
+
+    /**
+     * Create the information for the Plancher that will be displayed when
+     * it is selected
+     */
+    public static JPanel creerPanelInfoPlancher(){
+
+        //a list of the labels is created
+        String[] labels = {"Épaisseur : ","Marge avant : ", "Marge arrière : ",
+                "Rectangle : "};
+
+        //the length of the labels
+        int pairs = labels.length;
+        //SpringLayout layout = new SpringLayout();
+
+        //create and fill panel
+        JPanel panel = new JPanel(new GridLayout(0,2));
+        //panel.setLayout(layout);
+
+        //for loop will include all of the elements in liste
         for(int i = 0; i < pairs; i++){
             JLabel liste = new JLabel(labels[i], JLabel.LEFT);
             panel.add(liste);
@@ -127,8 +159,6 @@ public class BarreOnglet extends JTabbedPane {
             panel.add(textField);
         }
         return panel;
-
-
     }
 
 }
