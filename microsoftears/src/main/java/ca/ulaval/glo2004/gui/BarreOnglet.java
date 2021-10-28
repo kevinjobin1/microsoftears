@@ -124,10 +124,23 @@ public class BarreOnglet extends JTabbedPane {
             Integer max = 12;
             Integer step = 1;
 
+            //adding restrictions to the spinner1
+            Integer value1 = 0;
+            Integer min1 = 0;
+            Integer max1 = 12;
+            Integer step1 = 1;
+
+            //adding restrictions to the spinner2
+            Integer value2 = 0;
+            Integer min2 = 0;
+            Integer max2 = 12;
+            Integer step2 = 1;
+
+
             //creation of a spinnermodel
             SpinnerNumberModel model = new SpinnerNumberModel(value, min, max, step);
-            SpinnerNumberModel model1 = new SpinnerNumberModel(value, min, max, step);
-            SpinnerNumberModel model2 = new SpinnerNumberModel(value, min, max, step);
+            SpinnerNumberModel model1 = new SpinnerNumberModel(value1, min1, max1, step1);
+            SpinnerNumberModel model2 = new SpinnerNumberModel(value2, min2, max2, step2);
 
             //creation of spinner boxes
             JSpinner spinner = new JSpinner(model);
@@ -174,10 +187,23 @@ public class BarreOnglet extends JTabbedPane {
             Integer max = 12;
             Integer step = 1;
 
+            //adding restrictions to the spinner1
+            Integer value1 = 0;
+            Integer min1 = 0;
+            Integer max1 = 12;
+            Integer step1 = 1;
+
+            //adding restrictions to the spinner2
+            Integer value2 = 0;
+            Integer min2 = 0;
+            Integer max2 = 12;
+            Integer step2 = 1;
+
+
             //creation of a spinnermodel
             SpinnerNumberModel model = new SpinnerNumberModel(value, min, max, step);
-            SpinnerNumberModel model1 = new SpinnerNumberModel(value, min, max, step);
-            SpinnerNumberModel model2 = new SpinnerNumberModel(value, min, max, step);
+            SpinnerNumberModel model1 = new SpinnerNumberModel(value1, min1, max1, step1);
+            SpinnerNumberModel model2 = new SpinnerNumberModel(value2, min2, max2, step2);
 
             //creation of spinner boxes
             JSpinner spinner = new JSpinner(model);
@@ -211,26 +237,51 @@ public class BarreOnglet extends JTabbedPane {
         int pairs = labels.length;
 
         //create and fill panel
-        JPanel panel = new JPanel(new GridLayout(0,2));
+        JPanel panel = new JPanel(new GridLayout(0,4));
 
         //for loop will include all of the elements in liste
         for(int i = 0; i < pairs; i++){
             JLabel liste = new JLabel(labels[i], JLabel.LEFT);
             panel.add(liste);
 
-            //adding restrictions to the spinners
-            Integer value = 1;
-            Integer min = 1;
+            //adding restrictions to the spinner
+            Integer value = 0;
+            Integer min = 0;
             Integer max = 12;
             Integer step = 1;
 
+            //adding restrictions to the spinner1
+            Integer value1 = 0;
+            Integer min1 = 0;
+            Integer max1 = 12;
+            Integer step1 = 1;
+
+            //adding restrictions to the spinner2
+            Integer value2 = 0;
+            Integer min2 = 0;
+            Integer max2 = 12;
+            Integer step2 = 1;
+
+
             //creation of a spinnermodel
             SpinnerNumberModel model = new SpinnerNumberModel(value, min, max, step);
+            SpinnerNumberModel model1 = new SpinnerNumberModel(value1, min1, max1, step1);
+            SpinnerNumberModel model2 = new SpinnerNumberModel(value2, min2, max2, step2);
 
             //creation of spinner boxes
-            JSpinner spinner= new JSpinner(model);
+            JSpinner spinner = new JSpinner(model);
+            JSpinner spinner1 = new JSpinner(model1);
+            JSpinner spinner2 = new JSpinner(model2);
+
+            //set label for spinner rows
             liste.setLabelFor(spinner);
+            liste.setLabelFor(spinner1);
+            liste.setLabelFor(spinner2);
+
+            //add spinners to specific item in liste
             panel.add(spinner);
+            panel.add(spinner1);
+            panel.add(spinner2);
         }
         return panel;
     }
