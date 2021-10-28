@@ -191,4 +191,24 @@ public class RoulotteController {
         int inches = pixels / this.getPixelsToInchesRatio();
         return inches;
     }
+
+    public void zoomOut() {
+
+        double scaleFactor = 0.1;
+        zoom = Math.exp(scaleFactor);
+
+        scale = scale * zoom;
+        visibleHeight = (int) (height/scale);
+        visibleWidth = (int) (width/scale);
+    }
+
+    public void zoomIn() {
+
+        double scaleFactor = 0.1;
+        zoom = Math.exp(-scaleFactor);
+
+        scale = scale * zoom;
+        visibleHeight = (int) (height/scale);
+        visibleWidth = (int) (width/scale);
+    }
 }
