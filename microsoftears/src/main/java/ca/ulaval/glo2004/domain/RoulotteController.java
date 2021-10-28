@@ -211,4 +211,5 @@ public class RoulotteController {
         visibleHeight = (int) (height/scale);
         visibleWidth = (int) (width/scale);
     }
+
 }

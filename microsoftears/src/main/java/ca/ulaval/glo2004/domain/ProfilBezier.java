@@ -9,12 +9,14 @@ import java.util.LinkedList;
 public class ProfilBezier extends Composante{
 
     private LinkedList<PointPouce> pointsBezier;
+    private PointPouce[] pointsControle;
 
-    public ProfilBezier(RoulotteController parent, LinkedList<PointPouce> pointsBezier) {
+    public ProfilBezier(RoulotteController parent, LinkedList<PointPouce> pointsBezier, int nombrePointsControle) {
         super(parent);
         this.pointsBezier = pointsBezier;
         this.setType(TypeComposante.PROFIL_BEZIER);
         this.setPolygone(new Polygone(this.pointsBezier));
+        this.pointsControle = new PointPouce[nombrePointsControle];
     }
 
     //todo
