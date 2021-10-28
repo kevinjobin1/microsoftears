@@ -33,7 +33,7 @@ public class BarreOnglet extends JTabbedPane {
 
         this.addTab("Hayon", creerTabPanel("Hayon"));
         this.addTab("Plancher",creerTabPanel("Plancher"));
-        //this.addTab("Poutre",creerTabPanel("Poutre"));
+        this.addTab("Poutre",creerTabPanel("Poutre"));
         //this.addTab("Mur Ext.",creerTabPanel());
     }
 
@@ -84,6 +84,9 @@ public class BarreOnglet extends JTabbedPane {
        }
        if (composante.equals("Plancher")){
            contour = creerPanelInfoPlancher();
+       }
+       if (composante.equals("Poutre")){
+           contour = creerPanelInfoPoutre();
        }
 
         //label is added to the panel and acts as the text in initialiser function
@@ -140,6 +143,35 @@ public class BarreOnglet extends JTabbedPane {
 
         //a list of the labels is created
         String[] labels = {"Épaisseur : ","Marge avant : ", "Marge arrière : ",
+                "Rectangle : "};
+
+        //the length of the labels
+        int pairs = labels.length;
+        //SpringLayout layout = new SpringLayout();
+
+        //create and fill panel
+        JPanel panel = new JPanel(new GridLayout(0,2));
+        //panel.setLayout(layout);
+
+        //for loop will include all of the elements in liste
+        for(int i = 0; i < pairs; i++){
+            JLabel liste = new JLabel(labels[i], JLabel.LEFT);
+            panel.add(liste);
+            JTextField textField = new JTextField(0);
+            liste.setLabelFor(textField);
+            panel.add(textField);
+        }
+        return panel;
+    }
+
+    /**
+     * Create the information for the Poutre that will be displayed when
+     * it is selected
+     */
+    public static JPanel creerPanelInfoPoutre(){
+
+        //a list of the labels is created
+        String[] labels = {"Longueur: ","Hauteur : ", "Centre : ",
                 "Rectangle : "};
 
         //the length of the labels
