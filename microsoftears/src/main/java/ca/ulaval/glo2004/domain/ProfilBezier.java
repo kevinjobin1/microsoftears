@@ -9,7 +9,7 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.LinkedList;
 
-//à repenser peut-être (ajout d'une classe pointBezier?)
+
 public class ProfilBezier extends Composante{
 
     private LinkedList<PointPouce> pointsBezier;

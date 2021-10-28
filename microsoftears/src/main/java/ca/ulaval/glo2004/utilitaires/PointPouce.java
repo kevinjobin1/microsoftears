@@ -1,13 +1,16 @@
 package ca.ulaval.glo2004.utilitaires;
 
 
-public class PointPouce {
+import java.awt.*;
+import java.io.Serializable;
+
+public class PointPouce  implements Serializable {
     private Pouce x;
     private Pouce y;
 
     public PointPouce(Pouce x, Pouce y) {
-        this.x = x;
-        this.y = y;
+        this.x = x.st(0) ? new Pouce(0,1,0) : x;
+        this.y = y.st(0) ? new Pouce(0,1,0) : y;
     }
 
     public PointPouce() {
@@ -21,6 +24,11 @@ public class PointPouce {
         this.y = y;
     }
 
+    public PointPouce(PointPouce pointCopie){
+        this.x = pointCopie.getX();
+        this.y = pointCopie.getY();
+    }
+
     @Override
     public String toString() {
         return "PointPouce[x=" + x.toString() + ", y=" + y.toString() + "]";
@@ -31,7 +39,7 @@ public class PointPouce {
     }
 
     public void setX(Pouce x) {
-        this.x = x;
+        this.x = x.st(0) ? new Pouce(0,1,0) : x;
     }
 
     public Pouce getY() {
@@ -39,6 +47,15 @@ public class PointPouce {
     }
 
     public void setY(Pouce y) {
-        this.y = y;
+        this.y = y.st(0) ? new Pouce(0,1,0) : y;
+    }
+
+    public Point point(double pixelParPouce)
+    {
+        pixelParPouce = (pixelParPouce < 0) ? 0
+                : pixelParPouce;
+
+        return new Point(Math.round((float)(x.toDouble() * pixelParPouce)), Math.round((float)(y.toDouble() * pixelParPouce)));
     }
 }
+

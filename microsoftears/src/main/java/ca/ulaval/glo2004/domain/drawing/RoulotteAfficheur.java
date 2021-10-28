@@ -30,8 +30,6 @@ public class RoulotteAfficheur
     //todo rendre ça propre
     public void afficher(Graphics2D g2d)
     {
-        Hayon mur = new Hayon(roulotte);
-        roulotte.getListeComposantes().add(mur);
         afficherPlan(g2d);
         afficherPolygones(g2d);
         AffineTransform af = new AffineTransform();

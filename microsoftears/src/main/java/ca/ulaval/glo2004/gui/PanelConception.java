@@ -18,7 +18,7 @@ import javax.swing.JScrollPane;
  * Panel qui regroupe le panneau d'affichage et le JScrollPane
  * 
  */
-public class PanelConception extends JPanel
+public class PanelConception extends JPanel 
 {
     public FenetrePrincipale parent;
     public PanneauAffichage panneauAffichage;
@@ -38,7 +38,7 @@ public class PanelConception extends JPanel
     private void initialiser()
     {
         // Organisation du Layout en grille
-        GridBagConstraints gbc = new GridBagConstraints();
+        GridBagConstraints layout = new GridBagConstraints();
         this.setOpaque(false);
         this.setLayout(new GridBagLayout());
 
@@ -47,28 +47,28 @@ public class PanelConception extends JPanel
         bordurePanel.setBorder(BorderFactory.createEmptyBorder(10, 5, 10, 5));
 
         mainScrollPane = new JScrollPane(panneauAffichage);
-        mainScrollPane.setViewportView(panneauAffichage);
+        //mainScrollPane.setViewportView(panneauAffichage);
         mainScrollPane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         bordurePanel.add(mainScrollPane);
 
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.weightx = 0;
-        gbc.weighty = 0;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.anchor = GridBagConstraints.NORTH;
+        layout.gridx = 0;
+        layout.gridy = 0;
+        layout.weightx = 0;
+        layout.weighty = 0;
+        layout.fill = GridBagConstraints.HORIZONTAL;
+        layout.anchor = GridBagConstraints.NORTH;
 
-        this.add(barreOutils, gbc);
+        this.add(barreOutils, layout);
 
-        gbc.gridx = 1;
-        gbc.gridy = 0;
-        gbc.weightx = 1;
-        gbc.weighty = 1;
-        gbc.fill = GridBagConstraints.BOTH;
-        gbc.anchor = GridBagConstraints.CENTER;
+        layout.gridx = 1;
+        layout.gridy = 0;
+        layout.weightx = 1;
+        layout.weighty = 1;
+        layout.fill = GridBagConstraints.BOTH;
+        layout.anchor = GridBagConstraints.CENTER;
 
-        this.add(bordurePanel, gbc);
+        this.add(bordurePanel, layout);
 
         //======== ActionListeners PanneauAffichage =========
         this.panneauAffichage.addMouseListener(new MouseAdapter() {

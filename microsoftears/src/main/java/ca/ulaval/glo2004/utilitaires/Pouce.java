@@ -226,30 +226,81 @@ public class Pouce
         return resultat;
     }
 
-    //à coder mais pas encore utilisé
-    public  boolean plusGrand(Pouce mesure){
-        return true;
+
+    public boolean gt(Pouce mesure){
+        return this.gt(mesure.toDouble());
     }
 
-    //todo
-    public  boolean plusGrandEgal(Pouce mesure){
-        return true;
+    public  boolean gte(Pouce mesure){
+        return this.gte(mesure.toDouble());
     }
 
-    //à coder mais pas encore utilisé
-    public  boolean plusPetit(Pouce mesure){
-        return true;
+    public  boolean st(Pouce mesure){
+        return this.st(mesure.toDouble());
     }
 
-    //à coder mais pas encore utilisé
-    public  boolean plusPetitEgal(Pouce mesure){
-        return true;
+
+    public  boolean ste(Pouce mesure){
+        return this.ste(mesure.toDouble());
     }
 
     /**
-     The copy method makes a copy of the
-     the calling object.
-     @return A reference to the copy.
+     *  Implémentation de l'opérateur > (plus grand que)
+     * @param mesure la mesure en impériale à comparer
+     * @return (boolean) true si la mesure est plus grande, false sinon
+     */
+    public boolean gt(double mesure){
+        boolean resultat = false;
+
+        if (this.toDouble() > mesure) {
+            resultat = true;
+        }
+        return resultat;
+    }
+    /**
+     *  Implémentation de l'opérateur >= (plus grand ou égal)
+     * @param mesure la mesure en impériale à comparer
+     * @return (boolean) true si la mesure est plus grande ou égale, false sinon
+     */
+    public  boolean gte(double mesure){
+        boolean resultat = false;
+
+        if (this.toDouble() >= mesure) {
+            resultat = true;
+        }
+        return resultat;
+    }
+    /**
+     *  Implémentation de l'opérateur < (plus petit que)
+     * @param mesure la mesure en impériale à comparer
+     * @return (boolean) true si la mesure est plus petite, false sinon
+     */
+    public  boolean st(double mesure){
+        boolean resultat = false;
+
+        if (this.toDouble() < mesure) {
+            resultat = true;
+        }
+        return resultat;
+    }
+
+    /**
+     *  Implémentation de l'opérateur <= (plus petit ou égal)
+     * @param mesure la mesure en impériale à comparer
+     * @return (boolean) true si la mesure est plus petite ou égale, false sinon
+     */
+    public  boolean ste(double mesure){
+        boolean resultat = false;
+
+        if (this.toDouble() <= mesure) {
+            resultat = true;
+        }
+        return resultat;
+    }
+
+    /**
+     Constructeur copie
+     @return (Pouce) une copie de la mesure.
      */
 
     public Pouce copy()

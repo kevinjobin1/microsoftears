@@ -97,7 +97,7 @@ public class Hayon extends Composante {
             if(indiceDepart == 0 && pointsProfil.get(i).getX().equals(xDepart)){
                 indiceDepart = i;
             }
-            if(pointsProfil.get(i).getX().equals(xFin) && pointsProfil.get(i).getY().plusGrandEgal(yMinFin)){
+            if(pointsProfil.get(i).getX().equals(xFin) && pointsProfil.get(i).getY().gte(yMinFin)){
                 indiceFin = i + 1;
             }
             if(indiceDepart != 0 && indiceFin == 0){
