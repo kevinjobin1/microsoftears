@@ -89,15 +89,6 @@ public class BarreOnglet extends JTabbedPane {
            contour = creerPanelInfoPoutre();
        }
 
-        //label is added to the panel and acts as the text in initialiser function
-        //JLabel label = new JLabel(description, JLabel.CENTER);
-
-        //we have one row and one column
-        //contour.setLayout(new GridLayout(1, 1));
-
-        //label is added inside the contour
-       // contour.add(label);
-
         //borders are set
         contour.setBorder(border);
 
@@ -118,19 +109,28 @@ public class BarreOnglet extends JTabbedPane {
 
        //the length of the labels
        int pairs = labels.length;
-       //SpringLayout layout = new SpringLayout();
 
        //create and fill panel
         JPanel panel = new JPanel(new GridLayout(0,2));
-        //panel.setLayout(layout);
 
         //for loop will include all of the elements in liste
         for (int i = 0; i < pairs; i++){
             JLabel liste = new JLabel(labels[i], JLabel.LEFT);
             panel.add(liste);
-            JTextField textField = new JTextField(0);
-            liste.setLabelFor(textField);
-            panel.add(textField);
+
+            //adding restrictions to the spinners
+            Integer value = new Integer(1);
+            Integer min = new Integer(1);
+            Integer max = new Integer(12);
+            Integer step = new Integer(1);
+
+            //creation of a spinnermodel
+            SpinnerNumberModel model = new SpinnerNumberModel(value, min, max, step);
+
+            //creation of spinner boxes
+            JSpinner spinner= new JSpinner(model);
+            liste.setLabelFor(spinner);
+            panel.add(spinner);
         }
         return panel;
     }
@@ -147,11 +147,9 @@ public class BarreOnglet extends JTabbedPane {
 
         //the length of the labels
         int pairs = labels.length;
-        //SpringLayout layout = new SpringLayout();
 
         //create and fill panel
         JPanel panel = new JPanel(new GridLayout(0,2));
-        //panel.setLayout(layout);
 
         //for loop will include all of the elements in liste
         for(int i = 0; i < pairs; i++){
@@ -176,11 +174,9 @@ public class BarreOnglet extends JTabbedPane {
 
         //the length of the labels
         int pairs = labels.length;
-        //SpringLayout layout = new SpringLayout();
 
         //create and fill panel
         JPanel panel = new JPanel(new GridLayout(0,2));
-        //panel.setLayout(layout);
 
         //for loop will include all of the elements in liste
         for(int i = 0; i < pairs; i++){
