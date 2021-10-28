@@ -33,7 +33,7 @@ public class RoulotteController {
         public int offsetY = 0;
         public int visibleWidth;
         public int visibleHeight;
-        public int pixelsToInchesRatio = 10;
+        public static int pixelsToInchesRatio = 10;
 
 
     public RoulotteController() {
