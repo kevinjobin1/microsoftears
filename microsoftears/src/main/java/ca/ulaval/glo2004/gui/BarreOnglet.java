@@ -4,8 +4,12 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 
-
+/**
+ * Cette classe affiche la barre onglet de la Fenetre Principal
+ *
+ */
 public class BarreOnglet extends JTabbedPane {
+
     public FenetrePrincipale parent;
 
 
@@ -22,42 +26,109 @@ public class BarreOnglet extends JTabbedPane {
 
         //== TODO: Remplacer this.add(...) par ajouterOnglet("MaComposanteExemple")
 
-        this.addTab("Hayon", creerTabPanel("Informations du hayon..."));
+        /*this.addTab("Hayon", creerTabPanel("Informations du hayon..."));
         this.addTab("Plancher",creerTabPanel("Informations du plancher..."));
         this.addTab("Mur Int.",creerTabPanel("Informations du mur intérieur..."));
-        this.addTab("Mur Ext.",creerTabPanel("Informations du mur extérieur..."));
+        this.addTab("Mur Ext.",creerTabPanel("Informations du mur extérieur..."));*/
+
+        this.addTab("Hayon", creerTabPanel("Hayon"));
+        //this.addTab("Plancher",creerTabPanel());
+        //this.addTab("Mur Int.",creerTabPanel());
+        //this.addTab("Mur Ext.",creerTabPanel());
     }
 
     private void ajouterOnglet(){
         // TODO: automatiser l'ajout d'un onglet
     }
 
-    private static JPanel creerTabPanel(String text) {
-        //Border whiteLine = BorderFactory.createLineBorder(Color.white);
+
+    /**
+     * Creates a tabbed pane with the tabs used in the initialser function
+     * Sets borders using the addborder function
+     * @return panel
+     */
+    private static JPanel creerTabPanel(String composante) {
+
+
+        //creates a lowered level border using the border factory
         Border line = BorderFactory.createLoweredBevelBorder();
 
-        //A border that puts 10 extra pixels at the sides and
-        //bottom of each pane.
+        //an empty border edge is created
         Border panelEdge = BorderFactory.createEmptyBorder(0,10,10,10);
         JPanel panel = new JPanel();
+
+        //the edges of the borders are added to the JPanels created inside tabbed
         panel.setBorder(panelEdge);
+
+        //layout is set to y_axis
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
-        //panel.add(new Label(text), BorderLayout.CENTER);
-        addBorder(line, "test", panel);
-        addBorder(line, text, panel);
+        addBorder(line,"", panel);
+        addBorder(line,"Hayon", panel);
         return panel;
     }
 
-   public static void addBorder(Border border, String description, Container container){
-        JPanel contour = new JPanel(false);
-        JLabel label = new JLabel(description, JLabel.CENTER);
-        contour.setLayout(new GridLayout(1, 1));
-        contour.add(label);
+
+    /**
+     * Adds borders to the panels inside the tabbed pane
+     * Adds borders to containers and inserts a label inside the container
+     * @param border
+     * @param container
+     */
+   public static void addBorder(Border border, String composante, Container container){
+
+       JPanel contour = new JPanel(false);
+
+       if (composante == "Hayon"){
+           contour = creerPanelInfoHayon();
+       }
+
+        //label is added to the panel and acts as the text in initialiser function
+        //JLabel label = new JLabel(description, JLabel.CENTER);
+
+        //we have one row and one column
+        //contour.setLayout(new GridLayout(1, 1));
+
+        //label is added inside the contour
+       // contour.add(label);
+
+        //borders are set
         contour.setBorder(border);
 
+        //a space between containers is added
         container.add(Box.createRigidArea(new Dimension(0,10)));
         container.add(contour);
+    }
+
+    /**
+     * Create the information for the Hayon that will be displayed when
+     * it is selected
+     */
+    public static JPanel creerPanelInfoHayon(){
+
+        //a list of the labels is created
+       String[] labels = {"Épaisseur : ","Distance de la Poutre : ", "Distance du plancher : ",
+               "Distance du trait de scie : ", "Rayon de l'arc du cercle : "  };
+
+       //the length of the labels
+       int pairs = labels.length;
+       //SpringLayout layout = new SpringLayout();
+
+       //create and fill panel
+        JPanel panel = new JPanel(new GridLayout(0,2));
+        //panel.setLayout(layout);
+
+        //for loop will include all of the elements in liste
+        for(int i = 0; i < pairs; i++){
+            JLabel liste = new JLabel(labels[i], JLabel.LEFT);
+            panel.add(liste);
+            JTextField textField = new JTextField(0);
+            liste.setLabelFor(textField);
+            panel.add(textField);
+        }
+        return panel;
+
+
     }
 
 }
