@@ -193,9 +193,20 @@ public class BarreOnglet extends JTabbedPane {
         for(int i = 0; i < pairs; i++){
             JLabel liste = new JLabel(labels[i], JLabel.LEFT);
             panel.add(liste);
-            JTextField textField = new JTextField(0);
-            liste.setLabelFor(textField);
-            panel.add(textField);
+
+            //adding restrictions to the spinners
+            Integer value = 1;
+            Integer min = 1;
+            Integer max = 12;
+            Integer step = 1;
+
+            //creation of a spinnermodel
+            SpinnerNumberModel model = new SpinnerNumberModel(value, min, max, step);
+
+            //creation of spinner boxes
+            JSpinner spinner= new JSpinner(model);
+            liste.setLabelFor(spinner);
+            panel.add(spinner);
         }
         return panel;
     }
