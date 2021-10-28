@@ -161,7 +161,7 @@ public class BarreOnglet extends JTabbedPane {
         int pairs = labels.length;
 
         //create and fill panel
-        JPanel panel = new JPanel(new GridLayout(0,2));
+        JPanel panel = new JPanel(new GridLayout(0,4));
 
         //for loop will include all of the elements in liste
         for(int i = 0; i < pairs; i++){
@@ -176,11 +176,23 @@ public class BarreOnglet extends JTabbedPane {
 
             //creation of a spinnermodel
             SpinnerNumberModel model = new SpinnerNumberModel(value, min, max, step);
+            SpinnerNumberModel model1 = new SpinnerNumberModel(value, min, max, step);
+            SpinnerNumberModel model2 = new SpinnerNumberModel(value, min, max, step);
 
             //creation of spinner boxes
-            JSpinner spinner= new JSpinner(model);
+            JSpinner spinner = new JSpinner(model);
+            JSpinner spinner1 = new JSpinner(model1);
+            JSpinner spinner2 = new JSpinner(model2);
+
+            //set label for spinner rows
             liste.setLabelFor(spinner);
+            liste.setLabelFor(spinner1);
+            liste.setLabelFor(spinner2);
+
+            //add spinners to specific item in liste
             panel.add(spinner);
+            panel.add(spinner1);
+            panel.add(spinner2);
         }
         return panel;
     }
