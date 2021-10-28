@@ -1,5 +1,7 @@
 package ca.ulaval.glo2004.utilitaires;
 
+import ca.ulaval.glo2004.domain.RoulotteController;
+
 public class Pouce
 {
     private int pouces;
@@ -304,7 +306,7 @@ public class Pouce
         return new int[]{entier, numArrondi, PRECISION_POUCE};
     }
 
-    public int toPixel(int ratio) {
-        return (int) (this.toDouble() * ratio);
+    public int toPixel() {
+        return (int) (this.toDouble() * RoulotteController.pixelsToInchesRatio);
     }
 }

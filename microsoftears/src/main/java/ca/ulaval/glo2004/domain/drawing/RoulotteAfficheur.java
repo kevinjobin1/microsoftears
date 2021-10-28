@@ -6,10 +6,12 @@ import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import ca.ulaval.glo2004.domain.RoulotteController;
 import ca.ulaval.glo2004.domain.Composante;
+import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Polygone;
 
 public class RoulotteAfficheur
@@ -44,18 +46,30 @@ public class RoulotteAfficheur
         g2d.draw(plan);
     }
 
-    //à coder
+    //à tester
     private void afficherPolygones(Graphics2D g2d)
     {
         ArrayList<Composante> composantes = roulotte.getListeComposantes();
         if (!composantes.isEmpty()) {
+            LinkedList<PointPouce> polygoneList;
+            int x1, y1, x2, y2;
             for (Composante composante : composantes) {
-                g2d.draw(composante);
+                polygoneList = composante.getPolygone().getListePoints();
+                for (int i = 0; i < polygoneList.size(); i++){
+                    x1 = polygoneList.get(i).getX().toPixel();
+                    y1 = polygoneList.get(i).getX().toPixel();
+                    if (i+1 < polygoneList.size()) {
+                        x2 = polygoneList.get(i + 1).getX().toPixel();
+                        y2 = polygoneList.get(i + 1).getX().toPixel();
+                    } else {
+                        x2 = polygoneList.get(0).getX().toPixel();
+                        y2 = polygoneList.get(0).getX().toPixel();
+                    }
+                    g2d.drawLine(x1,y1,x2,y2);
+                }
             }
         }
-
     }
-
     //à coder
     private void afficherRessort(Graphics g){
     }
