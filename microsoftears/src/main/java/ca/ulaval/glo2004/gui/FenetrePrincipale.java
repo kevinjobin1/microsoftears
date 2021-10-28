@@ -51,7 +51,6 @@ public class FenetrePrincipale extends JFrame {
         //panneauAffichage = new PanneauAffichage(this);
         panelConception = new PanelConception(this);
         positionSouris = new JLabel();
-        
 
         //======== FenetrePrincipale ========
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -60,7 +59,6 @@ public class FenetrePrincipale extends JFrame {
         //======== barre de menu ===========
         barreMenu.setBorder(null);
         this.setJMenuBar(barreMenu);
-        
 
         //======== mainPanel ========
 
