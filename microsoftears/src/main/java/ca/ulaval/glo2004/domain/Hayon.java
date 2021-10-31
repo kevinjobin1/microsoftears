@@ -93,7 +93,7 @@ public class Hayon extends Composante {
         double angleNormale;
         Pouce x;
         Pouce y;
-        for (int i = 0; i <= pointsProfil.size(); i++){
+        for (int i = 0; i < pointsProfil.size(); i++){
             if(indiceDepart == 0 && pointsProfil.get(i).getX().equals(xDepart)){
                 indiceDepart = i;
             }

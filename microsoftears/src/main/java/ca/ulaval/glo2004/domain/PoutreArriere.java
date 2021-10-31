@@ -20,13 +20,13 @@ public class PoutreArriere extends Composante{
         this.setType(TypeComposante.POUTRE_ARRIERE);
         this.setPolygone(rectangle.getPolygone());
     }
-    
-    //todo
+
     public PoutreArriere(RoulotteController parent) {
         super(parent);
         this.longueur = new Pouce(2,0,1);
         this.hauteur = new Pouce(2,0,1);
-        //this.centre = ;
+        this.centre = new PointPouce(parent.getMurBrute().getCentre().getX().diff(parent.getMurBrute().getLongueur().diviser(2)).add(new Pouce(10,0,1)),
+                parent.getMurBrute().getCentre().getY().diff(parent.getMurBrute().getLargeur().diviser(2)).add(hauteur.diviser(2)));
         this.rectangle = new Rectangle(this.longueur,this.hauteur,this.centre);
         this.setType(TypeComposante.POUTRE_ARRIERE);
         this.setPolygone(rectangle.getPolygone());
@@ -61,11 +61,11 @@ public class PoutreArriere extends Composante{
     }
 
     //todo cas particulier que le polygone est dans la courbe
-    @Override
+    /*@Override
     public Polygone getPolygone() {
 
 
         return null;
-    }
+    }*/
 }
 
