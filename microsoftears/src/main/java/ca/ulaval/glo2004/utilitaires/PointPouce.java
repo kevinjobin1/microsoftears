@@ -14,8 +14,8 @@ public class PointPouce  implements Serializable {
     }
 
     public PointPouce() {
-        x = new Pouce(50,0,1);
-        y = new Pouce(50,0,1);
+        x = new Pouce(90,0,1);
+        y = new Pouce(40,0,1);
     }
 
     public PointPouce(int pixelX, int pixelY) {

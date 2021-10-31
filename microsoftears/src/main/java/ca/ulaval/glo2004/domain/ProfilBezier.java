@@ -19,7 +19,6 @@ public class ProfilBezier extends Composante{
         super(parent);
         this.pointsBezier = pointsBezier;
         this.setType(TypeComposante.PROFIL_BEZIER);
-        this.setPolygone(new Polygone(this.pointsBezier));
         this.pointsControle = new PointPouce[nombrePointsControle];
     }
 
@@ -28,7 +27,6 @@ public class ProfilBezier extends Composante{
         super(parent);
         //this.pointsBezier = ;
         this.setType(TypeComposante.PROFIL_BEZIER);
-        this.setPolygone(new Polygone(this.pointsBezier));
     }
     /**
      * Méthode d'affichage de la courbe de Bezier
