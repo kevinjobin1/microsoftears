@@ -196,7 +196,7 @@ public class Pouce
 
     //todo
     public double diviser(Pouce pouce){
-        return 0;
+        return diviser(pouce.toDouble()).toDouble();
     }
 
 

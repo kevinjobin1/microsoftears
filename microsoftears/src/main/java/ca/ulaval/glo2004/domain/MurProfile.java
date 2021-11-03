@@ -24,7 +24,6 @@ public class MurProfile extends Composante{
      */
     private boolean mode;
 
-    //todo
     public MurProfile(RoulotteController parent, boolean mode) {
         super(parent);
         this.mode = mode;
@@ -32,11 +31,13 @@ public class MurProfile extends Composante{
                 new PointPouce(parent.getMurBrute().getPolygone().getListePoints().get(0).getX().diff(new Pouce(5,0,1)),
                         parent.getMurBrute().getPolygone().getListePoints().get(0).getY().add(new Pouce(5,0,1)))); //ellipse en haut à droite
 
-        this.profilEllipses[1] = new ProfilEllipse(parent, new Pouce(5,0,1), new Pouce(5,0,1),
-                parent.getMurBrute().getPolygone().getListePoints().get(1)); //ellipse en haut à gauche
+        this.profilEllipses[1] = new ProfilEllipse(parent, new Pouce(15,0,1), new Pouce(15,0,1),
+                new PointPouce(parent.getMurBrute().getPolygone().getListePoints().get(1).getX().add(new Pouce(7,0,1)),
+                        parent.getMurBrute().getPolygone().getListePoints().get(1).getY().add(new Pouce(7,0,1)))); //ellipse en haut à gauche
 
-        this.profilEllipses[2] = new ProfilEllipse(parent, new Pouce(5,0,1), new Pouce(5,0,1),
-                parent.getMurBrute().getPolygone().getListePoints().get(2)); //ellipse en bas à gauche
+        this.profilEllipses[2] = new ProfilEllipse(parent, new Pouce(15,0,1), new Pouce(15,0,1),
+                new PointPouce(parent.getMurBrute().getPolygone().getListePoints().get(2).getX().add(new Pouce(7,0,1)),
+                        parent.getMurBrute().getPolygone().getListePoints().get(2).getY().diff(new Pouce(7,0,1)))); //ellipse en bas à gauche
 
         this.profilEllipses[3] = new ProfilEllipse(parent, new Pouce(5,0,1), new Pouce(5,0,1),
                 parent.getMurBrute().getPolygone().getListePoints().get(3)); //ellipse en bas à droite
@@ -114,14 +115,26 @@ public class MurProfile extends Composante{
             indiceFin = 0;
             for (int i = 0; i < listesEllipses[j].size(); i++) {
                 point = listesEllipses[j].get(i);
-                if (point.getX().equals(listePointMur.get(j).getX())) {
-                    if(((j == 0 || j==1) && point.getY().gte(listePointMur.get(j).getY())) ||
-                            ((j == 2 || j == 3) && point.getY().ste(listePointMur.get(j).getY()))){
-                        indiceDepart = i;
+                if(j == 0 || j == 2){
+                    if (point.getX().equals(listePointMur.get(j).getX()) && indiceDepart==0) {
+                        if((j == 0 && point.getY().gte(listePointMur.get(j).getY())) ||
+                                (j == 2 && point.getY().ste(listePointMur.get(j).getY()))){
+                            indiceDepart = i;
+                        }
                     }
-                }
-                if (i >= indiceDepart && indiceDepart !=0 && point.getY().equals(listePointMur.get(j).getY())) {
-                    indiceFin = i + 1;
+                    if (i >= indiceDepart && indiceDepart != 0 && point.getY().equals(listePointMur.get(j).getY()) && indiceFin == 0) {
+                        indiceFin = i + 1;
+                    }
+                }else {
+                    if (point.getY().equals(listePointMur.get(j).getY()) && indiceDepart==0) {
+                        if ((j == 1 && point.getY().gte(listePointMur.get(j).getY())) ||
+                                (j == 3 && point.getY().ste(listePointMur.get(j).getY()))) {
+                            indiceDepart = i;
+                        }
+                    }
+                    if (i >= indiceDepart && indiceDepart != 0 && point.getX().equals(listePointMur.get(j).getX()) && indiceFin == 0) {
+                        indiceFin = i + 1;
+                    }
                 }
             }
             listesEllipses[j] = listesEllipses[j].subList(indiceDepart,indiceFin);

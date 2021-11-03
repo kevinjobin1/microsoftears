@@ -6,6 +6,7 @@ import java.awt.Color;
 
 import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
 
 public class Hayon extends Composante {
 
@@ -71,21 +72,48 @@ public class Hayon extends Composante {
         this.epaisseurTraitScie = epaisseurTraitScie;
     }
 
-    //à tester (je vais attendre de pouvoir l'afficher)
-    //marche sûrement pas mais très près d'une version fonctionnelle
+    //fonctionnel mais tester plus de cas
     @Override
     public Polygone getPolygone(){
-        LinkedList<PointPouce> pointsProfil= parent.getMurprofile().getPolygone().getListePoints();
         Rectangle plancher = parent.getPlancher().getRectangle();
-
         Pouce xDepart = parent.getPoutreArriere().getCentre().getX().
                 diff(parent.getPoutreArriere().getLongueur().diviser(2)).diff(distancePoutre).diff(rayonArcCercle);
         Pouce xFin = plancher.getCentre().getX().
                 diff(plancher.getLongueur().diviser(2)).diff(distancePlancher);
-        Pouce yMinFin = parent.getMurBrute().getCentre().getY().add(parent.getMurBrute().getLargeur().diviser(2)).diff(plancher.getHauteur());
+        Pouce yMinFin = parent.getMurBrute().getCentre().getY().
+                add(parent.getMurBrute().getLargeur().diviser(2)).diff(plancher.getHauteur());
+
+        List<PointPouce> pointsProfil= new LinkedList<>();
+        boolean xDepartManquant = true;
+        boolean xFinManquant = true;
+        for(PointPouce point: parent.getMurprofile().getPolygone().getListePoints()){
+            if(point.getX().st(parent.getMurBrute().getCentre().getX())) {
+                pointsProfil.add(point);
+                if(point.getX().equals(xDepart)){
+                    xDepartManquant = false;
+                }else if(point.getY().gte(yMinFin) && point.getX().equals(xFin)){
+                    xFinManquant = false;
+                }
+            }
+        }
+        pointsProfil.add(0, new PointPouce(parent.getMurBrute().getCentre().getX(),
+                parent.getMurBrute().getCentre().getY().diff(parent.getMurBrute().getLargeur().diviser(2))));
+        if(xDepartManquant) {
+            pointsProfil.add(1, new PointPouce(xDepart,
+                    parent.getMurBrute().getCentre().getY().diff(parent.getMurBrute().getLargeur().diviser(2))));
+        }
+        if(xFinManquant) {
+            pointsProfil.add(new PointPouce(xFin,
+                    parent.getMurBrute().getCentre().getY().add(parent.getMurBrute().getLargeur().diviser(2))));
+        }
+
+        pointsProfil.add(new PointPouce(parent.getMurBrute().getCentre().getX(),
+                parent.getMurBrute().getCentre().getY().add(parent.getMurBrute().getLargeur().diviser(2))));
+
+
 
         LinkedList<PointPouce> pointsHayon = new LinkedList<>();
-        LinkedList<PointPouce> retour;
+        LinkedList<PointPouce> retour = new LinkedList<>();
 
         int indiceDepart = 0;
         int indiceFin = 0;
@@ -93,7 +121,8 @@ public class Hayon extends Composante {
         double angleNormale;
         Pouce x;
         Pouce y;
-        for (int i = 0; i < pointsProfil.size(); i++){
+
+        for (int i = 1; i < (pointsProfil.size() - 1); i++){
             if(indiceDepart == 0 && pointsProfil.get(i).getX().equals(xDepart)){
                 indiceDepart = i;
             }
@@ -104,21 +133,35 @@ public class Hayon extends Composante {
                 PointPouce point1 = pointsProfil.get(i - 1);
                 PointPouce point2 = pointsProfil.get(i + 1);
                 pente = point2.getY().diff(point1.getY()).diviser(point2.getX().diff(point1.getX()));
-                angleNormale = Math.atan(-1/pente);
+                if(pointsProfil.get(i).getY().gte(parent.getMurBrute().getCentre().getY())) {
+                    angleNormale = Math.atan(1 / pente);
+                }else{
+                    angleNormale = Math.atan(-1 / pente);
+                }
                 x = epaisseur.add(epaisseurTraitScie).multiplier(Math.cos(angleNormale)).add(pointsProfil.get(i).getX());
-                y = epaisseur.add(epaisseurTraitScie).multiplier(Math.sin(angleNormale)).add(pointsProfil.get(i).getY());
-                pointsHayon.add(new PointPouce(x,y));
+                y = epaisseur.add(epaisseurTraitScie).multiplier(-Math.sin(angleNormale)).add(pointsProfil.get(i).getY());
+                if(x.ste(xFin) || pointsProfil.get(i).getY().ste(parent.getMurBrute().getCentre().getY())) {
+                    pointsHayon.add(new PointPouce(x, y));
+                }
             }
+        }
+        if(indiceFin == 0){
+            indiceFin = pointsProfil.size();
         }
         Collections.reverse(pointsHayon);
 
-        PointPouce pointCercle = pointsHayon.getLast();
-        for (int i = 1; i <= Ellipse.NOMBRE_POINTS/4; i++) {
-            x = rayonArcCercle.multiplier(Math.cos(Math.toRadians(270 + 90 * i / (Ellipse.NOMBRE_POINTS / 4)))).add(pointCercle.getX());
-            y = rayonArcCercle.multiplier(Math.cos(Math.toRadians(270 + 90 * i / (Ellipse.NOMBRE_POINTS / 4)))).add(pointCercle.getY());
-            pointsHayon.add(new PointPouce(x,y));
+        PointPouce pointCercle = new PointPouce(pointsProfil.get(indiceDepart).getX(),
+                pointsProfil.get(indiceDepart).getY().diff(rayonArcCercle.diff(epaisseur)));
+        double angle;
+        for (int i = Ellipse.NOMBRE_POINTS/4; i >= 0; i--) {
+            angle = Math.toRadians(90 * i / (Ellipse.NOMBRE_POINTS / 4));
+            x = rayonArcCercle.multiplier(Math.cos(angle)).add(pointCercle.getX());
+            y = rayonArcCercle.multiplier(Math.sin(angle)).add(pointCercle.getY());
+            if(y.gte(parent.getMurBrute().getCentre().getY().diff(parent.getMurBrute().getLargeur().diviser(2)))) {
+                pointsHayon.add(new PointPouce(x, y));
+            }
         }
-        retour = (LinkedList<PointPouce>) pointsProfil.subList(indiceDepart,indiceFin);
+        retour.addAll(pointsProfil.subList(indiceDepart,indiceFin));
         retour.addAll(pointsHayon);
         return new Polygone(retour);
     }
