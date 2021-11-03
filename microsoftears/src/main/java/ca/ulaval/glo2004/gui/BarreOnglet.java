@@ -138,7 +138,7 @@ public class BarreOnglet extends JTabbedPane {
 
         //=============================================================================//
         //                                                                             //
-        //===================CODE FOR THE FIRST COLUMN OF HAYON========================//
+        //=====================CODE FOR LABELED ROWS OF HAYON==========================//
         //                                                                             //
         //=============================================================================//
 
@@ -146,55 +146,45 @@ public class BarreOnglet extends JTabbedPane {
         JLabel epaisseur = new JLabel("Épaisseur : ");
         c.gridx = 0;
         c.gridy= 0;
-        c.gridheight = 1;
+        c.gridwidth = 3;
         c.weightx = 0.20;
-        //c.weighty = 0.20;
-        //c.fill = GridBagConstraints.VERTICAL;
-        //c.insets = new Insets(0, 10, 0 ,0 );
+        c.insets = new Insets(20,5,20, 5);
         panel.add(epaisseur, c);
 
-        //(0,1)
+        //(0,2)
         JLabel poutre = new JLabel("Distance de la poutre : ");
         c.gridx = 0;
-        c.gridy= 1;
-        c.gridheight = 1;
+        c.gridy= 2;
+        c.gridwidth = 3;
         c.weightx = 0.20;
-        c.weighty = 0.20;
-        //c.insets = new Insets(0, 10, 0 ,0 );
-        //c.fill = GridBagConstraints.VERTICAL;
+        c.insets = new Insets(20,5,20, 5);
         panel.add(poutre, c);
 
-        //(0,2)
+        //(0,4)
         JLabel plancher = new JLabel("Distance du plancher : ");
         c.gridx = 0;
-        c.gridy= 2;
-        c.gridheight = 1;
+        c.gridy= 4;
+        c.gridwidth = 3;
         c.weightx = 0.20;
-        c.weighty = 0.20;
-        //c.insets = new Insets(0, 10, 0 ,0 );
-        //c.fill = GridBagConstraints.VERTICAL;
+        c.insets = new Insets(20,5,20, 5);
         panel.add(plancher, c);
 
-        //(0,3)
+        //(0,6)
         JLabel scie = new JLabel("Distance du trait de scie : ");
         c.gridx = 0;
-        c.gridy= 3;
-        c.gridheight = 1;
+        c.gridy= 6;
+        c.gridwidth = 3;
         c.weightx = 0.20;
-        c.weighty = 0.20;
-        //c.insets = new Insets(0, 10, 0 ,0 );
-        //c.fill = GridBagConstraints.VERTICAL;
+        c.insets = new Insets(20,5,20, 5);
         panel.add(scie, c);
 
-        //(0,4)
+        //(0,8)
         JLabel rayon = new JLabel("Rayon de l'arc du cercle : " );
         c.gridx = 0;
-        c.gridy= 4;
-        c.gridheight = 1;
+        c.gridy= 8;
+        c.gridwidth = 3;
         c.weightx = 0.20;
-        c.weighty = 0.20;
-        //c.insets = new Insets(0, 10, 0 ,0 );
-        //c.fill = GridBagConstraints.VERTICAL;
+        c.insets = new Insets(20,5,20, 5);
         panel.add(rayon, c);
 
         //=============================================================================//
@@ -233,251 +223,168 @@ public class BarreOnglet extends JTabbedPane {
 
         //=============================================================================//
         //                                                                             //
-        //===================CODE FOR THE SECOND COLUMN OF HAYON=======================//
+        //=======================CODE FOR SECOND ROW OF HAYON==========================//
         //                                                                             //
         //=============================================================================//
 
-        //(1, 0)
+        //(0, 1)
         spinner = new JSpinner(new SpinnerNumberModel(value, min, max, step));
-        c.gridx = 1;
-        c.gridy= 0;
-        //c.gridheight = 1;
-        c.weightx = 0.20;
-        //c.weighty = 0.20;
+        c.gridx = 0;
+        c.gridy= 1;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
         panel.add(spinner, c);
 
         //(1, 1)
-        spinner = new JSpinner(new SpinnerNumberModel(value, min, max, step));
+        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
         c.gridx = 1;
         c.gridy= 1;
-        //c.gridheight = 1;
-        c.weightx = 0.20;
-        //c.weighty = 0.20;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
         panel.add(spinner, c);
 
-        //(1, 2)
+        //(2, 1)
+        spinner = new JSpinner(new SpinnerNumberModel(value2, min2, max2, step2));
+        c.gridx = 2;
+        c.gridy= 1;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(spinner, c);
+
+        //=============================================================================//
+        //                                                                             //
+        //=======================CODE FOR FOURTH ROW OF HAYON==========================//
+        //                                                                             //
+        //=============================================================================//
+
+        //(0, 3)
         spinner = new JSpinner(new SpinnerNumberModel(value, min, max, step));
-        c.gridx = 1;
-        c.gridy= 2;
-        //c.gridheight = 1;
-        c.weightx = 0.20;
-        //c.weighty = 0.20;
+        c.gridx = 0;
+        c.gridy= 3;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
         panel.add(spinner, c);
 
         //(1, 3)
-        spinner = new JSpinner(new SpinnerNumberModel(value, min, max, step));
+        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
         c.gridx = 1;
         c.gridy= 3;
-        //c.gridheight = 1;
-        c.weightx = 0.20;
-        //c.weighty = 0.20;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
         panel.add(spinner, c);
 
-        //(1, 4)
+        //(2, 3)
+        spinner = new JSpinner(new SpinnerNumberModel(value2, min2, max2, step2));
+        c.gridx = 2;
+        c.gridy= 3;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(spinner, c);
+
+        //=============================================================================//
+        //                                                                             //
+        //=======================CODE FOR SIXTH ROW OF HAYON==========================//
+        //                                                                             //
+        //=============================================================================//
+
+        //(0, 5)
         spinner = new JSpinner(new SpinnerNumberModel(value, min, max, step));
+        c.gridx = 0;
+        c.gridy= 5;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(spinner, c);
+
+        //(1, 5)
+        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
         c.gridx = 1;
-        c.gridy= 4;
-        //c.gridheight = 1;
-        c.weightx = 0.20;
-        //c.weighty = 0.20;
+        c.gridy= 5;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
         panel.add(spinner, c);
 
-        //=============================================================================//
-        //                                                                             //
-        //=====================CODE FOR EMPTY COLUMN OF HAYON==========================//
-        //                                                                             //
-        //=============================================================================//
-
-        /*//create empty column
-        JLabel string = new JLabel("");
-        c.gridx = 2;
-        c.gridy = 4;
-        c.gridheight = 5;
-        c.weightx = 0.10;
-        c.weighty = 1;
-        c.insets = new Insets(0,5,0,5);
-        panel.add(string, c);*/
-
-        //=============================================================================//
-        //                                                                             //
-        //=====================CODE FOR THIRD COLUMN OF HAYON==========================//
-        //                                                                             //
-        //=============================================================================//
-
-        //(3, 0)
-        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
-        c.gridx = 2;
-        c.gridy= 0;
-        c.gridheight = 1;
-        //c.weightx = 0.20;
-        //c.anchor = GridBagConstraints.PAGE_START;
-        //c.weighty = 0.20;
-        panel.add(spinner, c);
-
-        //(3, 1)
-        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
-        c.gridx = 2;
-        c.gridy= 1;
-        c.gridheight = 1;
-        //c.weightx = 0.20;
-        //c.anchor = GridBagConstraints.PAGE_START;
-        //c.weighty = 0.20;
-        panel.add(spinner, c);
-
-        //(3, 2)
-        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
-        c.gridx = 2;
-        c.gridy= 2;
-        c.gridheight = 1;
-        //c.weightx = 0.20;
-        //c.anchor = GridBagConstraints.PAGE_START;
-        //c.weighty = 0.20;
-        panel.add(spinner, c);
-
-        //(3, 3)
-        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
-        c.gridx = 2;
-        c.gridy= 3;
-        c.gridheight = 1;
-        //c.weightx = 0.20;
-        //c.anchor = GridBagConstraints.PAGE_START;
-        //c.weighty = 0.20;
-        panel.add(spinner, c);
-
-        //(3, 4)
-        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
-        c.gridx = 2;
-        c.gridy= 4;
-        c.gridheight = 1;
-        //c.weightx = 0.20;
-        //c.anchor = GridBagConstraints.PAGE_START;
-        //c.weighty = 0.20;
-        panel.add(spinner, c);
-
-        //=============================================================================//
-        //                                                                             //
-        //=====================CODE FOR "/ " COLUMN OF HAYON===========================//
-        //                                                                             //
-        //=============================================================================//
-
-        /*//(4,0)
-        JLabel string2 = new JLabel("/");
-        c.gridx = 4;
-        c.gridy = 0;
-        c.gridheight = 1;
-        c.weightx = 0.10;
-        //c.weighty = 1;
-        //c.insets = new Insets(0,5,0,5);
-        panel.add(string2, c);
-
-        //(4, 1)
-        JLabel string3 = new JLabel("/");
-        c.gridx = 4;
-        c.gridy = 1;
-        c.gridheight = 1;
-        c.weightx = 0.10;
-        //c.weighty = 1;
-        //c.insets = new Insets(0,5,0,5);
-        panel.add(string3, c);
-
-        //(4, 2)
-        JLabel string4 = new JLabel("/");
-        c.gridx = 4;
-        c.gridy = 2;
-        c.gridheight = 1;
-        c.weightx = 0.10;
-        //c.weighty = 1;
-        //c.insets = new Insets(0,5,0,5);
-        panel.add(string4, c);
-
-        //(4, 3)
-        JLabel string5 = new JLabel("/");
-        c.gridx = 4;
-        c.gridy = 3;
-        c.gridheight = 1;
-        c.weightx = 0.10;
-        //c.weighty = 1;
-        //c.insets = new Insets(0,5,0,5);
-        panel.add(string5, c);
-
-        //(4, 4)
-        JLabel string6 = new JLabel("/");
-        c.gridx = 4;
-        c.gridy = 4;
-        c.gridheight = 1;
-        c.weightx = 0.10;
-        //c.weighty = 1;
-        //c.insets = new Insets(0,5,0,5);
-        panel.add(string6, c)*/;
-
-        //=============================================================================//
-        //                                                                             //
-        //=====================CODE FOR LAST COLUMN OF HAYON===========================//
-        //                                                                             //
-        //=============================================================================//
-
-        //(5, 0)
+        //(2, 5)
         spinner = new JSpinner(new SpinnerNumberModel(value2, min2, max2, step2));
-        c.gridx = 3;
-        c.gridy= 0;
-        c.gridheight = 1;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        //c.weightx = 0.25;
-        //c.anchor = GridBagConstraints.PAGE_START;
-        //c.weighty = 0.20;
+        c.gridx = 2;
+        c.gridy= 5;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
         panel.add(spinner, c);
 
-        //(5, 1)
+        //=============================================================================//
+        //                                                                             //
+        //=======================CODE FOR EIGHTH ROW OF HAYON==========================//
+        //                                                                             //
+        //=============================================================================//
+
+        //(0, 7)
+        spinner = new JSpinner(new SpinnerNumberModel(value, min, max, step));
+        c.gridx = 0;
+        c.gridy= 7;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(spinner, c);
+
+        //(1, 7)
+        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
+        c.gridx = 1;
+        c.gridy= 7;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(spinner, c);
+
+        //(2, 7)
         spinner = new JSpinner(new SpinnerNumberModel(value2, min2, max2, step2));
-        c.gridx = 3;
-        c.gridy= 1;
-        c.gridheight = 1;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        //c.weightx = 0.25;
-        //c.anchor = GridBagConstraints.PAGE_START;
-        //c.weighty = 0.20;
+        c.gridx = 2;
+        c.gridy= 7;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
         panel.add(spinner, c);
 
-        //(5, 2)
+        //=============================================================================//
+        //                                                                             //
+        //=======================CODE FOR TENTH ROW OF HAYON==========================//
+        //                                                                             //
+        //=============================================================================//
+
+        //(0, 9)
+        spinner = new JSpinner(new SpinnerNumberModel(value, min, max, step));
+        c.gridx = 0;
+        c.gridy= 9;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(spinner, c);
+
+        //(1, 9)
+        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
+        c.gridx = 1;
+        c.gridy= 9;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(spinner, c);
+
+        //(2, 9)
         spinner = new JSpinner(new SpinnerNumberModel(value2, min2, max2, step2));
-        c.gridx = 3;
-        c.gridy= 2;
-        c.gridheight = 1;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        //c.weightx = 0.20;
-        //c.anchor = GridBagConstraints.PAGE_START;
-        //c.weighty = 0.20;
+        c.gridx = 2;
+        c.gridy= 9;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
         panel.add(spinner, c);
-
-        //(5, 3)
-        spinner = new JSpinner(new SpinnerNumberModel(value2, min2, max2, step2));
-        c.gridx = 3;
-        c.gridy= 3;
-        c.gridheight = 1;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        //c.weightx = 0.20;
-        //c.anchor = GridBagConstraints.PAGE_START;
-        //c.weighty = 0.20;
-        panel.add(spinner, c);
-
-        //(5, 4)
-        spinner = new JSpinner(new SpinnerNumberModel(value2, min2, max2, step2));
-        c.gridx = 3;
-        c.gridy= 4;
-        c.gridheight = 1;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        panel.add(spinner, c);
-
-
-            //set label for spinner rows
-            /*liste.setLabelFor(spinner);
-            liste.setLabelFor(spinner1);
-            liste.setLabelFor(spinner2);*/
-
-            //add spinners to specific item in liste
-            /*panel.add(spinner);
-            panel.add(spinner1);
-            panel.add(spinner2);*/
 
         return panel;
     }
@@ -684,7 +591,7 @@ public class BarreOnglet extends JTabbedPane {
 
         //=============================================================================//
         //                                                                             //
-        //=====================CODE FOR EIGTH ROW OF PLANCHER=========================//
+        //=====================CODE FOR EIGHTH ROW OF PLANCHER=========================//
         //                                                                             //
         //=============================================================================//
 
