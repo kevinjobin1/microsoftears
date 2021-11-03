@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 
+
 /**
  * Cette classe affiche la barre onglet de la Fenetre Principal
  *
@@ -11,6 +12,7 @@ import java.awt.*;
 public class BarreOnglet extends JTabbedPane {
 
     public FenetrePrincipale parent;
+    final static boolean shouldFill = true;
 
 
     public BarreOnglet(FenetrePrincipale parent)
@@ -25,11 +27,6 @@ public class BarreOnglet extends JTabbedPane {
         this.setPreferredSize(new Dimension(300, 900));
 
         //== TODO: Remplacer this.add(...) par ajouterOnglet("MaComposanteExemple")
-
-        /*this.addTab("Hayon", creerTabPanel("Informations du hayon..."));
-        this.addTab("Plancher",creerTabPanel("Informations du plancher..."));
-        this.addTab("Mur Int.",creerTabPanel("Informations du mur intérieur..."));
-        this.addTab("Mur Ext.",creerTabPanel("Informations du mur extérieur..."));*/
 
         this.addTab("Hayon", creerTabPanel("Hayon"));
         this.addTab("Plancher",creerTabPanel("Plancher"));
@@ -50,18 +47,34 @@ public class BarreOnglet extends JTabbedPane {
     private static JPanel creerTabPanel(String composante) {
 
 
-        //creates a lowered level border using the border factory
+        //creates a lowered level border using the border factory, will be used by addborder()
         Border line = BorderFactory.createLoweredBevelBorder();
 
         //an empty border edge is created
         Border panelEdge = BorderFactory.createEmptyBorder(0,10,10,10);
-        JPanel panel = new JPanel();
+
+        //this is the main panel that will hold two panels inside one for image other for components
+        JPanel panel = new JPanel(new GridLayout());
+        /*GridBagConstraints c = new GridBagConstraints();
+        //JLabel label = new JLabel("Test");
+        c.gridx = 0;
+        c.gridy = 0;
+        c.weighty = 10;
+        c.gridheight = 100;
+*/
 
         //the edges of the borders are added to the JPanels created inside tabbed
         panel.setBorder(panelEdge);
 
         //layout is set to y_axis
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        //panel.setLayout(new GridBagLayout());
+
+        //this is the image panel
+        //JPanel panel_1 = new JPanel();
+
+
+
 
         addBorder(line,"", panel);
         addBorder(line,composante, panel);
@@ -74,6 +87,7 @@ public class BarreOnglet extends JTabbedPane {
      * Adds borders to containers and inserts a label inside the container
      * @param border creates border from border factory
      * @param container holds a container
+     * @param composante string that holds titles of tapped panels
      */
    public static void addBorder(Border border, String composante, Container container){
 
@@ -104,59 +118,399 @@ public class BarreOnglet extends JTabbedPane {
     public static JPanel creerPanelInfoHayon(){
 
         //a list of the labels is created
-       String[] labels = {"Épaisseur : ","Distance de la Poutre : ", "Distance du plancher : ",
-               "Distance du trait de scie : ", "Rayon de l'arc du cercle : "  };
+       /*String[] labels = {"Épaisseur : ","Distance de la Poutre : ", "Distance du plancher : ",
+               "Distance du trait de scie : ", "Rayon de l'arc du cercle : "  };*/
 
        //the length of the labels
-       int pairs = labels.length;
+       //int pairs = labels.length;
 
        //create and fill panel
-        JPanel panel = new JPanel(new GridLayout(0,4));
+        //JPanel panel = new JPanel(new GridLayout(0,4));
+        JPanel panel = new JPanel(new GridBagLayout());
 
-        //for loop will include all of the elements in liste
-        for (int i = 0; i < pairs; i++){
-            JLabel liste = new JLabel(labels[i], JLabel.LEFT);
-            panel.add(liste);
-
-            //adding restrictions to the spinners
-            Integer value = 1;
-            Integer min = 1;
-            Integer max = 12;
-            Integer step = 1;
-
-            //adding restrictions to the spinner1
-            Integer value1 = 0;
-            Integer min1 = 0;
-            Integer max1 = 12;
-            Integer step1 = 1;
-
-            //adding restrictions to the spinner2
-            Integer value2 = 0;
-            Integer min2 = 0;
-            Integer max2 = 12;
-            Integer step2 = 1;
+        //creating constraints for GridBagLayout
+        GridBagConstraints c = new GridBagConstraints();
 
 
-            //creation of a spinnermodel
-            SpinnerNumberModel model = new SpinnerNumberModel(value, min, max, step);
-            SpinnerNumberModel model1 = new SpinnerNumberModel(value1, min1, max1, step1);
-            SpinnerNumberModel model2 = new SpinnerNumberModel(value2, min2, max2, step2);
+        //for loop will include all of the elements in liste in grid (0,0)
+        /*for (int i = 0; i < pairs; i++){
+            JLabel liste = new JLabel(labels[i], JLabel.LEFT);*/
 
-            //creation of spinner boxes
-            JSpinner spinner = new JSpinner(model);
-            JSpinner spinner1 = new JSpinner(model1);
-            JSpinner spinner2 = new JSpinner(model2);
+        //=============================================================================//
+        //                                                                             //
+        //===================CODE FOR THE FIRST COLUMN OF HAYON========================//
+        //                                                                             //
+        //=============================================================================//
+
+        //(0,0)
+        JLabel epaisseur = new JLabel("Épaisseur : ");
+        c.gridx = 0;
+        c.gridy= 0;
+        c.gridheight = 1;
+        c.weightx = 0.20;
+        //c.weighty = 0.20;
+        //c.fill = GridBagConstraints.VERTICAL;
+        //c.insets = new Insets(0, 10, 0 ,0 );
+        panel.add(epaisseur, c);
+
+        //(0,1)
+        JLabel poutre = new JLabel("Distance de la poutre : ");
+        c.gridx = 0;
+        c.gridy= 1;
+        c.gridheight = 1;
+        c.weightx = 0.20;
+        c.weighty = 0.20;
+        //c.insets = new Insets(0, 10, 0 ,0 );
+        //c.fill = GridBagConstraints.VERTICAL;
+        panel.add(poutre, c);
+
+        //(0,2)
+        JLabel plancher = new JLabel("Distance du plancher : ");
+        c.gridx = 0;
+        c.gridy= 2;
+        c.gridheight = 1;
+        c.weightx = 0.20;
+        c.weighty = 0.20;
+        //c.insets = new Insets(0, 10, 0 ,0 );
+        //c.fill = GridBagConstraints.VERTICAL;
+        panel.add(plancher, c);
+
+        //(0,3)
+        JLabel scie = new JLabel("Distance du trait de scie : ");
+        c.gridx = 0;
+        c.gridy= 3;
+        c.gridheight = 1;
+        c.weightx = 0.20;
+        c.weighty = 0.20;
+        //c.insets = new Insets(0, 10, 0 ,0 );
+        //c.fill = GridBagConstraints.VERTICAL;
+        panel.add(scie, c);
+
+        //(0,4)
+        JLabel rayon = new JLabel("Rayon de l'arc du cercle : " );
+        c.gridx = 0;
+        c.gridy= 4;
+        c.gridheight = 1;
+        c.weightx = 0.20;
+        c.weighty = 0.20;
+        //c.insets = new Insets(0, 10, 0 ,0 );
+        //c.fill = GridBagConstraints.VERTICAL;
+        panel.add(rayon, c);
+
+        //=============================================================================//
+        //                                                                             //
+        //========================CODE FOR JSPINNER VALUES=============================//
+        //                                                                             //
+        //=============================================================================//
+
+        //adding restrictions to the spinners
+        Integer value = 1;
+        Integer min = 1;
+        Integer max = 12;
+        Integer step = 1;
+
+        //adding restrictions to the spinner1
+        Integer value1 = 0;
+        Integer min1 = 0;
+        Integer max1 = 12;
+        Integer step1 = 1;
+
+        //adding restrictions to the spinner2
+        Integer value2 = 0;
+        Integer min2 = 0;
+        Integer max2 = 12;
+        Integer step2 = 1;
+
+        //creation of a spinnermodel
+        SpinnerNumberModel model = new SpinnerNumberModel(value, min, max, step);
+        SpinnerNumberModel model1 = new SpinnerNumberModel(value1, min1, max1, step1);
+        SpinnerNumberModel model2 = new SpinnerNumberModel(value2, min2, max2, step2);
+
+        //creation of spinner boxes
+        JSpinner spinner = new JSpinner(model);
+        JSpinner spinner1 = new JSpinner(model1);
+        JSpinner spinner2 = new JSpinner(model2);
+
+        //=============================================================================//
+        //                                                                             //
+        //===================CODE FOR THE SECOND COLUMN OF HAYON=======================//
+        //                                                                             //
+        //=============================================================================//
+
+        //(1, 0)
+        spinner = new JSpinner(new SpinnerNumberModel(value, min, max, step));
+        c.gridx = 1;
+        c.gridy= 0;
+        //c.gridheight = 1;
+        c.weightx = 0.20;
+        //c.weighty = 0.20;
+        panel.add(spinner, c);
+
+        //(1, 1)
+        spinner = new JSpinner(new SpinnerNumberModel(value, min, max, step));
+        c.gridx = 1;
+        c.gridy= 1;
+        //c.gridheight = 1;
+        c.weightx = 0.20;
+        //c.weighty = 0.20;
+        panel.add(spinner, c);
+
+        //(1, 2)
+        spinner = new JSpinner(new SpinnerNumberModel(value, min, max, step));
+        c.gridx = 1;
+        c.gridy= 2;
+        //c.gridheight = 1;
+        c.weightx = 0.20;
+        //c.weighty = 0.20;
+        panel.add(spinner, c);
+
+        //(1, 3)
+        spinner = new JSpinner(new SpinnerNumberModel(value, min, max, step));
+        c.gridx = 1;
+        c.gridy= 3;
+        //c.gridheight = 1;
+        c.weightx = 0.20;
+        //c.weighty = 0.20;
+        panel.add(spinner, c);
+
+        //(1, 4)
+        spinner = new JSpinner(new SpinnerNumberModel(value, min, max, step));
+        c.gridx = 1;
+        c.gridy= 4;
+        //c.gridheight = 1;
+        c.weightx = 0.20;
+        //c.weighty = 0.20;
+        panel.add(spinner, c);
+
+        //=============================================================================//
+        //                                                                             //
+        //=====================CODE FOR EMPTY COLUMN OF HAYON==========================//
+        //                                                                             //
+        //=============================================================================//
+
+        /*//create empty column
+        JLabel string = new JLabel("");
+        c.gridx = 2;
+        c.gridy = 4;
+        c.gridheight = 5;
+        c.weightx = 0.10;
+        c.weighty = 1;
+        c.insets = new Insets(0,5,0,5);
+        panel.add(string, c);*/
+
+        //=============================================================================//
+        //                                                                             //
+        //=====================CODE FOR THIRD COLUMN OF HAYON==========================//
+        //                                                                             //
+        //=============================================================================//
+
+        //(3, 0)
+        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
+        c.gridx = 2;
+        c.gridy= 0;
+        c.gridheight = 1;
+        //c.weightx = 0.20;
+        //c.anchor = GridBagConstraints.PAGE_START;
+        //c.weighty = 0.20;
+        panel.add(spinner, c);
+
+        //(3, 1)
+        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
+        c.gridx = 2;
+        c.gridy= 1;
+        c.gridheight = 1;
+        //c.weightx = 0.20;
+        //c.anchor = GridBagConstraints.PAGE_START;
+        //c.weighty = 0.20;
+        panel.add(spinner, c);
+
+        //(3, 2)
+        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
+        c.gridx = 2;
+        c.gridy= 2;
+        c.gridheight = 1;
+        //c.weightx = 0.20;
+        //c.anchor = GridBagConstraints.PAGE_START;
+        //c.weighty = 0.20;
+        panel.add(spinner, c);
+
+        //(3, 3)
+        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
+        c.gridx = 2;
+        c.gridy= 3;
+        c.gridheight = 1;
+        //c.weightx = 0.20;
+        //c.anchor = GridBagConstraints.PAGE_START;
+        //c.weighty = 0.20;
+        panel.add(spinner, c);
+
+        //(3, 4)
+        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
+        c.gridx = 2;
+        c.gridy= 4;
+        c.gridheight = 1;
+        //c.weightx = 0.20;
+        //c.anchor = GridBagConstraints.PAGE_START;
+        //c.weighty = 0.20;
+        panel.add(spinner, c);
+
+        //=============================================================================//
+        //                                                                             //
+        //=====================CODE FOR "/ " COLUMN OF HAYON===========================//
+        //                                                                             //
+        //=============================================================================//
+
+        /*//(4,0)
+        JLabel string2 = new JLabel("/");
+        c.gridx = 4;
+        c.gridy = 0;
+        c.gridheight = 1;
+        c.weightx = 0.10;
+        //c.weighty = 1;
+        //c.insets = new Insets(0,5,0,5);
+        panel.add(string2, c);
+
+        //(4, 1)
+        JLabel string3 = new JLabel("/");
+        c.gridx = 4;
+        c.gridy = 1;
+        c.gridheight = 1;
+        c.weightx = 0.10;
+        //c.weighty = 1;
+        //c.insets = new Insets(0,5,0,5);
+        panel.add(string3, c);
+
+        //(4, 2)
+        JLabel string4 = new JLabel("/");
+        c.gridx = 4;
+        c.gridy = 2;
+        c.gridheight = 1;
+        c.weightx = 0.10;
+        //c.weighty = 1;
+        //c.insets = new Insets(0,5,0,5);
+        panel.add(string4, c);
+
+        //(4, 3)
+        JLabel string5 = new JLabel("/");
+        c.gridx = 4;
+        c.gridy = 3;
+        c.gridheight = 1;
+        c.weightx = 0.10;
+        //c.weighty = 1;
+        //c.insets = new Insets(0,5,0,5);
+        panel.add(string5, c);
+
+        //(4, 4)
+        JLabel string6 = new JLabel("/");
+        c.gridx = 4;
+        c.gridy = 4;
+        c.gridheight = 1;
+        c.weightx = 0.10;
+        //c.weighty = 1;
+        //c.insets = new Insets(0,5,0,5);
+        panel.add(string6, c)*/;
+
+        //=============================================================================//
+        //                                                                             //
+        //=====================CODE FOR LAST COLUMN OF HAYON===========================//
+        //                                                                             //
+        //=============================================================================//
+
+        //(5, 0)
+        spinner = new JSpinner(new SpinnerNumberModel(value2, min2, max2, step2));
+        c.gridx = 3;
+        c.gridy= 0;
+        c.gridheight = 1;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        //c.weightx = 0.25;
+        //c.anchor = GridBagConstraints.PAGE_START;
+        //c.weighty = 0.20;
+        panel.add(spinner, c);
+
+        //(5, 1)
+        spinner = new JSpinner(new SpinnerNumberModel(value2, min2, max2, step2));
+        c.gridx = 3;
+        c.gridy= 1;
+        c.gridheight = 1;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        //c.weightx = 0.25;
+        //c.anchor = GridBagConstraints.PAGE_START;
+        //c.weighty = 0.20;
+        panel.add(spinner, c);
+
+        //(5, 2)
+        spinner = new JSpinner(new SpinnerNumberModel(value2, min2, max2, step2));
+        c.gridx = 3;
+        c.gridy= 2;
+        c.gridheight = 1;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        //c.weightx = 0.20;
+        //c.anchor = GridBagConstraints.PAGE_START;
+        //c.weighty = 0.20;
+        panel.add(spinner, c);
+
+        //(5, 3)
+        spinner = new JSpinner(new SpinnerNumberModel(value2, min2, max2, step2));
+        c.gridx = 3;
+        c.gridy= 3;
+        c.gridheight = 1;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        //c.weightx = 0.20;
+        //c.anchor = GridBagConstraints.PAGE_START;
+        //c.weighty = 0.20;
+        panel.add(spinner, c);
+
+        //(5, 4)
+        spinner = new JSpinner(new SpinnerNumberModel(value2, min2, max2, step2));
+        c.gridx = 3;
+        c.gridy= 4;
+        c.gridheight = 1;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        //c.ipadx = 1;
+        //c.weightx = 0.20;
+        //c.anchor = GridBagConstraints.PAGE_START;
+        //c.weighty = 0.20;
+        panel.add(spinner, c);
+
+
+
+
+
+
 
             //set label for spinner rows
-            liste.setLabelFor(spinner);
+            /*liste.setLabelFor(spinner);
             liste.setLabelFor(spinner1);
-            liste.setLabelFor(spinner2);
+            liste.setLabelFor(spinner2);*/
+
+
+
+
+
+            /*//set constraints for spinner
+            c1.ipadx = 7; //width of spinner
+            c1.ipady = 5; //height
+            c1.anchor = GridBagConstraints.PAGE_END;
+            c1.insets = new Insets(5,5,5,5);
+
+            //set constraints for spinner1
+            c2.ipadx = 7; //width of spinner1
+            c2.ipady = 5; //height
+            c2.anchor = GridBagConstraints.PAGE_END;
+            c2.insets = new Insets(5,5,5,5);
+
+            //set constraints for spinner2
+            c3.ipadx = 7; //width of spinner1
+            c3.ipady = 5; //height
+            c3.anchor = GridBagConstraints.PAGE_END;
+            c3.insets = new Insets(5,5,5,5);*/
+
 
             //add spinners to specific item in liste
-            panel.add(spinner);
+            /*panel.add(spinner);
             panel.add(spinner1);
-            panel.add(spinner2);
-        }
+            panel.add(spinner2);*/
+
         return panel;
     }
 
@@ -245,7 +599,7 @@ public class BarreOnglet extends JTabbedPane {
             panel.add(liste);
 
             //adding restrictions to the spinner
-            Integer value = 0;
+            Integer value = 1;
             Integer min = 0;
             Integer max = 12;
             Integer step = 1;
