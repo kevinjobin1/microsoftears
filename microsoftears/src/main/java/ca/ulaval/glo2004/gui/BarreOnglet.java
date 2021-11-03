@@ -631,6 +631,10 @@ public class BarreOnglet extends JTabbedPane {
         return panel;
     }
 
+    /**
+     * Create the information for the Profile that will be displayed when
+     * it is selected
+     */
     public static JPanel creerPanelInfoProfile(){
         //create and fill panel
         JPanel panel = new JPanel(new GridBagLayout());
@@ -798,6 +802,10 @@ public class BarreOnglet extends JTabbedPane {
         return panel;
     }
 
+    /**
+     * Create the information for the Ellipse that will be displayed when
+     * it is selected
+     */
     public static JPanel creerPanelInfoEllipse(){
         //create and fill panel
         JPanel panel = new JPanel(new GridBagLayout());
