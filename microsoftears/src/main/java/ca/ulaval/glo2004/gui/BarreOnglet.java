@@ -12,8 +12,6 @@ import java.awt.*;
 public class BarreOnglet extends JTabbedPane {
 
     public FenetrePrincipale parent;
-    final static boolean shouldFill = true;
-
 
     public BarreOnglet(FenetrePrincipale parent)
     {
@@ -35,10 +33,6 @@ public class BarreOnglet extends JTabbedPane {
         this.addTab("Ellipse", creerTabPanel("Ellipse"));
     }
 
-    private void ajouterOnglet(){
-        // TODO: automatiser l'ajout d'un onglet
-    }
-
 
     /**
      * Creates a tabbed pane with the tabs used in the initialser function
@@ -56,26 +50,12 @@ public class BarreOnglet extends JTabbedPane {
 
         //this is the main panel that will hold two panels inside one for image other for components
         JPanel panel = new JPanel(new GridLayout());
-        /*GridBagConstraints c = new GridBagConstraints();
-        //JLabel label = new JLabel("Test");
-        c.gridx = 0;
-        c.gridy = 0;
-        c.weighty = 10;
-        c.gridheight = 100;
-*/
 
         //the edges of the borders are added to the JPanels created inside tabbed
         panel.setBorder(panelEdge);
 
         //layout is set to y_axis
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        //panel.setLayout(new GridBagLayout());
-
-        //this is the image panel
-        //JPanel panel_1 = new JPanel();
-
-
-
 
         addBorder(line,"", panel);
         addBorder(line,composante, panel);
@@ -206,12 +186,6 @@ public class BarreOnglet extends JTabbedPane {
         Integer max2 = 12;
         Integer step2 = 1;
 
-        //creation of a spinnermodel
-        SpinnerNumberModel model = new SpinnerNumberModel(value, min, max, step);
-
-        //creation of spinner boxes
-        JSpinner spinner = new JSpinner(model);
-
         //=============================================================================//
         //                                                                             //
         //=======================CODE FOR SECOND ROW OF HAYON==========================//
@@ -219,7 +193,7 @@ public class BarreOnglet extends JTabbedPane {
         //=============================================================================//
 
         //(0, 1)
-        spinner = new JSpinner(new SpinnerNumberModel(value, min, max, step));
+        JSpinner spinner = new JSpinner(new SpinnerNumberModel(value, min, max, step));
         c.gridx = 0;
         c.gridy= 1;
         c.gridwidth = 1;
@@ -398,6 +372,7 @@ public class BarreOnglet extends JTabbedPane {
         //==========================CODE FOR JSPINNER VALUES===========================//
         //                                                                             //
         //=============================================================================//
+
             //adding restrictions to the spinners
             Integer value = 1;
             Integer min = 1;
@@ -416,13 +391,6 @@ public class BarreOnglet extends JTabbedPane {
             Integer max2 = 12;
             Integer step2 = 1;
 
-
-            //creation of a spinnermodel
-            SpinnerNumberModel model = new SpinnerNumberModel(value, min, max, step);
-
-
-            //creation of spinner boxes
-            JSpinner spinner = new JSpinner(model);
         //=============================================================================//
         //                                                                             //
         //=====================CODE FOR LABELED ROWS OF PLANCHER=======================//
@@ -472,7 +440,7 @@ public class BarreOnglet extends JTabbedPane {
         //=============================================================================//
 
         //(0, 1)
-        spinner = new JSpinner(new SpinnerNumberModel(value, min, max, step));
+        JSpinner spinner = new JSpinner(new SpinnerNumberModel(value, min, max, step));
         c.gridx = 0;
         c.gridy= 1;
         c.gridwidth = 1;
@@ -597,16 +565,6 @@ public class BarreOnglet extends JTabbedPane {
         c.insets = new Insets(10,5,10, 5);
         panel.add(spinner, c);
 
-            /*//set label for spinner rows
-            liste.setLabelFor(spinner);
-            liste.setLabelFor(spinner1);
-            liste.setLabelFor(spinner2);
-
-            //add spinners to specific item in liste
-            panel.add(spinner);
-            panel.add(spinner1);
-            panel.add(spinner2);*/
-
         return panel;
     }
 
@@ -704,13 +662,6 @@ public class BarreOnglet extends JTabbedPane {
         Integer max2 = 12;
         Integer step2 = 1;
 
-
-        //creation of a spinnermodel
-        SpinnerNumberModel model = new SpinnerNumberModel(value, min, max, step);
-
-
-        //creation of spinner boxes
-        JSpinner spinner = new JSpinner(model);
         //=============================================================================//
         //                                                                             //
         //=====================CODE FOR LABELED ROWS OF PROFILE========================//
@@ -752,7 +703,7 @@ public class BarreOnglet extends JTabbedPane {
         //=============================================================================//
 
         //(0, 1)
-        spinner = new JSpinner(new SpinnerNumberModel(value, min, max, step));
+        JSpinner spinner = new JSpinner(new SpinnerNumberModel(value, min, max, step));
         c.gridx = 0;
         c.gridy= 1;
         c.gridwidth = 1;
@@ -859,6 +810,7 @@ public class BarreOnglet extends JTabbedPane {
         //==========================CODE FOR JSPINNER VALUES===========================//
         //                                                                             //
         //=============================================================================//
+
         //adding restrictions to the spinners
         Integer value = 1;
         Integer min = 1;
@@ -877,13 +829,6 @@ public class BarreOnglet extends JTabbedPane {
         Integer max2 = 12;
         Integer step2 = 1;
 
-
-        //creation of a spinnermodel
-        SpinnerNumberModel model = new SpinnerNumberModel(value, min, max, step);
-
-
-        //creation of spinner boxes
-        JSpinner spinner = new JSpinner(model);
         //=============================================================================//
         //                                                                             //
         //=====================CODE FOR LABELED ROWS OF ELLIPSE========================//
@@ -925,7 +870,7 @@ public class BarreOnglet extends JTabbedPane {
         //=============================================================================//
 
         //(0, 1)
-        spinner = new JSpinner(new SpinnerNumberModel(value, min, max, step));
+        JSpinner spinner = new JSpinner(new SpinnerNumberModel(value, min, max, step));
         c.gridx = 0;
         c.gridy= 1;
         c.gridwidth = 1;
