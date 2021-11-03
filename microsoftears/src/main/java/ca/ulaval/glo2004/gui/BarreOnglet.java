@@ -466,45 +466,13 @@ public class BarreOnglet extends JTabbedPane {
         c.gridy= 4;
         c.gridheight = 1;
         c.fill = GridBagConstraints.HORIZONTAL;
-        //c.ipadx = 1;
-        //c.weightx = 0.20;
-        //c.anchor = GridBagConstraints.PAGE_START;
-        //c.weighty = 0.20;
         panel.add(spinner, c);
-
-
-
-
-
 
 
             //set label for spinner rows
             /*liste.setLabelFor(spinner);
             liste.setLabelFor(spinner1);
             liste.setLabelFor(spinner2);*/
-
-
-
-
-
-            /*//set constraints for spinner
-            c1.ipadx = 7; //width of spinner
-            c1.ipady = 5; //height
-            c1.anchor = GridBagConstraints.PAGE_END;
-            c1.insets = new Insets(5,5,5,5);
-
-            //set constraints for spinner1
-            c2.ipadx = 7; //width of spinner1
-            c2.ipady = 5; //height
-            c2.anchor = GridBagConstraints.PAGE_END;
-            c2.insets = new Insets(5,5,5,5);
-
-            //set constraints for spinner2
-            c3.ipadx = 7; //width of spinner1
-            c3.ipady = 5; //height
-            c3.anchor = GridBagConstraints.PAGE_END;
-            c3.insets = new Insets(5,5,5,5);*/
-
 
             //add spinners to specific item in liste
             /*panel.add(spinner);
@@ -521,20 +489,29 @@ public class BarreOnglet extends JTabbedPane {
     public static JPanel creerPanelInfoPlancher(){
 
         //a list of the labels is created
-        String[] labels = {"Épaisseur : ","Marge avant : ", "Marge arrière : ",
-                "Rectangle : "};
+        /*String[] labels = {"Épaisseur : ","Marge avant : ", "Marge arrière : ",
+                "Rectangle : "};*/
 
         //the length of the labels
-        int pairs = labels.length;
+        //int pairs = labels.length;
 
         //create and fill panel
-        JPanel panel = new JPanel(new GridLayout(0,4));
+        JPanel panel = new JPanel(new GridBagLayout());
+
+        //creating constraints for the layout
+        GridBagConstraints c = new GridBagConstraints();
 
         //for loop will include all of the elements in liste
-        for(int i = 0; i < pairs; i++){
+        /*for(int i = 0; i < pairs; i++){
             JLabel liste = new JLabel(labels[i], JLabel.LEFT);
             panel.add(liste);
+*/
 
+        //=============================================================================//
+        //                                                                             //
+        //==========================CODE FOR JSPINNER VALUES===========================//
+        //                                                                             //
+        //=============================================================================//
             //adding restrictions to the spinners
             Integer value = 1;
             Integer min = 1;
@@ -564,7 +541,181 @@ public class BarreOnglet extends JTabbedPane {
             JSpinner spinner1 = new JSpinner(model1);
             JSpinner spinner2 = new JSpinner(model2);
 
-            //set label for spinner rows
+        //=============================================================================//
+        //                                                                             //
+        //=====================CODE FOR LABELED ROWS OF PLANCHER=======================//
+        //                                                                             //
+        //=============================================================================//
+
+        //(0,0)
+        JLabel epaisseur = new JLabel("Épaisseur : ");
+        c.gridx = 0;
+        c.gridy= 0;
+        c.gridwidth = 3;
+        c.weightx = 0.20;
+        c.insets = new Insets(20,5,20, 5);
+        panel.add(epaisseur, c);
+
+        //(0,2)
+        JLabel margeAvant = new JLabel("Marge avant : ");
+        c.gridx = 0;
+        c.gridy= 2;
+        c.gridwidth = 3;
+        c.weightx = 0.20;
+        c.insets = new Insets(20,5,20, 5);
+        panel.add(margeAvant, c);
+
+        //(0,4)
+        JLabel margeArriere = new JLabel("Marge arrière : ");
+        c.gridx = 0;
+        c.gridy= 4;
+        c.gridwidth = 3;
+        c.weightx = 0.20;
+        c.insets = new Insets(20,5,20, 5);
+        panel.add(margeArriere, c);
+
+        //(0,6)
+        JLabel rectangle = new JLabel("Rectangle: ");
+        c.gridx = 0;
+        c.gridy= 6;
+        c.gridwidth = 3;
+        c.weightx = 0.20;
+        c.insets = new Insets(20,5,20, 5);
+        panel.add(rectangle, c);
+
+        //=============================================================================//
+        //                                                                             //
+        //=====================CODE FOR SECOND ROW OF PLANCHER=========================//
+        //                                                                             //
+        //=============================================================================//
+
+        //(0, 1)
+        spinner = new JSpinner(new SpinnerNumberModel(value, min, max, step));
+        c.gridx = 0;
+        c.gridy= 1;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(spinner, c);
+
+        //(1, 1)
+        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
+        c.gridx = 1;
+        c.gridy= 1;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(spinner, c);
+
+        //(2, 1)
+        spinner = new JSpinner(new SpinnerNumberModel(value2, min2, max2, step2));
+        c.gridx = 2;
+        c.gridy= 1;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(spinner, c);
+
+        //=============================================================================//
+        //                                                                             //
+        //=====================CODE FOR FOURTH ROW OF PLANCHER=========================//
+        //                                                                             //
+        //=============================================================================//
+
+        //(0, 3)
+        spinner = new JSpinner(new SpinnerNumberModel(value, min, max, step));
+        c.gridx = 0;
+        c.gridy= 3;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(spinner, c);
+
+        //(1, 3)
+        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
+        c.gridx = 1;
+        c.gridy= 3;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(spinner, c);
+
+        //(2, 3)
+        spinner = new JSpinner(new SpinnerNumberModel(value2, min2, max2, step2));
+        c.gridx = 2;
+        c.gridy= 3;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(spinner, c);
+
+        //=============================================================================//
+        //                                                                             //
+        //======================CODE FOR SIXTH ROW OF PLANCHER=========================//
+        //                                                                             //
+        //=============================================================================//
+
+        //(0, 5)
+        spinner = new JSpinner(new SpinnerNumberModel(value, min, max, step));
+        c.gridx = 0;
+        c.gridy= 5;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(spinner, c);
+
+        //(1, 5)
+        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
+        c.gridx = 1;
+        c.gridy= 5;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(spinner, c);
+
+        //(2, 5)
+        spinner = new JSpinner(new SpinnerNumberModel(value2, min2, max2, step2));
+        c.gridx = 2;
+        c.gridy= 5;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(spinner, c);
+
+        //=============================================================================//
+        //                                                                             //
+        //=====================CODE FOR EIGTH ROW OF PLANCHER=========================//
+        //                                                                             //
+        //=============================================================================//
+
+        //(0, 7)
+        spinner = new JSpinner(new SpinnerNumberModel(value, min, max, step));
+        c.gridx = 0;
+        c.gridy= 7;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(spinner, c);
+
+        //(1, 1)
+        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
+        c.gridx = 1;
+        c.gridy= 7;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(spinner, c);
+
+        //(2, 1)
+        spinner = new JSpinner(new SpinnerNumberModel(value2, min2, max2, step2));
+        c.gridx = 2;
+        c.gridy= 7;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(spinner, c);
+
+            /*//set label for spinner rows
             liste.setLabelFor(spinner);
             liste.setLabelFor(spinner1);
             liste.setLabelFor(spinner2);
@@ -572,8 +723,8 @@ public class BarreOnglet extends JTabbedPane {
             //add spinners to specific item in liste
             panel.add(spinner);
             panel.add(spinner1);
-            panel.add(spinner2);
-        }
+            panel.add(spinner2);*/
+
         return panel;
     }
 
