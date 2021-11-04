@@ -12,8 +12,6 @@ import java.awt.*;
 public class BarreOnglet extends JTabbedPane {
 
     public FenetrePrincipale parent;
-    final static boolean shouldFill = true;
-
 
     public BarreOnglet(FenetrePrincipale parent)
     {
@@ -31,11 +29,8 @@ public class BarreOnglet extends JTabbedPane {
         this.addTab("Hayon", creerTabPanel("Hayon"));
         this.addTab("Plancher",creerTabPanel("Plancher"));
         this.addTab("Poutre",creerTabPanel("Poutre"));
-        //this.addTab("Mur Ext.",creerTabPanel());
-    }
-
-    private void ajouterOnglet(){
-        // TODO: automatiser l'ajout d'un onglet
+        this.addTab("Profile",creerTabPanel("Profile"));
+        this.addTab("Ellipse", creerTabPanel("Ellipse"));
     }
 
 
@@ -55,26 +50,12 @@ public class BarreOnglet extends JTabbedPane {
 
         //this is the main panel that will hold two panels inside one for image other for components
         JPanel panel = new JPanel(new GridLayout());
-        /*GridBagConstraints c = new GridBagConstraints();
-        //JLabel label = new JLabel("Test");
-        c.gridx = 0;
-        c.gridy = 0;
-        c.weighty = 10;
-        c.gridheight = 100;
-*/
 
         //the edges of the borders are added to the JPanels created inside tabbed
         panel.setBorder(panelEdge);
 
         //layout is set to y_axis
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        //panel.setLayout(new GridBagLayout());
-
-        //this is the image panel
-        //JPanel panel_1 = new JPanel();
-
-
-
 
         addBorder(line,"", panel);
         addBorder(line,composante, panel);
@@ -102,6 +83,12 @@ public class BarreOnglet extends JTabbedPane {
        if (composante.equals("Poutre")){
            contour = creerPanelInfoPoutre();
        }
+       if (composante.equals("Ellipse")){
+           contour = creerPanelInfoEllipse();
+       }
+       if (composante.equals("Profile")){
+           contour = creerPanelInfoProfile();
+       }
 
         //borders are set
         contour.setBorder(border);
@@ -117,24 +104,12 @@ public class BarreOnglet extends JTabbedPane {
      */
     public static JPanel creerPanelInfoHayon(){
 
-        //a list of the labels is created
-       /*String[] labels = {"Épaisseur : ","Distance de la Poutre : ", "Distance du plancher : ",
-               "Distance du trait de scie : ", "Rayon de l'arc du cercle : "  };*/
-
-       //the length of the labels
-       //int pairs = labels.length;
-
-       //create and fill panel
         //JPanel panel = new JPanel(new GridLayout(0,4));
         JPanel panel = new JPanel(new GridBagLayout());
 
         //creating constraints for GridBagLayout
         GridBagConstraints c = new GridBagConstraints();
 
-
-        //for loop will include all of the elements in liste in grid (0,0)
-        /*for (int i = 0; i < pairs; i++){
-            JLabel liste = new JLabel(labels[i], JLabel.LEFT);*/
 
         //=============================================================================//
         //                                                                             //
@@ -211,16 +186,6 @@ public class BarreOnglet extends JTabbedPane {
         Integer max2 = 12;
         Integer step2 = 1;
 
-        //creation of a spinnermodel
-        SpinnerNumberModel model = new SpinnerNumberModel(value, min, max, step);
-        SpinnerNumberModel model1 = new SpinnerNumberModel(value1, min1, max1, step1);
-        SpinnerNumberModel model2 = new SpinnerNumberModel(value2, min2, max2, step2);
-
-        //creation of spinner boxes
-        JSpinner spinner = new JSpinner(model);
-        JSpinner spinner1 = new JSpinner(model1);
-        JSpinner spinner2 = new JSpinner(model2);
-
         //=============================================================================//
         //                                                                             //
         //=======================CODE FOR SECOND ROW OF HAYON==========================//
@@ -228,7 +193,7 @@ public class BarreOnglet extends JTabbedPane {
         //=============================================================================//
 
         //(0, 1)
-        spinner = new JSpinner(new SpinnerNumberModel(value, min, max, step));
+        JSpinner spinner = new JSpinner(new SpinnerNumberModel(value, min, max, step));
         c.gridx = 0;
         c.gridy= 1;
         c.gridwidth = 1;
@@ -395,30 +360,19 @@ public class BarreOnglet extends JTabbedPane {
      */
     public static JPanel creerPanelInfoPlancher(){
 
-        //a list of the labels is created
-        /*String[] labels = {"Épaisseur : ","Marge avant : ", "Marge arrière : ",
-                "Rectangle : "};*/
-
-        //the length of the labels
-        //int pairs = labels.length;
-
         //create and fill panel
         JPanel panel = new JPanel(new GridBagLayout());
 
         //creating constraints for the layout
         GridBagConstraints c = new GridBagConstraints();
 
-        //for loop will include all of the elements in liste
-        /*for(int i = 0; i < pairs; i++){
-            JLabel liste = new JLabel(labels[i], JLabel.LEFT);
-            panel.add(liste);
-*/
 
         //=============================================================================//
         //                                                                             //
         //==========================CODE FOR JSPINNER VALUES===========================//
         //                                                                             //
         //=============================================================================//
+
             //adding restrictions to the spinners
             Integer value = 1;
             Integer min = 1;
@@ -436,17 +390,6 @@ public class BarreOnglet extends JTabbedPane {
             Integer min2 = 0;
             Integer max2 = 12;
             Integer step2 = 1;
-
-
-            //creation of a spinnermodel
-            SpinnerNumberModel model = new SpinnerNumberModel(value, min, max, step);
-            SpinnerNumberModel model1 = new SpinnerNumberModel(value1, min1, max1, step1);
-            SpinnerNumberModel model2 = new SpinnerNumberModel(value2, min2, max2, step2);
-
-            //creation of spinner boxes
-            JSpinner spinner = new JSpinner(model);
-            JSpinner spinner1 = new JSpinner(model1);
-            JSpinner spinner2 = new JSpinner(model2);
 
         //=============================================================================//
         //                                                                             //
@@ -497,7 +440,7 @@ public class BarreOnglet extends JTabbedPane {
         //=============================================================================//
 
         //(0, 1)
-        spinner = new JSpinner(new SpinnerNumberModel(value, min, max, step));
+        JSpinner spinner = new JSpinner(new SpinnerNumberModel(value, min, max, step));
         c.gridx = 0;
         c.gridy= 1;
         c.gridwidth = 1;
@@ -622,16 +565,6 @@ public class BarreOnglet extends JTabbedPane {
         c.insets = new Insets(10,5,10, 5);
         panel.add(spinner, c);
 
-            /*//set label for spinner rows
-            liste.setLabelFor(spinner);
-            liste.setLabelFor(spinner1);
-            liste.setLabelFor(spinner2);
-
-            //add spinners to specific item in liste
-            panel.add(spinner);
-            panel.add(spinner1);
-            panel.add(spinner2);*/
-
         return panel;
     }
 
@@ -697,5 +630,349 @@ public class BarreOnglet extends JTabbedPane {
         }
         return panel;
     }
+
+    /**
+     * Create the information for the Profile that will be displayed when
+     * it is selected
+     */
+    public static JPanel creerPanelInfoProfile(){
+        //create and fill panel
+        JPanel panel = new JPanel(new GridBagLayout());
+
+        //creating constraints for the layout
+        GridBagConstraints c = new GridBagConstraints();
+
+
+        //=============================================================================//
+        //                                                                             //
+        //==========================CODE FOR JSPINNER VALUES===========================//
+        //                                                                             //
+        //=============================================================================//
+        //adding restrictions to the spinners
+        Integer value = 1;
+        Integer min = 1;
+        Integer max = 12;
+        Integer step = 1;
+
+        //adding restrictions to the spinner1
+        Integer value1 = 0;
+        Integer min1 = 0;
+        Integer max1 = 12;
+        Integer step1 = 1;
+
+        //adding restrictions to the spinner2
+        Integer value2 = 0;
+        Integer min2 = 0;
+        Integer max2 = 12;
+        Integer step2 = 1;
+
+        //=============================================================================//
+        //                                                                             //
+        //=====================CODE FOR LABELED ROWS OF PROFILE========================//
+        //                                                                             //
+        //=============================================================================//
+
+        //(0,0)
+        JLabel epaisseur = new JLabel("Hauteur : ");
+        c.gridx = 0;
+        c.gridy= 0;
+        c.gridwidth = 3;
+        c.weightx = 0.20;
+        c.insets = new Insets(20,5,20, 5);
+        panel.add(epaisseur, c);
+
+        //(0,2)
+        JLabel margeAvant = new JLabel("Longueur : ");
+        c.gridx = 0;
+        c.gridy= 2;
+        c.gridwidth = 3;
+        c.weightx = 0.20;
+        c.insets = new Insets(20,5,20, 5);
+        panel.add(margeAvant, c);
+
+        //(0,4)
+        JLabel margeArriere = new JLabel("Centre : ");
+        c.gridx = 0;
+        c.gridy= 4;
+        c.gridwidth = 3;
+        c.weightx = 0.20;
+        c.insets = new Insets(20,5,20, 5);
+        panel.add(margeArriere, c);
+
+
+        //=============================================================================//
+        //                                                                             //
+        //=====================CODE FOR SECOND ROW OF PROFILE==========================//
+        //                                                                             //
+        //=============================================================================//
+
+        //(0, 1)
+        JSpinner spinner = new JSpinner(new SpinnerNumberModel(value, min, max, step));
+        c.gridx = 0;
+        c.gridy= 1;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(spinner, c);
+
+        //(1, 1)
+        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
+        c.gridx = 1;
+        c.gridy= 1;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(spinner, c);
+
+        //(2, 1)
+        spinner = new JSpinner(new SpinnerNumberModel(value2, min2, max2, step2));
+        c.gridx = 2;
+        c.gridy= 1;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(spinner, c);
+
+        //=============================================================================//
+        //                                                                             //
+        //=====================CODE FOR FOURTH ROW OF PROFILE==========================//
+        //                                                                             //
+        //=============================================================================//
+
+        //(0, 3)
+        spinner = new JSpinner(new SpinnerNumberModel(value, min, max, step));
+        c.gridx = 0;
+        c.gridy= 3;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(spinner, c);
+
+        //(1, 3)
+        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
+        c.gridx = 1;
+        c.gridy= 3;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(spinner, c);
+
+        //(2, 3)
+        spinner = new JSpinner(new SpinnerNumberModel(value2, min2, max2, step2));
+        c.gridx = 2;
+        c.gridy= 3;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(spinner, c);
+
+        //=============================================================================//
+        //                                                                             //
+        //======================CODE FOR SIXTH ROW OF PROFILE==========================//
+        //                                                                             //
+        //=============================================================================//
+
+        //(0, 5)
+        spinner = new JSpinner(new SpinnerNumberModel(value, min, max, step));
+        c.gridx = 0;
+        c.gridy= 5;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(spinner, c);
+
+        //(1, 5)
+        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
+        c.gridx = 1;
+        c.gridy= 5;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(spinner, c);
+
+        //(2, 5)
+        spinner = new JSpinner(new SpinnerNumberModel(value2, min2, max2, step2));
+        c.gridx = 2;
+        c.gridy= 5;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(spinner, c);
+
+        return panel;
+    }
+
+    /**
+     * Create the information for the Ellipse that will be displayed when
+     * it is selected
+     */
+    public static JPanel creerPanelInfoEllipse(){
+        //create and fill panel
+        JPanel panel = new JPanel(new GridBagLayout());
+
+        //creating constraints for the layout
+        GridBagConstraints c = new GridBagConstraints();
+
+        //=============================================================================//
+        //                                                                             //
+        //==========================CODE FOR JSPINNER VALUES===========================//
+        //                                                                             //
+        //=============================================================================//
+
+        //adding restrictions to the spinners
+        Integer value = 1;
+        Integer min = 1;
+        Integer max = 12;
+        Integer step = 1;
+
+        //adding restrictions to the spinner1
+        Integer value1 = 0;
+        Integer min1 = 0;
+        Integer max1 = 12;
+        Integer step1 = 1;
+
+        //adding restrictions to the spinner2
+        Integer value2 = 0;
+        Integer min2 = 0;
+        Integer max2 = 12;
+        Integer step2 = 1;
+
+        //=============================================================================//
+        //                                                                             //
+        //=====================CODE FOR LABELED ROWS OF ELLIPSE========================//
+        //                                                                             //
+        //=============================================================================//
+
+        //(0,0)
+        JLabel epaisseur = new JLabel("Hauteur : ");
+        c.gridx = 0;
+        c.gridy= 0;
+        c.gridwidth = 3;
+        c.weightx = 0.20;
+        c.insets = new Insets(20,5,20, 5);
+        panel.add(epaisseur, c);
+
+        //(0,2)
+        JLabel margeAvant = new JLabel("Longueur : ");
+        c.gridx = 0;
+        c.gridy= 2;
+        c.gridwidth = 3;
+        c.weightx = 0.20;
+        c.insets = new Insets(20,5,20, 5);
+        panel.add(margeAvant, c);
+
+        //(0,4)
+        JLabel margeArriere = new JLabel("Centre : ");
+        c.gridx = 0;
+        c.gridy= 4;
+        c.gridwidth = 3;
+        c.weightx = 0.20;
+        c.insets = new Insets(20,5,20, 5);
+        panel.add(margeArriere, c);
+
+
+        //=============================================================================//
+        //                                                                             //
+        //=====================CODE FOR SECOND ROW OF ELLIPSE==========================//
+        //                                                                             //
+        //=============================================================================//
+
+        //(0, 1)
+        JSpinner spinner = new JSpinner(new SpinnerNumberModel(value, min, max, step));
+        c.gridx = 0;
+        c.gridy= 1;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(spinner, c);
+
+        //(1, 1)
+        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
+        c.gridx = 1;
+        c.gridy= 1;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(spinner, c);
+
+        //(2, 1)
+        spinner = new JSpinner(new SpinnerNumberModel(value2, min2, max2, step2));
+        c.gridx = 2;
+        c.gridy= 1;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(spinner, c);
+
+        //=============================================================================//
+        //                                                                             //
+        //=====================CODE FOR FOURTH ROW OF ELLIPSE==========================//
+        //                                                                             //
+        //=============================================================================//
+
+        //(0, 3)
+        spinner = new JSpinner(new SpinnerNumberModel(value, min, max, step));
+        c.gridx = 0;
+        c.gridy= 3;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(spinner, c);
+
+        //(1, 3)
+        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
+        c.gridx = 1;
+        c.gridy= 3;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(spinner, c);
+
+        //(2, 3)
+        spinner = new JSpinner(new SpinnerNumberModel(value2, min2, max2, step2));
+        c.gridx = 2;
+        c.gridy= 3;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(spinner, c);
+
+        //=============================================================================//
+        //                                                                             //
+        //======================CODE FOR SIXTH ROW OF ELLISPE==========================//
+        //                                                                             //
+        //=============================================================================//
+
+        //(0, 5)
+        spinner = new JSpinner(new SpinnerNumberModel(value, min, max, step));
+        c.gridx = 0;
+        c.gridy= 5;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(spinner, c);
+
+        //(1, 5)
+        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
+        c.gridx = 1;
+        c.gridy= 5;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(spinner, c);
+
+        //(2, 5)
+        spinner = new JSpinner(new SpinnerNumberModel(value2, min2, max2, step2));
+        c.gridx = 2;
+        c.gridy= 5;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(spinner, c);
+
+        return panel;
+    }
+
+
 
 }
