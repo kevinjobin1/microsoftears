@@ -72,7 +72,7 @@ public class Hayon extends Composante {
         this.epaisseurTraitScie = epaisseurTraitScie;
     }
 
-    //fonctionnel mais tester plus de cas
+    //le cas où les coins sont carré ne marche pas
     @Override
     public Polygone getPolygone(){
         Rectangle plancher = parent.getPlancher().getRectangle();

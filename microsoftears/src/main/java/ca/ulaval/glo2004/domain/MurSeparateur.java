@@ -21,7 +21,7 @@ public class MurSeparateur extends Composante{
         this.setType(TypeComposante.MUR_SEPARATEUR);
     }
 
-    //todo
+    //todo mais pas pour le livrable 3
     public MurSeparateur(RoulotteController parent) {super(parent);
     }
 

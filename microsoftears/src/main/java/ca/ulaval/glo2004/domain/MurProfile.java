@@ -74,7 +74,7 @@ public class MurProfile extends Composante{
         return retour;
     }
 
-    //todo
+    //todo mais pas pour le livrable 3
     private LinkedList<PointPouce> listePointsModeBezier() {
         return null;
     }
