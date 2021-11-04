@@ -48,13 +48,15 @@ public class RoulotteAfficheur
 
     private void afficherPolygones(Graphics2D g2d)
     {
-        g2d.setColor(Color.BLUE);
+
         ArrayList<Composante> composantes = roulotte.getListeComposantes();
         if (!composantes.isEmpty()) {
+
             LinkedList<PointPouce> polygoneList;
             int x, y;
-            GeneralPath path = new GeneralPath();
             for (Composante composante : composantes) {
+                g2d.setColor(composante.getCouleur());
+                GeneralPath path = new GeneralPath();
                 polygoneList = composante.getPolygone().getListePoints();
                 for (int i = 0; i < polygoneList.size(); i++){
                     x = polygoneList.get(i).getX().toPixel();
@@ -70,11 +72,12 @@ public class RoulotteAfficheur
             }
         }
     }
-    //à coder
+
+    //todo mais pas pour le livrable 3
     private void afficherRessort(Graphics g){
     }
     
-
+    //todo mais pas pour le livrable 3
     public static void afficherBezier() {
 
     }

@@ -1,7 +1,6 @@
 package ca.ulaval.glo2004.gui;
 
-import ca.ulaval.glo2004.domain.RoulotteController;
-import ca.ulaval.glo2004.domain.TypeComposante;
+import ca.ulaval.glo2004.domain.*;
 import ca.ulaval.glo2004.gui.afficheur.PanneauAffichage;
 import org.kordamp.ikonli.swing.FontIcon;
 import org.kordamp.ikonli.bootstrapicons.*;
@@ -39,7 +38,27 @@ public class FenetrePrincipale extends JFrame {
 
     public FenetrePrincipale() {
         controller = new RoulotteController();
+
         initComponents();
+        MurBrute murBrute = new MurBrute(controller);
+        //controller.getListeComposantes().add(murBrute);
+        controller.setMurBrute(murBrute);
+        MurProfile murProfile = new MurProfile(controller,true);
+        controller.setMurprofile(murProfile);
+        //controller.getListeComposantes().add(murProfile.getProfilEllipses()[0]);
+        //controller.getListeComposantes().add(murProfile.getProfilEllipses()[1]);
+        //controller.getListeComposantes().add(murProfile.getProfilEllipses()[2]);
+        //controller.getListeComposantes().add(murProfile.getProfilEllipses()[3]);
+        Plancher plancher = new Plancher(controller);
+        controller.setPlancher(plancher);
+        controller.getListeComposantes().add(plancher);
+        PoutreArriere poutre = new PoutreArriere(controller);
+        controller.setPoutreArriere(poutre);
+        controller.getListeComposantes().add(poutre);
+        Hayon hayon = new Hayon(controller);
+        controller.setHayon(hayon);
+        controller.getListeComposantes().add(hayon);
+        controller.getListeComposantes().add(murProfile);
     }
 
     private void initComponents() {
