@@ -29,15 +29,15 @@ public class MurProfile extends Composante{
         this.mode = mode;
         this.profilEllipses[0] = new ProfilEllipse(parent, new Pouce(10,0,1), new Pouce(10,0,1),
                 new PointPouce(parent.getMurBrute().getPolygone().getListePoints().get(0).getX().diff(new Pouce(5,0,1)),
-                        parent.getMurBrute().getPolygone().getListePoints().get(0).getY().add(new Pouce(5,0,1)))); //ellipse en haut à droite
+                        parent.getMurBrute().getPolygone().getListePoints().get(0).getY().add(new Pouce(4,0,1)))); //ellipse en haut à droite
 
         this.profilEllipses[1] = new ProfilEllipse(parent, new Pouce(15,0,1), new Pouce(15,0,1),
                 new PointPouce(parent.getMurBrute().getPolygone().getListePoints().get(1).getX().add(new Pouce(7,0,1)),
-                        parent.getMurBrute().getPolygone().getListePoints().get(1).getY().add(new Pouce(7,0,1)))); //ellipse en haut à gauche
+                        parent.getMurBrute().getPolygone().getListePoints().get(1).getY().add(new Pouce(5,0,1)))); //ellipse en haut à gauche
 
         this.profilEllipses[2] = new ProfilEllipse(parent, new Pouce(15,0,1), new Pouce(15,0,1),
                 new PointPouce(parent.getMurBrute().getPolygone().getListePoints().get(2).getX().add(new Pouce(7,0,1)),
-                        parent.getMurBrute().getPolygone().getListePoints().get(2).getY().diff(new Pouce(7,0,1)))); //ellipse en bas à gauche
+                        parent.getMurBrute().getPolygone().getListePoints().get(2).getY().diff(new Pouce(5,0,1)))); //ellipse en bas à gauche
 
         this.profilEllipses[3] = new ProfilEllipse(parent, new Pouce(5,0,1), new Pouce(5,0,1),
                 parent.getMurBrute().getPolygone().getListePoints().get(3)); //ellipse en bas à droite
@@ -81,73 +81,161 @@ public class MurProfile extends Composante{
 
 
     private LinkedList<PointPouce> listePointsModeEllipse(){
-        List<PointPouce> listePointMur = parent.getMurBrute().getPolygone().getListePoints();
+        List<PointPouce> pointsMur = parent.getMurBrute().getPolygone().getListePoints();
 
         //cadran en haut à droite de l'éllipse0
         List<PointPouce> listeEllipse0 = new LinkedList<> (profilEllipses[0].getPolygone().getListePoints().
-                subList(0, Math.round(Ellipse.NOMBRE_POINTS/4-1)));
+                subList(0, Math.round(Ellipse.NOMBRE_POINTS/4)));
 
         //cadran en haut à gauche de l'éllipse1
         List<PointPouce> listeEllipse1 = new LinkedList<> (profilEllipses[1].getPolygone().getListePoints().
-                subList(Math.round(Ellipse.NOMBRE_POINTS/4), Math.round(Ellipse.NOMBRE_POINTS/2-1)));
+                subList(Math.round(Ellipse.NOMBRE_POINTS/4), Math.round(Ellipse.NOMBRE_POINTS/2)));
 
         //cadran en bas à gauche de l'éllipse2
         List<PointPouce> listeEllipse2 = new LinkedList<> (profilEllipses[2].getPolygone().getListePoints().
-                subList(Math.round(Ellipse.NOMBRE_POINTS/2), Math.round(Ellipse.NOMBRE_POINTS*3/4-1)));
+                subList(Math.round(Ellipse.NOMBRE_POINTS/2), Math.round(Ellipse.NOMBRE_POINTS*3/4)));
 
         //cadran en bas à droite de l'éllipse3
         List<PointPouce> listeEllipse3 = new LinkedList<> (profilEllipses[3].getPolygone().getListePoints().
-                subList(Math.round(Ellipse.NOMBRE_POINTS*3/4), Math.round(Ellipse.NOMBRE_POINTS-1)));
-
-        List<PointPouce>[] listesEllipses = new List[4];
-        listesEllipses[0] = listeEllipse0;
-        listesEllipses[1] = listeEllipse1;
-        listesEllipses[2] = listeEllipse2;
-        listesEllipses[3] = listeEllipse3;
+                subList(Math.round(Ellipse.NOMBRE_POINTS*3/4), Math.round(Ellipse.NOMBRE_POINTS)));
 
         LinkedList<PointPouce> listeRetour = new LinkedList<>();
 
-        int indiceDepart;
-        int indiceFin;
-        PointPouce point;
-        for (int j = 0; j < listesEllipses.length; j++){
-            indiceDepart = 0;
-            indiceFin = 0;
-            for (int i = 0; i < listesEllipses[j].size(); i++) {
-                point = listesEllipses[j].get(i);
-                if(j == 0 || j == 2){
-                    if (point.getX().equals(listePointMur.get(j).getX()) && indiceDepart==0) {
-                        if((j == 0 && point.getY().gte(listePointMur.get(j).getY())) ||
-                                (j == 2 && point.getY().ste(listePointMur.get(j).getY()))){
-                            indiceDepart = i;
-                        }
-                    }
-                    if (i >= indiceDepart && indiceDepart != 0 && point.getY().equals(listePointMur.get(j).getY()) && indiceFin == 0) {
-                        indiceFin = i + 1;
-                    }
-                }else {
-                    if (point.getY().equals(listePointMur.get(j).getY()) && indiceDepart==0) {
-                        if ((j == 1 && point.getY().gte(listePointMur.get(j).getY())) ||
-                                (j == 3 && point.getY().ste(listePointMur.get(j).getY()))) {
-                            indiceDepart = i;
-                        }
-                    }
-                    if (i >= indiceDepart && indiceDepart != 0 && point.getX().equals(listePointMur.get(j).getX()) && indiceFin == 0) {
-                        indiceFin = i + 1;
-                    }
-                }
+        //ellipse 0
+        boolean intersectionX = false;
+        boolean intersectionY = false;
+        boolean aucunPointAjoute = true;
+        int indiceDernierPoint = 0;
+        for(PointPouce point : listeEllipse0){
+            if(point.getX().gte(pointsMur.get(0).getX())){
+                intersectionX = true;
             }
-            listesEllipses[j] = listesEllipses[j].subList(indiceDepart,indiceFin);
-
-            if (listesEllipses[j].isEmpty()){
-                listesEllipses[j].add(listePointMur.get(j));
+            if(point.getY().ste(pointsMur.get(0).getY())){
+                intersectionY = true;
             }
         }
+        if(intersectionX && intersectionY){
+            for(int i = 0; i < listeEllipse0.size(); i++){
+                if(listeEllipse0.get(i).getX().ste(pointsMur.get(0).getX()) &&
+                        listeEllipse0.get(i).getY().gte(pointsMur.get(0).getY())) {
+                    if(aucunPointAjoute){
+                        //ajouter un point sur la ligne du mur brute
+                        listeRetour.add(new PointPouce(pointsMur.get(0).getX(), listeEllipse0.get(i).getY()));
+                    }
+                    listeRetour.add(listeEllipse0.get(i));
+                    aucunPointAjoute = false;
+                    indiceDernierPoint = i;
+                }
+            }
+        }
+        if (aucunPointAjoute) {
+            listeRetour.add(pointsMur.get(0));
+        }else{
+            //ajouter un point sur la ligne du mur brute
+            listeRetour.add(new PointPouce(listeEllipse0.get(indiceDernierPoint).getX(), pointsMur.get(0).getY()));
+        }
 
-        listeRetour.addAll(listesEllipses[0]);
-        listeRetour.addAll(listesEllipses[1]);
-        listeRetour.addAll(listesEllipses[2]);
-        listeRetour.addAll(listesEllipses[3]);
+        //ellipse 1
+        intersectionX = false;
+        intersectionY = false;
+        aucunPointAjoute = true;
+        indiceDernierPoint = 0;
+        for(PointPouce point : listeEllipse1){
+            if(point.getX().ste(pointsMur.get(1).getX())){
+                intersectionX = true;
+            }
+            if(point.getY().ste(pointsMur.get(1).getY())){
+                intersectionY = true;
+            }
+        }
+        if(intersectionX && intersectionY){
+            for(int i = 0; i < listeEllipse1.size(); i++){
+                if(listeEllipse1.get(i).getX().gte(pointsMur.get(1).getX()) &&
+                        listeEllipse1.get(i).getY().gte(pointsMur.get(1).getY())) {
+                    if(aucunPointAjoute){
+                        //ajouter un point sur la ligne du mur brute
+                        listeRetour.add(new PointPouce(listeEllipse1.get(i).getX(), pointsMur.get(1).getY()));
+                    }
+                    listeRetour.add(listeEllipse1.get(i));
+                    aucunPointAjoute = false;
+                    indiceDernierPoint = i;
+                }
+            }
+        }
+        if (aucunPointAjoute) {
+            listeRetour.add(pointsMur.get(1));
+        }else{
+            //ajouter un point sur la ligne du mur brute
+            listeRetour.add(new PointPouce(pointsMur.get(1).getX(), listeEllipse1.get(indiceDernierPoint).getY()));
+        }
+
+        //ellipse 2
+        intersectionX = false;
+        intersectionY = false;
+        aucunPointAjoute = true;
+        indiceDernierPoint = 0;
+        for(PointPouce point : listeEllipse2){
+            if(point.getX().ste(pointsMur.get(2).getX())){
+                intersectionX = true;
+            }
+            if(point.getY().gte(pointsMur.get(2).getY())){
+                intersectionY = true;
+            }
+        }
+        if(intersectionX && intersectionY){
+            for(int i = 0; i < listeEllipse2.size(); i++){
+                if(listeEllipse2.get(i).getX().gte(pointsMur.get(2).getX()) &&
+                        listeEllipse2.get(i).getY().ste(pointsMur.get(2).getY())) {
+                    if(aucunPointAjoute){
+                        //ajouter un point sur la ligne du mur brute
+                        listeRetour.add(new PointPouce(pointsMur.get(2).getX(), listeEllipse2.get(i).getY()));
+                    }
+                    listeRetour.add(listeEllipse2.get(i));
+                    aucunPointAjoute = false;
+                    indiceDernierPoint = i;
+                }
+            }
+        }
+        if (aucunPointAjoute) {
+            listeRetour.add(pointsMur.get(2));
+        }else{
+            //ajouter un point sur la ligne du mur brute
+            listeRetour.add(new PointPouce(listeEllipse2.get(indiceDernierPoint).getX(), pointsMur.get(2).getY()));
+        }
+
+        //ellipse 3
+        intersectionX = false;
+        intersectionY = false;
+        aucunPointAjoute = true;
+        indiceDernierPoint = 0;
+        for(PointPouce point : listeEllipse3){
+            if(point.getX().gte(pointsMur.get(3).getX())){
+                intersectionX = true;
+            }
+            if(point.getY().gte(pointsMur.get(3).getY())){
+                intersectionY = true;
+            }
+        }
+        if(intersectionX && intersectionY){
+            for(int i = 0; i < listeEllipse3.size(); i++){
+                if(listeEllipse3.get(i).getX().ste(pointsMur.get(3).getX()) &&
+                        listeEllipse3.get(i).getY().ste(pointsMur.get(3).getY())) {
+                    if(aucunPointAjoute){
+                        //ajouter un point sur la ligne du mur brute
+                        listeRetour.add(new PointPouce(listeEllipse3.get(i).getX(), pointsMur.get(3).getY()));
+                    }
+                    listeRetour.add(listeEllipse3.get(i));
+                    aucunPointAjoute = false;
+                    indiceDernierPoint = i;
+                }
+            }
+        }
+        if (aucunPointAjoute) {
+            listeRetour.add(pointsMur.get(3));
+        }else{
+            //ajouter un point sur la ligne du mur brute
+            listeRetour.add(new PointPouce(pointsMur.get(3).getX(), listeEllipse3.get(indiceDernierPoint).getY()));
+        }
 
         return listeRetour;
     }

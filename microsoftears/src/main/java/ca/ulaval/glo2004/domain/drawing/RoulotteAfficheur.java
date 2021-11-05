@@ -31,7 +31,7 @@ public class RoulotteAfficheur
     public void afficher(Graphics2D g2d)
     {
         afficherPlan(g2d);
-        afficherPolygones(g2d);
+        afficherTousPolygones(g2d);
         AffineTransform af = new AffineTransform();
         af.translate(roulotte.origineX, roulotte.origineY);
         af.scale(roulotte.zoom, roulotte.zoom);
@@ -46,7 +46,7 @@ public class RoulotteAfficheur
         g2d.draw(plan);
     }
 
-    private void afficherPolygones(Graphics2D g2d)
+    private void afficherTousPolygones(Graphics2D g2d)
     {
 
         ArrayList<Composante> composantes = roulotte.getListeComposantes();
@@ -73,6 +73,10 @@ public class RoulotteAfficheur
         }
     }
 
+    //todo pourrait être pratique
+    public void afficherComposante(Graphics2D g2d, Composante composante){
+
+    }
     //todo mais pas pour le livrable 3
     private void afficherRessort(Graphics g){
     }
