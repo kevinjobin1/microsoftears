@@ -32,12 +32,12 @@ public class MurProfile extends Composante{
                         parent.getMurBrute().getPolygone().getListePoints().get(0).getY().add(new Pouce(4,0,1)))); //ellipse en haut à droite
 
         this.profilEllipses[1] = new ProfilEllipse(parent, new Pouce(15,0,1), new Pouce(15,0,1),
-                new PointPouce(parent.getMurBrute().getPolygone().getListePoints().get(1).getX().add(new Pouce(7,0,1)),
-                        parent.getMurBrute().getPolygone().getListePoints().get(1).getY().add(new Pouce(5,0,1)))); //ellipse en haut à gauche
+                new PointPouce(parent.getMurBrute().getPolygone().getListePoints().get(1).getX().add(new Pouce(0,0,1)),
+                        parent.getMurBrute().getPolygone().getListePoints().get(1).getY().add(new Pouce(0,0,1)))); //ellipse en haut à gauche
 
         this.profilEllipses[2] = new ProfilEllipse(parent, new Pouce(15,0,1), new Pouce(15,0,1),
-                new PointPouce(parent.getMurBrute().getPolygone().getListePoints().get(2).getX().add(new Pouce(7,0,1)),
-                        parent.getMurBrute().getPolygone().getListePoints().get(2).getY().diff(new Pouce(5,0,1)))); //ellipse en bas à gauche
+                new PointPouce(parent.getMurBrute().getPolygone().getListePoints().get(2).getX().add(new Pouce(0,0,1)),
+                        parent.getMurBrute().getPolygone().getListePoints().get(2).getY().diff(new Pouce(0,0,1)))); //ellipse en bas à gauche
 
         this.profilEllipses[3] = new ProfilEllipse(parent, new Pouce(5,0,1), new Pouce(5,0,1),
                 parent.getMurBrute().getPolygone().getListePoints().get(3)); //ellipse en bas à droite
