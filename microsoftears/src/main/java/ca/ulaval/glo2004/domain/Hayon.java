@@ -136,21 +136,32 @@ public class Hayon extends Composante {
                 }
                 Pouce x;
                 Pouce y;
-                if (pointsProfil.get(i).equals(parent.getMurBrute().getPolygone().getListePoints().get(1))){
-                    x = pointsProfil.get(i).getX().add(epaisseur.add(epaisseurTraitScie));
-                    y = pointsProfil.get(i).getY().add(epaisseur.add(epaisseurTraitScie));
-                }else if(pointsProfil.get(i).equals(parent.getMurBrute().getPolygone().getListePoints().get(2))){
-                    x = pointsProfil.get(i).getX().add(epaisseur.add(epaisseurTraitScie));
-                    y = pointsProfil.get(i).getY().diff(epaisseur.add(epaisseurTraitScie));
-                }else {
-                    x = epaisseur.add(epaisseurTraitScie).multiplier(Math.cos(angleNormale)).add(pointsProfil.get(i).getX());
-                    y = epaisseur.add(epaisseurTraitScie).multiplier(-Math.sin(angleNormale)).add(pointsProfil.get(i).getY());
+
+                x = epaisseur.add(epaisseurTraitScie).multiplier(Math.cos(angleNormale)).add(pointsProfil.get(i).getX());
+                y = epaisseur.add(epaisseurTraitScie).multiplier(-Math.sin(angleNormale)).add(pointsProfil.get(i).getY());
+
+
+                //lorsque les points sont dans le coin mais sont plus petit que l'épaisseur du mur
+                if(x.st(parent.getMurBrute().getCentre().getX().diff(parent.getMurBrute().getLongueur().diviser(2)).
+                        add(epaisseur).add(epaisseurTraitScie))){
+                    x = parent.getMurBrute().getCentre().getX().diff(parent.getMurBrute().getLongueur().diviser(2)).
+                            add(epaisseur).add(epaisseurTraitScie);
                 }
-                if(x.ste(xFin) || pointsProfil.get(i).getY().ste(parent.getMurBrute().getCentre().getY())) {
+                if(y.gt(parent.getMurBrute().getCentre().getY().add(parent.getMurBrute().getLargeur().diviser(2)).
+                        diff(epaisseur).diff(epaisseurTraitScie))){
+                    y = parent.getMurBrute().getCentre().getY().add(parent.getMurBrute().getLargeur().diviser(2)).
+                            diff(epaisseur).diff(epaisseurTraitScie);
+                } else if (y.st(parent.getMurBrute().getCentre().getY().diff(parent.getMurBrute().getLargeur().diviser(2)).
+                        add(epaisseur).add(epaisseurTraitScie))){
+                    y = parent.getMurBrute().getCentre().getY().diff(parent.getMurBrute().getLargeur().diviser(2)).
+                            add(epaisseur).add(epaisseurTraitScie);
+                }
+
+                if(x.ste(xFin) || pointsProfil.get(i).getY().st(yMinFin)) {
                     pointsHayon.add(new PointPouce(x, y));
+                    aucunPointAjoute = false;
+                    indiceFin = i+1;
                 }
-                aucunPointAjoute = false;
-                indiceFin = i+1;
             }
         }
 
