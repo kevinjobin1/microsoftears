@@ -21,16 +21,12 @@ public class FenetrePrincipale extends JFrame {
     protected BarreMenu barreMenu;
     protected JTabbedPane barreOnglets;
     //protected PanneauAffichage panneauAffichage;
-    public JLabel positionSouris;
+    public JLabel infoLabel;
 
     // Éléments rattachés non-graphiques
     public RoulotteController controller;
     public TypeComposante composanteChoisie;
     private TypeAction actionChoisie;
-
-    // Ces attributs servent à la gestion du déplacement.
-    public Point actualMousePoint = new Point();
-    public Point delta = new Point();
 
     public enum TypeAction {
         SELECTION, AJOUT, SUPPRIMER
@@ -67,9 +63,8 @@ public class FenetrePrincipale extends JFrame {
         barreMenu = new BarreMenu(this);
         boutonsTopPanel = new BarreBoutons(this);
         barreOnglets = new BarreOnglet(this);
-        //panneauAffichage = new PanneauAffichage(this);
         panelConception = new PanelConception(this);
-        positionSouris = new JLabel();
+        infoLabel = new JLabel();
 
         //======== FenetrePrincipale ========
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -84,8 +79,8 @@ public class FenetrePrincipale extends JFrame {
         mainPanel.setLayout(new BorderLayout());
 
         //======== panel du bas ==========
-        positionSouris.setText("Position(0,0)");
-        bottomPanel.add(positionSouris);
+       infoLabel.setText("Position(0,0) " + " Centre (0,0) " + "Dimension (0,0)");
+        bottomPanel.add(infoLabel);
         bottomPanel.setLayout(new FlowLayout(FlowLayout.LEFT,10,10));
         mainPanel.add(bottomPanel, BorderLayout.SOUTH);
         

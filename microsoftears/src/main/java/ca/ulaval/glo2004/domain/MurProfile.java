@@ -85,19 +85,19 @@ public class MurProfile extends Composante{
 
         //cadran en haut à droite de l'éllipse0
         List<PointPouce> listeEllipse0 = new LinkedList<> (profilEllipses[0].getPolygone().getListePoints().
-                subList(0, Math.round(Ellipse.NOMBRE_POINTS/4)));
+                subList(0, Math.round(parent.getNombrePoint()/4)));
 
         //cadran en haut à gauche de l'éllipse1
         List<PointPouce> listeEllipse1 = new LinkedList<> (profilEllipses[1].getPolygone().getListePoints().
-                subList(Math.round(Ellipse.NOMBRE_POINTS/4), Math.round(Ellipse.NOMBRE_POINTS/2)));
+                subList( Math.round(parent.getNombrePoint()/4),  Math.round(parent.getNombrePoint()/2)));
 
         //cadran en bas à gauche de l'éllipse2
         List<PointPouce> listeEllipse2 = new LinkedList<> (profilEllipses[2].getPolygone().getListePoints().
-                subList(Math.round(Ellipse.NOMBRE_POINTS/2), Math.round(Ellipse.NOMBRE_POINTS*3/4)));
+                subList(  Math.round(parent.getNombrePoint()/2),  Math.round(parent.getNombrePoint()*3/4)));
 
         //cadran en bas à droite de l'éllipse3
         List<PointPouce> listeEllipse3 = new LinkedList<> (profilEllipses[3].getPolygone().getListePoints().
-                subList(Math.round(Ellipse.NOMBRE_POINTS*3/4), Math.round(Ellipse.NOMBRE_POINTS)));
+                subList(  Math.round(parent.getNombrePoint()*3/4),  Math.round(parent.getNombrePoint())));
 
         LinkedList<PointPouce> listeRetour = new LinkedList<>();
 

@@ -99,16 +99,25 @@ public class PanelConception extends JPanel
     }
 
     private void panneauAffichageMouseMoved(MouseEvent e) {
-        this.actualMousePoint = new Point(e.getX(), e.getY());
-        this.parent.positionSouris.setText("Position (" + e.getX() + "," + e.getY() + ")");
+        // TODO: encore des trucs à tester et ne pas oublier d'enlever les strings
+        this.parent.controller.setPositionSouris(e.getX(), e.getY());
+        this.parent.controller.setDimension(panneauAffichage.getSize());
+        String position = "Position (" + e.getX() + "," + e.getY() + ") ";
+        String centre = " Centre (" + (int) parent.controller.centrePlanX + "," + (int) parent.controller.centrePlanY + ")";
+        String dimension = " Dimension (" + (int) parent.controller.largeurPlan + "," + (int) parent.controller.hauteurPlan + ")";
+        this.parent.infoLabel.setText(position + centre + dimension);
+        panneauAffichage.repaint();
     }
 
     private void panneauAffichageMouseWheelMoved(MouseWheelEvent e) {
-
-        int wheelRotation = e.getWheelRotation();
-        Point mousePoint = new Point(e.getX(),e.getY());
-        parent.controller.setScale(wheelRotation, mousePoint);
-        parent.controller.setCenter(mousePoint);
+        // TODO: encore des trucs à tester et ne pas oublier d'enlever les strings
+        this.parent.controller.setPositionSouris(e.getX(), e.getY());
+        parent.controller.setScale(e.getWheelRotation());
+        this.parent.controller.setDimension(panneauAffichage.getSize());
+        String position = "Position (" + e.getX() + "," + e.getY() + ") ";
+        String centre = " Centre (" + (int) parent.controller.centrePlanX + "," + (int) parent.controller.centrePlanY + ")";
+        String dimension = " Dimension (" + (int) parent.controller.largeurPlan + "," + (int) parent.controller.hauteurPlan + ")";
+        this.parent.infoLabel.setText(position + centre + dimension);
         panneauAffichage.repaint();
     }
 

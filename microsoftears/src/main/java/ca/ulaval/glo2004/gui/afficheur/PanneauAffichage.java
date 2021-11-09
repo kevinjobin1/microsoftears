@@ -13,16 +13,12 @@ import javax.swing.*;
 
 public class PanneauAffichage extends JPanel implements Serializable {
 
-    public Dimension initialDimension;
-    private FenetrePrincipale parent;
-    private int width = 1035;
-    private int height = 737;
+    protected final FenetrePrincipale parent;
     
 
     public PanneauAffichage(FenetrePrincipale parent) {
         this.parent = parent;
         setVisible(true);
-        initialDimension = new Dimension(width, height);
         this.setBackground(Color.WHITE);
     }
 
@@ -31,49 +27,40 @@ public class PanneauAffichage extends JPanel implements Serializable {
     {
         if (parent != null){
             super.paintComponent(g);
-            RoulotteAfficheur afficheurRoulotte = new RoulotteAfficheur(parent.controller, new Dimension(width, height));
+            RoulotteAfficheur afficheurRoulotte = new RoulotteAfficheur(parent.controller, this.getSize());
             Graphics2D g2d = (Graphics2D) g;
-            this.setAntiAlias(g2d, true);
             afficheurRoulotte.afficher(g2d);
+            this.setAntiAlias(g2d, true);
+    }
+    }
 
-    }
-    }
+    /**
+     * Sert à appliquer ou non l'antialiasing de notre objet Graphics2d pour en améliorer la qualité du rendu
+     * @param g2d (Graphics2d) notre objet graphique
+     * @param isAntiAlias (boolean) un booléen correspondant à On (true) / Off (false)
+     */
 
     public static void setAntiAlias(Graphics2D g2d, boolean isAntiAlias) {
-        RenderingHints renderHints = new RenderingHints(RenderingHints.KEY_ANTIALIASING,
-                isAntiAlias ? RenderingHints.VALUE_ANTIALIAS_ON : RenderingHints.VALUE_ANTIALIAS_OFF);
-        renderHints.put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+            // On/Off selon la valeur de isAntiAlias passé en paramètre
+            RenderingHints renderHints = new RenderingHints(RenderingHints.KEY_ANTIALIASING,
+                    isAntiAlias ? RenderingHints.VALUE_ANTIALIAS_ON : RenderingHints.VALUE_ANTIALIAS_OFF);
 
-        g2d.setRenderingHints(renderHints);
+            // On applique le render à notre objet Graphics2d
+            renderHints.put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+            g2d.setRenderingHints(renderHints);
     }
 
-    public FenetrePrincipale getMainWindow(){
-        return parent;
-    }
-
-    public void setMainWindow(FenetrePrincipale parent){
-        this.parent = parent;
-    }
-
-    public Dimension getInitialDimension(){
-        return initialDimension;
-    }
-
-    public void setInitialDimension(Dimension newDimension){
-        this.initialDimension = newDimension;
-    }
 
     public PointPouce getPositionReelle(Point position) {
+        //TODO:
         return new PointPouce();
     }
 
     public Point getPositionGrille(Point position) {
+        //TODO:
         return new Point();
     }
 
-    public int getRatio() {
-        return parent.controller.pixelsToInchesRatio;
-    }
 }
 
 

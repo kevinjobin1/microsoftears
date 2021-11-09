@@ -8,23 +8,24 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-
 import ca.ulaval.glo2004.domain.*;
 import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Polygone;
 import ca.ulaval.glo2004.utilitaires.Pouce;
+import ca.ulaval.glo2004.utilitaires.Rectangle;
 
 public class RoulotteAfficheur
 {
 
     private final RoulotteController roulotte;
-    private Dimension dimension;
-    private int Pouce = 15;
+    private double largeur;
+    private double hauteur;
     
-    public RoulotteAfficheur(RoulotteController roulotte, Dimension dimension)
+    public RoulotteAfficheur(RoulotteController roulotte, Dimension dimensionPanneau)
     {
         this.roulotte = roulotte;
-        this.dimension = dimension;
+        this.largeur = dimensionPanneau.getWidth();
+        this.hauteur = dimensionPanneau.getHeight();
     }
 
     //todo rendre ça propre
@@ -33,42 +34,26 @@ public class RoulotteAfficheur
         afficherPlan(g2d);
         afficherTousPolygones(g2d);
         AffineTransform af = new AffineTransform();
-        af.translate(roulotte.origineX, roulotte.origineY);
-        af.scale(roulotte.zoom, roulotte.zoom);
-        af.translate(-roulotte.origineX, -roulotte.origineY);
+        af.scale(roulotte.scale, roulotte.scale);
         g2d.setTransform(af);
     }
 
     private void afficherPlan(Graphics2D g2d) {
-        Rectangle plan = new Rectangle(roulotte.origineX,roulotte.origineY,(int) (250/roulotte.scale), (int) (250/roulotte.scale));
+        System.out.println("Dimension: (" + largeur + "," + hauteur + ")");
+        System.out.println("Centre: (" + largeur/2 + "," + hauteur/2 + ")");
+
+        /*Rectangle2D.Double rectangle = new Rectangle2D.Double(0,0, largeur, hauteur);
         g2d.setColor(Color.YELLOW);
-        g2d.fill(plan);
-        g2d.draw(plan);
+        g2d.fill(rectangle);
+        g2d.draw(rectangle);*/
     }
 
     private void afficherTousPolygones(Graphics2D g2d)
     {
-
         ArrayList<Composante> composantes = roulotte.getListeComposantes();
         if (!composantes.isEmpty()) {
-
-            LinkedList<PointPouce> polygoneList;
-            int x, y;
             for (Composante composante : composantes) {
-                g2d.setColor(composante.getCouleur());
-                GeneralPath path = new GeneralPath();
-                polygoneList = composante.getPolygone().getListePoints();
-                for (int i = 0; i < polygoneList.size(); i++){
-                    x = polygoneList.get(i).getX().toPixel();
-                    y = polygoneList.get(i).getY().toPixel();
-                    if(i == 0) {
-                        path.moveTo(x, y);
-                    }else{
-                        path.lineTo(x ,y);
-                    }
-                }
-                path.closePath();
-                g2d.draw(path);
+              composante.afficher(g2d);
             }
         }
     }

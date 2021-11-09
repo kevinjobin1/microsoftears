@@ -13,7 +13,7 @@ private Rectangle rectangle1 = new Rectangle(new Pouce(2,0,1), new Pouce(4,0,1),
         new PointPouce(new Pouce(5,0,1), new Pouce(5,2,4)));
 
 private Ellipse ellipse1 = new Ellipse(new Pouce(1,0,1),new Pouce(1,0,1),
-        new PointPouce(new Pouce(2,0,1), new Pouce(2,0,1)));
+        new PointPouce(new Pouce(2,0,1), new Pouce(2,0,1)), 200);
 
     @Test
     public void testGetPolygoneRectangle(){

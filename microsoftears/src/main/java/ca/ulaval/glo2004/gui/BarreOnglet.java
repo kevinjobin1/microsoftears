@@ -4,7 +4,6 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 
-
 /**
  * Cette classe affiche la barre onglet de la Fenetre Principal
  *

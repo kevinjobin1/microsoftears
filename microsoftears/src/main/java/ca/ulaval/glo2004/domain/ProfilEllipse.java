@@ -16,7 +16,7 @@ public class ProfilEllipse extends Composante{
         this.longueur = longueur;
         this.hauteur = hauteur;
         this.centre = centre;
-        this.ellipse = new Ellipse(this.longueur,this.hauteur,this.centre);
+        this.ellipse = new Ellipse(this.longueur,this.hauteur,this.centre, this.parent.getNombrePoint());
         this.setPolygone(ellipse.getPolygone());
         this.setType(TypeComposante.PROFIL_ELLIPSE);
     }
@@ -27,7 +27,7 @@ public class ProfilEllipse extends Composante{
         //this.longueur = ;
         //this.hauteur = ;
         //this.centre = ;
-        this.ellipse = new Ellipse(longueur,hauteur,centre);
+        this.ellipse = new Ellipse(longueur,hauteur,centre, this.parent.getNombrePoint());
         this.setPolygone(ellipse.getPolygone());
         this.setType(TypeComposante.PROFIL_ELLIPSE);
     }

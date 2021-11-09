@@ -1,9 +1,13 @@
 package ca.ulaval.glo2004.domain;
 
+import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Polygone;
+import ca.ulaval.glo2004.utilitaires.Pouce;
 
 import java.awt.*;
 import java.awt.geom.Area;
+import java.awt.geom.GeneralPath;
+import java.util.LinkedList;
 
 public abstract class Composante extends Area {
 
@@ -15,6 +19,25 @@ public abstract class Composante extends Area {
     public Composante(RoulotteController parent) {
         this.parent = parent;
         this.couleur = Color.BLACK;
+    }
+
+    public void afficher(Graphics2D g2d){
+        GeneralPath path = new GeneralPath();
+        LinkedList<PointPouce> polygoneList = this.getPolygone().getListePoints();
+        double x, y;
+        for (int i = 0; i < polygoneList.size(); i++){
+            x = parent.xVersEcran(polygoneList.get(i).getX());
+            y = parent.yVersEcran(polygoneList.get(i).getY());
+            if(i == 0) {
+                path.moveTo(x, y);
+            }
+            else{
+                path.lineTo(x ,y);
+            }
+        }
+        path.closePath();
+        g2d.setColor(couleur);
+        g2d.draw(path);
     }
 
     public RoulotteController getParent() {
@@ -52,4 +75,5 @@ public abstract class Composante extends Area {
     public String toString(){
         return type.toString();
     }
+
 }

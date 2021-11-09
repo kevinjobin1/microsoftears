@@ -18,11 +18,6 @@ public class PointPouce  implements Serializable {
         y = new Pouce(40,0,1);
     }
 
-    public PointPouce(int pixelX, int pixelY) {
-        Pouce x = new Pouce(pixelX);
-        this.x = x;
-        this.y = y;
-    }
 
     public PointPouce(PointPouce pointCopie){
         this.x = pointCopie.getX();

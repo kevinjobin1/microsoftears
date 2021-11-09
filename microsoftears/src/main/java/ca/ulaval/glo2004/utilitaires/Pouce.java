@@ -199,7 +199,6 @@ public class Pouce
         return diviser(pouce.toDouble()).toDouble();
     }
 
-
     public Pouce multiplier(double mesure){
             double num = ((double)numerateur/denominateur + pouces) * PRECISION_POUCE * mesure;
             int entier = (int) (num / PRECISION_POUCE);
@@ -357,7 +356,7 @@ public class Pouce
         return new int[]{entier, numArrondi, PRECISION_POUCE};
     }
 
-    public int toPixel() {
-        return (int) (this.toDouble() * RoulotteController.pixelsToInchesRatio);
+    public double toPixel(double ratio) {
+        return this.toDouble() * ratio;
     }
 }

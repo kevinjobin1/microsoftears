@@ -4,6 +4,10 @@ import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Pouce;
 import ca.ulaval.glo2004.utilitaires.Rectangle;
 
+import java.awt.*;
+import java.awt.geom.GeneralPath;
+import java.util.LinkedList;
+
 public class MurBrute extends Composante{
 
     private Pouce longueur;

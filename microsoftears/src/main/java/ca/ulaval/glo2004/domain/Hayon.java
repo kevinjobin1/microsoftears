@@ -173,8 +173,8 @@ public class Hayon extends Composante {
         PointPouce pointCercle = new PointPouce(pointsProfil.get(indiceDepart).getX(),
                 pointsProfil.get(indiceDepart).getY().diff(rayonArcCercle.diff(epaisseur)));
         double angle;
-        for (int i = Ellipse.NOMBRE_POINTS/4; i >= 0; i--) {
-            angle = Math.toRadians(90 * i / (Ellipse.NOMBRE_POINTS / 4));
+        for (int i = (parent.getNombrePoint()/4); i >= 0; i--) {
+            angle = Math.toRadians(90 * i / (parent.getNombrePoint() / 4.0f));
             Pouce x = rayonArcCercle.multiplier(Math.cos(angle)).add(pointCercle.getX());
             Pouce y = rayonArcCercle.multiplier(Math.sin(angle)).add(pointCercle.getY());
             if(y.gte(parent.getMurBrute().getCentre().getY().diff(parent.getMurBrute().getLargeur().diviser(2)))) {
