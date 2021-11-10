@@ -140,7 +140,6 @@ public class Hayon extends Composante {
                 x = epaisseur.add(epaisseurTraitScie).multiplier(Math.cos(angleNormale)).add(pointsProfil.get(i).getX());
                 y = epaisseur.add(epaisseurTraitScie).multiplier(-Math.sin(angleNormale)).add(pointsProfil.get(i).getY());
 
-
                 //lorsque les points sont dans le coin mais sont plus petit que l'épaisseur du mur
                 if(x.st(parent.getMurBrute().getCentre().getX().diff(parent.getMurBrute().getLongueur().diviser(2)).
                         add(epaisseur).add(epaisseurTraitScie))){
@@ -157,7 +156,27 @@ public class Hayon extends Composante {
                             add(epaisseur).add(epaisseurTraitScie);
                 }
 
-                if(x.ste(xFin) || pointsProfil.get(i).getY().st(yMinFin)) {
+                //exception: retirer les points qui sont plus petit que la courbe
+                boolean pointValide = true;
+                if (!aucunPointAjoute && y.ste(parent.getMurBrute().getCentre().getY()) &&
+                        pointsHayon.getLast().getY().ste(parent.getMurBrute().getCentre().getY())) {
+                    if (x.gt(pointsHayon.getLast().getX())) {
+                            pointsHayon.removeLast();
+                    }
+                    if (y.st(pointsHayon.getLast().getY())) {
+                        pointValide = false;
+                    }
+                } else if(!aucunPointAjoute && y.gte(parent.getMurBrute().getCentre().getY()) &&
+                        pointsHayon.getLast().getY().gte(parent.getMurBrute().getCentre().getY())) {
+                    if (y.st(pointsHayon.getLast().getY())) {
+                        pointsHayon.removeLast();
+                    }
+                    if (x.st(pointsHayon.getLast().getX())) {
+                        pointValide = false;
+                    }
+                }
+
+                if((x.ste(xFin) || pointsProfil.get(i).getY().st(yMinFin)) && pointValide) {
                     pointsHayon.add(new PointPouce(x, y));
                     aucunPointAjoute = false;
                     indiceFin = i+1;
@@ -170,6 +189,7 @@ public class Hayon extends Composante {
         }
         Collections.reverse(pointsHayon);
 
+        //arc de cercle
         PointPouce pointCercle = new PointPouce(pointsProfil.get(indiceDepart).getX(),
                 pointsProfil.get(indiceDepart).getY().diff(rayonArcCercle.diff(epaisseur)));
         double angle;
