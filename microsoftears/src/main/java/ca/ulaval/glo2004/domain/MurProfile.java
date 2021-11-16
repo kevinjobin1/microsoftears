@@ -31,9 +31,9 @@ public class MurProfile extends Composante{
                 new PointPouce(parent.getMurBrute().getPolygone().getListePoints().get(0).getX().diff(new Pouce(5,0,1)),
                         parent.getMurBrute().getPolygone().getListePoints().get(0).getY().add(new Pouce(5,0,1)))); //ellipse en haut à droite
 
-        this.profilEllipses[1] = new ProfilEllipse(parent, new Pouce(15,0,1), new Pouce(12,0,1),
-                new PointPouce(parent.getMurBrute().getPolygone().getListePoints().get(1).getX().add(new Pouce(7,0,1)),
-                        parent.getMurBrute().getPolygone().getListePoints().get(1).getY().add(new Pouce(5,0,1)))); //ellipse en haut à gauche
+        this.profilEllipses[1] = new ProfilEllipse(parent, new Pouce(40,0,1), new Pouce(30,0,1),
+                new PointPouce(parent.getMurBrute().getPolygone().getListePoints().get(1).getX().add(new Pouce(15,1,2)),
+                        parent.getMurBrute().getPolygone().getListePoints().get(1).getY().add(new Pouce(15,0,1)))); //ellipse en haut à gauche
 
         this.profilEllipses[2] = new ProfilEllipse(parent, new Pouce(15,0,1), new Pouce(12,0,1),
                 new PointPouce(parent.getMurBrute().getPolygone().getListePoints().get(2).getX().add(new Pouce(7,0,1)),
