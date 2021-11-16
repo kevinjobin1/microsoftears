@@ -21,7 +21,7 @@ public class BarreOnglet extends JTabbedPane {
     public void initialiser()
     {
         //== TODO: Initialiser les attributs du TabbedPane ici
-        this.setPreferredSize(new Dimension(300, 900));
+        //this.setPreferredSize(new Dimension(300, 900));
 
         //== TODO: Remplacer this.add(...) par ajouterOnglet("MaComposanteExemple")
 
@@ -120,7 +120,7 @@ public class BarreOnglet extends JTabbedPane {
         JLabel epaisseur = new JLabel("Épaisseur : ");
         c.gridx = 0;
         c.gridy= 0;
-        c.gridwidth = 3;
+        c.gridwidth = 5;
         c.weightx = 0.20;
         c.insets = new Insets(20,5,20, 5);
         panel.add(epaisseur, c);
@@ -129,7 +129,7 @@ public class BarreOnglet extends JTabbedPane {
         JLabel poutre = new JLabel("Distance de la poutre : ");
         c.gridx = 0;
         c.gridy= 2;
-        c.gridwidth = 3;
+        c.gridwidth = 5;
         c.weightx = 0.20;
         c.insets = new Insets(20,5,20, 5);
         panel.add(poutre, c);
@@ -138,7 +138,7 @@ public class BarreOnglet extends JTabbedPane {
         JLabel plancher = new JLabel("Distance du plancher : ");
         c.gridx = 0;
         c.gridy= 4;
-        c.gridwidth = 3;
+        c.gridwidth = 5;
         c.weightx = 0.20;
         c.insets = new Insets(20,5,20, 5);
         panel.add(plancher, c);
@@ -147,7 +147,7 @@ public class BarreOnglet extends JTabbedPane {
         JLabel scie = new JLabel("Distance du trait de scie : ");
         c.gridx = 0;
         c.gridy= 6;
-        c.gridwidth = 3;
+        c.gridwidth = 5;
         c.weightx = 0.20;
         c.insets = new Insets(20,5,20, 5);
         panel.add(scie, c);
@@ -156,7 +156,7 @@ public class BarreOnglet extends JTabbedPane {
         JLabel rayon = new JLabel("Rayon de l'arc du cercle : " );
         c.gridx = 0;
         c.gridy= 8;
-        c.gridwidth = 3;
+        c.gridwidth = 5;
         c.weightx = 0.20;
         c.insets = new Insets(20,5,20, 5);
         panel.add(rayon, c);
@@ -201,17 +201,35 @@ public class BarreOnglet extends JTabbedPane {
         panel.add(spinner, c);
 
         //(1, 1)
-        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
+        JLabel label = new JLabel(" '' ");
         c.gridx = 1;
+        c.gridy= 1;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(label, c);
+
+        //(2, 1)
+        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
+        c.gridx = 2;
         c.gridy= 1;
         c.gridwidth = 1;
         c.weightx = 0.5;
         c.insets = new Insets(10,5,10, 5);
         panel.add(spinner, c);
 
-        //(2, 1)
+        //(3, 1)
+        JLabel label2 = new JLabel(" / ");
+        c.gridx = 3;
+        c.gridy= 1;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(label2, c);
+
+        //(4, 1)
         spinner = new JSpinner(new SpinnerNumberModel(value2, min2, max2, step2));
-        c.gridx = 2;
+        c.gridx = 4;
         c.gridy= 1;
         c.gridwidth = 1;
         c.weightx = 0.5;
@@ -234,17 +252,35 @@ public class BarreOnglet extends JTabbedPane {
         panel.add(spinner, c);
 
         //(1, 3)
-        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
+        label = new JLabel(" '' ");
         c.gridx = 1;
+        c.gridy= 3;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(label, c);
+
+        //(2, 3)
+        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
+        c.gridx = 2;
         c.gridy= 3;
         c.gridwidth = 1;
         c.weightx = 0.5;
         c.insets = new Insets(10,5,10, 5);
         panel.add(spinner, c);
 
-        //(2, 3)
+        //(3, 3)
+        label2 = new JLabel(" / ");
+        c.gridx = 3;
+        c.gridy= 3;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(label2, c);
+
+        //(4, 3)
         spinner = new JSpinner(new SpinnerNumberModel(value2, min2, max2, step2));
-        c.gridx = 2;
+        c.gridx = 4;
         c.gridy= 3;
         c.gridwidth = 1;
         c.weightx = 0.5;
@@ -267,17 +303,35 @@ public class BarreOnglet extends JTabbedPane {
         panel.add(spinner, c);
 
         //(1, 5)
-        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
+        label = new JLabel(" '' ");
         c.gridx = 1;
+        c.gridy= 5;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(label, c);
+
+        //(2, 5)
+        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
+        c.gridx = 2;
         c.gridy= 5;
         c.gridwidth = 1;
         c.weightx = 0.5;
         c.insets = new Insets(10,5,10, 5);
         panel.add(spinner, c);
 
-        //(2, 5)
+        //(3, 5)
+        label2 = new JLabel(" / ");
+        c.gridx = 3;
+        c.gridy= 5;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(label2, c);
+
+        //(4, 5)
         spinner = new JSpinner(new SpinnerNumberModel(value2, min2, max2, step2));
-        c.gridx = 2;
+        c.gridx = 4;
         c.gridy= 5;
         c.gridwidth = 1;
         c.weightx = 0.5;
@@ -300,17 +354,35 @@ public class BarreOnglet extends JTabbedPane {
         panel.add(spinner, c);
 
         //(1, 7)
-        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
+        label = new JLabel(" '' ");
         c.gridx = 1;
+        c.gridy= 7;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(label, c);
+
+        //(2, 7)
+        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
+        c.gridx = 2;
         c.gridy= 7;
         c.gridwidth = 1;
         c.weightx = 0.5;
         c.insets = new Insets(10,5,10, 5);
         panel.add(spinner, c);
 
-        //(2, 7)
+        //(3, 7)
+        label2 = new JLabel(" / ");
+        c.gridx = 3;
+        c.gridy= 7;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(label2, c);
+
+        //(4, 7)
         spinner = new JSpinner(new SpinnerNumberModel(value2, min2, max2, step2));
-        c.gridx = 2;
+        c.gridx = 4;
         c.gridy= 7;
         c.gridwidth = 1;
         c.weightx = 0.5;
@@ -333,17 +405,35 @@ public class BarreOnglet extends JTabbedPane {
         panel.add(spinner, c);
 
         //(1, 9)
-        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
+        label = new JLabel(" '' ");
         c.gridx = 1;
+        c.gridy= 9;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(label, c);
+
+        //(2, 9)
+        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
+        c.gridx = 2;
         c.gridy= 9;
         c.gridwidth = 1;
         c.weightx = 0.5;
         c.insets = new Insets(10,5,10, 5);
         panel.add(spinner, c);
 
-        //(2, 9)
+        //(3, 9)
+        label2 = new JLabel(" / ");
+        c.gridx = 3;
+        c.gridy= 9;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(label2, c);
+
+        //(4, 9)
         spinner = new JSpinner(new SpinnerNumberModel(value2, min2, max2, step2));
-        c.gridx = 2;
+        c.gridx = 4;
         c.gridy= 9;
         c.gridwidth = 1;
         c.weightx = 0.5;
@@ -400,7 +490,7 @@ public class BarreOnglet extends JTabbedPane {
         JLabel epaisseur = new JLabel("Épaisseur : ");
         c.gridx = 0;
         c.gridy= 0;
-        c.gridwidth = 3;
+        c.gridwidth = 5;
         c.weightx = 0.20;
         c.insets = new Insets(20,5,20, 5);
         panel.add(epaisseur, c);
@@ -409,7 +499,7 @@ public class BarreOnglet extends JTabbedPane {
         JLabel margeAvant = new JLabel("Marge avant : ");
         c.gridx = 0;
         c.gridy= 2;
-        c.gridwidth = 3;
+        c.gridwidth = 5;
         c.weightx = 0.20;
         c.insets = new Insets(20,5,20, 5);
         panel.add(margeAvant, c);
@@ -418,7 +508,7 @@ public class BarreOnglet extends JTabbedPane {
         JLabel margeArriere = new JLabel("Marge arrière : ");
         c.gridx = 0;
         c.gridy= 4;
-        c.gridwidth = 3;
+        c.gridwidth = 5;
         c.weightx = 0.20;
         c.insets = new Insets(20,5,20, 5);
         panel.add(margeArriere, c);
@@ -427,7 +517,7 @@ public class BarreOnglet extends JTabbedPane {
         JLabel rectangle = new JLabel("Rectangle: ");
         c.gridx = 0;
         c.gridy= 6;
-        c.gridwidth = 3;
+        c.gridwidth = 5;
         c.weightx = 0.20;
         c.insets = new Insets(20,5,20, 5);
         panel.add(rectangle, c);
@@ -448,17 +538,35 @@ public class BarreOnglet extends JTabbedPane {
         panel.add(spinner, c);
 
         //(1, 1)
-        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
+        JLabel label = new JLabel(" '' ");
         c.gridx = 1;
+        c.gridy= 1;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(label, c);
+
+        //(2, 1)
+        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
+        c.gridx = 2;
         c.gridy= 1;
         c.gridwidth = 1;
         c.weightx = 0.5;
         c.insets = new Insets(10,5,10, 5);
         panel.add(spinner, c);
 
-        //(2, 1)
+        //(3, 1)
+        JLabel label2 = new JLabel(" / ");
+        c.gridx = 3;
+        c.gridy= 1;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(label2, c);
+
+        //(4, 1)
         spinner = new JSpinner(new SpinnerNumberModel(value2, min2, max2, step2));
-        c.gridx = 2;
+        c.gridx = 4;
         c.gridy= 1;
         c.gridwidth = 1;
         c.weightx = 0.5;
@@ -481,17 +589,35 @@ public class BarreOnglet extends JTabbedPane {
         panel.add(spinner, c);
 
         //(1, 3)
-        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
+        label = new JLabel(" '' ");
         c.gridx = 1;
+        c.gridy= 3;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(label, c);
+
+        //(2, 3)
+        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
+        c.gridx = 2;
         c.gridy= 3;
         c.gridwidth = 1;
         c.weightx = 0.5;
         c.insets = new Insets(10,5,10, 5);
         panel.add(spinner, c);
 
-        //(2, 3)
+        //(3, 3)
+        label2 = new JLabel(" / ");
+        c.gridx = 3;
+        c.gridy= 3;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(label2, c);
+
+        //(4, 3)
         spinner = new JSpinner(new SpinnerNumberModel(value2, min2, max2, step2));
-        c.gridx = 2;
+        c.gridx = 4;
         c.gridy= 3;
         c.gridwidth = 1;
         c.weightx = 0.5;
@@ -514,17 +640,35 @@ public class BarreOnglet extends JTabbedPane {
         panel.add(spinner, c);
 
         //(1, 5)
-        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
+        label = new JLabel(" '' ");
         c.gridx = 1;
+        c.gridy= 5;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(label, c);
+
+        //(2, 5)
+        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
+        c.gridx = 2;
         c.gridy= 5;
         c.gridwidth = 1;
         c.weightx = 0.5;
         c.insets = new Insets(10,5,10, 5);
         panel.add(spinner, c);
 
-        //(2, 5)
+        //(3, 5)
+        label2 = new JLabel(" / ");
+        c.gridx = 3;
+        c.gridy= 5;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(label2, c);
+
+        //(4, 5)
         spinner = new JSpinner(new SpinnerNumberModel(value2, min2, max2, step2));
-        c.gridx = 2;
+        c.gridx = 4;
         c.gridy= 5;
         c.gridwidth = 1;
         c.weightx = 0.5;
@@ -546,18 +690,36 @@ public class BarreOnglet extends JTabbedPane {
         c.insets = new Insets(10,5,10, 5);
         panel.add(spinner, c);
 
-        //(1, 1)
-        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
+        //(1, 7)
+        label = new JLabel(" '' ");
         c.gridx = 1;
+        c.gridy= 7;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(label, c);
+
+        //(2, 7)
+        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
+        c.gridx = 2;
         c.gridy= 7;
         c.gridwidth = 1;
         c.weightx = 0.5;
         c.insets = new Insets(10,5,10, 5);
         panel.add(spinner, c);
 
-        //(2, 1)
+        //(3, 7)
+        label2 = new JLabel(" / ");
+        c.gridx = 3;
+        c.gridy= 7;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(label2, c);
+
+        //(4, 7)
         spinner = new JSpinner(new SpinnerNumberModel(value2, min2, max2, step2));
-        c.gridx = 2;
+        c.gridx = 4;
         c.gridy= 7;
         c.gridwidth = 1;
         c.weightx = 0.5;
@@ -647,6 +809,7 @@ public class BarreOnglet extends JTabbedPane {
         //==========================CODE FOR JSPINNER VALUES===========================//
         //                                                                             //
         //=============================================================================//
+
         //adding restrictions to the spinners
         Integer value = 1;
         Integer min = 1;
@@ -675,7 +838,7 @@ public class BarreOnglet extends JTabbedPane {
         JLabel epaisseur = new JLabel("Hauteur : ");
         c.gridx = 0;
         c.gridy= 0;
-        c.gridwidth = 3;
+        c.gridwidth = 5;
         c.weightx = 0.20;
         c.insets = new Insets(20,5,20, 5);
         panel.add(epaisseur, c);
@@ -684,19 +847,28 @@ public class BarreOnglet extends JTabbedPane {
         JLabel margeAvant = new JLabel("Longueur : ");
         c.gridx = 0;
         c.gridy= 2;
-        c.gridwidth = 3;
+        c.gridwidth = 5;
         c.weightx = 0.20;
         c.insets = new Insets(20,5,20, 5);
         panel.add(margeAvant, c);
 
         //(0,4)
-        JLabel margeArriere = new JLabel("Centre : ");
+        JLabel margeArriereX = new JLabel("Centre X : ");
         c.gridx = 0;
         c.gridy= 4;
-        c.gridwidth = 3;
+        c.gridwidth = 5;
         c.weightx = 0.20;
         c.insets = new Insets(20,5,20, 5);
-        panel.add(margeArriere, c);
+        panel.add(margeArriereX, c);
+
+        //(0,6)
+        JLabel margeArriereY = new JLabel("Centre Y : ");
+        c.gridx = 0;
+        c.gridy= 6;
+        c.gridwidth = 5;
+        c.weightx = 0.20;
+        c.insets = new Insets(20,5,20, 5);
+        panel.add(margeArriereY, c);
 
 
         //=============================================================================//
@@ -715,17 +887,35 @@ public class BarreOnglet extends JTabbedPane {
         panel.add(spinner, c);
 
         //(1, 1)
-        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
+        JLabel label = new JLabel(" '' ");
         c.gridx = 1;
+        c.gridy= 1;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(label, c);
+
+        //(2, 1)
+        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
+        c.gridx = 2;
         c.gridy= 1;
         c.gridwidth = 1;
         c.weightx = 0.5;
         c.insets = new Insets(10,5,10, 5);
         panel.add(spinner, c);
 
-        //(2, 1)
+        //(3, 1)
+        JLabel label2 = new JLabel(" / ");
+        c.gridx = 3;
+        c.gridy= 1;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(label2, c);
+
+        //(4, 1)
         spinner = new JSpinner(new SpinnerNumberModel(value2, min2, max2, step2));
-        c.gridx = 2;
+        c.gridx = 4;
         c.gridy= 1;
         c.gridwidth = 1;
         c.weightx = 0.5;
@@ -748,17 +938,35 @@ public class BarreOnglet extends JTabbedPane {
         panel.add(spinner, c);
 
         //(1, 3)
-        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
+        label = new JLabel(" '' ");
         c.gridx = 1;
+        c.gridy= 3;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(label, c);
+
+        //(2, 3)
+        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
+        c.gridx = 2;
         c.gridy= 3;
         c.gridwidth = 1;
         c.weightx = 0.5;
         c.insets = new Insets(10,5,10, 5);
         panel.add(spinner, c);
 
-        //(2, 3)
+        //(3, 3)
+        label2 = new JLabel(" / ");
+        c.gridx = 3;
+        c.gridy= 3;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(label2, c);
+
+        //(4, 3)
         spinner = new JSpinner(new SpinnerNumberModel(value2, min2, max2, step2));
-        c.gridx = 2;
+        c.gridx = 4;
         c.gridy= 3;
         c.gridwidth = 1;
         c.weightx = 0.5;
@@ -781,18 +989,87 @@ public class BarreOnglet extends JTabbedPane {
         panel.add(spinner, c);
 
         //(1, 5)
-        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
+        label = new JLabel(" '' ");
         c.gridx = 1;
+        c.gridy= 5;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(label, c);
+
+        //(2, 5)
+        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
+        c.gridx = 2;
         c.gridy= 5;
         c.gridwidth = 1;
         c.weightx = 0.5;
         c.insets = new Insets(10,5,10, 5);
         panel.add(spinner, c);
 
-        //(2, 5)
-        spinner = new JSpinner(new SpinnerNumberModel(value2, min2, max2, step2));
-        c.gridx = 2;
+        //(3, 5)
+        label2 = new JLabel(" / ");
+        c.gridx = 3;
         c.gridy= 5;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(label2, c);
+
+        //(4, 5)
+        spinner = new JSpinner(new SpinnerNumberModel(value2, min2, max2, step2));
+        c.gridx = 4;
+        c.gridy= 5;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(spinner, c);
+
+        //=============================================================================//
+        //                                                                             //
+        //=======================CODE FOR EIGHTH ROW OF PROFILE========================//
+        //                                                                             //
+        //=============================================================================//
+
+        //(0, 7)
+        spinner = new JSpinner(new SpinnerNumberModel(value, min, max, step));
+        c.gridx = 0;
+        c.gridy= 7;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(spinner, c);
+
+        //(1, 7)
+        label = new JLabel(" '' ");
+        c.gridx = 1;
+        c.gridy= 7;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(label, c);
+
+        //(2, 7)
+        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
+        c.gridx = 2;
+        c.gridy= 7;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(spinner, c);
+
+        //(3, 7)
+        label2 = new JLabel(" / ");
+        c.gridx = 3;
+        c.gridy= 7;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(label2, c);
+
+        //(4, 7)
+        spinner = new JSpinner(new SpinnerNumberModel(value2, min2, max2, step2));
+        c.gridx = 4;
+        c.gridy= 7;
         c.gridwidth = 1;
         c.weightx = 0.5;
         c.insets = new Insets(10,5,10, 5);
@@ -846,7 +1123,7 @@ public class BarreOnglet extends JTabbedPane {
         JLabel epaisseur = new JLabel("Hauteur : ");
         c.gridx = 0;
         c.gridy= 0;
-        c.gridwidth = 3;
+        c.gridwidth = 5;
         c.weightx = 0.20;
         c.insets = new Insets(20,5,20, 5);
         panel.add(epaisseur, c);
@@ -855,7 +1132,7 @@ public class BarreOnglet extends JTabbedPane {
         JLabel margeAvant = new JLabel("Longueur : ");
         c.gridx = 0;
         c.gridy= 2;
-        c.gridwidth = 3;
+        c.gridwidth = 5;
         c.weightx = 0.20;
         c.insets = new Insets(20,5,20, 5);
         panel.add(margeAvant, c);
@@ -864,7 +1141,7 @@ public class BarreOnglet extends JTabbedPane {
         JLabel margeArriere = new JLabel("Centre : ");
         c.gridx = 0;
         c.gridy= 4;
-        c.gridwidth = 3;
+        c.gridwidth = 5;
         c.weightx = 0.20;
         c.insets = new Insets(20,5,20, 5);
         panel.add(margeArriere, c);
@@ -886,17 +1163,35 @@ public class BarreOnglet extends JTabbedPane {
         panel.add(spinner, c);
 
         //(1, 1)
-        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
+        JLabel label = new JLabel(" '' ");
         c.gridx = 1;
+        c.gridy= 1;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(label, c);
+
+        //(2, 1)
+        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
+        c.gridx = 2;
         c.gridy= 1;
         c.gridwidth = 1;
         c.weightx = 0.5;
         c.insets = new Insets(10,5,10, 5);
         panel.add(spinner, c);
 
+        //(3, 1)
+        JLabel label2 = new JLabel(" / ");
+        c.gridx = 3;
+        c.gridy= 1;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(label2, c);
+
         //(2, 1)
         spinner = new JSpinner(new SpinnerNumberModel(value2, min2, max2, step2));
-        c.gridx = 2;
+        c.gridx = 4;
         c.gridy= 1;
         c.gridwidth = 1;
         c.weightx = 0.5;
@@ -919,17 +1214,35 @@ public class BarreOnglet extends JTabbedPane {
         panel.add(spinner, c);
 
         //(1, 3)
-        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
+        label = new JLabel(" '' ");
         c.gridx = 1;
+        c.gridy= 3;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(label, c);
+
+        //(2, 3)
+        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
+        c.gridx = 2;
         c.gridy= 3;
         c.gridwidth = 1;
         c.weightx = 0.5;
         c.insets = new Insets(10,5,10, 5);
         panel.add(spinner, c);
 
-        //(2, 3)
+        //(3, 3)
+        label2 = new JLabel(" / ");
+        c.gridx = 3;
+        c.gridy= 3;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(label2, c);
+
+        //(4, 3)
         spinner = new JSpinner(new SpinnerNumberModel(value2, min2, max2, step2));
-        c.gridx = 2;
+        c.gridx = 4;
         c.gridy= 3;
         c.gridwidth = 1;
         c.weightx = 0.5;
@@ -952,17 +1265,35 @@ public class BarreOnglet extends JTabbedPane {
         panel.add(spinner, c);
 
         //(1, 5)
-        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
+        label = new JLabel(" '' ");
         c.gridx = 1;
+        c.gridy= 5;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(label, c);
+
+        //(2, 5)
+        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
+        c.gridx = 2;
         c.gridy= 5;
         c.gridwidth = 1;
         c.weightx = 0.5;
         c.insets = new Insets(10,5,10, 5);
         panel.add(spinner, c);
 
-        //(2, 5)
+        //(3, 5)
+        label2 = new JLabel(" / ");
+        c.gridx = 3;
+        c.gridy= 5;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(label2, c);
+
+        //(4, 5)
         spinner = new JSpinner(new SpinnerNumberModel(value2, min2, max2, step2));
-        c.gridx = 2;
+        c.gridx = 4;
         c.gridy= 5;
         c.gridwidth = 1;
         c.weightx = 0.5;
@@ -971,7 +1302,5 @@ public class BarreOnglet extends JTabbedPane {
 
         return panel;
     }
-
-
 
 }
