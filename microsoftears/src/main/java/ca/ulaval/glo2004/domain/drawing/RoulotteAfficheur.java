@@ -58,7 +58,7 @@ public class RoulotteAfficheur
         }
     }
 
-    //todo pourrait être pratique
+    //todo optionnel
     public void afficherComposante(Graphics2D g2d, Composante composante){
 
     }

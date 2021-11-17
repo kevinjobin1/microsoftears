@@ -145,11 +145,7 @@ public class Hayon extends Composante {
                 PointPouce point1 = pointsProfil.get(i - 1);
                 PointPouce point2 = pointsProfil.get(i + 1);
                 pente = point2.getY().diff(point1.getY()).diviser(point2.getX().diff(point1.getX()));
-                if(pointsProfil.get(i).getY().gte(parent.getMurBrute().getCentre().getY())) {
-                    angleNormale = Math.atan(1 / pente);
-                }else{
-                    angleNormale = Math.atan(-1 / pente);
-                }
+                angleNormale = Math.atan(1 / pente);
                 Pouce x = epaisseur.add(epaisseurTraitScie).multiplier(Math.cos(angleNormale)).add(pointsProfil.get(i).getX());
                 Pouce y = epaisseur.add(epaisseurTraitScie).multiplier(-Math.sin(angleNormale)).add(pointsProfil.get(i).getY());
 
@@ -207,7 +203,7 @@ public class Hayon extends Composante {
         PointPouce point1 = pointsProfil.get(indiceDepartCercle - 1);
         PointPouce point2 = pointsProfil.get(indiceDepartCercle + 1);
         pente = point2.getY().diff(point1.getY()).diviser(point2.getX().diff(point1.getX()));
-        angleNormale = Math.atan(-1 / pente);
+        angleNormale = Math.atan(1 / pente);
 
         Pouce x = pointsProfil.get(indiceDepartCercle).getX().diff((rayonArcCercle.diff(epaisseur)).multiplier(Math.cos(angleNormale)));
         Pouce y = pointsProfil.get(indiceDepartCercle).getY().diff((rayonArcCercle.diff(epaisseur)).multiplier(-Math.sin(angleNormale)));

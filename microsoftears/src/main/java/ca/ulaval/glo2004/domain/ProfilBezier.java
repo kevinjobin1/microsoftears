@@ -22,7 +22,7 @@ public class ProfilBezier extends Composante{
         this.pointsControle = new PointPouce[nombrePointsControle];
     }
 
-    //todo
+    //todo mais pas pour le livrable 3
     public ProfilBezier(RoulotteController parent) {
         super(parent);
         //this.pointsBezier = ;

@@ -178,7 +178,7 @@ public class Pouce
 
         int num1 = numerateur + (pouces * denominateur);
         int num2 = mesure.numerateur + (mesure.pouces * mesure.denominateur);
-        int num = Math.abs(num1 * mesure.denominateur - num2 * denominateur);
+        int num = num1 * mesure.denominateur - num2 * denominateur;
         int denom = denominateur * mesure.denominateur;
         int poucesEntier = num / denom;
         num %= denom;

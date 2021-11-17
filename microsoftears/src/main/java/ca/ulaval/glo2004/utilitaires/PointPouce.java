@@ -9,8 +9,8 @@ public class PointPouce  implements Serializable {
     private Pouce y;
 
     public PointPouce(Pouce x, Pouce y) {
-        this.x = x.st(0) ? new Pouce(0,1,0) : x;
-        this.y = y.st(0) ? new Pouce(0,1,0) : y;
+        this.x = x.st(0) ? new Pouce(0,0,1) : x;
+        this.y = y.st(0) ? new Pouce(0,0,1) : y;
     }
 
     public PointPouce() {
