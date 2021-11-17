@@ -14,11 +14,27 @@ public class PoutreArriere extends Composante{
     private PointPouce centre;
     private Rectangle rectangle;
 
+    //todo ou enlever pas fonctionnel
     public PoutreArriere(RoulotteController parent, Pouce longueur, Pouce hauteur, PointPouce centre) {
         super(parent);
         this.longueur = longueur;
         this.hauteur = hauteur;
         this.centre = centre;
+        this.rectangle = new Rectangle(this.longueur,this.hauteur,this.centre,getAngle());
+        this.setType(TypeComposante.POUTRE_ARRIERE);
+        this.setPolygone(rectangle.getPolygone());
+    }
+
+    public PoutreArriere(RoulotteController parent, Pouce longueur, Pouce hauteur, Pouce centreX) {
+        super(parent);
+        this.longueur = longueur;
+        this.hauteur = hauteur;
+        Pouce centreY = getCentreY(centreX);
+        if(centreY != null) {
+            this.centre = new PointPouce(centreX, centreY);
+        }else{
+            this.centre = new PointPouce(centreX,parent.getMurBrute().getCentre().getY().diff(parent.getMurBrute().getLargeur().diviser(2)).add(hauteur.diviser(2)));
+        }
         this.rectangle = new Rectangle(this.longueur,this.hauteur,this.centre,getAngle());
         this.setType(TypeComposante.POUTRE_ARRIERE);
         this.setPolygone(rectangle.getPolygone());
