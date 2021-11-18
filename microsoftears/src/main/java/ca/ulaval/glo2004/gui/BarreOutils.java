@@ -46,7 +46,7 @@ public class BarreOutils extends JToolBar {
         dessinerButton  = creerBouton(BootstrapIcons.PENCIL, 20, Color.WHITE);
         remplirButton  = creerBouton(BootstrapIcons.TRASH, 20, Color.WHITE);
         removeComposanteButton  = creerBouton(BootstrapIcons.PAINT_BUCKET, 20, Color.WHITE);
-        couleurButton = creerBouton(BootstrapIcons.SQUARE_FILL, 20, Color.WHITE);
+        couleurButton = creerBouton(BootstrapIcons.SQUARE_FILL, 20, new Color(217,217,217));
         couleurChooser = new JColorChooser();
 
         //======= Actions ========
@@ -61,8 +61,11 @@ public class BarreOutils extends JToolBar {
             public void mousePressed(MouseEvent e) {
                 // on affiche le colorchooser lorsque le user clique sur le carré, et on change pour la couleur choisie
                 parent.couleurChoisie = JColorChooser.showDialog(couleurChooser, "Palette de couleurs", couleurButton.getBackground());
-                FontIcon nouvelIcone = FontIcon.of(BootstrapIcons.SQUARE_FILL, 20, parent.couleurChoisie);
-                couleurButton.setIcon(nouvelIcone);
+                if (parent.couleurChoisie == null){
+                    parent.couleurChoisie = Color.WHITE;
+                }
+                FontIcon nouvelIcon = FontIcon.of(BootstrapIcons.SQUARE_FILL, 20, parent.couleurChoisie);
+                couleurButton.setIcon(nouvelIcon);
             }
         });
     }

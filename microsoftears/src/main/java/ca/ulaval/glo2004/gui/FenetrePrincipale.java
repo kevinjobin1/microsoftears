@@ -28,13 +28,17 @@ public class FenetrePrincipale extends JFrame {
     public TypeComposante composanteChoisie;
     private TypeAction actionChoisie;
 
+    public Color getCouleurChoisie() {
+        return couleurChoisie;
+    }
+
     public enum TypeAction {
         SELECTION, AJOUT, SUPPRIMER
     }
 
     public FenetrePrincipale() {
-        controller = new RoulotteController();
-
+        controller = new RoulotteController(this);
+        this.couleurChoisie = new Color(217, 217, 217);
         initComponents();
         MurBrute murBrute = new MurBrute(controller);
         //controller.getListeComposantes().add(murBrute);

@@ -200,7 +200,7 @@ public class BarreMenu extends JMenuBar
         affichageMenu.add(separator);
 
         // TODO: à changer pour obtenir la liste des composantes du plan en temps réel
-        String[] composantes = {"Plancher", "Hayon", "Poutre arrière"};
+        String[] composantes = {"Plancher", "Hayon", "Poutre Arrière"};
         for (String composante : composantes){
             creerCheckBoxMenuItem(composante);
         }
@@ -334,17 +334,21 @@ public class BarreMenu extends JMenuBar
             String composante = checkbox.getText();
             boolean estAffiche = checkbox.getState();
 
-            if (!estAffiche){
+            if (estAffiche){
                 // si la composante n'est pas affichée, on la réaffiche
                 // on va appeler une fonction du controleur qui invalide l'affichage
                 // et qui repaint les composantes
+                parent.controller.setComposanteVisible(true, composante);
             }
+
             else {
                 // sinon, on la fait disparaitre
                 // on va appeler une fonction du controleur qui invalide l'affichage
                 // et qui repaint les composantes
+                parent.controller.setComposanteVisible(false, composante);
             }
 
+            parent.repaint();
         }
     }
 

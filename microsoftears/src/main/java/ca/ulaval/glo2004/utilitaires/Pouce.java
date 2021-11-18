@@ -60,7 +60,7 @@ public class Pouce
             @param mesureMM (int) représentant la mesure en milimetres
         */
 
-        public Pouce(int mesureMM){
+        public Pouce(int mesureMM) {
 
         this.milimetres = mesureMM;
 
