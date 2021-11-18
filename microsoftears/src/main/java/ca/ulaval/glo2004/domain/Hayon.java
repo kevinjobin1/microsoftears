@@ -15,8 +15,8 @@ public class Hayon extends Composante {
     private Pouce distancePlancher;
     private Pouce epaisseurTraitScie;
     private Pouce rayonArcCercle;
-
-
+    private PointPouce pointRotation = null;
+    private PointPouce pointFinHayon;
     public Hayon(RoulotteController parent, Pouce epaisseur, Pouce distancePoutre, Pouce distancePlancher, Pouce epaisseurTraitScie, Pouce rayonArcCercle) {
         super(parent);
         this.epaisseur = epaisseur;
@@ -72,6 +72,22 @@ public class Hayon extends Composante {
         this.epaisseurTraitScie = epaisseurTraitScie;
     }
 
+    public Pouce getRayonArcCercle() {
+        return rayonArcCercle;
+    }
+
+    public void setRayonArcCercle(Pouce rayonArcCercle) {
+        this.rayonArcCercle = rayonArcCercle;
+    }
+
+    public PointPouce getPointRotation() {
+        return pointRotation;
+    }
+
+    public PointPouce getPointFinHayon() {
+        return pointFinHayon;
+    }
+
     @Override
     public Polygone getPolygone(){
         Rectangle plancher = parent.getPlancher().getRectangle();
@@ -86,16 +102,17 @@ public class Hayon extends Composante {
         List<PointPouce> pointsProfil= new LinkedList<>();
         boolean xDepartManquant = true;
         boolean xFinManquant = true;
-        PointPouce pointFinArcCercle = null;
         PointPouce pointDepart = null;
         for(PointPouce point: parent.getMurprofile().getPolygone().getListePoints()){
             if(point.getX().st(parent.getMurBrute().getCentre().getX())) {
                 if(point.getX().ste(xDepart.add(rayonArcCercle)) && point.getY().st(yMinFin) && yFinArcCercleManquant){
                     yFinArcCercle = point.getY();
                     yFinArcCercleManquant = false;
+                    pointRotation = point;
                     if(point.getX().st(xDepart.add(rayonArcCercle.multiplier(Math.cos(parent.getPoutreArriere().getAngle()))))) {
-                        pointFinArcCercle=new PointPouce(xDepart.add(rayonArcCercle.multiplier(Math.cos(parent.getPoutreArriere().getAngle()))), point.getY());
-                        pointsProfil.add(pointFinArcCercle);
+                        pointRotation = new PointPouce(xDepart.add(rayonArcCercle.multiplier
+                                (Math.cos(parent.getPoutreArriere().getAngle()))), point.getY());
+                        pointsProfil.add(pointRotation);
                     }
                 }
                 if(point.getX().equals(xDepart) && point.getY().st(yMinFin)){
@@ -107,15 +124,18 @@ public class Hayon extends Composante {
                 }
                 if(point.getY().gte(yMinFin) && point.getX().equals(xFin)){
                     xFinManquant = false;
+                    pointFinHayon = point;
                 }else if(point.getY().gte(yMinFin) && point.getX().gt(xFin) && xFinManquant){
-                    pointsProfil.add(new PointPouce(xFin, point.getY()));
+                    pointFinHayon = new PointPouce(xFin, point.getY());
+                    pointsProfil.add(pointFinHayon);
                     xFinManquant = false;
                 }
                 pointsProfil.add(point);
             }
         }
         if(xFinManquant){
-            pointsProfil.add(new PointPouce(xFin, parent.getMurBrute().getCentre().getY().add(parent.getMurBrute().getLargeur().diviser(2))));
+            pointFinHayon = new PointPouce(xFin, parent.getMurBrute().getCentre().getY().add(parent.getMurBrute().getLargeur().diviser(2)));
+            pointsProfil.add(pointFinHayon);
         }
 
         pointsProfil.add(0, new PointPouce(parent.getMurBrute().getCentre().getX(),
@@ -223,8 +243,8 @@ public class Hayon extends Composante {
         }
 
         retour.addAll(pointsProfil.subList(indiceDepart,indiceFin));
-        if(pointFinArcCercle != null) {
-            retour.remove(pointFinArcCercle);
+        if(pointRotation != null) {
+            retour.remove(pointRotation);
         }
         if(pointDepart != null) {
             retour.remove(pointDepart);
