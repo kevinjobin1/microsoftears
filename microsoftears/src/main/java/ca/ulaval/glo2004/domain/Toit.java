@@ -77,7 +77,6 @@ public class Toit extends Composante{
                 yDepartManquant = false;
             }
         }
-
         for(int i = pointsProfil.size()-2; i > 0; i--){
             PointPouce point1 = pointsProfil.get(i - 1);
             PointPouce point2 = pointsProfil.get(i + 1);
@@ -85,10 +84,33 @@ public class Toit extends Composante{
             double angleNormale = Math.atan(1 / pente);
             Pouce x = pointsProfil.get(i).getX().diff(epaisseur.multiplier(Math.cos(angleNormale)));
             Pouce y = pointsProfil.get(i).getY().diff(epaisseur.multiplier(-Math.sin(angleNormale)));
-            pointsProfil.add(new PointPouce(x,y));
+
+            //lorsque les points sont dans le coin mais sont plus petit que l'épaisseur du mur
+            if(x.gt(parent.getMurBrute().getCentre().getX().add(parent.getMurBrute().getLongueur().diviser(2)).
+                    diff(epaisseur))){
+                x = parent.getMurBrute().getCentre().getX().add(parent.getMurBrute().getLongueur().diviser(2)).
+                        diff(epaisseur);
+            }
+            if(y.st(parent.getMurBrute().getCentre().getY().diff(parent.getMurBrute().getLargeur().diviser(2)).
+                    add(epaisseur))) {
+                y = parent.getMurBrute().getCentre().getY().add(parent.getMurBrute().getLargeur().diviser(2)).
+                        diff(epaisseur);
+            }
+            //exception: retirer les points qui sont plus petit que la courbe
+            boolean pointValide = true;
+            if (y.ste(parent.getMurBrute().getCentre().getY()) &&
+                    pointsProfil.getLast().getY().ste(parent.getMurBrute().getCentre().getY())) {
+                if (x.st(pointsProfil.getLast().getX())) {
+                    pointsProfil.removeLast();
+                }
+                if (y.st(pointsProfil.getLast().getY())) {
+                    pointValide = false;
+                }
+            }
+            if(pointValide) {
+                pointsProfil.add(new PointPouce(x, y));
+            }
         }
-
-
         return new Polygone(pointsProfil);
     }
 }

@@ -24,7 +24,7 @@ public class MurSeparateur extends Composante{
     public MurSeparateur(RoulotteController parent) {
         super(parent);
         this.epaisseur = new Pouce(3,0,1);
-        this.hauteur = new Pouce(10,0,1);
+        this.hauteur = new Pouce(40,0,1);
         this.distancePoutreArriere = new Pouce(5,0,1);
         this.rectangle = new Rectangle(this.epaisseur, this.hauteur, this.getCentre());
         this.setPolygone(rectangle.getPolygone());
