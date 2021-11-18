@@ -21,13 +21,10 @@ public class Pouce
 
     public Pouce(int pouces, int numerateur, int denominateur)
     {
-        if (denominateur == 0) {
-            throw new IllegalArgumentException("Le dénominateur est 0.");
-        }
 
-        else if (numerateur == 0) {
+        if (numerateur == 0 || denominateur == 0) {
             this.pouces = pouces;
-            this.numerateur = numerateur;
+            this.numerateur = 0;
             this.denominateur = 1;
             this.milimetres = (int) ((int) MM_PAR_POUCE * toDouble());
             simplifier();
@@ -207,6 +204,10 @@ public class Pouce
         return new Pouce(entier, fraction[0], fraction[1]);
     }
 
+    public Pouce multiplier(Pouce mesure){
+        return multiplier(mesure.toDouble());
+    }
+
     /**
      Cette méthode vérifie que deux mesures sont égales.
      @param mesure (Pouce) une mesure
@@ -359,4 +360,13 @@ public class Pouce
     public double toPixel(double ratio) {
         return this.toDouble() * ratio;
     }
-}
+
+    public static Pouce max(Pouce a, Pouce b){
+            return (a.gte(b)) ? a : b;
+        }
+    public static Pouce min(Pouce a, Pouce b) {
+        return (a.ste(b)) ? a : b;
+    }
+
+    }
+

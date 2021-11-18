@@ -176,7 +176,7 @@ public class BarreMenu extends JMenuBar
     private void initialiserMenuAffichage(){
         //Création des sous-item dans le menu Affichage
         FontIcon agrandirIcon = FontIcon.of(BootstrapIcons.PLUS, 20, Color.WHITE);
-        agrandirMenuItem = new JMenuItem("Aggrandir", agrandirIcon);
+        agrandirMenuItem = new JMenuItem("Agrandir", agrandirIcon);
         agrandirMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_EQUALS, ActionEvent.CTRL_MASK));
         agrandirMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -306,12 +306,12 @@ public class BarreMenu extends JMenuBar
     }
 
     protected void zoomInActionPerformed(ActionEvent e) {
-        parent.controller.zoomIn();
+        parent.controller.setScale(1);
         parent.repaint();
     }
 
     protected void zoomOutActionPerformed(ActionEvent e) {
-        parent.controller.zoomOut();
+        parent.controller.setScale(-1);
         parent.repaint();
     }
 

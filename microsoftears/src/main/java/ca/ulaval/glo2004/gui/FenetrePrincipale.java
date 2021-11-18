@@ -41,20 +41,17 @@ public class FenetrePrincipale extends JFrame {
         controller.setMurBrute(murBrute);
         MurProfile murProfile = new MurProfile(controller,true);
         controller.setMurprofile(murProfile);
-        //controller.getListeComposantes().add(murProfile.getProfilEllipses()[0]);
-        //controller.getListeComposantes().add(murProfile.getProfilEllipses()[1]);
-        //controller.getListeComposantes().add(murProfile.getProfilEllipses()[2]);
-        //controller.getListeComposantes().add(murProfile.getProfilEllipses()[3]);
         Plancher plancher = new Plancher(controller);
         controller.setPlancher(plancher);
-        controller.getListeComposantes().add(plancher);
         PoutreArriere poutre = new PoutreArriere(controller);
         controller.setPoutreArriere(poutre);
-        controller.getListeComposantes().add(poutre);
         Hayon hayon = new Hayon(controller);
         controller.setHayon(hayon);
-        controller.getListeComposantes().add(hayon);
         controller.getListeComposantes().add(murProfile);
+        controller.getListeComposantes().add(hayon);
+        controller.getListeComposantes().add(poutre);
+        controller.getListeComposantes().add(plancher);
+
     }
 
     private void initComponents() {
@@ -79,7 +76,7 @@ public class FenetrePrincipale extends JFrame {
         mainPanel.setLayout(new BorderLayout());
 
         //======== panel du bas ==========
-       infoLabel.setText("Position(0,0) " + " Centre (0,0) " + "Dimension (0,0)");
+       infoLabel.setText("Position(0,0) " + " Centre Plan (0,0) " + "Dimension Plan (0,0) " + "Dimension Afficheur (0.0)");
         bottomPanel.add(infoLabel);
         bottomPanel.setLayout(new FlowLayout(FlowLayout.LEFT,10,10));
         mainPanel.add(bottomPanel, BorderLayout.SOUTH);

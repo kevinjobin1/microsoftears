@@ -12,7 +12,6 @@ import ca.ulaval.glo2004.domain.*;
 import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Polygone;
 import ca.ulaval.glo2004.utilitaires.Pouce;
-import ca.ulaval.glo2004.utilitaires.Rectangle;
 
 public class RoulotteAfficheur
 {
@@ -31,21 +30,11 @@ public class RoulotteAfficheur
     //todo rendre ça propre
     public void afficher(Graphics2D g2d)
     {
-        afficherPlan(g2d);
         afficherTousPolygones(g2d);
+        afficherPointClic(g2d);
         AffineTransform af = new AffineTransform();
         af.scale(roulotte.scale, roulotte.scale);
         g2d.setTransform(af);
-    }
-
-    private void afficherPlan(Graphics2D g2d) {
-        System.out.println("Dimension: (" + largeur + "," + hauteur + ")");
-        System.out.println("Centre: (" + largeur/2 + "," + hauteur/2 + ")");
-
-        /*Rectangle2D.Double rectangle = new Rectangle2D.Double(0,0, largeur, hauteur);
-        g2d.setColor(Color.YELLOW);
-        g2d.fill(rectangle);
-        g2d.draw(rectangle);*/
     }
 
     private void afficherTousPolygones(Graphics2D g2d)
@@ -58,7 +47,18 @@ public class RoulotteAfficheur
         }
     }
 
-    //todo optionnel
+    private void afficherPointClic(Graphics2D g2d){
+        PointPouce mousePoint = roulotte.mousePoint;
+        int x = (int) (roulotte.xVersEcran(mousePoint.getX()));
+        int y = (int) (roulotte.yVersEcran(mousePoint.getY()));
+        int rayon = 5;
+        g2d.setColor(Color.RED);
+        g2d.drawOval(x, y, rayon, rayon);
+        g2d.fillOval(x,y,rayon,rayon);
+    }
+
+
+    //todo pourrait être pratique
     public void afficherComposante(Graphics2D g2d, Composante composante){
 
     }

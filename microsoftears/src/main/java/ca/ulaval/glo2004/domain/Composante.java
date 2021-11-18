@@ -18,7 +18,7 @@ public abstract class Composante extends Area {
 
     public Composante(RoulotteController parent) {
         this.parent = parent;
-        this.couleur = Color.BLACK;
+        this.couleur = Color.WHITE;
     }
 
     public void afficher(Graphics2D g2d){
@@ -37,6 +37,8 @@ public abstract class Composante extends Area {
         }
         path.closePath();
         g2d.setColor(couleur);
+        g2d.fill(path);
+        g2d.setColor(Color.BLACK);
         g2d.draw(path);
     }
 

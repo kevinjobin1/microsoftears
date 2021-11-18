@@ -92,32 +92,32 @@ public class PanelConception extends JPanel
     }
 
     private void panneauAffichageMousePressed(MouseEvent e) {
-        Point mousePoint = parent.controller.getPosition(e.getPoint());
-        TypeComposante composanteChoisie = this.parent.composanteChoisie;
-        this.parent.controller.ajouterComposante(composanteChoisie,mousePoint);
+        this.parent.controller.clicSurPlan(e.getPoint());
         panneauAffichage.repaint();
     }
 
     private void panneauAffichageMouseMoved(MouseEvent e) {
-        // TODO: encore des trucs à tester et ne pas oublier d'enlever les strings
+        // TODO: encore des trucs à tester et ne pas oublier d'enlever les labels de test (strings)
         this.parent.controller.setPositionSouris(e.getX(), e.getY());
         this.parent.controller.setDimension(panneauAffichage.getSize());
         String position = "Position (" + e.getX() + "," + e.getY() + ") ";
-        String centre = " Centre (" + (int) parent.controller.centrePlanX + "," + (int) parent.controller.centrePlanY + ")";
-        String dimension = " Dimension (" + (int) parent.controller.largeurPlan + "," + (int) parent.controller.hauteurPlan + ")";
-        this.parent.infoLabel.setText(position + centre + dimension);
+        String centre = " Centre Plan(" + (int) parent.controller.centrePlanX + "," + (int) parent.controller.centrePlanY + ")";
+        String dimensionPlan = " Dimension Plan (" + (int) parent.controller.largeurPlan + "," + (int) parent.controller.hauteurPlan + ")";
+        String dimensionAfficheur = " Dimension Afficheur (" + panneauAffichage.getWidth() + "," + panneauAffichage.getHeight() + ")";
+        this.parent.infoLabel.setText(position + centre + dimensionPlan + dimensionAfficheur);
         panneauAffichage.repaint();
     }
 
     private void panneauAffichageMouseWheelMoved(MouseWheelEvent e) {
-        // TODO: encore des trucs à tester et ne pas oublier d'enlever les strings
+        // TODO: encore des trucs à tester et ne pas oublier d'enlever les labels de test (strings)
         this.parent.controller.setPositionSouris(e.getX(), e.getY());
         parent.controller.setScale(e.getWheelRotation());
         this.parent.controller.setDimension(panneauAffichage.getSize());
         String position = "Position (" + e.getX() + "," + e.getY() + ") ";
-        String centre = " Centre (" + (int) parent.controller.centrePlanX + "," + (int) parent.controller.centrePlanY + ")";
-        String dimension = " Dimension (" + (int) parent.controller.largeurPlan + "," + (int) parent.controller.hauteurPlan + ")";
-        this.parent.infoLabel.setText(position + centre + dimension);
+        String centre = " Centre Plan (" + (int) parent.controller.centrePlanX + "," + (int) parent.controller.centrePlanY + ")";
+        String dimensionPlan = " Dimension Plan (" + (int) parent.controller.largeurPlan + "," + (int) parent.controller.hauteurPlan + ")";
+        String dimensionAfficheur = " Dimension Afficheur (" + panneauAffichage.getWidth() + "," + panneauAffichage.getHeight() + ")";
+        this.parent.infoLabel.setText(position + centre + dimensionPlan + dimensionAfficheur);
         panneauAffichage.repaint();
     }
 

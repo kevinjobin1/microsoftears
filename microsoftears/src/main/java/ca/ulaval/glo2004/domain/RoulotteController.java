@@ -25,16 +25,17 @@ public class RoulotteController {
         public double scale = 1;
         public double zoom = 1;
         public double facteurZoom = 0.1;
-        public int origineX = 0;
-        public int origineY = 0;
+        public int deltaX = 0;
+        public int deltaY = 0;
         public double largeurPlan;
         public double hauteurPlan;
         public double centrePlanX;
         public double centrePlanY;
         public int positionSourisX;
         public int positionSourisY;
+        public PointPouce mousePoint = new PointPouce();
         public static int pixelsToInchesRatio = 7;
-        private static final int NOMBRE_POINTS = 200;
+        private static final int NOMBRE_POINTS = 300;
 
 
     public RoulotteController() {
@@ -130,28 +131,22 @@ public class RoulotteController {
     public void ajouterComposante(TypeComposante composanteChoisie, Point mousePoint) {}
 
     public void setScale(int wheelRotation){
+        // on limite à une rotation seulement
         wheelRotation = wheelRotation < 0 ? -1 : 1;
+
+        // on décide du facteur de zoom
         zoom = Math.exp(wheelRotation * facteurZoom);
 
-        origineX -= ((positionSourisX/(scale * zoom)) - (positionSourisX/scale));
-        origineY -= ((positionSourisY/(scale * zoom)) - (positionSourisY/scale));
+        // on calcule le déplacement/translation nécessaire par rapport à la position de la souris
+        deltaX -= ((positionSourisX/(scale * zoom)) - (positionSourisX/scale));
+        deltaY -= ((positionSourisY/(scale * zoom)) - (positionSourisY/scale));
 
+        // on ajuste l'échelle en conséquence
         scale = scale * zoom;
-
-        System.out.println(" Scale: " + scale);
-        System.out.println(" Rapport (%): " + ((1/scale) * 100) + "%");
-        System.out.println(" WheelRotation: " + wheelRotation);
-        System.out.println(" Zoom: " + zoom);
-        System.out.println(" MousePoint(X,Y): (" + positionSourisX + "," + positionSourisY + ")");
-        System.out.println(" Origine(X,Y): (" + origineX + "," + origineY + ")");
-        System.out.println();
 
     }
 
     public void setDimension(Dimension dimensionAfficheur){
-        //TODO: à faire, zoom en fonction de la position de la souris,
-        // il faut tenir compte du déplacement du centre réel de l'objet Graphics
-        // pour l'instant le zoom/position fonctionne seulement si on reste à l'intérieur de la forme...
         this.hauteurPlan = dimensionAfficheur.getHeight() * scale;
         this.largeurPlan = dimensionAfficheur.getWidth() * scale;
         this.centrePlanY = (hauteurPlan/2);
@@ -159,47 +154,52 @@ public class RoulotteController {
 
     }
 
-    public Point getPosition(Point mousePoint) {
-        //TODO: à refaire, pas du tout le bon calcul, on cherche à savoir si le point est dans le plan ou non
-
-        return new Point (0,0);
+    public PointPouce getPositionPlan(Point mousePoint) {
+        Pouce x = xVersReel(mousePoint.getX()),
+                y = yVersReel(mousePoint.getY());
+        return new PointPouce(x, y);
     }
 
     /** Converti les coordonnées réelles --> coordonnées dans l'écran */
     public double xVersEcran(Pouce x)
     {
-        return (x.toPixel(this.getPixelsToInchesRatio()) - origineX) * this.getScale();
+        return (x.toPixel(this.getPixelsToInchesRatio()) - deltaX) * this.getScale();
     }
 
     public double yVersEcran(Pouce y)
     {
-        return (y.toPixel(this.getPixelsToInchesRatio()) - origineY) * this.getScale();
+        return (y.toPixel(this.getPixelsToInchesRatio()) - deltaY) * this.getScale();
     }
 
     /** Converti les coordonnées de l'écran --> coordonnées réelles */
-    public PointPouce ecranVersReel(Point mousePoint)
+
+    public Pouce xVersReel(double x)
     {
-        // TODO: à faire!
-       return new PointPouce();
+        // On veut la coordonnée sans le zoom
+        x /= this.getScale();
+        // On recentre le point par rapport au décalage
+        x += deltaX;
+        // On traduit en pouce
+        x /= this.getPixelsToInchesRatio();
+
+        return new Pouce(x);
     }
+
+    public Pouce yVersReel(double y)
+    {
+        // On veut la coordonnée sans le zoom
+        y /= this.getScale();
+        // On recentre le point par rapport au décalage
+        y += deltaY;
+        // On traduit en pouce
+        y /= this.getPixelsToInchesRatio();
+
+        return new Pouce(y);
+    }
+
 
     public int getPixelsToInchesRatio() {
         return this.pixelsToInchesRatio;
-    }
-
-    public void zoomOut() {
-
-        double scaleFactor = 0.1;
-        zoom = Math.exp(scaleFactor);
-        scale = scale * zoom;
-    }
-
-    public void zoomIn() {
-
-        double scaleFactor = 0.1;
-        zoom = Math.exp(-scaleFactor);
-
-        scale = scale * zoom;
     }
 
     public int getNombrePoint() {
@@ -213,5 +213,37 @@ public class RoulotteController {
     public void setPositionSouris(int x, int y) {
         positionSourisX = x;
         positionSourisY = y;
+
+        System.out.println("Souris (" + (x - deltaX) + "," + (y - deltaY) + ")");
+        System.out.println("Delta (" + deltaX + "," + deltaY + ")");
+
+    }
+
+    public void clicSurPlan(Point mousePressedPoint) {
+        PointPouce positionClic = getPositionPlan(mousePressedPoint);
+        this.mousePoint = positionClic;
+        Pouce largeurPlanReel = getLargeurPlan();
+        System.out.println(positionClic);
+        System.out.println(largeurPlanReel);
+        int indexComposante = -1;
+        if (!listeComposantes.isEmpty()) {
+            for (int i=0; i < listeComposantes.size(); i++) {
+                Composante composante = listeComposantes.get(i);
+                composante.setCouleur(Color.WHITE);
+
+                if (composante.getPolygone().contains(positionClic)) {
+                    System.out.println("Clique sur : " + composante);
+                    indexComposante = i;
+                }
+            }
+            if (indexComposante != -1){
+                listeComposantes.get(indexComposante).setCouleur(Color.YELLOW);
+            }
+        }
+    }
+
+    private Pouce getLargeurPlan() {
+        double largeurReel = (this.largeurPlan/this.scale)/this.getPixelsToInchesRatio();
+        return new Pouce(largeurReel);
     }
 }
