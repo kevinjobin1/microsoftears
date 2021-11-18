@@ -1,5 +1,6 @@
 package ca.ulaval.glo2004.gui;
 
+import ca.ulaval.glo2004.domain.Composante;
 import com.formdev.flatlaf.icons.*;
 import org.kordamp.ikonli.swing.*;
 import org.kordamp.ikonli.bootstrapicons.*;
@@ -200,9 +201,10 @@ public class BarreMenu extends JMenuBar
         affichageMenu.add(separator);
 
         // TODO: à changer pour obtenir la liste des composantes du plan en temps réel
-        String[] composantes = {"Plancher", "Hayon", "Poutre Arrière"};
-        for (String composante : composantes){
-            creerCheckBoxMenuItem(composante);
+        for (Composante composante : parent.controller.getListeComposantes())
+        {
+            System.out.println(composante.toString());
+            creerCheckBoxMenuItem(composante.toString());
         }
 
     }
