@@ -41,7 +41,8 @@ public abstract class Composante extends Area {
             path.closePath();
             g2d.setColor(couleur);
             g2d.fill(path);
-            g2d.setColor(Color.BLACK);
+            g2d.setColor(Color.DARK_GRAY);
+            g2d.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
             g2d.draw(path);
         }
 
