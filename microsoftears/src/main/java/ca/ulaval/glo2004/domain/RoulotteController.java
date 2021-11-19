@@ -21,6 +21,8 @@ public class RoulotteController {
         private PoutreArriere poutreArriere;
         private Toit toit;
         private FenetrePrincipale parent;
+        private ContreplaqueExterieur contreplaqueExterieur;
+        private ContreplaqueInterieur contreplaqueInterieur;
 
 
         // controle de l'affichage
@@ -129,6 +131,22 @@ public class RoulotteController {
 
     private void setListeAidesDesign(ArrayList<AideDesign> listeAidesDesign) {
         this.listeAidesDesign = listeAidesDesign;
+    }
+
+    public ContreplaqueExterieur getContreplaqueExterieur() {
+        return contreplaqueExterieur;
+    }
+
+    public void setContreplaqueExterieur(ContreplaqueExterieur contreplaqueExterieur) {
+        this.contreplaqueExterieur = contreplaqueExterieur;
+    }
+
+    public ContreplaqueInterieur getContreplaqueInterieur() {
+        return contreplaqueInterieur;
+    }
+
+    public void setContreplaqueInterieur(ContreplaqueInterieur contreplaqueInterieur) {
+        this.contreplaqueInterieur = contreplaqueInterieur;
     }
 
     public void ajouterComposante(TypeComposante composanteChoisie, Point mousePoint) {}

@@ -2,14 +2,10 @@ package ca.ulaval.glo2004.domain;
 
 public enum TypeComposante {
     HAYON {
-        public String toString(){
-            return "Hayon";
-        }
+        public String toString(){ return "Hayon"; }
     },
     MUR_SEPARATEUR{
-        public String toString(){
-            return "Mur Séparateur";
-        }
+        public String toString(){ return "Mur Séparateur"; }
     },
     PLANCHER{
         public String toString(){

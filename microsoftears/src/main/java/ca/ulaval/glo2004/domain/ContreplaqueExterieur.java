@@ -1,9 +1,16 @@
 package ca.ulaval.glo2004.domain;
 
+import ca.ulaval.glo2004.utilitaires.PointPouce;
+import ca.ulaval.glo2004.utilitaires.Polygone;
 import ca.ulaval.glo2004.utilitaires.Pouce;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class ContreplaqueExterieur extends Composante {
     private Pouce epaisseur;
+
+
 
     //todo pas necessaire pour le livrable 3
     public ContreplaqueExterieur(Pouce epaisseur, RoulotteController parent) {
@@ -24,5 +31,12 @@ public class ContreplaqueExterieur extends Composante {
 
     public void setEpaisseur(Pouce epaisseur) {
         this.epaisseur = epaisseur;
+    }
+
+    public Polygone getPolygone(){
+        ArrayList<OuvertureLaterale> ouverturesLaterales = parent.getListeOuverturesLaterales();
+        LinkedList<PointPouce> hayon = parent.getHayon().getPolygone().getListePoints();
+        LinkedList<PointPouce> murProfile = parent.getMurprofile().getPolygone().getListePoints();
+        return null;
     }
 }
