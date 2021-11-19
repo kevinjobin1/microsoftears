@@ -14,6 +14,7 @@ public class Ressorts extends Composante{
         this.poidsHayon = poidsHayon;
         this.setType(TypeComposante.RESSORTS);
         this.longueur = getLongueurHayon().multiplier(0.6);
+        this.force = calculerForce();
     }
 
     public Ressorts(RoulotteController parent) {
@@ -53,6 +54,21 @@ public class Ressorts extends Composante{
                 parent.getHayon().getPointFinHayon().getY().toDouble();
         return new Pouce(Math.sqrt(Math.pow(x,2)+Math.pow(y,2)));
     }
+    //todo: à tester
+    public double calculerForce(){
+        double deadWeightNewton = poidsHayon * 4.4482216;
+        double centerOfGravityLengthMM = getLongueurHayon().toDouble() * (25.4/2);
+        double powerArmLengthMM = getDistanceRessortsDuPointDeRotation().toDouble() * 25.4;
+        double forceRequiredNewton = deadWeightNewton*centerOfGravityLengthMM/(powerArmLengthMM*2);
+        double safetyFactorNewton;
+        if(deadWeightNewton < 300) {
+            safetyFactorNewton = forceRequiredNewton * 0.1;
+        }else{
+            safetyFactorNewton = 50;
+        }
+        return (forceRequiredNewton+safetyFactorNewton)*0.224808943871;
+    }
+
     public Pouce getDistanceRessortsDuPointDeRotation(){
         Pouce strokeLength;
         if(longueur.ste(new Pouce(7,1,100))){
