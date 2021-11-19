@@ -2,6 +2,7 @@ package ca.ulaval.glo2004.domain;
 
 import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Pouce;
+import ca.ulaval.glo2004.gui.FenetrePrincipale;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public class RoulotteController {
         private Plancher plancher;
         private PoutreArriere poutreArriere;
         private Toit toit;
+        private FenetrePrincipale parent;
 
 
         // controle de l'affichage
@@ -38,10 +40,11 @@ public class RoulotteController {
         private static final int NOMBRE_POINTS = 300;
 
 
-    public RoulotteController() {
+    public RoulotteController(FenetrePrincipale parent) {
         this.listeComposantes = new ArrayList<>();
         this.listeOuverturesLaterales = new ArrayList<>();
         this.listeAidesDesign = new ArrayList<>();
+        this.parent = parent;
     }
 
     public ArrayList<Composante> getListeComposantes() {
@@ -213,10 +216,6 @@ public class RoulotteController {
     public void setPositionSouris(int x, int y) {
         positionSourisX = x;
         positionSourisY = y;
-
-        System.out.println("Souris (" + (x - deltaX) + "," + (y - deltaY) + ")");
-        System.out.println("Delta (" + deltaX + "," + deltaY + ")");
-
     }
 
     public void clicSurPlan(Point mousePressedPoint) {
@@ -237,7 +236,7 @@ public class RoulotteController {
                 }
             }
             if (indexComposante != -1){
-                listeComposantes.get(indexComposante).setCouleur(Color.YELLOW);
+                listeComposantes.get(indexComposante).setCouleur(parent.getCouleurChoisie());
             }
         }
     }
@@ -245,5 +244,15 @@ public class RoulotteController {
     private Pouce getLargeurPlan() {
         double largeurReel = (this.largeurPlan/this.scale)/this.getPixelsToInchesRatio();
         return new Pouce(largeurReel);
+    }
+
+    public void setComposanteVisible(boolean estVisible, String nomComposante) {
+        if (!listeComposantes.isEmpty()) {
+            for (Composante composante : listeComposantes) {
+            if (nomComposante == composante.toString()){
+                composante.setVisible(estVisible);
+                }
+            }
+        }
     }
 }

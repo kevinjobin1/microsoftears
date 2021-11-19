@@ -28,14 +28,21 @@ public class FenetrePrincipale extends JFrame {
     public TypeComposante composanteChoisie;
     private TypeAction actionChoisie;
 
+    public Color getCouleurChoisie() {
+        return couleurChoisie;
+    }
+
     public enum TypeAction {
         SELECTION, AJOUT, SUPPRIMER
     }
 
     public FenetrePrincipale() {
-        controller = new RoulotteController();
-
         initComponents();
+    }
+
+    private void initComponents() {
+        controller = new RoulotteController(this);
+        couleurChoisie = new Color(217, 217, 217);
         MurBrute murBrute = new MurBrute(controller);
         //controller.getListeComposantes().add(murBrute);
         controller.setMurBrute(murBrute);
@@ -52,9 +59,6 @@ public class FenetrePrincipale extends JFrame {
         controller.getListeComposantes().add(poutre);
         controller.getListeComposantes().add(plancher);
 
-    }
-
-    private void initComponents() {
         mainPanel = new JPanel();
         bottomPanel = new JPanel();
         barreMenu = new BarreMenu(this);

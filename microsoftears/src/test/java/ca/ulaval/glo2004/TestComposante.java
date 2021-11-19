@@ -3,11 +3,13 @@ package ca.ulaval.glo2004;
 import ca.ulaval.glo2004.domain.MurBrute;
 import ca.ulaval.glo2004.domain.MurProfile;
 import ca.ulaval.glo2004.domain.RoulotteController;
+import ca.ulaval.glo2004.gui.FenetrePrincipale;
 import junit.framework.TestCase;
 import org.junit.Test;
 
 public class TestComposante extends TestCase {
-    RoulotteController parent = new RoulotteController();
+    FenetrePrincipale fenetrePrincipale = new FenetrePrincipale();
+    RoulotteController parent = new RoulotteController(fenetrePrincipale);
     MurBrute mur= new MurBrute(parent);
 
     @Test

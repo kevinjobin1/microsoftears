@@ -15,31 +15,37 @@ public abstract class Composante extends Area {
     private TypeComposante type;
     private Polygone polygone;
     private Color couleur;
+    private boolean estVisible;
 
     public Composante(RoulotteController parent) {
         this.parent = parent;
         this.couleur = Color.WHITE;
+        this.estVisible = true;
     }
 
     public void afficher(Graphics2D g2d){
-        GeneralPath path = new GeneralPath();
-        LinkedList<PointPouce> polygoneList = this.getPolygone().getListePoints();
-        double x, y;
-        for (int i = 0; i < polygoneList.size(); i++){
-            x = parent.xVersEcran(polygoneList.get(i).getX());
-            y = parent.yVersEcran(polygoneList.get(i).getY());
-            if(i == 0) {
-                path.moveTo(x, y);
+        if (estVisible){
+            GeneralPath path = new GeneralPath();
+            LinkedList<PointPouce> polygoneList = this.getPolygone().getListePoints();
+            double x, y;
+            for (int i = 0; i < polygoneList.size(); i++){
+                x = parent.xVersEcran(polygoneList.get(i).getX());
+                y = parent.yVersEcran(polygoneList.get(i).getY());
+                if(i == 0) {
+                    path.moveTo(x, y);
+                }
+                else{
+                    path.lineTo(x ,y);
+                }
             }
-            else{
-                path.lineTo(x ,y);
-            }
+            path.closePath();
+            g2d.setColor(couleur);
+            g2d.fill(path);
+            g2d.setColor(Color.DARK_GRAY);
+            g2d.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+            g2d.draw(path);
         }
-        path.closePath();
-        g2d.setColor(couleur);
-        g2d.fill(path);
-        g2d.setColor(Color.BLACK);
-        g2d.draw(path);
+
     }
 
     public RoulotteController getParent() {
@@ -78,4 +84,7 @@ public abstract class Composante extends Area {
         return type.toString();
     }
 
+    public void setVisible(boolean b){
+        this.estVisible = b;
+    }
 }
