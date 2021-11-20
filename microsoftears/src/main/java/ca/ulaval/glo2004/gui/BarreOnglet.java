@@ -29,7 +29,11 @@ public class BarreOnglet extends JTabbedPane {
         this.addTab("Plancher",creerTabPanel("Plancher"));
         this.addTab("Poutre",creerTabPanel("Poutre"));
         this.addTab("Profile",creerTabPanel("Profile"));
-        this.addTab("Ellipse", creerTabPanel("Ellipse"));
+        this.addTab("Ellipse 1", creerTabPanel("Ellipse 1"));
+        this.addTab("Ellipse 2", creerTabPanel("Ellipse 2"));
+        this.addTab("Ellipse 3", creerTabPanel("Ellipse 3"));
+        this.addTab("Ellipse 4", creerTabPanel("Ellipse 4"));
+
     }
 
 
@@ -56,11 +60,10 @@ public class BarreOnglet extends JTabbedPane {
         //layout is set to y_axis
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
-        addBorder(line,"", panel);
+        //addBorder(line,"", panel);
         addBorder(line,composante, panel);
         return panel;
     }
-
 
     /**
      * Adds borders to the panels inside the tabbed pane
@@ -70,6 +73,8 @@ public class BarreOnglet extends JTabbedPane {
      * @param composante string that holds titles of tapped panels
      */
    public static void addBorder(Border border, String composante, Container container){
+
+       JPanel panelTest = test();
 
        JPanel contour = new JPanel(false);
 
@@ -82,19 +87,33 @@ public class BarreOnglet extends JTabbedPane {
        if (composante.equals("Poutre")){
            contour = creerPanelInfoPoutre();
        }
-       if (composante.equals("Ellipse")){
+       if (composante.equals("Ellipse 1")){
+           contour = creerPanelInfoEllipse();
+       }
+       if (composante.equals("Ellipse 2")){
+           contour = creerPanelInfoEllipse();
+       }
+       if (composante.equals("Ellipse 3")){
+           contour = creerPanelInfoEllipse();
+       }
+       if (composante.equals("Ellipse 4")){
            contour = creerPanelInfoEllipse();
        }
        if (composante.equals("Profile")){
            contour = creerPanelInfoProfile();
        }
 
+
+       //insert borders in the new panel we created
+        panelTest.setBorder(border);
+
         //borders are set
         contour.setBorder(border);
 
         //a space between containers is added
-        container.add(Box.createRigidArea(new Dimension(0,10)));
-        container.add(contour);
+       container.add(panelTest);
+       container.add(Box.createRigidArea(new Dimension(0,10)));
+       container.add(contour);
     }
 
     /**
@@ -513,14 +532,6 @@ public class BarreOnglet extends JTabbedPane {
         c.insets = new Insets(20,5,20, 5);
         panel.add(margeArriere, c);
 
-        //(0,6)
-        JLabel rectangle = new JLabel("Rectangle: ");
-        c.gridx = 0;
-        c.gridy= 6;
-        c.gridwidth = 5;
-        c.weightx = 0.20;
-        c.insets = new Insets(20,5,20, 5);
-        panel.add(rectangle, c);
 
         //=============================================================================//
         //                                                                             //
@@ -675,57 +686,6 @@ public class BarreOnglet extends JTabbedPane {
         c.insets = new Insets(10,5,10, 5);
         panel.add(spinner, c);
 
-        //=============================================================================//
-        //                                                                             //
-        //=====================CODE FOR EIGHTH ROW OF PLANCHER=========================//
-        //                                                                             //
-        //=============================================================================//
-
-        //(0, 7)
-        spinner = new JSpinner(new SpinnerNumberModel(value, min, max, step));
-        c.gridx = 0;
-        c.gridy= 7;
-        c.gridwidth = 1;
-        c.weightx = 0.5;
-        c.insets = new Insets(10,5,10, 5);
-        panel.add(spinner, c);
-
-        //(1, 7)
-        label = new JLabel(" '' ");
-        c.gridx = 1;
-        c.gridy= 7;
-        c.gridwidth = 1;
-        c.weightx = 0.5;
-        c.insets = new Insets(10,5,10, 5);
-        panel.add(label, c);
-
-        //(2, 7)
-        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
-        c.gridx = 2;
-        c.gridy= 7;
-        c.gridwidth = 1;
-        c.weightx = 0.5;
-        c.insets = new Insets(10,5,10, 5);
-        panel.add(spinner, c);
-
-        //(3, 7)
-        label2 = new JLabel(" / ");
-        c.gridx = 3;
-        c.gridy= 7;
-        c.gridwidth = 1;
-        c.weightx = 0.5;
-        c.insets = new Insets(10,5,10, 5);
-        panel.add(label2, c);
-
-        //(4, 7)
-        spinner = new JSpinner(new SpinnerNumberModel(value2, min2, max2, step2));
-        c.gridx = 4;
-        c.gridy= 7;
-        c.gridwidth = 1;
-        c.weightx = 0.5;
-        c.insets = new Insets(10,5,10, 5);
-        panel.add(spinner, c);
-
         return panel;
     }
 
@@ -736,8 +696,7 @@ public class BarreOnglet extends JTabbedPane {
     public static JPanel creerPanelInfoPoutre(){
 
         //a list of the labels is created
-        String[] labels = {"Longueur: ","Hauteur : ", "Centre : ",
-                "Rectangle : "};
+        String[] labels = {"Longueur: ","Hauteur : ", "Centre X : "};
 
         //the length of the labels
         int pairs = labels.length;
@@ -1138,13 +1097,22 @@ public class BarreOnglet extends JTabbedPane {
         panel.add(margeAvant, c);
 
         //(0,4)
-        JLabel margeArriere = new JLabel("Centre : ");
+        JLabel margeArriere = new JLabel("Centre X : ");
         c.gridx = 0;
         c.gridy= 4;
         c.gridwidth = 5;
         c.weightx = 0.20;
         c.insets = new Insets(20,5,20, 5);
         panel.add(margeArriere, c);
+
+        //(0,6)
+        JLabel margeArriereY = new JLabel("Centre Y : ");
+        c.gridx = 0;
+        c.gridy= 6;
+        c.gridwidth = 5;
+        c.weightx = 0.20;
+        c.insets = new Insets(20,5,20, 5);
+        panel.add(margeArriereY, c);
 
 
         //=============================================================================//
@@ -1300,7 +1268,88 @@ public class BarreOnglet extends JTabbedPane {
         c.insets = new Insets(10,5,10, 5);
         panel.add(spinner, c);
 
+        //=============================================================================//
+        //                                                                             //
+        //=======================CODE FOR EIGHTH ROW OF ELLIPSE========================//
+        //                                                                             //
+        //=============================================================================//
+
+        //(0, 7)
+        spinner = new JSpinner(new SpinnerNumberModel(value, min, max, step));
+        c.gridx = 0;
+        c.gridy= 7;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(spinner, c);
+
+        //(1, 7)
+        label = new JLabel(" '' ");
+        c.gridx = 1;
+        c.gridy= 7;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(label, c);
+
+        //(2, 7)
+        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
+        c.gridx = 2;
+        c.gridy= 7;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(spinner, c);
+
+        //(3, 7)
+        label2 = new JLabel(" / ");
+        c.gridx = 3;
+        c.gridy= 7;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(label2, c);
+
+        //(4, 7)
+        spinner = new JSpinner(new SpinnerNumberModel(value2, min2, max2, step2));
+        c.gridx = 4;
+        c.gridy= 7;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        panel.add(spinner, c);
+
         return panel;
     }
 
+    /**
+     * Just a test
+     */
+    private static JPanel test(){
+
+        //creating a panel to hold the buttons inside
+        JPanel panelTest = new JPanel(new GridBagLayout());
+
+        //establishing constraints for the gridbaglayout
+        GridBagConstraints c = new GridBagConstraints();
+
+        //creating first button
+        JToggleButton button1 = new JToggleButton("mm");
+        c.gridx = 1;
+        c.gridy = 0;
+        c.gridwidth = 1;
+        panelTest.add(button1, c);
+
+        //creating second button
+        JToggleButton button2 = new JToggleButton("pouces");
+        c.gridx = 2;
+        c.gridy = 0;
+        c.gridwidth = 1;
+        panelTest.add(button2, c);
+
+        return panelTest;
+    }
+
 }
+
+
