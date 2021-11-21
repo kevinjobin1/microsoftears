@@ -38,6 +38,19 @@ public abstract class PanelComposante extends JPanel {
         return label;
     }
 
+    protected JLabel creerLabelAttributMM(String titre, int posX, int posY){
+        GridBagConstraints c = new GridBagConstraints();
+        JLabel label = new JLabel(titre);
+        c.gridx = posX;
+        c.gridy= posY;
+        c.gridwidth = 1;
+        c.weightx = 0.20;
+        c.insets = new Insets(20,5,20, 5);
+        this.add(label, c);
+        this.setNbAttribut(getNbAttribut() + 1);
+        return label;
+    }
+
     protected void creerLabelSymbole(String symbole, int posX, int posY){
         GridBagConstraints c = new GridBagConstraints();
         JLabel label = new JLabel(symbole);
@@ -61,4 +74,16 @@ public abstract class PanelComposante extends JPanel {
         return spinner;
     }
 
+    protected JSpinner creerSpinnerMM(int x, int y){
+        GridBagConstraints c = new GridBagConstraints();
+        JSpinner spinner = new JSpinner();
+        spinner.setEditor(new JSpinner.NumberEditor(spinner, "0.000"));
+        c.gridx = x;
+        c.gridy= y;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        this.add(spinner, c);
+        return spinner;
+    }
 }
