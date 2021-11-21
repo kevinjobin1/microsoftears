@@ -92,7 +92,7 @@ public class BarreOnglet extends JTabbedPane {
            contour = new PanelInfoPlancher();
        }
        if (composante.equals("Poutre")){
-           contour = new PanelInfoPoutre();
+           contour = new PanelInfoPoutreMM();
        }
        if (composante.equals("Ellipse 1")){
            contour = new PanelInfoEllipse();
