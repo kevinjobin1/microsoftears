@@ -91,8 +91,6 @@ public class PanelInfoPlancher extends PanelComposante {
         });
 
         //==============MARGE AVANT=============//
-
-        // ==== Poutre =======
         margeAvantSpinner1.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
@@ -136,6 +134,7 @@ public class PanelInfoPlancher extends PanelComposante {
             }
         });
     }
+
     private void epaisseurSpinner1ChangeListener(ChangeEvent e) {
         JSpinner spinner = (JSpinner) e.getSource();
         this.epaisseur[0] = (int) spinner.getValue();
