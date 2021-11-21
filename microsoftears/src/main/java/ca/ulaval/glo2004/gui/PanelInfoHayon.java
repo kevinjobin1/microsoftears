@@ -91,7 +91,7 @@ public class PanelInfoHayon extends PanelComposante{
 
         // Events (ActionListener) //
 
-        // ==== Bouton nouveau projet =======
+        // ==== Epaisseur =======
         epaisseurSpinner1.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
@@ -113,24 +113,158 @@ public class PanelInfoHayon extends PanelComposante{
             }
         });
 
+        // ==== Poutre =======
+        poutreSpinner1.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                poutreSpinner1ChangeListener(e);
+            }
+        });
 
+        poutreSpinner2.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                poutreSpinner2ChangeListener(e);
+            }
+        });
+
+        poutreSpinner3.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                poutreSpinner3ChangeListener(e);
+            }
+        });
+
+        // ==== Plancher =======
+        plancherSpinner1.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                plancherSpinner1ChangeListener(e);
+            }
+        });
+
+        plancherSpinner2.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                plancherSpinner2ChangeListener(e);
+            }
+        });
+
+        plancherSpinner3.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                plancherSpinner3ChangeListener(e);
+            }
+        });
+
+        // ==== Scie =======
+        scieSpinner1.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                scieSpinner1ChangeListener(e);
+            }
+        });
+
+        scieSpinner2.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                scieSpinner2ChangeListener(e);
+            }
+        });
+
+        scieSpinner3.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                scieSpinner3ChangeListener(e);
+            }
+        });
+
+        // ==== Rayon =======
+        rayonSpinner1.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                rayonSpinner1ChangeListener(e);
+            }
+        });
+
+        rayonSpinner2.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                rayonSpinner2ChangeListener(e);
+            }
+        });
+
+        rayonSpinner3.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                rayonSpinner3ChangeListener(e);
+            }
+        });
     }
 
     private void epaisseurSpinner1ChangeListener(ChangeEvent e) {
         JSpinner spinner = (JSpinner) e.getSource();
         this.epaisseur[0] = (int) spinner.getValue();
-        System.out.println(epaisseur[0]);
     }
     private void epaisseurSpinner2ChangeListener(ChangeEvent e) {
         JSpinner spinner = (JSpinner) e.getSource();
         this.epaisseur[1] = (int) spinner.getValue();
-        System.out.println(epaisseur[1]);
     }
     private void epaisseurSpinner3ChangeListener(ChangeEvent e) {
         JSpinner spinner = (JSpinner) e.getSource();
         this.epaisseur[2] = (int) spinner.getValue();
-        System.out.println(epaisseur[2]);
     }
 
+    private void poutreSpinner1ChangeListener(ChangeEvent e) {
+        JSpinner spinner = (JSpinner) e.getSource();
+        this.poutre[0] = (int) spinner.getValue();
+    }
+    private void poutreSpinner2ChangeListener(ChangeEvent e) {
+        JSpinner spinner = (JSpinner) e.getSource();
+        this.poutre[1] = (int) spinner.getValue();
+    }
+    private void poutreSpinner3ChangeListener(ChangeEvent e) {
+        JSpinner spinner = (JSpinner) e.getSource();
+        this.poutre[2] = (int) spinner.getValue();
+    }
+
+    private void plancherSpinner1ChangeListener(ChangeEvent e) {
+        JSpinner spinner = (JSpinner) e.getSource();
+        this.plancher[0] = (int) spinner.getValue();
+    }
+    private void plancherSpinner2ChangeListener(ChangeEvent e) {
+        JSpinner spinner = (JSpinner) e.getSource();
+        this.plancher[1] = (int) spinner.getValue();
+    }
+    private void plancherSpinner3ChangeListener(ChangeEvent e) {
+        JSpinner spinner = (JSpinner) e.getSource();
+        this.plancher[2] = (int) spinner.getValue();
+    }
+
+    private void scieSpinner1ChangeListener(ChangeEvent e) {
+        JSpinner spinner = (JSpinner) e.getSource();
+        this.scie[0] = (int) spinner.getValue();
+    }
+    private void scieSpinner2ChangeListener(ChangeEvent e) {
+        JSpinner spinner = (JSpinner) e.getSource();
+        this.scie[1] = (int) spinner.getValue();
+    }
+    private void scieSpinner3ChangeListener(ChangeEvent e) {
+        JSpinner spinner = (JSpinner) e.getSource();
+        this.scie[2] = (int) spinner.getValue();
+    }
+
+    private void rayonSpinner1ChangeListener(ChangeEvent e) {
+        JSpinner spinner = (JSpinner) e.getSource();
+        this.rayon[0] = (int) spinner.getValue();
+    }
+    private void rayonSpinner2ChangeListener(ChangeEvent e) {
+        JSpinner spinner = (JSpinner) e.getSource();
+        this.rayon[1] = (int) spinner.getValue();
+    }
+    private void rayonSpinner3ChangeListener(ChangeEvent e) {
+        JSpinner spinner = (JSpinner) e.getSource();
+        this.rayon[2] = (int) spinner.getValue();
+    }
 
 }
