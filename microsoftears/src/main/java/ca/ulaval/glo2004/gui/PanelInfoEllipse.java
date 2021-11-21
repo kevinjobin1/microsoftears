@@ -27,11 +27,6 @@ public class PanelInfoEllipse extends PanelComposante{
             centreX,
             centreY;
 
-    public PanelInfoEllipse(){
-        super();
-        this.initialiser();
-    }
-
     @Override
     void initialiser() {
 

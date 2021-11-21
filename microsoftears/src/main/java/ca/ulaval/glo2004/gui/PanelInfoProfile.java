@@ -27,10 +27,6 @@ public class PanelInfoProfile extends PanelComposante{
             centreX,
             centreY;
 
-    public PanelInfoProfile(){
-        super();
-        this.initialiser();
-    }
 
     @Override
     void initialiser() {

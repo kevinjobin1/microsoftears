@@ -32,11 +32,6 @@ public class PanelInfoHayon extends PanelComposante{
             scie,
             rayon;
 
-    public PanelInfoHayon() {
-        super();
-        this.initialiser();
-    }
-
     @Override
     void initialiser() {
 

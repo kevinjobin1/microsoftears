@@ -9,7 +9,6 @@ public class PanelInfoPlancher extends PanelComposante {
     private JLabel epaisseurLabel,
             margeAvantLabel,
             margeArriereLabel;
-
     private JSpinner epaisseurSpinner1,
             epaisseurSpinner2,
             epaisseurSpinner3,
@@ -20,12 +19,9 @@ public class PanelInfoPlancher extends PanelComposante {
             margeArriereSpinner2,
             margeArriereSpinner3;
 
-    int[] epaisseur, margeAvant, margeArriere;
-
-    public PanelInfoPlancher(){
-        super();
-        this.initialiser();
-    }
+    int[] epaisseur,
+            margeAvant,
+            margeArriere;
 
     @Override
     void initialiser() {
