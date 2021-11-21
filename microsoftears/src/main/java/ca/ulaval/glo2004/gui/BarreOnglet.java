@@ -1,8 +1,15 @@
 package ca.ulaval.glo2004.gui;
 
+import org.kordamp.ikonli.bootstrapicons.BootstrapIcons;
+import org.kordamp.ikonli.swing.FontIcon;
+import ca.ulaval.glo2004.utilitaires.Pouce;
+import ca.ulaval.glo2004.utilitaires.PointPouce;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Cette classe affiche la barre onglet de la Fenetre Principal
@@ -10,11 +17,13 @@ import java.awt.*;
  */
 public class BarreOnglet extends JTabbedPane {
 
+    private boolean estImperial;
     public FenetrePrincipale parent;
 
     public BarreOnglet(FenetrePrincipale parent)
     {
         this.parent = parent;
+        this.estImperial = true;
         this.initialiser();
     }
 
@@ -43,7 +52,6 @@ public class BarreOnglet extends JTabbedPane {
      * @return panel
      */
     private static JPanel creerTabPanel(String composante) {
-
 
         //creates a lowered level border using the border factory, will be used by addborder()
         Border line = BorderFactory.createLoweredBevelBorder();
@@ -74,12 +82,12 @@ public class BarreOnglet extends JTabbedPane {
      */
    public static void addBorder(Border border, String composante, Container container){
 
-       JPanel panelTest = test();
+       JPanel panelMesure = creerPanelMesure();
 
        JPanel contour = new JPanel(false);
 
        if (composante.equals("Hayon")){
-           contour = creerPanelInfoHayon();
+           contour = new PanelInfoHayon();
        }
        if (composante.equals("Plancher")){
            contour = creerPanelInfoPlancher();
@@ -105,13 +113,13 @@ public class BarreOnglet extends JTabbedPane {
 
 
        //insert borders in the new panel we created
-        panelTest.setBorder(border);
+        panelMesure.setBorder(border);
 
         //borders are set
         contour.setBorder(border);
 
         //a space between containers is added
-       container.add(panelTest);
+       container.add(panelMesure);
        container.add(Box.createRigidArea(new Dimension(0,10)));
        container.add(contour);
     }
@@ -1322,32 +1330,69 @@ public class BarreOnglet extends JTabbedPane {
         return panel;
     }
 
-    /**
-     * Just a test
-     */
-    private static JPanel test(){
+    private static JPanel creerPanelMesure(){
 
         //creating a panel to hold the buttons inside
-        JPanel panelTest = new JPanel(new GridBagLayout());
+        JPanel panel = new JPanel(new GridBagLayout());
+
+        ButtonGroup groupeBoutonMesure = new ButtonGroup();
 
         //establishing constraints for the gridbaglayout
         GridBagConstraints c = new GridBagConstraints();
 
         //creating first button
-        JToggleButton button1 = new JToggleButton("mm");
+        JToggleButton boutonMM = new JToggleButton("Métrique (mm)");
+        boutonMM.setSelected(false);
+        groupeBoutonMesure.add(boutonMM);
         c.gridx = 1;
         c.gridy = 0;
         c.gridwidth = 1;
-        panelTest.add(button1, c);
+        panel.add(boutonMM, c);
 
         //creating second button
-        JToggleButton button2 = new JToggleButton("pouces");
+        JToggleButton boutonPouces = new JToggleButton("Impérial (\")");
+        boutonPouces.setSelected(true);
+        groupeBoutonMesure.add(boutonPouces);
         c.gridx = 2;
         c.gridy = 0;
         c.gridwidth = 1;
-        panelTest.add(button2, c);
+        panel.add(boutonPouces, c);
 
-        return panelTest;
+        // ==== Bouton MM =======
+        boutonMM.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                boutonMMActionPerformed(e);
+                System.out.println("boutonMMActionPerformed()");
+            }
+        });
+
+        // ==== Bouton MM =======
+        boutonPouces.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                boutonPoucesActionPerformed(e);
+                System.out.println("boutonPoucesActionPerformed()");
+            }
+        });
+
+        return panel;
+    }
+
+    private static void boutonPoucesActionPerformed(ActionEvent e) {
+
+
+    }
+
+    private static void boutonMMActionPerformed(ActionEvent e) {
+
+
+    }
+
+    private JButton creerBouton(BootstrapIcons icone, int taille, Color couleur){
+        JButton bouton = new javax.swing.JButton();
+        FontIcon fontIcon = FontIcon.of(icone, taille, couleur);
+        bouton.setIcon(fontIcon);
+        this.add(bouton);
+        return bouton;
     }
 
 }

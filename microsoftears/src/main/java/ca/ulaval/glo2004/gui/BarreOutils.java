@@ -49,7 +49,7 @@ public class BarreOutils extends JToolBar {
         couleurButton = creerBouton(BootstrapIcons.SQUARE_FILL, 20, new Color(217,217,217));
         couleurChooser = new JColorChooser();
 
-        //======= Actions ========
+        //======= Actions (Events) ========
         ajoutComposanteButton.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
                 // on affiche le popup menu lorsque le user clique sur le bouton ajout de la barre d'outils

@@ -246,7 +246,12 @@ public class RoulotteController {
         if (!listeComposantes.isEmpty()) {
             for (int i=0; i < listeComposantes.size(); i++) {
                 Composante composante = listeComposantes.get(i);
-                composante.setCouleur(Color.WHITE);
+                if (composante.getType() != TypeComposante.PROFIL_ELLIPSE){
+                    composante.setCouleur(Color.WHITE);
+                }
+               else{
+                   composante.setCouleur(Color.CYAN);
+                }
 
                 if (composante.getPolygone().contains(positionClic)) {
                     System.out.println("Clique sur : " + composante);

@@ -65,14 +65,29 @@ public class Polygone {
         // Si le nombre de points d'intersection est impair, le point est contenu dans la polygone, false sinon
         return (count % 2 == 1);
     }
-
+    /**
+     * (i.y > p.y != j.y > p.y)
+     * &&
+     * (p.x < (j.x - i.x)
+     *
+     * */
     public boolean contains(PointPouce p) {
         int i, j;
         int n = listePoints.size();
         boolean resultat = false;
         for (i = 0, j = n - 1; i < n; j = i++) {
-            if ((listePoints.get(i).getY().gt(p.getY())) != (listePoints.get(j).getY().gt(p.getY())) &&
-                    (p.getX().st((listePoints.get(j).getX().diff(listePoints.get(i).getX())).multiplier((p.getY().diff(listePoints.get(i).getY())).diviser((listePoints.get(j).getY().diff(listePoints.get(i).getY())))).add(listePoints.get(i).getX()))))
+            if (
+                    (listePoints.get(i).getY().gt(p.getY())) != (listePoints.get(j).getY().gt(p.getY()))
+                            &&
+                    (p.getX().st(
+                            (listePoints.get(j).getX().diff(listePoints.get(i).getX())).multiplier(
+                                    (p.getY().diff(listePoints.get(i).getY())).diviser(
+                                            (listePoints.get(j).getY().diff(listePoints.get(i).getY()))
+                                    )
+                            ).add(listePoints.get(i).getX())
+                                )
+                    )
+            )
             {
                 resultat = true;
             }

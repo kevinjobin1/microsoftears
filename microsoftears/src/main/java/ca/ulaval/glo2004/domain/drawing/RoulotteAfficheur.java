@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import ca.ulaval.glo2004.domain.*;
+import ca.ulaval.glo2004.utilitaires.Ellipse;
 import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Polygone;
 import ca.ulaval.glo2004.utilitaires.Pouce;
@@ -46,7 +47,7 @@ public class RoulotteAfficheur
             }
         }
     }
-
+    // TODO: à retirer
     private void afficherPointClic(Graphics2D g2d){
         PointPouce mousePoint = roulotte.mousePoint;
         int x = (int) (roulotte.xVersEcran(mousePoint.getX()));

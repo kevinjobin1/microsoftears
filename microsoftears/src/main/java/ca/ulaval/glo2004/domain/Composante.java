@@ -9,7 +9,7 @@ import java.awt.geom.Area;
 import java.awt.geom.GeneralPath;
 import java.util.LinkedList;
 
-public abstract class Composante extends Area {
+public abstract class Composante {
 
     protected RoulotteController parent;
     private TypeComposante type;
@@ -21,6 +21,11 @@ public abstract class Composante extends Area {
         this.parent = parent;
         this.couleur = Color.WHITE;
         this.estVisible = true;
+    }
+
+    static AlphaComposite definirComposite(float alpha) {
+        int type = AlphaComposite.SRC_OVER;
+        return(AlphaComposite.getInstance(type, alpha));
     }
 
     public void afficher(Graphics2D g2d){
@@ -86,5 +91,9 @@ public abstract class Composante extends Area {
 
     public void setVisible(boolean b){
         this.estVisible = b;
+    }
+
+    public boolean estVisible() {
+        return estVisible;
     }
 }

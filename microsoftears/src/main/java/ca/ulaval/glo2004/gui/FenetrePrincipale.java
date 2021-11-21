@@ -55,9 +55,13 @@ public class FenetrePrincipale extends JFrame {
         Hayon hayon = new Hayon(controller);
         controller.setHayon(hayon);
         controller.getListeComposantes().add(murProfile);
+        for (ProfilEllipse ellipse : murProfile.getProfilEllipses()){
+            controller.getListeComposantes().add(ellipse);
+        }
         controller.getListeComposantes().add(hayon);
         controller.getListeComposantes().add(poutre);
         controller.getListeComposantes().add(plancher);
+
 
         mainPanel = new JPanel();
         bottomPanel = new JPanel();
