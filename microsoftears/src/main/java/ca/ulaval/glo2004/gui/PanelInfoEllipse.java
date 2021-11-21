@@ -4,7 +4,7 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-public class PanelInfoProfile extends PanelComposante{
+public class PanelInfoEllipse extends PanelComposante{
     private JLabel hauteurLabel,
             longueurLabel,
             centreXLabel,
@@ -27,7 +27,7 @@ public class PanelInfoProfile extends PanelComposante{
             centreX,
             centreY;
 
-    public PanelInfoProfile(){
+    public PanelInfoEllipse(){
         super();
         this.initialiser();
     }

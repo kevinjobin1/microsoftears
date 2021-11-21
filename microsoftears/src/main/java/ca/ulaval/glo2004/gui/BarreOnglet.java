@@ -90,25 +90,25 @@ public class BarreOnglet extends JTabbedPane {
            contour = new PanelInfoHayon();
        }
        if (composante.equals("Plancher")){
-           contour = creerPanelInfoPlancher();
+           contour = new PanelInfoPlancher();
        }
        if (composante.equals("Poutre")){
            contour = creerPanelInfoPoutre();
        }
        if (composante.equals("Ellipse 1")){
-           contour = creerPanelInfoEllipse();
+           contour = new PanelInfoEllipse();
        }
        if (composante.equals("Ellipse 2")){
-           contour = creerPanelInfoEllipse();
+           contour = new PanelInfoEllipse();
        }
        if (composante.equals("Ellipse 3")){
-           contour = creerPanelInfoEllipse();
+           contour = new PanelInfoEllipse();
        }
        if (composante.equals("Ellipse 4")){
-           contour = creerPanelInfoEllipse();
+           contour = new PanelInfoEllipse();
        }
        if (composante.equals("Profile")){
-           contour = creerPanelInfoProfile();
+           contour = new PanelInfoProfile();
        }
 
 
