@@ -89,7 +89,7 @@ public class BarreOnglet extends JTabbedPane {
            contour = new PanelInfoHayonMM();
        }
        if (composante.equals("Plancher")){
-           contour = new PanelInfoPlancher();
+           contour = new PanelInfoPlancherMM();
        }
        if (composante.equals("Poutre")){
            contour = new PanelInfoPoutreMM();
