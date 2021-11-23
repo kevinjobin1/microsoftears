@@ -47,9 +47,24 @@ public enum TypeComposante {
             return "Profil bézier";
         }
     },
-    PROFIL_ELLIPSE{
+    PROFIL_ELLIPSE_1{
         public String toString(){
-            return "Profil ellipse";
+            return "Ellipse 1";
+        }
+    },
+    PROFIL_ELLIPSE_2{
+        public String toString(){
+            return "Ellipse 2";
+        }
+    },
+    PROFIL_ELLIPSE_3{
+        public String toString(){
+            return "Ellipse 3";
+        }
+    },
+    PROFIL_ELLIPSE_4{
+        public String toString(){
+            return "Ellipse 4";
         }
     },
     CONTREPLAQUE_EXTERIEUR{

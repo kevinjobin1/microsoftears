@@ -248,7 +248,10 @@ public class RoulotteController implements Observable{
         if (!listeComposantes.isEmpty()) {
             for (int i=0; i < listeComposantes.size(); i++) {
                 Composante composante = listeComposantes.get(i);
-                if (composante.getType() != TypeComposante.PROFIL_ELLIPSE){
+                if ((composante.getType() != TypeComposante.PROFIL_ELLIPSE_1) ||
+                    (composante.getType() != TypeComposante.PROFIL_ELLIPSE_2) ||
+                    (composante.getType() != TypeComposante.PROFIL_ELLIPSE_3) ||
+                    (composante.getType() != TypeComposante.PROFIL_ELLIPSE_4)){
                     composante.setCouleur(Color.WHITE);
                 }
                else{

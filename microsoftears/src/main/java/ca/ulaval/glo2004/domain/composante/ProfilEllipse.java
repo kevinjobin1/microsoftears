@@ -16,14 +16,14 @@ public class ProfilEllipse extends Composante{
     private PointPouce centre;
     private Ellipse ellipse;
 
-    public ProfilEllipse(RoulotteController parent, Pouce longueur, Pouce hauteur, PointPouce centre) {
+    public ProfilEllipse(RoulotteController parent, Pouce longueur, Pouce hauteur, PointPouce centre, TypeComposante type) {
         super(parent);
         this.longueur = longueur;
         this.hauteur = hauteur;
         this.centre = centre;
         this.ellipse = new Ellipse(this.longueur,this.hauteur,this.centre, this.parent.getNombrePoint());
         this.setPolygone(ellipse.getPolygone());
-        this.setType(TypeComposante.PROFIL_ELLIPSE);
+        this.setType(type);
     }
 
         public void afficher(Graphics2D g2d){

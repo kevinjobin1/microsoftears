@@ -60,9 +60,21 @@ public class FenetrePrincipale extends JFrame {
                 System.out.println("Case4");
                 this.barreOnglets.setSelectedIndex(3);
                 break;
-            case PROFIL_ELLIPSE:
+            case PROFIL_ELLIPSE_1:
                 System.out.println("Case5");
                 this.barreOnglets.setSelectedIndex(4);
+                break;
+            case PROFIL_ELLIPSE_2:
+                System.out.println("Case6");
+                this.barreOnglets.setSelectedIndex(5);
+                break;
+            case PROFIL_ELLIPSE_3:
+                System.out.println("Case7");
+                this.barreOnglets.setSelectedIndex(6);
+                break;
+            case PROFIL_ELLIPSE_4:
+                System.out.println("Case8");
+                this.barreOnglets.setSelectedIndex(7);
                 break;
         }
 
