@@ -1,6 +1,6 @@
 package ca.ulaval.glo2004.domain.composante;
 
-import ca.ulaval.glo2004.domain.roulotte.RoulotteController;
+import ca.ulaval.glo2004.domain.RoulotteController;
 import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Pouce;
 
@@ -22,6 +22,11 @@ public class Ressorts extends Composante{
         super(parent);
         this.poidsHayon = 50;
         this.setType(TypeComposante.RESSORTS);
+    }
+
+    @Override
+    protected PointPouce getCentre() {
+        return null;
     }
 
     private PointPouce[] calculerPositionRessorts(){
@@ -49,10 +54,11 @@ public class Ressorts extends Composante{
     }
 
     public Pouce getLongueurHayon(){
-        double x = parent.getHayon().getPointRotation().getX().toDouble() -
-                parent.getHayon().getPointFinHayon().getX().toDouble();
-        double y = parent.getHayon().getPointRotation().getY().toDouble() -
-                parent.getHayon().getPointFinHayon().getY().toDouble();
+        Hayon hayon = (Hayon) parent.getListeComposantes().get(8);
+        double x = hayon.getPointRotation().getX().toDouble() -
+                hayon.getPointFinHayon().getX().toDouble();
+        double y = hayon.getPointRotation().getY().toDouble() -
+                hayon.getPointFinHayon().getY().toDouble();
         return new Pouce(Math.sqrt(Math.pow(x,2)+Math.pow(y,2)));
     }
     //todo: à tester

@@ -48,8 +48,8 @@ public class BarreOutils extends JToolBar {
         dessinerButton  = creerBouton(BootstrapIcons.PENCIL, 20, Color.WHITE);
         remplirButton  = creerBouton(BootstrapIcons.TRASH, 20, Color.WHITE);
         removeComposanteButton  = creerBouton(BootstrapIcons.PAINT_BUCKET, 20, Color.WHITE);
-        couleurButton = creerBouton(BootstrapIcons.SQUARE_FILL, 20, new Color(217,217,217));
-        couleurChooser = new JColorChooser();
+        couleurButton = creerBouton(BootstrapIcons.SQUARE_FILL, 20, parent.getCouleurChoisie());
+        couleurChooser = new JColorChooser(parent.getCouleurChoisie());
 
         //======= Actions (Events) ========
         ajoutComposanteButton.addMouseListener(new MouseAdapter() {

@@ -1,6 +1,6 @@
 package ca.ulaval.glo2004.domain.composante;
 
-import ca.ulaval.glo2004.domain.roulotte.RoulotteController;
+import ca.ulaval.glo2004.domain.RoulotteController;
 import ca.ulaval.glo2004.utilitaires.PointPouce;
 
 import java.awt.*;
@@ -28,6 +28,12 @@ public class ProfilBezier extends Composante{
         //this.pointsBezier = ;
         this.setType(TypeComposante.PROFIL_BEZIER);
     }
+
+    @Override
+    protected PointPouce getCentre() {
+        return null;
+    }
+
     /**
      * Méthode d'affichage de la courbe de Bezier
      * @param g2d l'objet Graphics2d à dessiner dessus

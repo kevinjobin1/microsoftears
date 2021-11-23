@@ -1,11 +1,12 @@
 package ca.ulaval.glo2004.domain.composante;
 
-import ca.ulaval.glo2004.domain.roulotte.RoulotteController;
+import ca.ulaval.glo2004.domain.RoulotteController;
 import ca.ulaval.glo2004.utilitaires.Ellipse;
 import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Pouce;
 
 import java.awt.*;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.GeneralPath;
 import java.util.LinkedList;
 
@@ -30,15 +31,14 @@ public class ProfilEllipse extends Composante{
         if (this.estVisible()){
             GeneralPath path = new GeneralPath();
             LinkedList<PointPouce> polygoneList = this.getPolygone().getListePoints();
-            double x, y;
+            double[] point;
             for (int i = 0; i < polygoneList.size(); i++){
-                x = parent.xVersEcran(polygoneList.get(i).getX());
-                y = parent.yVersEcran(polygoneList.get(i).getY());
+                point = parent.getPositionEcran(polygoneList.get(i));
                 if(i == 0) {
-                    path.moveTo(x, y);
+                    path.moveTo(point[0], point[1]);
                 }
                 else{
-                    path.lineTo(x ,y);
+                    path.lineTo(point[0] ,point[1]);
                 }
             }
             path.closePath();
@@ -51,6 +51,8 @@ public class ProfilEllipse extends Composante{
             g2d.setColor(Color.DARK_GRAY);
             g2d.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
             g2d.draw(path);
+            double[] centreEllipse = parent.getPositionEcran(centre);
+            g2d.fill(new Ellipse2D.Double(centreEllipse[0], centreEllipse[1], 5, 5));
         }
     }
 

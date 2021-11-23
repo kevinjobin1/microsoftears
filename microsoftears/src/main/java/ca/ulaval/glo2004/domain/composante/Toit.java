@@ -1,9 +1,10 @@
 package ca.ulaval.glo2004.domain.composante;
 
-import ca.ulaval.glo2004.domain.roulotte.RoulotteController;
+import ca.ulaval.glo2004.domain.RoulotteController;
 import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Polygone;
 import ca.ulaval.glo2004.utilitaires.Pouce;
+import ca.ulaval.glo2004.utilitaires.Rectangle;
 
 import java.util.LinkedList;
 
@@ -34,10 +35,17 @@ public class Toit extends Composante{
 
     @Override
     public Polygone getPolygone(){
-        Pouce xFin = parent.getMurSeparateur().getCentre().getX().add(parent.getMurSeparateur().getEpaisseur().diviser(2));
-        Pouce yDepart = parent.getMurBrute().getCentre().getY().add(parent.getMurBrute().getLargeur().diviser(2)).
-                diff(parent.getPlancher().getEpaisseur());
-        LinkedList<PointPouce> listePointMur = parent.getMurprofile().getPolygone().getListePoints();
+
+        Plancher plancher = (Plancher) (parent.getListeComposantes().get(6));
+        MurBrute murBrute = (MurBrute) parent.getListeComposantes().get(0);
+        PoutreArriere poutreArriere = (PoutreArriere) parent.getListeComposantes().get(7);
+        MurProfile murProfile = (MurProfile) parent.getListeComposantes().get(2);
+        MurSeparateur murSeparateur = (MurSeparateur) parent.getListeComposantes().get(9); 
+
+        Pouce xFin = murSeparateur.getCentre().getX().add(murSeparateur.getEpaisseur().diviser(2));
+        Pouce yDepart = murBrute.getCentre().getY().add(murBrute.getLargeur().diviser(2)).
+                diff(plancher.getEpaisseur());
+        LinkedList<PointPouce> listePointMur = murProfile.getPolygone().getListePoints();
         LinkedList<PointPouce> pointsProfil= new LinkedList<>();
         boolean yDepartManquant = true;
         boolean xFinManquant = true;
@@ -45,7 +53,7 @@ public class Toit extends Composante{
         for(int i = 0; i < listePointMur.size(); i++){
             PointPouce point = listePointMur.get(i);
             if(point.getX().gte(xFin) && point.getY().ste(yDepart)) {
-                if(point.getY().gt(parent.getMurBrute().getCentre().getY())){
+                if(point.getY().gt(murBrute.getCentre().getY())){
                     pointsProfil.add(0, point);
                 }else {
                     pointsProfil.add(point);
@@ -61,13 +69,13 @@ public class Toit extends Composante{
             }
             if(point.getY().equals(yDepart) && point.getX().gte(xFin)){
                 yDepartManquant = false;
-                if(point.getY().gt(parent.getMurBrute().getCentre().getY())){
+                if(point.getY().gt(murBrute.getCentre().getY())){
                     pointsProfil.add(0, new PointPouce(point.getX(),yDepart));
                 }else {
                     pointsProfil.add(new PointPouce(point.getX(),yDepart));
                 }
             }else if(point.getY().gt(yDepart) && point.getX().gte(xFin) && yDepartManquant){
-                if(point.getY().gt(parent.getMurBrute().getCentre().getY())){
+                if(point.getY().gt(murBrute.getCentre().getY())){
                     pointsProfil.add(0, new PointPouce(point.getX(),yDepart));
                     pointsProfil.add(0, new PointPouce(point.getX(),yDepart));
                 }else {
@@ -86,20 +94,20 @@ public class Toit extends Composante{
             Pouce y = pointsProfil.get(i).getY().diff(epaisseur.multiplier(-Math.sin(angleNormale)));
 
             //lorsque les points sont dans le coin mais sont plus petit que l'épaisseur du mur
-            if(x.gt(parent.getMurBrute().getCentre().getX().add(parent.getMurBrute().getLongueur().diviser(2)).
+            if(x.gt(murBrute.getCentre().getX().add(murBrute.getLongueur().diviser(2)).
                     diff(epaisseur))){
-                x = parent.getMurBrute().getCentre().getX().add(parent.getMurBrute().getLongueur().diviser(2)).
+                x = murBrute.getCentre().getX().add(murBrute.getLongueur().diviser(2)).
                         diff(epaisseur);
             }
-            if(y.st(parent.getMurBrute().getCentre().getY().diff(parent.getMurBrute().getLargeur().diviser(2)).
+            if(y.st(murBrute.getCentre().getY().diff(murBrute.getLargeur().diviser(2)).
                     add(epaisseur))) {
-                y = parent.getMurBrute().getCentre().getY().add(parent.getMurBrute().getLargeur().diviser(2)).
+                y = murBrute.getCentre().getY().add(murBrute.getLargeur().diviser(2)).
                         diff(epaisseur);
             }
             //exception: retirer les points qui sont plus petit que la courbe
             boolean pointValide = true;
-            if (y.ste(parent.getMurBrute().getCentre().getY()) &&
-                    pointsProfil.getLast().getY().ste(parent.getMurBrute().getCentre().getY())) {
+            if (y.ste(murBrute.getCentre().getY()) &&
+                    pointsProfil.getLast().getY().ste(murBrute.getCentre().getY())) {
                 if (x.st(pointsProfil.getLast().getX())) {
                     pointsProfil.removeLast();
                 }
@@ -112,5 +120,10 @@ public class Toit extends Composante{
             }
         }
         return new Polygone(pointsProfil);
+    }
+
+    @Override
+    protected PointPouce getCentre() {
+        return null;
     }
 }

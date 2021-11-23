@@ -1,7 +1,7 @@
 package ca.ulaval.glo2004.domain.composante;
 
 
-import ca.ulaval.glo2004.domain.roulotte.RoulotteController;
+import ca.ulaval.glo2004.domain.RoulotteController;
 import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Pouce;
 import ca.ulaval.glo2004.utilitaires.Rectangle;
@@ -56,15 +56,15 @@ public class Plancher extends Composante {
         this.margeArriere = margeArriere;
     }
 
-    private PointPouce getCentre(){
-        MurBrute mur = parent.getMurBrute();
+    protected PointPouce getCentre(){
+        MurBrute mur = (MurBrute) parent.getListeComposantes().get(0);
         Pouce x = mur.getCentre().getX().add(mur.getLongueur().diviser(2)).diff(margeAvant).diff(getLongueur().diviser(2));
         Pouce y = mur.getLargeur().diviser(2).add(mur.getCentre().getY()).diff(this.epaisseur.diviser(2));
         return new PointPouce(x,y);
     }
 
     private Pouce getLongueur(){
-        return this.parent.getMurBrute().getLongueur().diff(this.margeArriere).diff(this.margeAvant);
+        return ((MurBrute)(parent.getListeComposantes().get(0))).getLongueur().diff(this.margeArriere).diff(this.margeAvant);
     }
 
     public Rectangle getRectangle() {

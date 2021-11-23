@@ -30,10 +30,6 @@ public class BarreOnglet extends JTabbedPane {
 
     private void initialiser()
     {
-        //== TODO: Initialiser les attributs du TabbedPane ici
-        //this.setPreferredSize(new Dimension(300, 900));
-
-        //== TODO: Remplacer this.add(...) par ajouterOnglet("MaComposanteExemple")
 
         this.addTab("Hayon", creerTabPanel("Hayon"));
         this.addTab("Plancher",creerTabPanel("Plancher"));
@@ -48,14 +44,6 @@ public class BarreOnglet extends JTabbedPane {
 
     private void invalider(){
         this.removeAll();
-    }
-
-    public boolean estImperial() {
-        return estImperial;
-    }
-
-    public void estImperial(boolean estImperial) {
-        this.estImperial = estImperial;
     }
 
     /**
@@ -478,7 +466,7 @@ public class BarreOnglet extends JTabbedPane {
         // ==== Bouton MM =======
         boutonMM.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                boutonMMActionPerformed(e);
+                boutonUniteMesureActionPerformed(e);
                 System.out.println("boutonMMActionPerformed()");
             }
         });
@@ -486,7 +474,7 @@ public class BarreOnglet extends JTabbedPane {
         // ==== Bouton MM =======
         boutonPouces.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                boutonPoucesActionPerformed(e);
+                boutonUniteMesureActionPerformed(e);
                 System.out.println("boutonPoucesActionPerformed()");
             }
         });
@@ -500,14 +488,18 @@ public class BarreOnglet extends JTabbedPane {
         this.repaint();
     }
 
-    private void boutonPoucesActionPerformed(ActionEvent e) {
-        this.estImperial = true;
-        this.rafraichir();
-    }
+    private void boutonUniteMesureActionPerformed(ActionEvent e) {
+        JToggleButton bouton = (JToggleButton) e.getSource();
+        int index = this.getSelectedIndex();
 
-    private void boutonMMActionPerformed(ActionEvent e) {
-        this.estImperial = false;
+        if(bouton.getText() == "Impérial (\")"){
+            this.estImperial = true;
+        }
+        else{
+            this.estImperial = false;
+        }
         this.rafraichir();
+        this.setSelectedIndex(index);
     }
 
     private JButton creerBouton(BootstrapIcons icone, int taille, Color couleur){

@@ -1,6 +1,6 @@
 package ca.ulaval.glo2004.domain.composante;
 
-import ca.ulaval.glo2004.domain.roulotte.RoulotteController;
+import ca.ulaval.glo2004.domain.RoulotteController;
 import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Polygone;
 
@@ -31,15 +31,14 @@ public abstract class Composante {
         if (estVisible){
             GeneralPath path = new GeneralPath();
             LinkedList<PointPouce> polygoneList = this.getPolygone().getListePoints();
-            double x, y;
+            double[] point;
             for (int i = 0; i < polygoneList.size(); i++){
-                x = parent.xVersEcran(polygoneList.get(i).getX());
-                y = parent.yVersEcran(polygoneList.get(i).getY());
+                 point = parent.getPositionEcran(polygoneList.get(i));
                 if(i == 0) {
-                    path.moveTo(x, y);
+                    path.moveTo(point[0], point[1]);
                 }
                 else{
-                    path.lineTo(x ,y);
+                    path.lineTo(point[0] ,point[1]);
                 }
             }
             path.closePath();
@@ -94,5 +93,11 @@ public abstract class Composante {
 
     public boolean estVisible() {
         return estVisible;
+    }
+
+    protected abstract PointPouce getCentre();
+
+    public void estVisible(boolean b) {
+        this.estVisible = b;
     }
 }

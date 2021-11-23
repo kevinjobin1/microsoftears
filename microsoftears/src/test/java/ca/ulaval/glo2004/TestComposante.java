@@ -1,7 +1,7 @@
 package ca.ulaval.glo2004;
 
 import ca.ulaval.glo2004.domain.composante.MurBrute;
-import ca.ulaval.glo2004.domain.roulotte.RoulotteController;
+import ca.ulaval.glo2004.domain.RoulotteController;
 import ca.ulaval.glo2004.gui.FenetrePrincipale;
 import junit.framework.TestCase;
 import org.junit.Test;

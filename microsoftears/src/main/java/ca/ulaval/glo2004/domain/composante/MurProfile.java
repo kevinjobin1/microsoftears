@@ -1,9 +1,10 @@
 package ca.ulaval.glo2004.domain.composante;
 
-import ca.ulaval.glo2004.domain.roulotte.RoulotteController;
+import ca.ulaval.glo2004.domain.RoulotteController;
 import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Polygone;
 import ca.ulaval.glo2004.utilitaires.Pouce;
+import ca.ulaval.glo2004.utilitaires.Rectangle;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -27,20 +28,22 @@ public class MurProfile extends Composante{
     public MurProfile(RoulotteController parent, boolean mode) {
         super(parent);
         this.mode = mode;
+         LinkedList<PointPouce> murBrutePoints = parent.getListeComposantes().get(0).getPolygone().getListePoints();
+       
         this.profilEllipses[0] = new ProfilEllipse(parent, new Pouce(40,0,1), new Pouce(30,0,1),
-                new PointPouce(parent.getMurBrute().getPolygone().getListePoints().get(0).getX().diff(new Pouce(15,0,1)),
-                        parent.getMurBrute().getPolygone().getListePoints().get(0).getY().add(new Pouce(15,0,1))), TypeComposante.PROFIL_ELLIPSE_1); //ellipse en haut à droite
+                new PointPouce(murBrutePoints.get(0).getX().diff(new Pouce(15,0,1)),
+                        murBrutePoints.get(0).getY().add(new Pouce(15,0,1))), TypeComposante.PROFIL_ELLIPSE_1); //ellipse en haut à droite
 
         this.profilEllipses[1] = new ProfilEllipse(parent, new Pouce(40,0,1), new Pouce(30,0,1),
-                new PointPouce(parent.getMurBrute().getPolygone().getListePoints().get(1).getX().add(new Pouce(15,1,2)),
-                        parent.getMurBrute().getPolygone().getListePoints().get(1).getY().add(new Pouce(15,0,1))), TypeComposante.PROFIL_ELLIPSE_2); //ellipse en haut à gauche
+                new PointPouce(murBrutePoints.get(1).getX().add(new Pouce(15,1,2)),
+                        murBrutePoints.get(1).getY().add(new Pouce(15,0,1))), TypeComposante.PROFIL_ELLIPSE_2); //ellipse en haut à gauche
 
         this.profilEllipses[2] = new ProfilEllipse(parent, new Pouce(15,0,1), new Pouce(12,0,1),
-                new PointPouce(parent.getMurBrute().getPolygone().getListePoints().get(2).getX().add(new Pouce(7,0,1)),
-                        parent.getMurBrute().getPolygone().getListePoints().get(2).getY().diff(new Pouce(5,0,1))), TypeComposante.PROFIL_ELLIPSE_3); //ellipse en bas à gauche
+                new PointPouce(murBrutePoints.get(2).getX().add(new Pouce(7,0,1)),
+                        murBrutePoints.get(2).getY().diff(new Pouce(5,0,1))), TypeComposante.PROFIL_ELLIPSE_3); //ellipse en bas à gauche
 
         this.profilEllipses[3] = new ProfilEllipse(parent, new Pouce(5,0,1), new Pouce(5,0,1),
-                parent.getMurBrute().getPolygone().getListePoints().get(3), TypeComposante.PROFIL_ELLIPSE_4); //ellipse en bas à droite
+                murBrutePoints.get(3), TypeComposante.PROFIL_ELLIPSE_4); //ellipse en bas à droite
 
         this.profilBezier = new ProfilBezier(parent);
         this.setType(TypeComposante.MUR_PROFILE);
@@ -74,6 +77,11 @@ public class MurProfile extends Composante{
         return retour;
     }
 
+    @Override
+    protected PointPouce getCentre() {
+        return null;
+    }
+
     //todo mais pas pour le livrable 3
     private LinkedList<PointPouce> listePointsModeBezier() {
         return null;
@@ -81,7 +89,7 @@ public class MurProfile extends Composante{
 
 
     private LinkedList<PointPouce> listePointsModeEllipse(){
-        List<PointPouce> pointsMur = parent.getMurBrute().getPolygone().getListePoints();
+        List<PointPouce> pointsMur = parent.getListeComposantes().get(0).getPolygone().getListePoints();
 
         //cadran en haut à droite de l'éllipse0
         List<PointPouce> listeEllipse0 = new LinkedList<> (profilEllipses[0].getPolygone().getListePoints().

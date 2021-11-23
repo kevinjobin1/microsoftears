@@ -1,6 +1,6 @@
 package ca.ulaval.glo2004.domain.composante;
 
-import ca.ulaval.glo2004.domain.roulotte.RoulotteController;
+import ca.ulaval.glo2004.domain.RoulotteController;
 import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Pouce;
 import ca.ulaval.glo2004.utilitaires.Rectangle;
@@ -31,10 +31,11 @@ public class PoutreArriere extends Composante{
         this.hauteur = hauteur;
         this.centreX = centreX;
         Pouce centreY = getCentreY(this.centreX);
+        MurBrute murBrute = (MurBrute) parent.getListeComposantes().get(0);
         if(centreY != null) {
             this.centre = new PointPouce(this.centreX, centreY);
         }else{
-            this.centre = new PointPouce(this.centreX,parent.getMurBrute().getCentre().getY().diff(parent.getMurBrute().
+            this.centre = new PointPouce(this.centreX,murBrute.getCentre().getY().diff(murBrute.
                     getLargeur().diviser(2)).add(hauteur.diviser(2)));
         }
         this.rectangle = new Rectangle(this.longueur,this.hauteur,this.centre,getAngle());
@@ -46,13 +47,14 @@ public class PoutreArriere extends Composante{
         super(parent);
         this.longueur = new Pouce(2,0,1);
         this.hauteur = new Pouce(2,0,1);
-        centreX = parent.getMurBrute().getCentre().getX().diff(parent.getMurBrute().getLongueur().diviser(2)).
+        MurBrute murBrute = (MurBrute) parent.getListeComposantes().get(0);
+        centreX = murBrute.getCentre().getX().diff(murBrute.getLongueur().diviser(2)).
                 add(new Pouce(11,0,1));
         Pouce centreY = getCentreY(centreX);
         if(centreY != null) {
             this.centre = new PointPouce(centreX, centreY);
         }else{
-            this.centre = new PointPouce(centreX,parent.getMurBrute().getCentre().getY().diff(parent.getMurBrute().
+            this.centre = new PointPouce(centreX,murBrute.getCentre().getY().diff(murBrute.
                     getLargeur().diviser(2)).add(hauteur.diviser(2)));
         }
         this.rectangle = new Rectangle(this.longueur,this.hauteur,this.centre,getAngle());
@@ -86,13 +88,14 @@ public class PoutreArriere extends Composante{
     }
 
     private Pouce getCentreY(Pouce centreX){
-        LinkedList<PointPouce> mur = parent.getMurprofile().getPolygone().getListePoints();
+        MurBrute murBrute = (MurBrute) parent.getListeComposantes().get(0);
+        LinkedList<PointPouce> murProfilePoints = parent.getListeComposantes().get(1).getPolygone().getListePoints();
         int indiceDepart = 0;
         int indiceFin = 0;
-        for(int i = 0; i < mur.size();i++){
-            if(mur.get(i).getX().ste(centreX.add(getLongueur().diviser(2))) &&
-                    mur.get(i).getX().gte(centreX.diff(getLongueur().diviser(2))) &&
-                    mur.get(i).getY().ste(parent.getMurBrute().getCentre().getY())){
+        for(int i = 0; i < murProfilePoints.size();i++){
+            if(murProfilePoints.get(i).getX().ste(centreX.add(getLongueur().diviser(2))) &&
+                    murProfilePoints.get(i).getX().gte(centreX.diff(getLongueur().diviser(2))) &&
+                    murProfilePoints.get(i).getY().ste(murBrute.getCentre().getY())){
                 if(indiceDepart == 0){
                     indiceDepart = i;
                 }
@@ -102,20 +105,21 @@ public class PoutreArriere extends Composante{
         int indiceMilieu = Math.round((indiceDepart + indiceFin)/2);
         Pouce retour = null;
         if(indiceMilieu != 0) {
-            retour = parent.getMurprofile().getPolygone().getListePoints().get(indiceMilieu).getY().
+            retour = murProfilePoints.get(indiceMilieu).getY().
                     add(hauteur.diviser(2).multiplier(Math.cos(getAngle()))).diff(longueur.diviser(2).multiplier(Math.sin(getAngle())));
         }
         return retour;
     }
 
     protected double getAngle(){
-        LinkedList<PointPouce> mur = parent.getMurprofile().getPolygone().getListePoints();
+        MurBrute murBrute = (MurBrute) parent.getListeComposantes().get(0);
+        LinkedList<PointPouce> murProfilePoints = parent.getListeComposantes().get(1).getPolygone().getListePoints();
         int indiceDepart = 0;
         int indiceFin = 0;
-        for(int i = 0; i < mur.size();i++){
-            if(mur.get(i).getX().ste(centreX.add(getLongueur().diviser(2))) &&
-                    mur.get(i).getX().gte(centreX.diff(getLongueur().diviser(2))) &&
-                    mur.get(i).getY().ste(parent.getMurBrute().getCentre().getY())){
+        for(int i = 0; i < murProfilePoints.size();i++){
+            if(murProfilePoints.get(i).getX().ste(centreX.add(getLongueur().diviser(2))) &&
+                    murProfilePoints.get(i).getX().gte(centreX.diff(getLongueur().diviser(2))) &&
+                    murProfilePoints.get(i).getY().ste(murBrute.getCentre().getY())){
                 if(indiceDepart == 0){
                     indiceDepart = i;
                 }
@@ -126,8 +130,8 @@ public class PoutreArriere extends Composante{
         double angle = 0;
 
         if(indiceMilieu != 0) {
-            PointPouce point1 = mur.get(indiceMilieu - 1);
-            PointPouce point2 = mur.get(indiceMilieu + 1);
+            PointPouce point1 = murProfilePoints.get(indiceMilieu - 1);
+            PointPouce point2 = murProfilePoints.get(indiceMilieu + 1);
             angle = Math.atan(point2.getY().diff(point1.getY()).diviser(point2.getX().diff(point1.getX())));
         }
         return angle;

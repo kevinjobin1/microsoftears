@@ -1,8 +1,7 @@
 package ca.ulaval.glo2004.gui;
 
 import ca.ulaval.glo2004.domain.composante.*;
-import ca.ulaval.glo2004.domain.roulotte.RoulotteController;
-import ca.ulaval.glo2004.domain.roulotte.RoulotteControllerObserver;
+import ca.ulaval.glo2004.domain.RoulotteController;
 import ca.ulaval.glo2004.gui.barres.BarreBoutons;
 import ca.ulaval.glo2004.gui.barres.BarreMenu;
 import ca.ulaval.glo2004.gui.barres.BarreOnglet;
@@ -90,28 +89,7 @@ public class FenetrePrincipale extends JFrame {
 
     private void initComponents() {
         controller = new RoulotteController(this);
-
-        couleurChoisie = new Color(217, 217, 217);
-        MurBrute murBrute = new MurBrute(controller);
-        //controller.getListeComposantes().add(murBrute);
-        controller.setMurBrute(murBrute);
-        MurProfile murProfile = new MurProfile(controller,true);
-        controller.setMurprofile(murProfile);
-        Plancher plancher = new Plancher(controller);
-        controller.setPlancher(plancher);
-        PoutreArriere poutre = new PoutreArriere(controller);
-        controller.setPoutreArriere(poutre);
-        Hayon hayon = new Hayon(controller);
-        controller.setHayon(hayon);
-        controller.getListeComposantes().add(murProfile);
-        for (ProfilEllipse ellipse : murProfile.getProfilEllipses()){
-            controller.getListeComposantes().add(ellipse);
-        }
-        controller.getListeComposantes().add(hayon);
-        controller.getListeComposantes().add(poutre);
-        controller.getListeComposantes().add(plancher);
-
-
+        couleurChoisie = new Color(0, 217, 217);
         mainPanel = new JPanel();
         bottomPanel = new JPanel();
         barreMenu = new BarreMenu(this);
