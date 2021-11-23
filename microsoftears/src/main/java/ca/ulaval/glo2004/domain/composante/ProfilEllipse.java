@@ -57,11 +57,13 @@ public class ProfilEllipse extends Composante{
     }
 
     public boolean verificationLongueur(Pouce valeur){
-        return valeur.st(parent.getMurBrute().getLongueur()) && valeur.gt(new Pouce(0,0,1));
+        MurBrute mur = (MurBrute) parent.getListeComposantes().get(0);
+        return valeur.st(mur.getLongueur()) && valeur.gt(new Pouce(0,0,1));
     }
 
     public boolean verificationHauteur(Pouce valeur){
-        return valeur.st(parent.getMurBrute().getLargeur()) && valeur.gt(new Pouce(0,0,1));
+        MurBrute mur = (MurBrute) parent.getListeComposantes().get(0);
+        return valeur.st(mur.getLargeur()) && valeur.gt(new Pouce(0,0,1));
     }
 
     public Pouce getLongueur() {

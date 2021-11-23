@@ -89,19 +89,24 @@ public class Hayon extends Composante {
     }
 
     public boolean verificationEpaisseur(Pouce valeur){
-        return valeur.st(parent.getMurBrute().getCentre().getX().diff(parent.getMurBrute().getLongueur().diviser(2)).
-                diff(parent.getPoutreArriere().getCentre().getX().diff(parent.getPoutreArriere().getLongueur().diviser(2))).diff(epaisseurTraitScie).diff(distancePoutre))
+        MurBrute mur = (MurBrute) parent.getListeComposantes().get(0);
+        PoutreArriere poutre = (PoutreArriere) parent.getListeComposantes().get(7);
+        return valeur.st(mur.getCentre().getX().diff(mur.getLongueur().diviser(2)).
+                diff(poutre.getCentre().getX().diff(poutre.getLongueur().diviser(2))).diff(epaisseurTraitScie).diff(distancePoutre))
                 && valeur.gt(new Pouce(0,0,1));
     }
 
     public boolean verificationDistancePoutre(Pouce valeur){
-        return valeur.st(parent.getPoutreArriere().getCentre().getX().diff(parent.getPoutreArriere().getLongueur().diviser(2)).
-                diff(parent.getMurBrute().getCentre().getX().diff(parent.getMurBrute().getLongueur().diviser(2))).
+        MurBrute mur = (MurBrute) parent.getListeComposantes().get(0);
+        PoutreArriere poutre = (PoutreArriere) parent.getListeComposantes().get(7);
+        return valeur.st(poutre.getCentre().getX().diff(poutre.getLongueur().diviser(2)).
+                diff(mur.getCentre().getX().diff(mur.getLongueur().diviser(2))).
                 diff(epaisseur).diff(epaisseurTraitScie)) && valeur.gt(new Pouce(0,0,1));
     }
 
     public boolean verificationDistancePlancher(Pouce valeur){
-        return valeur.st(parent.getPlancher().getMargeArriere()) && valeur.gt(new Pouce(0,0,1));
+        Plancher plancher = (Plancher) parent.getListeComposantes().get(6);
+        return valeur.st(plancher.getMargeArriere()) && valeur.gt(new Pouce(0,0,1));
     }
 
     public boolean verificationEpaisseurTraitScie(Pouce valeur){
