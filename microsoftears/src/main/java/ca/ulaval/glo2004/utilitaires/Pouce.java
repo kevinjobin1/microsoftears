@@ -1,7 +1,5 @@
 package ca.ulaval.glo2004.utilitaires;
 
-import ca.ulaval.glo2004.domain.RoulotteController;
-
 public class Pouce
 {
     private int pouces;

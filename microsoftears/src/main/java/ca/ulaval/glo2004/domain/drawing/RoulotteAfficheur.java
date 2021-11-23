@@ -2,17 +2,11 @@ package ca.ulaval.glo2004.domain.drawing;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.GeneralPath;
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import ca.ulaval.glo2004.domain.*;
-import ca.ulaval.glo2004.utilitaires.Ellipse;
+
+import ca.ulaval.glo2004.domain.composante.Composante;
+import ca.ulaval.glo2004.domain.roulotte.RoulotteController;
 import ca.ulaval.glo2004.utilitaires.PointPouce;
-import ca.ulaval.glo2004.utilitaires.Polygone;
-import ca.ulaval.glo2004.utilitaires.Pouce;
 
 public class RoulotteAfficheur
 {

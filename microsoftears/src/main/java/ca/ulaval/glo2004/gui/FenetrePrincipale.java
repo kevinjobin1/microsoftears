@@ -1,9 +1,12 @@
 package ca.ulaval.glo2004.gui;
 
-import ca.ulaval.glo2004.domain.*;
-import ca.ulaval.glo2004.gui.afficheur.PanneauAffichage;
-import org.kordamp.ikonli.swing.FontIcon;
-import org.kordamp.ikonli.bootstrapicons.*;
+import ca.ulaval.glo2004.domain.composante.*;
+import ca.ulaval.glo2004.domain.roulotte.RoulotteController;
+import ca.ulaval.glo2004.gui.barres.BarreBoutons;
+import ca.ulaval.glo2004.gui.barres.BarreMenu;
+import ca.ulaval.glo2004.gui.barres.BarreOnglet;
+import ca.ulaval.glo2004.gui.panels.PanelConception;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -32,6 +35,10 @@ public class FenetrePrincipale extends JFrame {
         return couleurChoisie;
     }
 
+    public void setCouleurChoisie(Color couleurChoisie) {
+        this.couleurChoisie = couleurChoisie;
+    }
+
     public void setComposanteChoisie(TypeComposante composanteChoisie) {
         this.composanteChoisie = composanteChoisie;
     }
@@ -46,6 +53,7 @@ public class FenetrePrincipale extends JFrame {
 
     private void initComponents() {
         controller = new RoulotteController(this);
+
         couleurChoisie = new Color(217, 217, 217);
         MurBrute murBrute = new MurBrute(controller);
         //controller.getListeComposantes().add(murBrute);
