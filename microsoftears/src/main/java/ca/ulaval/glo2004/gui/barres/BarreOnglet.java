@@ -13,7 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Cette classe affiche la barre onglet de la Fenetre Principal
+ * Cette classe affiche la barre onglet de la Fenetre Principale
  *
  */
 public class BarreOnglet extends JTabbedPane {
@@ -40,10 +40,6 @@ public class BarreOnglet extends JTabbedPane {
         this.addTab("Ellipse 3", creerTabPanel("Ellipse 3"));
         this.addTab("Ellipse 4", creerTabPanel("Ellipse 4"));
 
-    }
-
-    private void invalider(){
-        this.removeAll();
     }
 
     /**
@@ -467,7 +463,6 @@ public class BarreOnglet extends JTabbedPane {
         boutonMM.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 boutonUniteMesureActionPerformed(e);
-                System.out.println("boutonMMActionPerformed()");
             }
         });
 
@@ -475,7 +470,6 @@ public class BarreOnglet extends JTabbedPane {
         boutonPouces.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 boutonUniteMesureActionPerformed(e);
-                System.out.println("boutonPoucesActionPerformed()");
             }
         });
 
@@ -483,7 +477,7 @@ public class BarreOnglet extends JTabbedPane {
     }
 
     public void rafraichir(){
-        this.invalider();
+        this.removeAll();
         this.initialiser();
         this.repaint();
     }

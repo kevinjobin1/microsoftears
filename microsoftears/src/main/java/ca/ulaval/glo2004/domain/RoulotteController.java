@@ -40,7 +40,8 @@ public class RoulotteController implements Observable{
     }
 
     protected void calculerDisposition(){
-        // Ordre: murBrute (0), murProfile(1), ellipses(2,3,4,5), plancher(6), poutre(7), hayon(8)
+        // Ordre (index): murBrute (0), murProfile(1), ellipses(2,3,4,5),
+        // plancher(6), poutre(7), hayon(8), murSeparateur(9)
         MurBrute murBrute = new MurBrute(this);
         this.getListeComposantes().add(murBrute);
         MurProfile murProfile = new MurProfile(this,true);
@@ -58,7 +59,7 @@ public class RoulotteController implements Observable{
         this.getListeComposantes().add(murSeparateur);
     }
 
-    public void ajouterComposante(TypeComposante composante, Point position) {
+    public void ajouterComposante(TypeComposante composante) {
 
     }
 
