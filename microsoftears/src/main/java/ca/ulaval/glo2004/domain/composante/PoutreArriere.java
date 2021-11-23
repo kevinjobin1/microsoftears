@@ -52,14 +52,17 @@ public class PoutreArriere extends Composante{
     }
 
     public boolean verificationLongueur(Pouce valeur){
-        return valeur.st(parent.getMurBrute().getLongueur().diviser(2)) && valeur.gt(new Pouce(0,0,1));
+        MurBrute murBrute = (MurBrute) parent.getListeComposantes().get(0);
+        return valeur.st(murBrute.getLongueur().diviser(2)) && valeur.gt(new Pouce(0,0,1));
     }
     public boolean verificationHauteur(Pouce valeur){
-        return valeur.st(parent.getMurBrute().getLargeur().diviser(2)) && valeur.gt(new Pouce(0,0,1));
+        MurBrute murBrute = (MurBrute) parent.getListeComposantes().get(0);
+        return valeur.st(murBrute.getLargeur().diviser(2)) && valeur.gt(new Pouce(0,0,1));
     }
     public boolean verificationCentreX(Pouce valeur){
-        return valeur.gt(parent.getMurBrute().getCentre().getX().diff(parent.getMurBrute().getLongueur().diviser(2)).add(longueur.diviser(2)))
-                && valeur.st(parent.getMurBrute().getCentre().getX().add(parent.getMurBrute().getLongueur().diviser(2)).diff(longueur.diviser(2)));
+        MurBrute murBrute = (MurBrute) parent.getListeComposantes().get(0);
+        return valeur.gt(murBrute.getCentre().getX().diff(murBrute.getLongueur().diviser(2)).add(longueur.diviser(2)))
+                && valeur.st(murBrute.getCentre().getX().add(murBrute.getLongueur().diviser(2)).diff(longueur.diviser(2)));
     }
 
     public Pouce getLongueur() {

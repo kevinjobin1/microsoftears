@@ -89,19 +89,24 @@ public class Hayon extends Composante {
     }
 
     public boolean verificationEpaisseur(Pouce valeur){
-        return valeur.st(parent.getMurBrute().getCentre().getX().diff(parent.getMurBrute().getLongueur().diviser(2)).
-                diff(parent.getPoutreArriere().getCentre().getX().diff(parent.getPoutreArriere().getLongueur().diviser(2))).diff(epaisseurTraitScie).diff(distancePoutre))
+        MurBrute murBrute = (MurBrute) parent.getListeComposantes().get(0);
+        PoutreArriere poutreArriere = (PoutreArriere) parent.getListeComposantes().get(7);
+        return valeur.st(murBrute.getCentre().getX().diff(murBrute.getLongueur().diviser(2)).
+                diff(poutreArriere.getCentre().getX().diff(poutreArriere.getLongueur().diviser(2))).diff(epaisseurTraitScie).diff(distancePoutre))
                 && valeur.gt(new Pouce(0,0,1));
     }
 
     public boolean verificationDistancePoutre(Pouce valeur){
-        return valeur.st(parent.getPoutreArriere().getCentre().getX().diff(parent.getPoutreArriere().getLongueur().diviser(2)).
-                diff(parent.getMurBrute().getCentre().getX().diff(parent.getMurBrute().getLongueur().diviser(2))).
+        MurBrute murBrute = (MurBrute) parent.getListeComposantes().get(0);
+        PoutreArriere poutreArriere = (PoutreArriere) parent.getListeComposantes().get(7);
+        return valeur.st(poutreArriere.getCentre().getX().diff(poutreArriere.getLongueur().diviser(2)).
+                diff(murBrute.getCentre().getX().diff(murBrute.getLongueur().diviser(2))).
                 diff(epaisseur).diff(epaisseurTraitScie)) && valeur.gt(new Pouce(0,0,1));
     }
 
     public boolean verificationDistancePlancher(Pouce valeur){
-        return valeur.st(parent.getPlancher().getMargeArriere()) && valeur.gt(new Pouce(0,0,1));
+        Plancher plancher = (Plancher) parent.getListeComposantes().get(6);
+        return valeur.st(plancher.getMargeArriere()) && valeur.gt(new Pouce(0,0,1));
     }
 
     public boolean verificationEpaisseurTraitScie(Pouce valeur){
