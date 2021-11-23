@@ -96,7 +96,6 @@ public class PanelConception extends JPanel implements RoulotteControllerObserve
 
     private void panneauAffichageMousePressed(MouseEvent e) {
         this.parent.controller.clicSurPlan(e.getPoint());
-        ;
     }
 
     private void panneauAffichageMouseMoved(MouseEvent e) {

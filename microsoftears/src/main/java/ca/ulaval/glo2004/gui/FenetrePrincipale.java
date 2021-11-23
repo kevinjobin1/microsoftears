@@ -2,6 +2,7 @@ package ca.ulaval.glo2004.gui;
 
 import ca.ulaval.glo2004.domain.composante.*;
 import ca.ulaval.glo2004.domain.roulotte.RoulotteController;
+import ca.ulaval.glo2004.domain.roulotte.RoulotteControllerObserver;
 import ca.ulaval.glo2004.gui.barres.BarreBoutons;
 import ca.ulaval.glo2004.gui.barres.BarreMenu;
 import ca.ulaval.glo2004.gui.barres.BarreOnglet;
@@ -39,8 +40,32 @@ public class FenetrePrincipale extends JFrame {
         this.couleurChoisie = couleurChoisie;
     }
 
-    public void setComposanteChoisie(TypeComposante composanteChoisie) {
-        this.composanteChoisie = composanteChoisie;
+    public void setComposanteChoisie(TypeComposante type) {
+        this.composanteChoisie = type;
+        System.out.println("Composante choisie : " + type);
+        switch (type) {
+            case HAYON:
+                System.out.println("Case1");
+                this.barreOnglets.setSelectedIndex(0);
+                break;
+            case PLANCHER:
+                System.out.println("Case2");
+                this.barreOnglets.setSelectedIndex(1);
+                break;
+            case POUTRE_ARRIERE:
+                System.out.println("Case3");
+                this.barreOnglets.setSelectedIndex(2);
+                break;
+            case MUR_PROFILE:
+                System.out.println("Case4");
+                this.barreOnglets.setSelectedIndex(3);
+                break;
+            case PROFIL_ELLIPSE:
+                System.out.println("Case5");
+                this.barreOnglets.setSelectedIndex(4);
+                break;
+        }
+
     }
 
     public enum TypeAction {

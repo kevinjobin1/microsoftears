@@ -1,5 +1,6 @@
 package ca.ulaval.glo2004.gui.barres;
 
+import ca.ulaval.glo2004.domain.composante.TypeComposante;
 import ca.ulaval.glo2004.gui.FenetrePrincipale;
 import ca.ulaval.glo2004.gui.panels.*;
 import org.kordamp.ikonli.bootstrapicons.BootstrapIcons;
@@ -27,7 +28,7 @@ public class BarreOnglet extends JTabbedPane {
         this.initialiser();
     }
 
-    public void initialiser()
+    private void initialiser()
     {
         //== TODO: Initialiser les attributs du TabbedPane ici
         //this.setPreferredSize(new Dimension(300, 900));
@@ -45,7 +46,7 @@ public class BarreOnglet extends JTabbedPane {
 
     }
 
-    public void invalider(){
+    private void invalider(){
         this.removeAll();
     }
 
@@ -493,18 +494,20 @@ public class BarreOnglet extends JTabbedPane {
         return panel;
     }
 
-    private void boutonPoucesActionPerformed(ActionEvent e) {
-        this.estImperial = true;
+    public void rafraichir(){
         this.invalider();
         this.initialiser();
         this.repaint();
     }
 
+    private void boutonPoucesActionPerformed(ActionEvent e) {
+        this.estImperial = true;
+        this.rafraichir();
+    }
+
     private void boutonMMActionPerformed(ActionEvent e) {
         this.estImperial = false;
-        this.invalider();
-        this.initialiser();
-        this.repaint();
+        this.rafraichir();
     }
 
     private JButton creerBouton(BootstrapIcons icone, int taille, Color couleur){
