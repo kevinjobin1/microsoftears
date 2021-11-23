@@ -1,6 +1,6 @@
 package ca.ulaval.glo2004.gui.panels;
 
-import ca.ulaval.glo2004.domain.roulotte.RoulotteControllerObserver;
+import ca.ulaval.glo2004.domain.RoulotteControllerObserver;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;

@@ -1,6 +1,7 @@
 package ca.ulaval.glo2004.gui.barres;
 
 import ca.ulaval.glo2004.domain.composante.Composante;
+import ca.ulaval.glo2004.domain.composante.TypeComposante;
 import ca.ulaval.glo2004.gui.FenetrePrincipale;
 import com.formdev.flatlaf.icons.*;
 import org.kordamp.ikonli.swing.*;
@@ -204,8 +205,10 @@ public class BarreMenu extends JMenuBar
         // TODO: à changer pour obtenir la liste des composantes du plan en temps réel
         for (Composante composante : parent.controller.getListeComposantes())
         {
-            System.out.println(composante.toString());
-            creerCheckBoxMenuItem(composante.toString());
+            if ((composante.getType() != TypeComposante.MUR_BRUTE) &&
+                    (composante.getType() != TypeComposante.MUR_SEPARATEUR)){
+                creerCheckBoxMenuItem(composante.toString());
+            }
         }
 
     }

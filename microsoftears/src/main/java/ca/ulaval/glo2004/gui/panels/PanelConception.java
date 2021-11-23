@@ -1,6 +1,6 @@
 package ca.ulaval.glo2004.gui.panels;
 
-import ca.ulaval.glo2004.domain.roulotte.RoulotteControllerObserver;
+import ca.ulaval.glo2004.domain.RoulotteControllerObserver;
 import ca.ulaval.glo2004.gui.barres.BarreOutils;
 import ca.ulaval.glo2004.gui.FenetrePrincipale;
 import ca.ulaval.glo2004.gui.afficheur.PanneauAffichage;
@@ -99,27 +99,25 @@ public class PanelConception extends JPanel implements RoulotteControllerObserve
     }
 
     private void panneauAffichageMouseMoved(MouseEvent e) {
-        // TODO: encore des trucs à tester et ne pas oublier d'enlever les labels de test (strings)
         this.parent.controller.setPositionSouris(e.getX(), e.getY());
-        this.parent.controller.setDimension(panneauAffichage.getSize());
+/*        this.parent.controller.setDimension(panneauAffichage.getSize());
         String position = "Position (" + e.getX() + "," + e.getY() + ") ";
         String centre = " Centre Plan(" + (int) parent.controller.centrePlanX + "," + (int) parent.controller.centrePlanY + ")";
         String dimensionPlan = " Dimension Plan (" + (int) parent.controller.largeurPlan + "," + (int) parent.controller.hauteurPlan + ")";
         String dimensionAfficheur = " Dimension Afficheur (" + panneauAffichage.getWidth() + "," + panneauAffichage.getHeight() + ")";
-        this.parent.infoLabel.setText(position + centre + dimensionPlan + dimensionAfficheur);
+        this.parent.infoLabel.setText(position + centre + dimensionPlan + dimensionAfficheur);*/
         ;
     }
 
     private void panneauAffichageMouseWheelMoved(MouseWheelEvent e) {
-        // TODO: encore des trucs à tester et ne pas oublier d'enlever les labels de test (strings)
         this.parent.controller.setPositionSouris(e.getX(), e.getY());
-        parent.controller.setScale(e.getWheelRotation());
-        this.parent.controller.setDimension(panneauAffichage.getSize());
+        this.parent.controller.setScale(e.getWheelRotation());
+       /* this.parent.controller.setDimension(panneauAffichage.getSize());
         String position = "Position (" + e.getX() + "," + e.getY() + ") ";
         String centre = " Centre Plan (" + (int) parent.controller.centrePlanX + "," + (int) parent.controller.centrePlanY + ")";
         String dimensionPlan = " Dimension Plan (" + (int) parent.controller.largeurPlan + "," + (int) parent.controller.hauteurPlan + ")";
         String dimensionAfficheur = " Dimension Afficheur (" + panneauAffichage.getWidth() + "," + panneauAffichage.getHeight() + ")";
-        this.parent.infoLabel.setText(position + centre + dimensionPlan + dimensionAfficheur);
+        this.parent.infoLabel.setText(position + centre + dimensionPlan + dimensionAfficheur);*/
     }
 
 

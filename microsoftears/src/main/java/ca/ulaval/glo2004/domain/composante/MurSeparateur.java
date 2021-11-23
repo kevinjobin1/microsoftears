@@ -1,6 +1,6 @@
 package ca.ulaval.glo2004.domain.composante;
 
-import ca.ulaval.glo2004.domain.roulotte.RoulotteController;
+import ca.ulaval.glo2004.domain.RoulotteController;
 import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Pouce;
 import ca.ulaval.glo2004.utilitaires.Rectangle;
@@ -20,6 +20,7 @@ public class MurSeparateur extends Composante{
         this.rectangle = new Rectangle(this.epaisseur, this.hauteur, this.getCentre());
         this.setPolygone(rectangle.getPolygone());
         this.setType(TypeComposante.MUR_SEPARATEUR);
+
     }
 
     public MurSeparateur(RoulotteController parent) {
@@ -30,6 +31,7 @@ public class MurSeparateur extends Composante{
         this.rectangle = new Rectangle(this.epaisseur, this.hauteur, this.getCentre());
         this.setPolygone(rectangle.getPolygone());
         this.setType(TypeComposante.MUR_SEPARATEUR);
+        this.estVisible(false);
     }
 
     public Pouce getEpaisseur() {
@@ -58,8 +60,8 @@ public class MurSeparateur extends Composante{
 
     //à tester
     public PointPouce getCentre(){
-        PoutreArriere poutre = this.getParent().getPoutreArriere();
-        MurBrute mur = this.getParent().getMurBrute();
+        MurBrute mur = (MurBrute) parent.getListeComposantes().get(0);
+        PoutreArriere poutre = (PoutreArriere) parent.getListeComposantes().get(7);
         Pouce x = poutre.getCentre().getX().add(poutre.getLongueur().diviser(2)).add(distancePoutreArriere).add(epaisseur.diviser(2));
         Pouce y = mur.getCentre().getY().diff(mur.getLargeur().diviser(2)).add(hauteur.diviser(2));
         return new PointPouce(x,y);

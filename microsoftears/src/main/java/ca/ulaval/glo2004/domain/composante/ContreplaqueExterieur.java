@@ -1,6 +1,6 @@
 package ca.ulaval.glo2004.domain.composante;
 
-import ca.ulaval.glo2004.domain.roulotte.RoulotteController;
+import ca.ulaval.glo2004.domain.RoulotteController;
 import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Polygone;
 import ca.ulaval.glo2004.utilitaires.Pouce;
@@ -36,8 +36,13 @@ public class ContreplaqueExterieur extends Composante {
 
     public Polygone getPolygone(){
         ArrayList<OuvertureLaterale> ouverturesLaterales = parent.getListeOuverturesLaterales();
-        LinkedList<PointPouce> hayon = parent.getHayon().getPolygone().getListePoints();
-        LinkedList<PointPouce> murProfile = parent.getMurprofile().getPolygone().getListePoints();
+        LinkedList<PointPouce> hayon = parent.getListeComposantes().get(8).getPolygone().getListePoints();
+        LinkedList<PointPouce> murProfile = parent.getListeComposantes().get(2).getPolygone().getListePoints();
+        return null;
+    }
+
+    @Override
+    protected PointPouce getCentre() {
         return null;
     }
 }

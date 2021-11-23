@@ -1,6 +1,6 @@
 package ca.ulaval.glo2004.domain.composante;
 
-import ca.ulaval.glo2004.domain.roulotte.RoulotteController;
+import ca.ulaval.glo2004.domain.RoulotteController;
 import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Pouce;
 import ca.ulaval.glo2004.utilitaires.Rectangle;
@@ -20,6 +20,7 @@ public class MurBrute extends Composante{
         this.rectangle = new Rectangle(this.longueur,this.largeur,this.centre);
         this.setType(TypeComposante.MUR_BRUTE);
         this.setPolygone(rectangle.getPolygone());
+        this.estVisible(false);
     }
 
     public MurBrute(RoulotteController parent) {
@@ -30,6 +31,7 @@ public class MurBrute extends Composante{
         this.rectangle = new Rectangle(longueur, largeur, centre);
         this.setPolygone(rectangle.getPolygone());
         this.setType(TypeComposante.MUR_BRUTE);
+        this.estVisible(false);
     }
 
     public boolean verificationLongueur(Pouce valeur){

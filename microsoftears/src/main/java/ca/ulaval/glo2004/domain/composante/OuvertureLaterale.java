@@ -1,6 +1,6 @@
 package ca.ulaval.glo2004.domain.composante;
 
-import ca.ulaval.glo2004.domain.roulotte.RoulotteController;
+import ca.ulaval.glo2004.domain.RoulotteController;
 import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Pouce;
 import ca.ulaval.glo2004.utilitaires.Rectangle;
@@ -25,7 +25,7 @@ public class OuvertureLaterale extends Composante{
         super(parent);
         this.longueur = new Pouce(10,0,1);
         this.largeur = new Pouce(10,0,1);
-        this.centre = parent.getMurBrute().getCentre();
+        this.centre = parent.getListeComposantes().get(0).getCentre();
         this.rectangle = new Rectangle(longueur, largeur, centre);
         this.setPolygone(rectangle.getPolygone());
         this.setType(TypeComposante.OUVERTURE_LATERALE);

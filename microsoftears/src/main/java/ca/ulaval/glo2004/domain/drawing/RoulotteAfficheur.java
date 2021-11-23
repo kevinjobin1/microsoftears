@@ -5,7 +5,7 @@ import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 
 import ca.ulaval.glo2004.domain.composante.Composante;
-import ca.ulaval.glo2004.domain.roulotte.RoulotteController;
+import ca.ulaval.glo2004.domain.RoulotteController;
 import ca.ulaval.glo2004.utilitaires.PointPouce;
 
 public class RoulotteAfficheur
@@ -26,9 +26,8 @@ public class RoulotteAfficheur
     public void afficher(Graphics2D g2d)
     {
         afficherTousPolygones(g2d);
-        afficherPointClic(g2d);
         AffineTransform af = new AffineTransform();
-        af.scale(roulotte.scale, roulotte.scale);
+        af.scale(roulotte.getScale(), roulotte.getScale());
         g2d.setTransform(af);
     }
 
@@ -40,16 +39,6 @@ public class RoulotteAfficheur
               composante.afficher(g2d);
             }
         }
-    }
-    // TODO: à retirer
-    private void afficherPointClic(Graphics2D g2d){
-        PointPouce mousePoint = roulotte.mousePoint;
-        int x = (int) (roulotte.xVersEcran(mousePoint.getX()));
-        int y = (int) (roulotte.yVersEcran(mousePoint.getY()));
-        int rayon = 5;
-        g2d.setColor(Color.RED);
-        g2d.drawOval(x, y, rayon, rayon);
-        g2d.fillOval(x,y,rayon,rayon);
     }
 
 
