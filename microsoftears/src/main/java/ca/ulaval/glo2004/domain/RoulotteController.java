@@ -239,9 +239,7 @@ public class RoulotteController {
     public void clicSurPlan(Point mousePressedPoint) {
         PointPouce positionClic = getPositionPlan(mousePressedPoint);
         this.mousePoint = positionClic;
-        Pouce largeurPlanReel = getLargeurPlan();
-        System.out.println(positionClic);
-        System.out.println(largeurPlanReel);
+
         int indexComposante = -1;
         if (!listeComposantes.isEmpty()) {
             for (int i=0; i < listeComposantes.size(); i++) {
@@ -253,13 +251,15 @@ public class RoulotteController {
                    composante.setCouleur(Color.CYAN);
                 }
 
-                if (composante.getPolygone().contains(positionClic)) {
+                if (composante.getPolygone().contient(positionClic)) {
                     System.out.println("Clique sur : " + composante);
                     indexComposante = i;
                 }
             }
             if (indexComposante != -1){
-                listeComposantes.get(indexComposante).setCouleur(parent.getCouleurChoisie());
+                Composante composante = listeComposantes.get(indexComposante);
+                parent.setComposanteChoisie(composante.getType());
+                composante.setCouleur(parent.getCouleurChoisie());
             }
         }
     }

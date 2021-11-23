@@ -32,6 +32,10 @@ public class FenetrePrincipale extends JFrame {
         return couleurChoisie;
     }
 
+    public void setComposanteChoisie(TypeComposante composanteChoisie) {
+        this.composanteChoisie = composanteChoisie;
+    }
+
     public enum TypeAction {
         SELECTION, AJOUT, SUPPRIMER
     }

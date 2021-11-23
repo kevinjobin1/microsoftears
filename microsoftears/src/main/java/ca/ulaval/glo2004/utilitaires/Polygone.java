@@ -1,18 +1,22 @@
 package ca.ulaval.glo2004.utilitaires;
 
-import java.awt.*;
 import java.awt.Rectangle;
-import java.awt.geom.*;
 import java.util.LinkedList;
-import java.util.ListIterator;
 
 public class Polygone {
 
     private LinkedList<PointPouce> listePoints;
+    private Rectangle rectangleLimite;
+    private double[] xPoints;
+    private double[] yPoints;
 
     public Polygone(LinkedList<PointPouce> listePoints) {
         super();
         this.listePoints = listePoints;
+        this.xPoints = getXpoints();
+        this.yPoints = getYpoints();
+        calculerLimite();
+
     }
 
     public LinkedList<PointPouce> getListePoints() {
@@ -23,76 +27,123 @@ public class Polygone {
         this.listePoints = listePoints;
     }
 
-    public boolean contient(PointPouce p, Pouce limiteX){
-        boolean resultat = false;
+    private void calculerLimite() {
+        int rectangleLimiteMinX = Integer.MAX_VALUE;
+        int rectangleLimiteMinY = Integer.MAX_VALUE;
+        int rectangleLimiteMaxX = Integer.MIN_VALUE;
+        int rectangleLimiteMaxY = Integer.MIN_VALUE;
 
-        // Nombre de sommets
-        int n = listePoints.size();
 
-        // Il faut au moins 3 points
-        if (n < 3)
-        {
-            return resultat;
+        for (int i = 0; i < listePoints.size(); i++) {
+            double x = xPoints[i];
+            rectangleLimiteMinX = (int)Math.min(rectangleLimiteMinX, x);
+            rectangleLimiteMaxX = (int)Math.max(rectangleLimiteMaxX, x);
+            double y = yPoints[i];
+            rectangleLimiteMinY = (int)Math.min(rectangleLimiteMinY, y);
+            rectangleLimiteMaxY = (int)Math.max(rectangleLimiteMaxY, y);
         }
+        rectangleLimite = new Rectangle(rectangleLimiteMinX, rectangleLimiteMinY,
+                rectangleLimiteMaxX - rectangleLimiteMinX,
+                rectangleLimiteMaxY - rectangleLimiteMinY);
+    }
 
-        // Créé un point d'extremité pour qu'un segment s'étire "à l'infini" (on limite a la dimension max du plan)
-        PointPouce extreme = new PointPouce(limiteX, p.getY());
+    public Rectangle getBounds() {
+        if (listePoints.size() == 0) {
+            return new Rectangle();
+        }
+        if (rectangleLimite == null) {
+            calculerLimite();
+        }
+        return rectangleLimite;
+    }
 
-        // Compte le nombre d'intersections avec la ligne formé du point p jusqu'à l'extrêmité du plan
-        int count = 0,
-                i = 0;
-        do
-        {
-            int next = (i + 1) % n;
+    private double[] getXpoints(){
+        int nbPoints = listePoints.size();
+        double[] xPoints = new double[nbPoints];
+        PointPouce point;
+        for (int i = 0; i < nbPoints; i++){
+            point = listePoints.get(i);
+            xPoints[i] = point.getX().toDouble();
+        }
+        return xPoints;
+    }
 
-            // Vérifie si la ligne (p, extreme) a un point d'intersection avec un segment du polygone
-            if (PointPouce.intersect(listePoints.get(i), listePoints.get(next), p, extreme))
-            {
-                // Vérifie si le point est sur le contour du polygone (colinéaire avec les sommets)
-                if (PointPouce.orientation(listePoints.get(i), p, listePoints.get(next)) == 0)
-                {
-                    return PointPouce.appartientSegment(listePoints.get(i), p,
-                            listePoints.get(next));
+    private double[] getYpoints(){
+        int nbPoints = listePoints.size();
+        PointPouce point;
+        double[] yPoints = new double[listePoints.size()];
+        for (int i = 0; i < nbPoints; i++){
+            point = listePoints.get(i);
+            yPoints[i] = point.getY().toDouble();
+        }
+        return yPoints;
+    }
+    
+    public boolean contient(PointPouce p) {
+        double x = p.getX().toDouble(),
+                y = p.getY().toDouble();
+
+        // On teste si le point est à l'intérieur du rectangle qui contient le polygone
+        if (listePoints.size() <= 2 || !getBounds().contains(x, y)) {
+            return false;
+        }
+        
+        int intersections = 0;
+        double xFin = xPoints[listePoints.size() - 1], 
+                yFin = yPoints[listePoints.size() - 1],
+                xCourant, yCourant;
+
+        // On suit les côtés du polygone
+        for (int i = 0; i < listePoints.size(); xFin = xCourant, yFin = yCourant, i++) {
+            xCourant = xPoints[i];
+            yCourant = yPoints[i];
+
+            if (yCourant == yFin) {
+                continue;
+            }
+
+            double leftx;
+            if (xCourant < xFin) {
+                if (x >= xFin) {
+                    continue;
                 }
-
-                count++;
+                leftx = xCourant;
+            } else {
+                if (x >= xCourant) {
+                    continue;
+                }
+                leftx = xFin;
             }
-            i = next;
-        } while (i != 0);
 
-        System.out.println(this + ": Count " + count);
+            double test1, test2;
+            if (yCourant < yFin) {
+                if (y < yCourant || y >= yFin) {
+                    continue;
+                }
+                if (x < leftx) {
+                    intersections++;
+                    continue;
+                }
+                test1 = x - xCourant;
+                test2 = y - yCourant;
+            } else {
+                if (y < yFin || y >= yCourant) {
+                    continue;
+                }
+                if (x < leftx) {
+                    intersections++;
+                    continue;
+                }
+                test1 = x - xFin;
+                test2 = y - yFin;
+            }
 
-        // Si le nombre de points d'intersection est impair, le point est contenu dans la polygone, false sinon
-        return (count % 2 == 1);
-    }
-    /**
-     * (i.y > p.y != j.y > p.y)
-     * &&
-     * (p.x < (j.x - i.x)
-     *
-     * */
-    public boolean contains(PointPouce p) {
-        int i, j;
-        int n = listePoints.size();
-        boolean resultat = false;
-        for (i = 0, j = n - 1; i < n; j = i++) {
-            if (
-                    (listePoints.get(i).getY().gt(p.getY())) != (listePoints.get(j).getY().gt(p.getY()))
-                            &&
-                    (p.getX().st(
-                            (listePoints.get(j).getX().diff(listePoints.get(i).getX())).multiplier(
-                                    (p.getY().diff(listePoints.get(i).getY())).diviser(
-                                            (listePoints.get(j).getY().diff(listePoints.get(i).getY()))
-                                    )
-                            ).add(listePoints.get(i).getX())
-                                )
-                    )
-            )
-            {
-                resultat = true;
+            if (test1 < (test2 / (yFin - yCourant) * (xFin - xCourant))) {
+                intersections++;
             }
         }
-        return resultat;
+
+        return ((intersections & 1) != 0);
     }
 
-}
+    }
