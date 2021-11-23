@@ -32,6 +32,14 @@ public class MurBrute extends Composante{
         this.setType(TypeComposante.MUR_BRUTE);
     }
 
+    public boolean verificationLongueur(Pouce valeur){
+        return valeur.ste(new Pouce(96,0,1)) && valeur.gt(new Pouce(0,0,1));
+    }
+
+    public boolean verificationLargeur(Pouce valeur){
+        return valeur.ste(new Pouce(48,0,1)) && valeur.gt(new Pouce(0,0,1));
+    }
+
     public Pouce getLongueur() {
         return longueur;
     }

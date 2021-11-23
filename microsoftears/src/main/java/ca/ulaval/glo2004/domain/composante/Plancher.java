@@ -32,6 +32,24 @@ public class Plancher extends Composante {
         this.setType(TypeComposante.PLANCHER);
     }
 
+    public boolean verificationEpaisseur(Pouce valeur){
+        return valeur.st(parent.getMurBrute().getCentre().getY()) && valeur.gt(new Pouce(0,0,1));
+    }
+
+    public boolean verificationMargeAvant(Pouce valeur){
+        return valeur.st(parent.getMurBrute().getLongueur().diviser(2)) &&
+                valeur.gt(parent.getMurprofile().getProfilEllipses()[3].getLongueur().diviser(2).
+                        diff(parent.getMurprofile().getProfilEllipses()[3].getCentre().getX().
+                                diff(parent.getMurBrute().getPolygone().getListePoints().get(3).getX())));
+    }
+
+    public boolean verificationMargeArriere(Pouce valeur){
+        return valeur.st(parent.getMurBrute().getLongueur().diviser(2)) &&
+                valeur.gt(parent.getMurprofile().getProfilEllipses()[2].getLongueur().diviser(2).
+                        diff(parent.getMurBrute().getPolygone().getListePoints().get(2).getX().
+                                diff(parent.getMurprofile().getProfilEllipses()[2].getCentre().getX())));
+    }
+
     public Pouce getEpaisseur() {
         return epaisseur;
     }

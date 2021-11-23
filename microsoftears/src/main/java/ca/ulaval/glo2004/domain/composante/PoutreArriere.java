@@ -14,17 +14,6 @@ public class PoutreArriere extends Composante{
     private Pouce centreX;
     private Rectangle rectangle;
 
-    //todo ou enlever pas fonctionnel
-    public PoutreArriere(RoulotteController parent, Pouce longueur, Pouce hauteur, PointPouce centre) {
-        super(parent);
-        this.longueur = longueur;
-        this.hauteur = hauteur;
-        this.centre = centre;
-        this.rectangle = new Rectangle(this.longueur,this.hauteur,this.centre,getAngle());
-        this.setType(TypeComposante.POUTRE_ARRIERE);
-        this.setPolygone(rectangle.getPolygone());
-    }
-
     public PoutreArriere(RoulotteController parent, Pouce longueur, Pouce hauteur, Pouce centreX) {
         super(parent);
         this.longueur = longueur;
@@ -58,6 +47,17 @@ public class PoutreArriere extends Composante{
         this.rectangle = new Rectangle(this.longueur,this.hauteur,this.centre,getAngle());
         this.setType(TypeComposante.POUTRE_ARRIERE);
         this.setPolygone(rectangle.getPolygone());
+    }
+
+    public boolean verificationLongueur(Pouce valeur){
+        return valeur.st(parent.getMurBrute().getLongueur().diviser(2)) && valeur.gt(new Pouce(0,0,1));
+    }
+    public boolean verificationHauteur(Pouce valeur){
+        return valeur.st(parent.getMurBrute().getLargeur().diviser(2)) && valeur.gt(new Pouce(0,0,1));
+    }
+    public boolean verificationCentreX(Pouce valeur){
+        return valeur.gt(parent.getMurBrute().getCentre().getX().diff(parent.getMurBrute().getLongueur().diviser(2)).add(longueur.diviser(2)))
+                && valeur.st(parent.getMurBrute().getCentre().getX().add(parent.getMurBrute().getLongueur().diviser(2)).diff(longueur.diviser(2)));
     }
 
     public Pouce getLongueur() {

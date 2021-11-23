@@ -16,6 +16,7 @@ public class Hayon extends Composante {
     private Pouce rayonArcCercle;
     private PointPouce pointRotation = null;
     private PointPouce pointFinHayon;
+
     public Hayon(RoulotteController parent, Pouce epaisseur, Pouce distancePoutre, Pouce distancePlancher, Pouce epaisseurTraitScie, Pouce rayonArcCercle) {
         super(parent);
         this.epaisseur = epaisseur;
@@ -85,6 +86,30 @@ public class Hayon extends Composante {
 
     public PointPouce getPointFinHayon() {
         return pointFinHayon;
+    }
+
+    public boolean verificationEpaisseur(Pouce valeur){
+        return valeur.st(parent.getMurBrute().getCentre().getX().diff(parent.getMurBrute().getLongueur().diviser(2)).
+                diff(parent.getPoutreArriere().getCentre().getX().diff(parent.getPoutreArriere().getLongueur().diviser(2))).diff(epaisseurTraitScie).diff(distancePoutre))
+                && valeur.gt(new Pouce(0,0,1));
+    }
+
+    public boolean verificationDistancePoutre(Pouce valeur){
+        return valeur.st(parent.getPoutreArriere().getCentre().getX().diff(parent.getPoutreArriere().getLongueur().diviser(2)).
+                diff(parent.getMurBrute().getCentre().getX().diff(parent.getMurBrute().getLongueur().diviser(2))).
+                diff(epaisseur).diff(epaisseurTraitScie)) && valeur.gt(new Pouce(0,0,1));
+    }
+
+    public boolean verificationDistancePlancher(Pouce valeur){
+        return valeur.st(parent.getPlancher().getMargeArriere()) && valeur.gt(new Pouce(0,0,1));
+    }
+
+    public boolean verificationEpaisseurTraitScie(Pouce valeur){
+        return valeur.st(new Pouce(1,0,1)) && valeur.gt(new Pouce(0,0,1));
+    }
+
+    public boolean verificationRayonArcCercle(Pouce valeur){
+        return true;
     }
 
     @Override
