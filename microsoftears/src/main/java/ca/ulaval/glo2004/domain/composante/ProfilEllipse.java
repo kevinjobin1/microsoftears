@@ -23,6 +23,8 @@ public class ProfilEllipse extends Composante{
         this.hauteur = hauteur;
         this.centre = centre;
         this.ellipse = new Ellipse(this.longueur,this.hauteur,this.centre, this.parent.getNombrePoint());
+        this.setCouleur(getCouleurInitiale());
+        this.estVisible(false);
         this.setPolygone(ellipse.getPolygone());
         this.setType(type);
     }
@@ -48,7 +50,7 @@ public class ProfilEllipse extends Composante{
             g2d.setPaint(this.getCouleur());
             g2d.fill(path);
             g2d.setComposite(compositeInitial);
-            g2d.setColor(Color.DARK_GRAY);
+            g2d.setColor(Color.LIGHT_GRAY);
             g2d.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
             g2d.draw(path);
             double[] centreEllipse = parent.getPositionEcran(centre);

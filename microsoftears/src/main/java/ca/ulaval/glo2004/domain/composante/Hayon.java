@@ -2,7 +2,9 @@ package ca.ulaval.glo2004.domain.composante;
 
 import ca.ulaval.glo2004.domain.RoulotteController;
 import ca.ulaval.glo2004.utilitaires.*;
+import ca.ulaval.glo2004.utilitaires.Rectangle;
 
+import java.awt.*;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -24,6 +26,8 @@ public class Hayon extends Composante {
         this.distancePlancher = distancePlancher;
         this.epaisseurTraitScie = epaisseurTraitScie;
         this.rayonArcCercle = rayonArcCercle;
+        this.setCouleurInitiale(new Color(0,233,233));
+        this.setCouleur(getCouleurInitiale());
         this.setType(TypeComposante.HAYON);
         this.setPolygone(getPolygone());
     }
@@ -36,6 +40,8 @@ public class Hayon extends Composante {
         this.distancePlancher = new Pouce(0,3,8);
         this.epaisseurTraitScie = new Pouce(0,1,16);
         this.rayonArcCercle = new Pouce(2,3,8);
+        this.setCouleurInitiale(new Color(0,233,233));
+        this.setCouleur(getCouleurInitiale());
         this.setType(TypeComposante.HAYON);
         this.setPolygone(getPolygone());
     }

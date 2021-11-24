@@ -1,12 +1,11 @@
 package ca.ulaval.glo2004.gui.panels;
 
-import ca.ulaval.glo2004.domain.RoulotteControllerObserver;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-public class PanelInfoEllipse extends PanelComposante implements RoulotteControllerObserver {
+public class PanelInfoEllipse extends PanelComposante  {
     private JLabel hauteurLabel,
             longueurLabel,
             centreXLabel,
@@ -217,11 +216,6 @@ public class PanelInfoEllipse extends PanelComposante implements RoulotteControl
     private void centreYSpinner3ChangeListener(ChangeEvent e) {
         JSpinner spinner = (JSpinner) e.getSource();
         this.centreY[2] = (int) spinner.getValue();
-    }
-
-    @Override
-    public void notifyUpdatedRoulotte() {
-        this.repaint();
     }
 
 }

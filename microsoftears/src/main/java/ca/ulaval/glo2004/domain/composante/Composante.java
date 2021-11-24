@@ -14,12 +14,20 @@ public abstract class Composante {
     private TypeComposante type;
     private Polygone polygone;
     private Color couleur;
+    private float transparence = 1.0f;
     private boolean estVisible;
+    private Color couleurInitiale;
+
 
     public Composante(RoulotteController parent) {
         this.parent = parent;
         this.couleur = Color.WHITE;
+        this.couleurInitiale = Color.WHITE;
         this.estVisible = true;
+    }
+
+    public void resetCouleur(){
+        this.setCouleur(couleurInitiale);
     }
 
     static AlphaComposite definirComposite(float alpha) {
@@ -42,9 +50,12 @@ public abstract class Composante {
                 }
             }
             path.closePath();
-            g2d.setColor(couleur);
+            Composite compositeInitial = g2d.getComposite();
+            g2d.setComposite(definirComposite(transparence));
+            g2d.setPaint(couleur);
             g2d.fill(path);
-            g2d.setColor(Color.DARK_GRAY);
+            g2d.setComposite(compositeInitial);
+            g2d.setColor(Color.BLACK);
             g2d.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
             g2d.draw(path);
         }
@@ -65,6 +76,27 @@ public abstract class Composante {
 
     public void setCouleur(Color couleur) {
         this.couleur = couleur;
+    }
+
+    public Color getCouleurInitiale() {
+        return couleurInitiale;
+    }
+
+    public void setCouleurInitiale(Color couleur) {
+        this.couleurInitiale = couleur;
+    }
+
+
+    public void setTransparence(float alpha){
+        this.transparence = alpha;
+    }
+
+    public float getTransparence(){
+        return transparence;
+    }
+
+    public void resetTransparence(){
+        this.transparence = 1.0f;
     }
 
     public Polygone getPolygone() {

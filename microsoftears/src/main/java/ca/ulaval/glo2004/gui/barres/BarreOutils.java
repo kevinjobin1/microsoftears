@@ -13,7 +13,8 @@ import java.awt.event.*;
 public class BarreOutils extends JToolBar {
 
     public FenetrePrincipale parent;
-    private JButton zoomInButton,
+    private JButton selectionButton,
+            zoomInButton,
             zoomOutButton,
             dragButton,
             ajoutComposanteButton,
@@ -38,20 +39,31 @@ public class BarreOutils extends JToolBar {
         this.setOrientation(SwingConstants.VERTICAL);
         this.setMargin(new Insets(150,5,5,5));
         this.addSeparator();
+        this.setFloatable(false);
 
         //======== Boutons ========
+        selectionButton = creerBouton(BootstrapIcons.CURSOR, 20, Color.WHITE);
         zoomInButton = creerBouton(BootstrapIcons.ZOOM_IN, 20, Color.WHITE);
         zoomOutButton = creerBouton(BootstrapIcons.ZOOM_OUT, 20, Color.WHITE);
         dragButton  = creerBouton(BootstrapIcons.ARROWS_MOVE, 20, Color.WHITE);
         ajoutComposanteButton  = creerBouton(BootstrapIcons.PLUS_CIRCLE, 20, Color.WHITE);
         ajoutComposantePopup = creerAjoutComposantePopup();
         dessinerButton  = creerBouton(BootstrapIcons.PENCIL, 20, Color.WHITE);
-        remplirButton  = creerBouton(BootstrapIcons.TRASH, 20, Color.WHITE);
-        removeComposanteButton  = creerBouton(BootstrapIcons.PAINT_BUCKET, 20, Color.WHITE);
+        removeComposanteButton  = creerBouton(BootstrapIcons.TRASH, 20, Color.WHITE);
+        remplirButton = creerBouton(BootstrapIcons.PAINT_BUCKET, 20, Color.WHITE);
         couleurButton = creerBouton(BootstrapIcons.SQUARE_FILL, 20, parent.getCouleurChoisie());
         couleurChooser = new JColorChooser(parent.getCouleurChoisie());
 
         //======= Actions (Events) ========
+        selectionButton.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                parent.setActionChoisie(FenetrePrincipale.TypeAction.SELECTION);
+
+                parent.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            }
+        });
+
+
         ajoutComposanteButton.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
                 // on affiche le popup menu lorsque le user clique sur le bouton ajout de la barre d'outils
@@ -70,6 +82,29 @@ public class BarreOutils extends JToolBar {
                 couleurButton.setIcon(nouvelIcon);
             }
         });
+
+        zoomInButton.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                parent.controller.setScale(1);
+                parent.repaint();
+            }
+        });
+
+        zoomOutButton.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                parent.controller.setScale(-1);
+                parent.repaint();
+            }
+        });
+
+        remplirButton.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                parent.setActionChoisie(FenetrePrincipale.TypeAction.REMPLIR);
+                Image image = (FontIcon.of(BootstrapIcons.PAINT_BUCKET, 20, Color.BLACK)).toImageIcon().getImage();
+                Toolkit toolkit = Toolkit.getDefaultToolkit();
+                parent.setCursor(toolkit.createCustomCursor(image , new Point(e.getX(),
+                        e.getY()), "remplir"));
+        }});
     }
 
     private JPopupMenu creerAjoutComposantePopup() {

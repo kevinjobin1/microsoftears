@@ -6,6 +6,7 @@ import ca.ulaval.glo2004.utilitaires.Polygone;
 import ca.ulaval.glo2004.utilitaires.Pouce;
 import ca.ulaval.glo2004.utilitaires.Rectangle;
 
+import java.awt.*;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class MurProfile extends Composante{
      * profilEllipses[2] est l'éllipse en bas à gauche
      * profilEllipses[3] est l'éllipse en bas à droite
      */
-    private ProfilEllipse[] profilEllipses= new ProfilEllipse[4];
+    private ProfilEllipse[] profilEllipses;
     private ProfilBezier profilBezier;
     /**
      * true: Éllipses
@@ -28,8 +29,20 @@ public class MurProfile extends Composante{
     public MurProfile(RoulotteController parent, boolean mode) {
         super(parent);
         this.mode = mode;
-         LinkedList<PointPouce> murBrutePoints = parent.getListeComposantes().get(0).getPolygone().getListePoints();
-       
+        this.profilEllipses = new ProfilEllipse[4];
+        this.initialiserEllipses();
+        this.profilBezier = new ProfilBezier(parent);
+        this.setCouleurInitiale(new Color(100,100,100));
+        this.setCouleur(getCouleurInitiale());
+        this.setType(TypeComposante.MUR_PROFILE);
+        this.setPolygone(getPolygone());
+
+    }
+
+    private void initialiserEllipses(){
+
+        LinkedList<PointPouce> murBrutePoints = parent.getListeComposantes().get(0).getPolygone().getListePoints();
+
         this.profilEllipses[0] = new ProfilEllipse(parent, new Pouce(40,0,1), new Pouce(30,0,1),
                 new PointPouce(murBrutePoints.get(0).getX().diff(new Pouce(15,0,1)),
                         murBrutePoints.get(0).getY().add(new Pouce(15,0,1))), TypeComposante.PROFIL_ELLIPSE_1); //ellipse en haut à droite
@@ -45,9 +58,6 @@ public class MurProfile extends Composante{
         this.profilEllipses[3] = new ProfilEllipse(parent, new Pouce(5,0,1), new Pouce(5,0,1),
                 murBrutePoints.get(3), TypeComposante.PROFIL_ELLIPSE_4); //ellipse en bas à droite
 
-        this.profilBezier = new ProfilBezier(parent);
-        this.setType(TypeComposante.MUR_PROFILE);
-        this.setPolygone(getPolygone());
     }
 
     public ProfilEllipse[] getProfilEllipses() {

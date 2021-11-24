@@ -8,9 +8,8 @@ import ca.ulaval.glo2004.gui.FenetrePrincipale;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class RoulotteController implements Observable{
+public class RoulotteController {
     private final FenetrePrincipale parent;
-    private ArrayList<RoulotteControllerObserver> listeObservers;
     private ArrayList<Composante> listeComposantes;
     private ArrayList<OuvertureLaterale> listeOuverturesLaterales;
     private ArrayList<AideDesign> listeAidesDesign;
@@ -28,7 +27,6 @@ public class RoulotteController implements Observable{
         this.listeComposantes = new ArrayList<>();
         this.listeOuverturesLaterales = new ArrayList<>();
         this.listeAidesDesign = new ArrayList<>();
-        this.listeObservers = new ArrayList<>();
         this.delta = new int[]{0,0};
         this.scale = 1;
         this.positionSouris = new Point();
@@ -130,7 +128,7 @@ public class RoulotteController implements Observable{
 
     public void setPositionSouris(int x, int y) {
         this.positionSouris = new Point(x,y);
-        notifyObserversForUpdatedRoulotte();
+        
     }
 
     /** Fonction qui détermine quelle forme a été sélectionnée */
@@ -142,17 +140,10 @@ public class RoulotteController implements Observable{
         if (!listeComposantes.isEmpty()) {
             for (int i=0; i < listeComposantes.size(); i++) {
                 Composante composante = listeComposantes.get(i);
-                if ((composante.getType() != TypeComposante.PROFIL_ELLIPSE_1) ||
-                    (composante.getType() != TypeComposante.PROFIL_ELLIPSE_2) ||
-                    (composante.getType() != TypeComposante.PROFIL_ELLIPSE_3) ||
-                    (composante.getType() != TypeComposante.PROFIL_ELLIPSE_4)){
-                    composante.setCouleur(Color.WHITE);
-                }
-               else{
-                   composante.setCouleur(Color.CYAN);
-                }
+                composante.resetCouleur();
+                composante.resetTransparence();
 
-                if (composante.getPolygone().contient(positionClic)) {
+                if (composante.getPolygone().contient(positionClic) && composante.estVisible()) {
                     System.out.println("Clique sur : " + composante);
                     indexComposante = i;
                 }
@@ -160,10 +151,32 @@ public class RoulotteController implements Observable{
             if (indexComposante != -1){
                 Composante composante = listeComposantes.get(indexComposante);
                 parent.setComposanteChoisie(composante.getType());
-                composante.setCouleur(parent.getCouleurChoisie());
+                composante.setCouleur(new Color(255,60,60));
+                composante.setTransparence(0.6f);
             }
         }
-        notifyObserversForUpdatedRoulotte();
+        
+    }
+
+    public void remplirComposante(Point mousePressedPoint){
+        PointPouce positionClic = getPositionPlan(mousePressedPoint);
+
+        int indexComposante = -1;
+        if (!listeComposantes.isEmpty()) {
+            for (int i=0; i < listeComposantes.size(); i++) {
+                Composante composante = listeComposantes.get(i);
+
+                if (composante.getPolygone().contient(positionClic) && composante.estVisible()) {
+                    indexComposante = i;
+                }
+            }
+            if (indexComposante != -1){
+                Composante composante = listeComposantes.get(indexComposante);
+                parent.setComposanteChoisie(composante.getType());
+                composante.setCouleurInitiale(parent.getCouleurChoisie());
+                composante.resetCouleur();
+            }
+        }
     }
 
     public void setComposanteVisible(boolean estVisible, String nomComposante) {
@@ -206,21 +219,5 @@ public class RoulotteController implements Observable{
 
     private void setListeAidesDesign(ArrayList<AideDesign> listeAidesDesign) {
         this.listeAidesDesign = listeAidesDesign;
-    }
-
-    @Override
-    public void registerObserver(RoulotteControllerObserver newListener) {
-        listeObservers.add(newListener);
-    }
-
-    @Override
-    public void unregisterObserver(RoulotteControllerObserver listener) {
-        listeObservers.remove(listener);
-    }
-
-    public void notifyObserversForUpdatedRoulotte() {
-        for (RoulotteControllerObserver observer : listeObservers) {
-            observer.notifyUpdatedRoulotte();
-        }
     }
 }

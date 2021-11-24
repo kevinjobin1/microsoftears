@@ -1,9 +1,10 @@
 package ca.ulaval.glo2004.gui.panels;
 
-import ca.ulaval.glo2004.domain.RoulotteControllerObserver;
 import ca.ulaval.glo2004.gui.barres.BarreOutils;
 import ca.ulaval.glo2004.gui.FenetrePrincipale;
 import ca.ulaval.glo2004.gui.afficheur.PanneauAffichage;
+import org.kordamp.ikonli.bootstrapicons.BootstrapIcons;
+import org.kordamp.ikonli.swing.FontIcon;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -20,7 +21,7 @@ import javax.swing.JScrollPane;
  * Panel qui regroupe le panneau d'affichage et le JScrollPane
  * 
  */
-public class PanelConception extends JPanel implements RoulotteControllerObserver
+public class PanelConception extends JPanel
 {
     public FenetrePrincipale parent;
     public PanneauAffichage panneauAffichage;
@@ -33,7 +34,6 @@ public class PanelConception extends JPanel implements RoulotteControllerObserve
         this.parent = parent;
         this.panneauAffichage = new PanneauAffichage(parent);
         this.barreOutils = new BarreOutils(parent);
-        this.parent.controller.registerObserver(this);
         this.initialiser();
 
     }
@@ -95,11 +95,20 @@ public class PanelConception extends JPanel implements RoulotteControllerObserve
     }
 
     private void panneauAffichageMousePressed(MouseEvent e) {
-        this.parent.controller.clicSurPlan(e.getPoint());
+        if (parent.getActionChoisie() == FenetrePrincipale.TypeAction.REMPLIR)
+        {
+            this.parent.controller.remplirComposante(e.getPoint());
+        }
+        else{
+            this.parent.controller.clicSurPlan(e.getPoint());
+
+        }
+        this.panneauAffichage.repaint();
     }
 
     private void panneauAffichageMouseMoved(MouseEvent e) {
         this.parent.controller.setPositionSouris(e.getX(), e.getY());
+        this.panneauAffichage.repaint();
 /*        this.parent.controller.setDimension(panneauAffichage.getSize());
         String position = "Position (" + e.getX() + "," + e.getY() + ") ";
         String centre = " Centre Plan(" + (int) parent.controller.centrePlanX + "," + (int) parent.controller.centrePlanY + ")";
@@ -112,18 +121,13 @@ public class PanelConception extends JPanel implements RoulotteControllerObserve
     private void panneauAffichageMouseWheelMoved(MouseWheelEvent e) {
         this.parent.controller.setPositionSouris(e.getX(), e.getY());
         this.parent.controller.setScale(e.getWheelRotation());
+        this.panneauAffichage.repaint();
        /* this.parent.controller.setDimension(panneauAffichage.getSize());
         String position = "Position (" + e.getX() + "," + e.getY() + ") ";
         String centre = " Centre Plan (" + (int) parent.controller.centrePlanX + "," + (int) parent.controller.centrePlanY + ")";
         String dimensionPlan = " Dimension Plan (" + (int) parent.controller.largeurPlan + "," + (int) parent.controller.hauteurPlan + ")";
         String dimensionAfficheur = " Dimension Afficheur (" + panneauAffichage.getWidth() + "," + panneauAffichage.getHeight() + ")";
         this.parent.infoLabel.setText(position + centre + dimensionPlan + dimensionAfficheur);*/
-    }
-
-
-    @Override
-    public void notifyUpdatedRoulotte() {
-        this.panneauAffichage.repaint();
     }
 }
 

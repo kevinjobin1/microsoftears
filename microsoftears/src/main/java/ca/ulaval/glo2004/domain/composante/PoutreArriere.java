@@ -5,6 +5,7 @@ import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Pouce;
 import ca.ulaval.glo2004.utilitaires.Rectangle;
 
+import java.awt.*;
 import java.util.LinkedList;
 
 public class PoutreArriere extends Composante{
@@ -28,6 +29,8 @@ public class PoutreArriere extends Composante{
                     getLargeur().diviser(2)).add(hauteur.diviser(2)));
         }
         this.rectangle = new Rectangle(this.longueur,this.hauteur,this.centre,getAngle());
+        this.setCouleurInitiale(new Color(150,233,80));
+        this.setCouleur(getCouleurInitiale());
         this.setType(TypeComposante.POUTRE_ARRIERE);
         this.setPolygone(rectangle.getPolygone());
     }
@@ -47,6 +50,8 @@ public class PoutreArriere extends Composante{
                     getLargeur().diviser(2)).add(hauteur.diviser(2)));
         }
         this.rectangle = new Rectangle(this.longueur,this.hauteur,this.centre,getAngle());
+        this.setCouleurInitiale(new Color(150,233,80));
+        this.setCouleur(getCouleurInitiale());
         this.setType(TypeComposante.POUTRE_ARRIERE);
         this.setPolygone(rectangle.getPolygone());
     }

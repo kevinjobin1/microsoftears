@@ -6,6 +6,8 @@ import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Pouce;
 import ca.ulaval.glo2004.utilitaires.Rectangle;
 
+import java.awt.*;
+
 public class Plancher extends Composante {
     private Pouce epaisseur;
     private Pouce margeAvant;
@@ -18,6 +20,8 @@ public class Plancher extends Composante {
         this.margeAvant = margeAvant;
         this.margeArriere = margeArriere;
         this.rectangle = new Rectangle(this.getLongueur(), this.epaisseur, this.getCentre());
+        this.setCouleurInitiale(new Color(250,220,20));
+        this.setCouleur(getCouleurInitiale());
         this.setPolygone(rectangle.getPolygone());
         this.setType(TypeComposante.PLANCHER);
     }
@@ -28,6 +32,8 @@ public class Plancher extends Composante {
         this.margeAvant = new Pouce(5,0,1);
         this.margeArriere = new Pouce(5,0,1);;
         this.rectangle = new Rectangle(this.getLongueur(), this.epaisseur, this.getCentre());
+        this.setCouleurInitiale(new Color(250,220,20));
+        this.setCouleur(getCouleurInitiale());
         this.setPolygone(rectangle.getPolygone());
         this.setType(TypeComposante.PLANCHER);
     }

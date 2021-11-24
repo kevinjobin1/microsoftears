@@ -205,9 +205,8 @@ public class BarreMenu extends JMenuBar
         // TODO: à changer pour obtenir la liste des composantes du plan en temps réel
         for (Composante composante : parent.controller.getListeComposantes())
         {
-            if ((composante.getType() != TypeComposante.MUR_BRUTE) &&
-                    (composante.getType() != TypeComposante.MUR_SEPARATEUR)){
-                creerCheckBoxMenuItem(composante.toString());
+            if ((composante.getType() != TypeComposante.MUR_SEPARATEUR)){
+                creerCheckBoxMenuItem(composante.toString(), composante.estVisible());
             }
         }
 
@@ -276,9 +275,9 @@ public class BarreMenu extends JMenuBar
         return menu;
     }
 
-    private void creerCheckBoxMenuItem(String description){
+    private void creerCheckBoxMenuItem(String description, boolean estSelectionne){
         JCheckBoxMenuItem checkbox = new JCheckBoxMenuItem(description);
-        checkbox.setSelected(true);
+        checkbox.setSelected(estSelectionne);
         checkbox.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 showComposanteActionPerformed(e);

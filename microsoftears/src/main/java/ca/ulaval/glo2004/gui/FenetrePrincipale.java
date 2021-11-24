@@ -12,19 +12,13 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class FenetrePrincipale extends JFrame {
-    // ColorPicker
-    protected Color couleurChoisie;
-    // Dimensions
-    private final Dimension DIMENSIONS_MINIMALES = new Dimension(1080,720);
-
     // Composantes graphiques du Frame
-    private JPanel mainPanel, bottomPanel;
+    private JPanel mainPanel;
     protected BarreBoutons boutonsTopPanel;
     protected PanelConception panelConception;
     protected BarreMenu barreMenu;
     protected JTabbedPane barreOnglets;
-    //protected PanneauAffichage panneauAffichage;
-    public JLabel infoLabel;
+    protected Color couleurChoisie;
 
     // Éléments rattachés non-graphiques
     public RoulotteController controller;
@@ -80,7 +74,7 @@ public class FenetrePrincipale extends JFrame {
     }
 
     public enum TypeAction {
-        SELECTION, AJOUT, SUPPRIMER
+        SELECTION, AJOUT, SUPPRIMER, REMPLIR
     }
 
     public FenetrePrincipale() {
@@ -88,15 +82,20 @@ public class FenetrePrincipale extends JFrame {
     }
 
     private void initComponents() {
+        // Initialisation de la roulotte avec les valeurs par défaut
         controller = new RoulotteController(this);
+        // Couleur par défaut
         couleurChoisie = new Color(0, 217, 217);
+
+        // Action par défaut
+        actionChoisie = TypeAction.SELECTION;
+
+        // Initialisation des panneaux du GUI
         mainPanel = new JPanel();
-        bottomPanel = new JPanel();
         barreMenu = new BarreMenu(this);
         boutonsTopPanel = new BarreBoutons(this);
         barreOnglets = new BarreOnglet(this);
         panelConception = new PanelConception(this);
-        infoLabel = new JLabel();
 
         //======== FenetrePrincipale ========
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -109,13 +108,6 @@ public class FenetrePrincipale extends JFrame {
         //======== mainPanel ========
 
         mainPanel.setLayout(new BorderLayout());
-
-        //======== panel du bas ==========
-       infoLabel.setText("Position(0,0) " + " Centre Plan (0,0) " + "Dimension Plan (0,0) " + "Dimension Afficheur (0.0)");
-        bottomPanel.add(infoLabel);
-        bottomPanel.setLayout(new FlowLayout(FlowLayout.LEFT,10,10));
-        mainPanel.add(bottomPanel, BorderLayout.SOUTH);
-        
         
         //======== boutonsTopPanel ========
         boutonsTopPanel.setPreferredSize(new Dimension(400, 50));
@@ -152,10 +144,13 @@ public class FenetrePrincipale extends JFrame {
         System.exit(0);
     }
 
-    public void setAction(TypeAction newAction) {
+    public void setActionChoisie(TypeAction newAction) {
         this.actionChoisie = newAction;
     }
 
+    public TypeAction getActionChoisie() {
+        return actionChoisie;
+    }
 }
 
 
