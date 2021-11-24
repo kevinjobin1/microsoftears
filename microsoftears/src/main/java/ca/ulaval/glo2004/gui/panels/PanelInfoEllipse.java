@@ -1,6 +1,7 @@
 package ca.ulaval.glo2004.gui.panels;
 
 
+import ca.ulaval.glo2004.domain.composante.TypeComposante;
 import ca.ulaval.glo2004.gui.barres.BarreOnglet;
 
 import javax.swing.*;
@@ -29,9 +30,11 @@ public class PanelInfoEllipse extends PanelComposante  {
             longueur,
             centreX,
             centreY;
+    TypeComposante type;
 
-    public PanelInfoEllipse(BarreOnglet parent, int[] valeursChamps) {
+    public PanelInfoEllipse(BarreOnglet parent, int[] valeursChamps, TypeComposante type) {
         super(parent);
+        this.type = type;
         initialiser(valeursChamps);
     }
 
@@ -191,6 +194,7 @@ public class PanelInfoEllipse extends PanelComposante  {
     private void hauteurSpinner1ChangeListener(ChangeEvent e) {
         int value = (int) ((JSpinner) e.getSource()).getValue();;
         this.hauteur[0] =  value;
+        updateComposante();
     }
     private void hauteurSpinner2ChangeListener(ChangeEvent e) {
         int value = (int) ((JSpinner) e.getSource()).getValue();
@@ -199,61 +203,128 @@ public class PanelInfoEllipse extends PanelComposante  {
         }
         else if (value >= this.hauteur[2]){
             this.hauteurSpinner1.setValue((int) hauteurSpinner1.getValue() + 1);
+            this.hauteurSpinner2.setValue(0);
             this.hauteur[1] = 0;
         }
+        updateComposante();
     }
     private void hauteurSpinner3ChangeListener(ChangeEvent e) {
         int value = (int) ((JSpinner) e.getSource()).getValue();
-        if (value > this.hauteur[1]){
+        if (value > this.hauteur[1]){ // 4/4
             this.hauteur[2] =  value;
         }
-        else{
+        else if (value <= this.hauteur[1]){
             this.hauteurSpinner3.setValue(this.hauteur[2]);
         }
-
+        updateComposante();
     }
 
     private void longueurSpinner1ChangeListener(ChangeEvent e) {
         int value = (int) ((JSpinner) e.getSource()).getValue();;
         this.longueur[0] =  value;
+        updateComposante();
     }
     private void longueurSpinner2ChangeListener(ChangeEvent e) {
-        int value = (int) ((JSpinner) e.getSource()).getValue();;
-        this.longueur[1] =  value;
+        int value = (int) ((JSpinner) e.getSource()).getValue();
+        if (value < this.longueur[2]){
+            this.longueur[1] =  value;
+        }
+        else if (value >= this.longueur[2]){
+            this.longueurSpinner1.setValue((int) longueurSpinner1.getValue() + 1);
+            this.longueurSpinner2.setValue(0);
+            this.longueur[1] = 0;
+        }
+        updateComposante();
     }
     private void longueurSpinner3ChangeListener(ChangeEvent e) {
-        int value = (int) ((JSpinner) e.getSource()).getValue();;
-        this.longueur[2] =  value;
+        int value = (int) ((JSpinner) e.getSource()).getValue();
+        if (value > this.longueur[1]){ // 4/4
+            this.longueur[2] =  value;
+        }
+        else if (value <= this.longueur[1]){
+            this.longueurSpinner3.setValue(this.longueur[2]);
+        }
+        updateComposante();
     }
 
     private void centreXSpinner1ChangeListener(ChangeEvent e) {
         int value = (int) ((JSpinner) e.getSource()).getValue();;
         this.centreX[0] =  value;
+        updateComposante();
     }
     private void centreXSpinner2ChangeListener(ChangeEvent e) {
-        int value = (int) ((JSpinner) e.getSource()).getValue();;
-        this.centreX[1] =  value;
+        int value = (int) ((JSpinner) e.getSource()).getValue();
+        if (value < this.centreX[2]){
+            this.centreX[1] =  value;
+        }
+        else if (value >= this.centreX[2]){
+            this.centreXSpinner1.setValue((int) centreXSpinner1.getValue() + 1);
+            this.centreXSpinner2.setValue(0);
+            this.centreX[1] = 0;
+        }
+        updateComposante();
     }
     private void centreXSpinner3ChangeListener(ChangeEvent e) {
-        int value = (int) ((JSpinner) e.getSource()).getValue();;
-        this.centreX[2] =  value;
+        int value = (int) ((JSpinner) e.getSource()).getValue();
+        if (value > this.centreX[1]){ // 4/4
+            this.centreX[2] =  value;
+        }
+        else if (value <= this.centreX[1]){
+            this.centreXSpinner3.setValue(this.centreX[2]);
+        }
+        updateComposante();
     }
 
     private void centreYSpinner1ChangeListener(ChangeEvent e) {
         int value = (int) ((JSpinner) e.getSource()).getValue();;
         this.centreY[0] =  value;
+        updateComposante();
     }
     private void centreYSpinner2ChangeListener(ChangeEvent e) {
-        int value = (int) ((JSpinner) e.getSource()).getValue();;
-        this.centreY[1] =  value;
+        int value = (int) ((JSpinner) e.getSource()).getValue();
+        if (value < this.centreY[2]){
+            this.centreY[1] =  value;
+        }
+        else if (value >= this.centreY[2]){
+            this.centreYSpinner1.setValue((int) centreYSpinner1.getValue() + 1);
+            this.centreYSpinner2.setValue(0);
+            this.centreY[1] = 0;
+        }
+        updateComposante();
     }
     private void centreYSpinner3ChangeListener(ChangeEvent e) {
-        int value = (int) ((JSpinner) e.getSource()).getValue();;
-        this.centreY[2] =  value;
+        int value = (int) ((JSpinner) e.getSource()).getValue();
+        if (value > this.centreY[1]){ // 4/4
+            this.centreY[2] =  value;
+        }
+        else if (value <= this.centreY[1]){
+            this.centreYSpinner3.setValue(this.centreY[2]);
+        }
+        updateComposante();
     }
-    
-    private void updateEllipse(){
-        
+
+    private void updateComposante(){
+
+        int[] valeurs = new int[12];
+
+        for (int i = 0; i < valeurs.length; i++){
+            if (i < 3){
+                valeurs[i] = hauteur[i];
+            }
+            else if (i < 6) {
+                valeurs[i] = longueur[i-3];
+            }
+            else if (i < 9){
+                valeurs[i] = centreX[i-6];
+            }
+            else {
+                valeurs[i] = centreY[i-9];
+            }
+        }
+
+        parent.parent.controller.updateComposante(valeurs, type);
+        parent.parent.repaint();
+
     }
 
     @Override

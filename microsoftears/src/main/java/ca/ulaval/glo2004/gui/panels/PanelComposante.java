@@ -8,7 +8,7 @@ import java.awt.*;
 public abstract class PanelComposante extends JPanel {
 
 
-    private final BarreOnglet parent;
+    protected final BarreOnglet parent;
     private int nbAttribut;
 
     public PanelComposante(BarreOnglet parent) {

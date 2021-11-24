@@ -1,6 +1,7 @@
 package ca.ulaval.glo2004.domain;
 
 import ca.ulaval.glo2004.domain.composante.*;
+import ca.ulaval.glo2004.utilitaires.Ellipse;
 import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Pouce;
 import ca.ulaval.glo2004.gui.FenetrePrincipale;
@@ -56,6 +57,65 @@ public class RoulotteController {
         MurSeparateur murSeparateur = new MurSeparateur(this);
         listeComposantes.add(murSeparateur);
 
+    }
+
+    public void updateComposante(int[] valeurs, TypeComposante type){
+       switch(type){
+           case MUR_PROFILE:
+               MurBrute mur = new MurBrute(this,
+                       new Pouce(valeurs[3], valeurs[4], valeurs[5]),
+                       new Pouce(valeurs[0], valeurs[1], valeurs[2]),
+                       new PointPouce(
+                               new Pouce(valeurs[6], valeurs[7], valeurs[8]),
+                               new Pouce(valeurs[9], valeurs[10], valeurs[11])));
+               listeComposantes.set(0, mur);
+               break;
+           case PROFIL_ELLIPSE_1:
+               ProfilEllipse ellipse = new ProfilEllipse(this,
+                       new Pouce(valeurs[0], valeurs[1], valeurs[2]),
+                       new Pouce(valeurs[3], valeurs[4], valeurs[5]),
+                       new PointPouce(
+                               new Pouce(valeurs[6], valeurs[7], valeurs[8]),
+                               new Pouce(valeurs[9], valeurs[10], valeurs[11]))
+                       , type);
+               ((MurProfile) listeComposantes.get(1)).getProfilEllipses()[0] = ellipse;
+               listeComposantes.set(2, ellipse);
+               break;
+           case PROFIL_ELLIPSE_2:
+               ellipse = new ProfilEllipse(this,
+                       new Pouce(valeurs[0], valeurs[1], valeurs[2]),
+                       new Pouce(valeurs[3], valeurs[4], valeurs[5]),
+                       new PointPouce(
+                               new Pouce(valeurs[6], valeurs[7], valeurs[8]),
+                               new Pouce(valeurs[9], valeurs[10], valeurs[11]))
+                       , type);
+               ((MurProfile) listeComposantes.get(1)).getProfilEllipses()[1] = ellipse;
+               listeComposantes.set(3, ellipse);
+               break;
+           case PROFIL_ELLIPSE_3:
+               ellipse = new ProfilEllipse(this,
+                       new Pouce(valeurs[0], valeurs[1], valeurs[2]),
+                       new Pouce(valeurs[3], valeurs[4], valeurs[5]),
+                       new PointPouce(
+                               new Pouce(valeurs[6], valeurs[7], valeurs[8]),
+                               new Pouce(valeurs[9], valeurs[10], valeurs[11]))
+                       , type);
+               ((MurProfile) listeComposantes.get(1)).getProfilEllipses()[2] = ellipse;
+               listeComposantes.set(4, ellipse);
+               break;
+           case PROFIL_ELLIPSE_4:
+               ellipse = new ProfilEllipse(this,
+                       new Pouce(valeurs[0], valeurs[1], valeurs[2]),
+                       new Pouce(valeurs[3], valeurs[4], valeurs[5]),
+                       new PointPouce(
+                               new Pouce(valeurs[6], valeurs[7], valeurs[8]),
+                               new Pouce(valeurs[9], valeurs[10], valeurs[11]))
+                       , type);
+               ((MurProfile) listeComposantes.get(1)).getProfilEllipses()[3] = ellipse;
+               listeComposantes.set(5, ellipse);
+               break;
+
+       }
     }
 
     public void ajouterComposante(TypeComposante composante) {

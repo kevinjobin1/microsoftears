@@ -18,14 +18,26 @@ public class MurBrute extends Composante{
 
     public MurBrute(RoulotteController parent, Pouce longueur, Pouce largeur, PointPouce centre) {
         super(parent);
+        if (verificationLargeur(largeur)){
+            this.largeur = largeur;
+        }
+        else{
+            System.out.println("ERREUR LARGEUR MUR BRUTE");
+            this.largeur = longueur;
+        }
+        if (verificationLongueur(longueur)){
         this.longueur = longueur;
-        this.largeur = largeur;
+        }
+        else {
+            System.out.println("ERREUR LONGUEUR MUR BRUTE");
+            this.longueur = longueur;
+        }
+
         this.centre = centre;
         this.rectangle = new Rectangle(this.longueur,this.largeur,this.centre);
         this.setCouleurInitiale(new Color(200,200,200));
         this.setCouleur(getCouleurInitiale());
         this.setType(TypeComposante.MUR_BRUTE);
-        this.estVisible(false);
         this.setPolygone(rectangle.getPolygone());
     }
 
@@ -38,7 +50,6 @@ public class MurBrute extends Composante{
         this.setCouleurInitiale(new Color(200,200,200));
         this.setCouleur(getCouleurInitiale());
         this.setType(TypeComposante.MUR_BRUTE);
-        this.estVisible(false);
         this.setPolygone(rectangle.getPolygone());
 
     }

@@ -19,12 +19,22 @@ public class ProfilEllipse extends Composante{
 
     public ProfilEllipse(RoulotteController parent, Pouce longueur, Pouce hauteur, PointPouce centre, TypeComposante type) {
         super(parent);
-        this.longueur = longueur;
-        this.hauteur = hauteur;
+        if (verificationLongueur(longueur)){
+        this.longueur = longueur;}
+        else {
+            System.out.println("ERREUR LONGUEUR ELLIPSE");
+            this.longueur = longueur;
+        }
+        if (verificationHauteur(hauteur)){
+            this.hauteur = hauteur;}
+        else {
+            System.out.println("ERREUR HAUTEUR ELLIPSE");
+            this.hauteur = hauteur;
+        }
+        System.out.println("CentreInit : " + centre.getX() + "," + centre.getY());
         this.centre = centre;
         this.ellipse = new Ellipse(this.longueur,this.hauteur,this.centre, this.parent.getNombrePoint());
         this.setCouleur(getCouleurInitiale());
-        this.estVisible(false);
         this.setPolygone(ellipse.getPolygone());
         this.setType(type);
     }
@@ -54,6 +64,7 @@ public class ProfilEllipse extends Composante{
             g2d.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
             g2d.draw(path);
             double[] centreEllipse = parent.getPositionEcran(centre);
+            System.out.println("Centre : " + centreEllipse[0] + "," + centreEllipse[1]);
             g2d.fill(new Ellipse2D.Double(centreEllipse[0], centreEllipse[1], 5, 5));
         }
     }
