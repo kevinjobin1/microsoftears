@@ -48,10 +48,10 @@ public class PanelInfoEllipse extends PanelComposante  {
 
         for (int i = 0; i < valeurs.length; i++){
             if (i < 3){
-                hauteur[i] = valeurs[i];
+                longueur[i] = valeurs[i];
             }
             else if (i < 6) {
-                longueur[i-3] = valeurs[i];
+                hauteur[i-3] = valeurs[i];
             }
             else if (i < 9){
                 centreX[i-6] = valeurs[i];
@@ -309,10 +309,10 @@ public class PanelInfoEllipse extends PanelComposante  {
 
         for (int i = 0; i < valeurs.length; i++){
             if (i < 3){
-                valeurs[i] = hauteur[i];
+                valeurs[i] = longueur[i];
             }
             else if (i < 6) {
-                valeurs[i] = longueur[i-3];
+                valeurs[i] = hauteur[i-3];
             }
             else if (i < 9){
                 valeurs[i] = centreX[i-6];

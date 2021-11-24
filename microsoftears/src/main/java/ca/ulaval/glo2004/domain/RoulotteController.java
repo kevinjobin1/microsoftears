@@ -63,8 +63,8 @@ public class RoulotteController {
        switch(type){
            case MUR_PROFILE:
                MurBrute mur = new MurBrute(this,
-                       new Pouce(valeurs[3], valeurs[4], valeurs[5]),
                        new Pouce(valeurs[0], valeurs[1], valeurs[2]),
+                       new Pouce(valeurs[3], valeurs[4], valeurs[5]),
                        new PointPouce(
                                new Pouce(valeurs[6], valeurs[7], valeurs[8]),
                                new Pouce(valeurs[9], valeurs[10], valeurs[11])));
