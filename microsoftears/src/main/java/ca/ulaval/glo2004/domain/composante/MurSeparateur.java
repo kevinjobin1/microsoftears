@@ -66,4 +66,9 @@ public class MurSeparateur extends Composante{
         Pouce y = mur.getCentre().getY().diff(mur.getLargeur().diviser(2)).add(hauteur.diviser(2));
         return new PointPouce(x,y);
     }
+
+    @Override
+    public int[] getValeurs() {
+        return new int[0];
+    }
 }

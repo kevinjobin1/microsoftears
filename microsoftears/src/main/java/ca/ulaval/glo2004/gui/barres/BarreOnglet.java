@@ -1,5 +1,6 @@
 package ca.ulaval.glo2004.gui.barres;
 
+import ca.ulaval.glo2004.domain.IComposante;
 import ca.ulaval.glo2004.domain.composante.TypeComposante;
 import ca.ulaval.glo2004.gui.FenetrePrincipale;
 import ca.ulaval.glo2004.gui.panels.*;
@@ -30,15 +31,28 @@ public class BarreOnglet extends JTabbedPane {
 
     private void initialiser()
     {
+        for(IComposante composante : parent.controller.getListeIComposantes()){
+            if (composante.getType() == TypeComposante.MUR_BRUTE ||
+                    composante.getType() == TypeComposante.MUR_SEPARATEUR){
+                for (int i : composante.getValeurs()){
+                System.out.println(i);}
+            }
+            else if (composante.getType() == TypeComposante.MUR_PROFILE ||
+            composante.getType() == TypeComposante.PROFIL_ELLIPSE_1 ||
+                    composante.getType() == TypeComposante.PROFIL_ELLIPSE_2 ||
+                    composante.getType() == TypeComposante.PROFIL_ELLIPSE_3 ||
+                    composante.getType() == TypeComposante.PROFIL_ELLIPSE_4 ||
+                    composante.getType() == TypeComposante.POUTRE_ARRIERE ||
+                    composante.getType() == TypeComposante.PLANCHER ||
+                    composante.getType() == TypeComposante.HAYON){
+                this.addTab(composante.toString(), creerTabPanel(composante.toString(), composante.getValeurs()));
+            }
+            else{
+                this.addTab(composante.toString(), creerTabPanel(composante.toString(), new int[0]));
 
-        this.addTab("Hayon", creerTabPanel("Hayon"));
-        this.addTab("Plancher",creerTabPanel("Plancher"));
-        this.addTab("Poutre",creerTabPanel("Poutre"));
-        this.addTab("Profile",creerTabPanel("Profile"));
-        this.addTab("Ellipse 1", creerTabPanel("Ellipse 1"));
-        this.addTab("Ellipse 2", creerTabPanel("Ellipse 2"));
-        this.addTab("Ellipse 3", creerTabPanel("Ellipse 3"));
-        this.addTab("Ellipse 4", creerTabPanel("Ellipse 4"));
+            }
+
+        }
 
     }
 
@@ -47,7 +61,7 @@ public class BarreOnglet extends JTabbedPane {
      * Sets borders using the addborder function
      * @return panel
      */
-    private JPanel creerTabPanel(String composante) {
+    private JPanel creerTabPanel(String composante, int[] valeursChamps) {
 
         //creates a lowered level border using the border factory, will be used by addborder()
         Border line = BorderFactory.createLoweredBevelBorder();
@@ -65,7 +79,7 @@ public class BarreOnglet extends JTabbedPane {
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
         //addBorder(line,"", panel);
-        addBorder(line,composante, panel);
+        addBorder(line,composante, panel, valeursChamps);
         return panel;
     }
 
@@ -76,61 +90,62 @@ public class BarreOnglet extends JTabbedPane {
      * @param container holds a container
      * @param composante string that holds titles of tapped panels
      */
-   public void addBorder(Border border, String composante, Container container){
+   public void addBorder(Border border, String composante, Container container, int[] valeursChamps){
 
        JPanel panelMesure = creerPanelMesure();
 
        JPanel contour = new JPanel(false);
+
         if(estImperial){
             if (composante.equals("Hayon")) {
-                contour = new PanelInfoHayon();
+                contour = new PanelInfoHayon(this, valeursChamps);
             }
             if (composante.equals("Plancher")) {
-                contour = new PanelInfoPlancher();
+                contour = new PanelInfoPlancher(this, valeursChamps);
             }
-            if (composante.equals("Poutre")) {
-                contour = new PanelInfoPoutre();
+            if (composante.equals("Poutre Arrière")) {
+                contour = new PanelInfoPoutre(this, valeursChamps);
             }
             if (composante.equals("Ellipse 1")) {
-                contour = new PanelInfoEllipse();
+                contour = new PanelInfoEllipse(this, valeursChamps);
             }
             if (composante.equals("Ellipse 2")) {
-                contour = new PanelInfoEllipse();
+                contour = new PanelInfoEllipse(this, valeursChamps);
             }
             if (composante.equals("Ellipse 3")) {
-                contour = new PanelInfoEllipse();
+                contour = new PanelInfoEllipse(this, valeursChamps);
             }
             if (composante.equals("Ellipse 4")) {
-                contour = new PanelInfoEllipse();
+                contour = new PanelInfoEllipse(this, valeursChamps);
             }
-            if (composante.equals("Profile")) {
-                contour = new PanelInfoProfile();
+            if (composante.equals("Mur profilé")) {
+                contour = new PanelInfoProfile(this, valeursChamps);
             }
         }
         else {
             if (composante.equals("Hayon")) {
-                contour = new PanelInfoHayonMM();
+                contour = new PanelInfoHayonMM(this);
             }
             if (composante.equals("Plancher")) {
-                contour = new PanelInfoPlancherMM();
+                contour = new PanelInfoPlancherMM(this);
             }
-            if (composante.equals("Poutre")) {
-                contour = new PanelInfoPoutreMM();
+            if (composante.equals("Poutre Arrière")) {
+                contour = new PanelInfoPoutreMM(this);
             }
             if (composante.equals("Ellipse 1")) {
-                contour = new PanelInfoEllipseMM();
+                contour = new PanelInfoEllipseMM(this);
             }
             if (composante.equals("Ellipse 2")) {
-                contour = new PanelInfoEllipseMM();
+                contour = new PanelInfoEllipseMM(this);
             }
             if (composante.equals("Ellipse 3")) {
-                contour = new PanelInfoEllipseMM();
+                contour = new PanelInfoEllipseMM(this);
             }
             if (composante.equals("Ellipse 4")) {
-                contour = new PanelInfoEllipseMM();
+                contour = new PanelInfoEllipseMM(this);
             }
-            if (composante.equals("Profile")) {
-                contour = new PanelInfoProfileMM();
+            if (composante.equals("Mur profilé")) {
+                contour = new PanelInfoProfileMM(this);
             }
         }
 

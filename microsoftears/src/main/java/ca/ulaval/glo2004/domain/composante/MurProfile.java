@@ -92,6 +92,11 @@ public class MurProfile extends Composante{
         return null;
     }
 
+    @Override
+    public int[] getValeurs() {
+        return parent.getListeComposantes().get(0).getValeurs();
+    }
+
     //todo mais pas pour le livrable 3
     private LinkedList<PointPouce> listePointsModeBezier() {
         return null;

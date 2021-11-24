@@ -1,5 +1,7 @@
 package ca.ulaval.glo2004.gui.panels;
 
+import ca.ulaval.glo2004.gui.barres.BarreOnglet;
+
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -15,6 +17,10 @@ public class PanelInfoPoutreMM extends PanelComposante{
     int[] hauteur,
             longueur,
             centreX;
+
+    public PanelInfoPoutreMM(BarreOnglet parent) {
+        super(parent);
+    }
 
     @Override
     void initialiser() {

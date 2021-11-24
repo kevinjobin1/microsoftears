@@ -1,5 +1,7 @@
 package ca.ulaval.glo2004.gui.panels;
 
+import ca.ulaval.glo2004.gui.barres.BarreOnglet;
+
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -23,36 +25,55 @@ public class PanelInfoPlancher extends PanelComposante {
             margeAvant,
             margeArriere;
 
-    @Override
-    void initialiser() {
+    public PanelInfoPlancher(BarreOnglet parent, int[] valeursChamps) {
+        super(parent);
+        initialiser(valeursChamps);
+    }
 
-        this.epaisseur = new int[3];
-        this.margeAvant = new int[3];
-        this.margeArriere = new int[3];
+    @Override
+    void initialiser(){
+    }
+    
+    void initialiser(int[] valeurs) {
+        epaisseur = new int[3];
+        margeAvant = new int[3];
+        margeArriere = new int[3];
+
+        for (int i = 0; i < valeurs.length; i++){
+            if (i < 3){
+                epaisseur[i] = valeurs[i];
+            }
+            else if (i < 6) {
+                margeAvant[i-3] = valeurs[i];
+            }
+            else {
+                margeArriere[i-6] = valeurs[i];
+            }
+        }
 
         this.epaisseurLabel = creerLabelAttribut("Épaisseur : ", 0,0);
         int posY = 2*getNbAttribut() -1;
-        this.epaisseurSpinner1 = creerSpinnerPouces(0, posY);
+        this.epaisseurSpinner1 = creerSpinnerPouces(0, posY, epaisseur);
         creerLabelSymbole( " \" ",1,posY);
-        this.epaisseurSpinner2 =  creerSpinnerPouces(2, posY);
+        this.epaisseurSpinner2 =  creerSpinnerPouces(2, posY, epaisseur);
         creerLabelSymbole( " / ",3,posY);
-        this.epaisseurSpinner3 = creerSpinnerPouces(4, posY);
+        this.epaisseurSpinner3 = creerSpinnerPouces(4, posY, epaisseur);
 
         this.margeAvantLabel = creerLabelAttribut("Marge Avant : ", 0, 2);
         posY = 2*getNbAttribut() -1;
-        this.margeAvantSpinner1 = creerSpinnerPouces(0, posY);
+        this.margeAvantSpinner1 = creerSpinnerPouces(0, posY, margeAvant);
         creerLabelSymbole( " \" ",1,posY);
-        this.margeAvantSpinner2 =  creerSpinnerPouces(2, posY);
+        this.margeAvantSpinner2 =  creerSpinnerPouces(2, posY, margeAvant);
         creerLabelSymbole( " / ",3,posY);
-        this.margeAvantSpinner3 = creerSpinnerPouces(4, posY);
+        this.margeAvantSpinner3 = creerSpinnerPouces(4, posY, margeAvant);
 
         this.margeArriereLabel = creerLabelAttribut("Marge Arrière : ", 0,4 );
         posY = 2*getNbAttribut() -1;
-        this.margeArriereSpinner1 = creerSpinnerPouces(0, posY);
+        this.margeArriereSpinner1 = creerSpinnerPouces(0, posY, margeArriere);
         creerLabelSymbole( " \" ",1,posY);
-        this.margeArriereSpinner2 =  creerSpinnerPouces(2, posY);
+        this.margeArriereSpinner2 =  creerSpinnerPouces(2, posY, margeArriere);
         creerLabelSymbole( " / ",3,posY);
-        this.margeArriereSpinner3 = creerSpinnerPouces(4, posY);
+        this.margeArriereSpinner3 = creerSpinnerPouces(4, posY, margeArriere);
 
 
 

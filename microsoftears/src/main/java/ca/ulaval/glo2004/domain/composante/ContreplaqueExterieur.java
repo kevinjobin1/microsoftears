@@ -45,4 +45,9 @@ public class ContreplaqueExterieur extends Composante {
     protected PointPouce getCentre() {
         return null;
     }
+
+    @Override
+    public int[] getValeurs() {
+        return new int[0];
+    }
 }

@@ -297,5 +297,15 @@ public class Hayon extends Composante {
     protected PointPouce getCentre() {
         return null;
     }
+
+    @Override
+    public int[] getValeurs() {
+        return new int[]{epaisseur.getPouces(), epaisseur.getNumerateur(), epaisseur.getDenominateur(),
+                distancePoutre.getPouces(), distancePoutre.getNumerateur(), distancePoutre.getDenominateur(),
+                distancePlancher.getPouces(), distancePlancher.getNumerateur(), distancePlancher.getDenominateur(),
+                epaisseurTraitScie.getPouces(), epaisseurTraitScie.getNumerateur(), epaisseurTraitScie.getDenominateur(),
+                rayonArcCercle.getPouces(), rayonArcCercle.getNumerateur(), rayonArcCercle.getDenominateur()
+        };
+    }
 }
 

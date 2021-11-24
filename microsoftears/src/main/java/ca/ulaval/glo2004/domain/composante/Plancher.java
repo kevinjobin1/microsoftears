@@ -92,6 +92,13 @@ public class Plancher extends Composante {
         return new PointPouce(x,y);
     }
 
+    @Override
+    public int[] getValeurs() {
+        return new int[]{epaisseur.getPouces(), epaisseur.getNumerateur(), epaisseur.getDenominateur(),
+                margeAvant.getPouces(), margeAvant.getNumerateur(), margeAvant.getDenominateur(),
+                margeArriere.getPouces(), margeArriere.getNumerateur(), margeArriere.getDenominateur()};
+    }
+
     private Pouce getLongueur(){
         return ((MurBrute)(parent.getListeComposantes().get(0))).getLongueur().diff(this.margeArriere).diff(this.margeAvant);
     }

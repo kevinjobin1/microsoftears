@@ -41,20 +41,21 @@ public class RoulotteController {
         // Ordre (index): murBrute (0), murProfile(1), ellipses(2,3,4,5),
         // plancher(6), poutre(7), hayon(8), murSeparateur(9)
         MurBrute murBrute = new MurBrute(this);
-        this.getListeComposantes().add(murBrute);
+        listeComposantes.add(murBrute);
         MurProfile murProfile = new MurProfile(this,true);
-        this.getListeComposantes().add(murProfile);
+        listeComposantes.add(murProfile);
         for (ProfilEllipse ellipse : murProfile.getProfilEllipses()){
-            this.getListeComposantes().add(ellipse);
+            listeComposantes.add(ellipse);
         }
         Plancher plancher = new Plancher(this);
-        this.getListeComposantes().add(plancher);
+        listeComposantes.add(plancher);
         PoutreArriere poutre = new PoutreArriere(this);
-        this.getListeComposantes().add(poutre);
+        listeComposantes.add(poutre);
         Hayon hayon = new Hayon(this);
-        this.getListeComposantes().add(hayon);
+        listeComposantes.add(hayon);
         MurSeparateur murSeparateur = new MurSeparateur(this);
-        this.getListeComposantes().add(murSeparateur);
+        listeComposantes.add(murSeparateur);
+
     }
 
     public void ajouterComposante(TypeComposante composante) {
@@ -199,6 +200,14 @@ public class RoulotteController {
 
     public double getScale() {
         return scale;
+    }
+
+    public ArrayList<IComposante> getListeIComposantes(){
+        ArrayList<IComposante> listeIComposantes = new ArrayList<>();
+        for (Composante composante : listeComposantes){
+            listeIComposantes.add(composante);
+        }
+        return listeIComposantes;
     }
 
     public ArrayList<Composante> getListeComposantes() {

@@ -1,5 +1,7 @@
 package ca.ulaval.glo2004.gui.panels;
 
+import ca.ulaval.glo2004.gui.barres.BarreOnglet;
+
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -32,8 +34,16 @@ public class PanelInfoHayon extends PanelComposante{
             scie,
             rayon;
 
+    public PanelInfoHayon(BarreOnglet parent, int[] valeursChamps) {
+        super(parent);
+        initialiser(valeursChamps);
+    }
+
     @Override
-    void initialiser() {
+    void initialiser(){}
+
+
+    void initialiser(int[] valeurs) {
 
         this.epaisseur = new int[3];
         this.poutre = new int[3];
@@ -41,45 +51,63 @@ public class PanelInfoHayon extends PanelComposante{
         this.scie = new int[3];
         this.rayon= new int[3];
 
+        for (int i = 0; i < valeurs.length; i++){
+            if (i < 3){
+                epaisseur[i] = valeurs[i];
+            }
+            else if (i < 6) {
+                poutre[i-3] = valeurs[i];
+            }
+            else if (i < 9){
+                plancher[i-6] = valeurs[i];
+            }
+            else if (i < 12){
+                scie[i-9] = valeurs[i];
+            }
+            else {
+                rayon[i-12] = valeurs[i];
+            }
+        }
+
         this.epaisseurLabel = creerLabelAttribut("Épaisseur : ", 0,0);
         int posY = 2*getNbAttribut() -1;
-        this.epaisseurSpinner1 = creerSpinnerPouces(0, posY);
+        this.epaisseurSpinner1 = creerSpinnerPouces(0, posY, epaisseur);
         creerLabelSymbole( " \" ",1,posY);
-        this.epaisseurSpinner2 =  creerSpinnerPouces(2, posY);
+        this.epaisseurSpinner2 =  creerSpinnerPouces(2, posY, epaisseur);
         creerLabelSymbole( " / ",3,posY);
-        this.epaisseurSpinner3 = creerSpinnerPouces(4, posY);
+        this.epaisseurSpinner3 = creerSpinnerPouces(4, posY, epaisseur);
 
         this.poutreLabel = creerLabelAttribut("Distance de la poutre : ", 0, 2);
         posY = 2*getNbAttribut() -1;
-        this.poutreSpinner1 = creerSpinnerPouces(0, posY);
+        this.poutreSpinner1 = creerSpinnerPouces(0, posY, poutre);
         creerLabelSymbole( " \" ",1,posY);
-        this.poutreSpinner2 =  creerSpinnerPouces(2, posY);
+        this.poutreSpinner2 =  creerSpinnerPouces(2, posY, poutre);
         creerLabelSymbole( " / ",3,posY);
-        this.poutreSpinner3 = creerSpinnerPouces(4, posY);
+        this.poutreSpinner3 = creerSpinnerPouces(4, posY, poutre);
 
         this.plancherLabel = creerLabelAttribut("Distance du plancher : ", 0,4 );
         posY = 2*getNbAttribut() -1;
-        this.plancherSpinner1 = creerSpinnerPouces(0, posY);
+        this.plancherSpinner1 = creerSpinnerPouces(0, posY, plancher);
         creerLabelSymbole( " \" ",1,posY);
-        this.plancherSpinner2 =  creerSpinnerPouces(2, posY);
+        this.plancherSpinner2 =  creerSpinnerPouces(2, posY, plancher);
         creerLabelSymbole( " / ",3,posY);
-        this.plancherSpinner3 = creerSpinnerPouces(4, posY);
+        this.plancherSpinner3 = creerSpinnerPouces(4, posY, plancher);
 
         this.scieLabel = creerLabelAttribut("Distance du trait de scie : ", 0,6);
         posY = 2*getNbAttribut() -1;
-        this.scieSpinner1 = creerSpinnerPouces(0, posY);
+        this.scieSpinner1 = creerSpinnerPouces(0, posY, scie);
         creerLabelSymbole( " \" ",1,posY);
-        this.scieSpinner2 =  creerSpinnerPouces(2, posY);
+        this.scieSpinner2 =  creerSpinnerPouces(2, posY, scie);
         creerLabelSymbole( " / ",3,posY);
-        this.scieSpinner3 = creerSpinnerPouces(4, posY);
+        this.scieSpinner3 = creerSpinnerPouces(4, posY, scie);
 
         this.rayonLabel = creerLabelAttribut("Rayon de l'arc du cercle : ", 0, 8);
         posY = 2*getNbAttribut() -1;
-        this.rayonSpinner1 = creerSpinnerPouces(0, posY);
+        this.rayonSpinner1 = creerSpinnerPouces(0, posY, rayon);
         creerLabelSymbole( " \" ",1,posY);
-        this.rayonSpinner2 =  creerSpinnerPouces(2, posY);
+        this.rayonSpinner2 =  creerSpinnerPouces(2, posY, rayon);
         creerLabelSymbole( " / ",3,posY);
-        this.rayonSpinner3 = creerSpinnerPouces(4, posY);
+        this.rayonSpinner3 = creerSpinnerPouces(4, posY, rayon);
 
         // Events (ActionListener) //
 

@@ -1,5 +1,6 @@
 package ca.ulaval.glo2004.gui;
 
+import ca.ulaval.glo2004.domain.IComposante;
 import ca.ulaval.glo2004.domain.composante.*;
 import ca.ulaval.glo2004.domain.RoulotteController;
 import ca.ulaval.glo2004.gui.barres.BarreBoutons;
@@ -10,6 +11,7 @@ import ca.ulaval.glo2004.gui.panels.PanelConception;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 public class FenetrePrincipale extends JFrame {
     // Composantes graphiques du Frame
@@ -35,42 +37,32 @@ public class FenetrePrincipale extends JFrame {
 
     public void setComposanteChoisie(TypeComposante type) {
         this.composanteChoisie = type;
-        System.out.println("Composante choisie : " + type);
         switch (type) {
             case HAYON:
-                System.out.println("Case1");
-                this.barreOnglets.setSelectedIndex(0);
-                break;
-            case PLANCHER:
-                System.out.println("Case2");
-                this.barreOnglets.setSelectedIndex(1);
-                break;
-            case POUTRE_ARRIERE:
-                System.out.println("Case3");
-                this.barreOnglets.setSelectedIndex(2);
-                break;
-            case MUR_PROFILE:
-                System.out.println("Case4");
-                this.barreOnglets.setSelectedIndex(3);
-                break;
-            case PROFIL_ELLIPSE_1:
-                System.out.println("Case5");
-                this.barreOnglets.setSelectedIndex(4);
-                break;
-            case PROFIL_ELLIPSE_2:
-                System.out.println("Case6");
-                this.barreOnglets.setSelectedIndex(5);
-                break;
-            case PROFIL_ELLIPSE_3:
-                System.out.println("Case7");
-                this.barreOnglets.setSelectedIndex(6);
-                break;
-            case PROFIL_ELLIPSE_4:
-                System.out.println("Case8");
                 this.barreOnglets.setSelectedIndex(7);
                 break;
+            case PLANCHER:
+                this.barreOnglets.setSelectedIndex(5);
+                break;
+            case POUTRE_ARRIERE:
+                this.barreOnglets.setSelectedIndex(6);
+                break;
+            case MUR_PROFILE:
+                this.barreOnglets.setSelectedIndex(0);
+                break;
+            case PROFIL_ELLIPSE_1:
+                this.barreOnglets.setSelectedIndex(1);
+                break;
+            case PROFIL_ELLIPSE_2:
+                this.barreOnglets.setSelectedIndex(2);
+                break;
+            case PROFIL_ELLIPSE_3:
+                this.barreOnglets.setSelectedIndex(3);
+                break;
+            case PROFIL_ELLIPSE_4:
+                this.barreOnglets.setSelectedIndex(4);
+                break;
         }
-
     }
 
     public enum TypeAction {

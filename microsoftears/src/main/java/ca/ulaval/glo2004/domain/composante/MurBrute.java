@@ -99,6 +99,14 @@ public class MurBrute extends Composante{
         return centre;
     }
 
+    @Override
+    public int[] getValeurs() {
+        return new int[]{largeur.getPouces(), largeur.getNumerateur(), largeur.getDenominateur(),
+                longueur.getPouces(), longueur.getNumerateur(), longueur.getDenominateur(),
+                centre.getX().getPouces(), centre.getX().getNumerateur(), centre.getX().getDenominateur(),
+                centre.getY().getPouces(), centre.getY().getNumerateur(), centre.getY().getDenominateur()};
+    }
+
     public void setCentre(PointPouce centre) {
         this.centre = centre;
     }

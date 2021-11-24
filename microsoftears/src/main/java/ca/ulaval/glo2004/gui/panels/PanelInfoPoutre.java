@@ -1,5 +1,7 @@
 package ca.ulaval.glo2004.gui.panels;
 
+import ca.ulaval.glo2004.gui.barres.BarreOnglet;
+
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -23,37 +25,54 @@ public class PanelInfoPoutre extends PanelComposante {
             longueur,
             centreX;
 
+    public PanelInfoPoutre(BarreOnglet parent, int[] valeursChamps) {
+        super(parent);
+        initialiser(valeursChamps);
+    }
 
     @Override
-    void initialiser() {
+    void initialiser(){}
 
-        this.hauteur = new int[3];
-        this.longueur = new int[3];
-        this.centreX = new int[3];
+    void initialiser(int[] valeurs) {
+        hauteur = new int[3];
+        longueur = new int[3];
+        centreX = new int[3];
+
+        for (int i = 0; i < valeurs.length; i++){
+            if (i < 3){
+                hauteur[i] = valeurs[i];
+            }
+            else if (i < 6) {
+                longueur[i-3] = valeurs[i];
+            }
+            else {
+                centreX[i-6] = valeurs[i];
+            }
+        }
 
         this.hauteurLabel = creerLabelAttribut("Hauteur : ", 0,0);
         int posY = 2*getNbAttribut() -1;
-        this.hauteurSpinner1 = creerSpinnerPouces(0, posY);
+        this.hauteurSpinner1 = creerSpinnerPouces(0, posY, hauteur);
         creerLabelSymbole( " \" ",1,posY);
-        this.hauteurSpinner2 =  creerSpinnerPouces(2, posY);
+        this.hauteurSpinner2 =  creerSpinnerPouces(2, posY, hauteur);
         creerLabelSymbole( " / ",3,posY);
-        this.hauteurSpinner3 = creerSpinnerPouces(4, posY);
+        this.hauteurSpinner3 = creerSpinnerPouces(4, posY, hauteur);
 
         this.longueurLabel = creerLabelAttribut("Longueur : ", 0, 2);
         posY = 2*getNbAttribut() -1;
-        this.longueurSpinner1 = creerSpinnerPouces(0, posY);
+        this.longueurSpinner1 = creerSpinnerPouces(0, posY, longueur);
         creerLabelSymbole( " \" ",1,posY);
-        this.longueurSpinner2 =  creerSpinnerPouces(2, posY);
+        this.longueurSpinner2 =  creerSpinnerPouces(2, posY, longueur);
         creerLabelSymbole( " / ",3,posY);
-        this.longueurSpinner3 = creerSpinnerPouces(4, posY);
+        this.longueurSpinner3 = creerSpinnerPouces(4, posY, longueur);
 
         this.centreXLabel = creerLabelAttribut("Centre X : ", 0,4 );
         posY = 2*getNbAttribut() -1;
-        this.centreXSpinner1 = creerSpinnerPouces(0, posY);
+        this.centreXSpinner1 = creerSpinnerPouces(0, posY, centreX);
         creerLabelSymbole( " \" ",1,posY);
-        this.centreXSpinner2 =  creerSpinnerPouces(2, posY);
+        this.centreXSpinner2 =  creerSpinnerPouces(2, posY, centreX);
         creerLabelSymbole( " / ",3,posY);
-        this.centreXSpinner3 = creerSpinnerPouces(4, posY);
+        this.centreXSpinner3 = creerSpinnerPouces(4, posY, centreX);
 
         //=============================================================================//
         //                                                                             //

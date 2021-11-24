@@ -29,6 +29,11 @@ public class Ressorts extends Composante{
         return null;
     }
 
+    @Override
+    public int[] getValeurs() {
+        return new int[0];
+    }
+
     private PointPouce[] calculerPositionRessorts(){
         return null;
     }

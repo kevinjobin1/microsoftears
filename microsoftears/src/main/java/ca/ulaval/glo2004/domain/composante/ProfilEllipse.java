@@ -88,6 +88,14 @@ public class ProfilEllipse extends Composante{
         return centre;
     }
 
+    @Override
+    public int[] getValeurs() {
+        return new int[]{hauteur.getPouces(), hauteur.getNumerateur(), hauteur.getDenominateur(),
+                longueur.getPouces(), longueur.getNumerateur(), longueur.getDenominateur(),
+                centre.getX().getPouces(), centre.getX().getNumerateur(), centre.getX().getDenominateur(),
+                centre.getY().getPouces(), centre.getY().getNumerateur(), centre.getY().getDenominateur()};
+    }
+
     public void setCentre(PointPouce centre) {
         this.centre = centre;
     }

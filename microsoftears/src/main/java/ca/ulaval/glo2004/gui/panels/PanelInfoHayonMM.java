@@ -1,5 +1,7 @@
 package ca.ulaval.glo2004.gui.panels;
 
+import ca.ulaval.glo2004.gui.barres.BarreOnglet;
+
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -20,6 +22,10 @@ public class PanelInfoHayonMM extends PanelComposante {
             plancher,
             scie,
             rayon;
+
+    public PanelInfoHayonMM(BarreOnglet parent) {
+        super(parent);
+    }
 
 
     @Override
