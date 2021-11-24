@@ -307,10 +307,10 @@ public class PanelInfoProfile extends PanelComposante{
 
         for (int i = 0; i < valeurs.length; i++){
             if (i < 3){
-                valeurs[i] = hauteur[i];
+                valeurs[i] = longueur[i-3];
             }
             else if (i < 6) {
-                valeurs[i] = longueur[i-3];
+                valeurs[i] = hauteur[i];
             }
             else if (i < 9){
                 valeurs[i] = centreX[i-6];
