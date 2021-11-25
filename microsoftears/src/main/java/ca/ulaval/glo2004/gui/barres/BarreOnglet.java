@@ -4,8 +4,7 @@ import ca.ulaval.glo2004.domain.IComposante;
 import ca.ulaval.glo2004.domain.composante.TypeComposante;
 import ca.ulaval.glo2004.gui.FenetrePrincipale;
 import ca.ulaval.glo2004.gui.panels.*;
-import org.kordamp.ikonli.bootstrapicons.BootstrapIcons;
-import org.kordamp.ikonli.swing.FontIcon;
+
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -45,10 +44,10 @@ public class BarreOnglet extends JTabbedPane {
                     composante.getType() == TypeComposante.POUTRE_ARRIERE ||
                     composante.getType() == TypeComposante.PLANCHER ||
                     composante.getType() == TypeComposante.HAYON){
-                this.addTab(composante.toString(), creerTabPanel(composante.getType(), composante.getValeurs()));
+                this.addTab(composante.toString(), creerTabPanel(composante));
             }
             else{
-                this.addTab(composante.toString(), creerTabPanel(composante.getType(), new int[0]));
+                this.addTab(composante.toString(), creerTabPanel(composante));
 
             }
 
@@ -56,393 +55,62 @@ public class BarreOnglet extends JTabbedPane {
 
     }
 
-    /**
-     * Creates a tabbed pane with the tabs used in the initialser function
-     * Sets borders using the addborder function
-     * @return panel
-     */
-    private JPanel creerTabPanel(TypeComposante composante, int[] valeursChamps) {
 
-        //creates a lowered level border using the border factory, will be used by addborder()
-        Border line = BorderFactory.createLoweredBevelBorder();
 
-        //an empty border edge is created
-        Border panelEdge = BorderFactory.createEmptyBorder(0,10,10,10);
+   public JPanel creerTabPanel(IComposante composante){
+       //creates a lowered level border using the border factory, will be used by addborder()
+       Border line = BorderFactory.createLoweredBevelBorder();
 
-        //this is the main panel that will hold two panels inside one for image other for components
-        JPanel panel = new JPanel(new GridLayout());
+       //an empty border edge is created
+       Border panelEdge = BorderFactory.createEmptyBorder(0,10,10,10);
 
-        //the edges of the borders are added to the JPanels created inside tabbed
-        panel.setBorder(panelEdge);
+       //this is the main panel that will hold two panels inside one for image other for components
+       JPanel tabPanel = new JPanel(new GridLayout());
 
-        //layout is set to y_axis
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+       //the edges of the borders are added to the JPanels created inside tabbed
+       tabPanel.setBorder(panelEdge);
 
-        //addBorder(line,"", panel);
-        addBorder(line,composante, panel, valeursChamps);
-        return panel;
-    }
-
-    /**
-     * Adds borders to the panels inside the tabbed pane
-     * Adds borders to containers and inserts a label inside the container
-     * @param border creates border from border factory
-     * @param container holds a container
-     * @param composante string that holds titles of tapped panels
-     */
-   public void addBorder(Border border, TypeComposante composante, Container container, int[] valeursChamps){
+       //layout is set to y_axis
+       tabPanel.setLayout(new BoxLayout(tabPanel, BoxLayout.Y_AXIS));
 
        JPanel panelMesure = creerPanelMesure();
-       JPanel contour = new JPanel(false);
 
-        if(estImperial){
+       PanelComposante contour = null;
+
             if (composante.toString().equals("Hayon")) {
-                contour = new PanelInfoHayon(this, valeursChamps);
+                contour = new PanelInfoHayon(this, composante);
             }
-            if (composante.toString().equals("Plancher")) {
-                contour = new PanelInfoPlancher(this, valeursChamps);
+             if (composante.toString().equals("Plancher")) {
+                contour = new PanelInfoPlancher(this, composante);
             }
-            if (composante.toString().equals("Poutre Arrière")) {
-                contour = new PanelInfoPoutre(this, valeursChamps);
+             if (composante.toString().equals("Poutre Arrière")) {
+                contour = new PanelInfoPoutre(this, composante);
             }
-            if (composante.toString().equals("Ellipse 1")) {
-                contour = new PanelInfoEllipse(this, valeursChamps, composante);
+             if (composante.toString().equals("Ellipse 1")) {
+                contour = new PanelInfoEllipse(this, composante);
             }
-            if (composante.toString().equals("Ellipse 2")) {
-                contour = new PanelInfoEllipse(this, valeursChamps, composante);
+             if (composante.toString().equals("Ellipse 2")) {
+                contour = new PanelInfoEllipse(this, composante);
             }
-            if (composante.toString().equals("Ellipse 3")) {
-                contour = new PanelInfoEllipse(this, valeursChamps, composante);
+             if (composante.toString().equals("Ellipse 3")) {
+                contour = new PanelInfoEllipse(this, composante);
             }
-            if (composante.toString().equals("Ellipse 4")) {
-                contour = new PanelInfoEllipse(this, valeursChamps, composante);
+             if (composante.toString().equals("Ellipse 4")) {
+                contour = new PanelInfoEllipse(this, composante);
             }
-            if (composante.toString().equals("Mur profilé")) {
-                contour = new PanelInfoProfile(this, valeursChamps, composante);
+             if (composante.toString().equals("Mur profilé")) {
+                contour = new PanelInfoProfile(this, composante);
             }
-        }
-        else {
-            if (composante.toString().equals("Hayon")) {
-                contour = new PanelInfoHayonMM(this);
-            }
-            if (composante.toString().equals("Plancher")) {
-                contour = new PanelInfoPlancherMM(this);
-            }
-            if (composante.toString().equals("Poutre Arrière")) {
-                contour = new PanelInfoPoutreMM(this);
-            }
-            if (composante.toString().equals("Ellipse 1")) {
-                contour = new PanelInfoEllipseMM(this);
-            }
-            if (composante.toString().equals("Ellipse 2")) {
-                contour = new PanelInfoEllipseMM(this);
-            }
-            if (composante.toString().equals("Ellipse 3")) {
-                contour = new PanelInfoEllipseMM(this);
-            }
-            if (composante.toString().equals("Ellipse 4")) {
-                contour = new PanelInfoEllipseMM(this);
-            }
-            if (composante.toString().equals("Mur profilé")) {
-                contour = new PanelInfoProfileMM(this);
-            }
-        }
+       //borders are set
+        panelMesure.setBorder(line);
+        contour.setBorder(line);
 
-       //insert borders in the new panel we created
-        panelMesure.setBorder(border);
+       tabPanel.add(panelMesure);
+       tabPanel.add(Box.createRigidArea(new Dimension(0,10)));
+       tabPanel.add(contour);
 
-        //borders are set
-        contour.setBorder(border);
+       return tabPanel;
 
-        //a space between containers is added
-       container.add(panelMesure);
-       container.add(Box.createRigidArea(new Dimension(0,10)));
-       container.add(contour);
-    }
-
-    /**
-     * Create the information for the Ellipse that will be displayed when
-     * it is selected
-     */
-    public static JPanel creerPanelInfoEllipse(){
-        //create and fill panel
-        JPanel panel = new JPanel(new GridBagLayout());
-
-        //creating constraints for the layout
-        GridBagConstraints c = new GridBagConstraints();
-
-        //=============================================================================//
-        //                                                                             //
-        //==========================CODE FOR JSPINNER VALUES===========================//
-        //                                                                             //
-        //=============================================================================//
-
-        //adding restrictions to the spinners
-        Integer value = 1;
-        Integer min = 1;
-        Integer max = 12;
-        Integer step = 1;
-
-        //adding restrictions to the spinner1
-        Integer value1 = 0;
-        Integer min1 = 0;
-        Integer max1 = 12;
-        Integer step1 = 1;
-
-        //adding restrictions to the spinner2
-        Integer value2 = 0;
-        Integer min2 = 0;
-        Integer max2 = 12;
-        Integer step2 = 1;
-
-        //=============================================================================//
-        //                                                                             //
-        //=====================CODE FOR LABELED ROWS OF ELLIPSE========================//
-        //                                                                             //
-        //=============================================================================//
-
-        //(0,0)
-        JLabel epaisseur = new JLabel("Hauteur : ");
-        c.gridx = 0;
-        c.gridy= 0;
-        c.gridwidth = 5;
-        c.weightx = 0.20;
-        c.insets = new Insets(20,5,20, 5);
-        panel.add(epaisseur, c);
-
-        //(0,2)
-        JLabel margeAvant = new JLabel("Longueur : ");
-        c.gridx = 0;
-        c.gridy= 2;
-        c.gridwidth = 5;
-        c.weightx = 0.20;
-        c.insets = new Insets(20,5,20, 5);
-        panel.add(margeAvant, c);
-
-        //(0,4)
-        JLabel margeArriere = new JLabel("Centre X : ");
-        c.gridx = 0;
-        c.gridy= 4;
-        c.gridwidth = 5;
-        c.weightx = 0.20;
-        c.insets = new Insets(20,5,20, 5);
-        panel.add(margeArriere, c);
-
-        //(0,6)
-        JLabel margeArriereY = new JLabel("Centre Y : ");
-        c.gridx = 0;
-        c.gridy= 6;
-        c.gridwidth = 5;
-        c.weightx = 0.20;
-        c.insets = new Insets(20,5,20, 5);
-        panel.add(margeArriereY, c);
-
-
-        //=============================================================================//
-        //                                                                             //
-        //=====================CODE FOR SECOND ROW OF ELLIPSE==========================//
-        //                                                                             //
-        //=============================================================================//
-
-        //(0, 1)
-        JSpinner spinner = new JSpinner(new SpinnerNumberModel(value, min, max, step));
-        c.gridx = 0;
-        c.gridy= 1;
-        c.gridwidth = 1;
-        c.weightx = 0.5;
-        c.insets = new Insets(10,5,10, 5);
-        panel.add(spinner, c);
-
-        //(1, 1)
-        JLabel label = new JLabel(" '' ");
-        c.gridx = 1;
-        c.gridy= 1;
-        c.gridwidth = 1;
-        c.weightx = 0.5;
-        c.insets = new Insets(10,5,10, 5);
-        panel.add(label, c);
-
-        //(2, 1)
-        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
-        c.gridx = 2;
-        c.gridy= 1;
-        c.gridwidth = 1;
-        c.weightx = 0.5;
-        c.insets = new Insets(10,5,10, 5);
-        panel.add(spinner, c);
-
-        //(3, 1)
-        JLabel label2 = new JLabel(" / ");
-        c.gridx = 3;
-        c.gridy= 1;
-        c.gridwidth = 1;
-        c.weightx = 0.5;
-        c.insets = new Insets(10,5,10, 5);
-        panel.add(label2, c);
-
-        //(2, 1)
-        spinner = new JSpinner(new SpinnerNumberModel(value2, min2, max2, step2));
-        c.gridx = 4;
-        c.gridy= 1;
-        c.gridwidth = 1;
-        c.weightx = 0.5;
-        c.insets = new Insets(10,5,10, 5);
-        panel.add(spinner, c);
-
-        //=============================================================================//
-        //                                                                             //
-        //=====================CODE FOR FOURTH ROW OF ELLIPSE==========================//
-        //                                                                             //
-        //=============================================================================//
-
-        //(0, 3)
-        spinner = new JSpinner(new SpinnerNumberModel(value, min, max, step));
-        c.gridx = 0;
-        c.gridy= 3;
-        c.gridwidth = 1;
-        c.weightx = 0.5;
-        c.insets = new Insets(10,5,10, 5);
-        panel.add(spinner, c);
-
-        //(1, 3)
-        label = new JLabel(" '' ");
-        c.gridx = 1;
-        c.gridy= 3;
-        c.gridwidth = 1;
-        c.weightx = 0.5;
-        c.insets = new Insets(10,5,10, 5);
-        panel.add(label, c);
-
-        //(2, 3)
-        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
-        c.gridx = 2;
-        c.gridy= 3;
-        c.gridwidth = 1;
-        c.weightx = 0.5;
-        c.insets = new Insets(10,5,10, 5);
-        panel.add(spinner, c);
-
-        //(3, 3)
-        label2 = new JLabel(" / ");
-        c.gridx = 3;
-        c.gridy= 3;
-        c.gridwidth = 1;
-        c.weightx = 0.5;
-        c.insets = new Insets(10,5,10, 5);
-        panel.add(label2, c);
-
-        //(4, 3)
-        spinner = new JSpinner(new SpinnerNumberModel(value2, min2, max2, step2));
-        c.gridx = 4;
-        c.gridy= 3;
-        c.gridwidth = 1;
-        c.weightx = 0.5;
-        c.insets = new Insets(10,5,10, 5);
-        panel.add(spinner, c);
-
-        //=============================================================================//
-        //                                                                             //
-        //======================CODE FOR SIXTH ROW OF ELLISPE==========================//
-        //                                                                             //
-        //=============================================================================//
-
-        //(0, 5)
-        spinner = new JSpinner(new SpinnerNumberModel(value, min, max, step));
-        c.gridx = 0;
-        c.gridy= 5;
-        c.gridwidth = 1;
-        c.weightx = 0.5;
-        c.insets = new Insets(10,5,10, 5);
-        panel.add(spinner, c);
-
-        //(1, 5)
-        label = new JLabel(" '' ");
-        c.gridx = 1;
-        c.gridy= 5;
-        c.gridwidth = 1;
-        c.weightx = 0.5;
-        c.insets = new Insets(10,5,10, 5);
-        panel.add(label, c);
-
-        //(2, 5)
-        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
-        c.gridx = 2;
-        c.gridy= 5;
-        c.gridwidth = 1;
-        c.weightx = 0.5;
-        c.insets = new Insets(10,5,10, 5);
-        panel.add(spinner, c);
-
-        //(3, 5)
-        label2 = new JLabel(" / ");
-        c.gridx = 3;
-        c.gridy= 5;
-        c.gridwidth = 1;
-        c.weightx = 0.5;
-        c.insets = new Insets(10,5,10, 5);
-        panel.add(label2, c);
-
-        //(4, 5)
-        spinner = new JSpinner(new SpinnerNumberModel(value2, min2, max2, step2));
-        c.gridx = 4;
-        c.gridy= 5;
-        c.gridwidth = 1;
-        c.weightx = 0.5;
-        c.insets = new Insets(10,5,10, 5);
-        panel.add(spinner, c);
-
-        //=============================================================================//
-        //                                                                             //
-        //=======================CODE FOR EIGHTH ROW OF ELLIPSE========================//
-        //                                                                             //
-        //=============================================================================//
-
-        //(0, 7)
-        spinner = new JSpinner(new SpinnerNumberModel(value, min, max, step));
-        c.gridx = 0;
-        c.gridy= 7;
-        c.gridwidth = 1;
-        c.weightx = 0.5;
-        c.insets = new Insets(10,5,10, 5);
-        panel.add(spinner, c);
-
-        //(1, 7)
-        label = new JLabel(" '' ");
-        c.gridx = 1;
-        c.gridy= 7;
-        c.gridwidth = 1;
-        c.weightx = 0.5;
-        c.insets = new Insets(10,5,10, 5);
-        panel.add(label, c);
-
-        //(2, 7)
-        spinner = new JSpinner(new SpinnerNumberModel(value1, min1, max1, step1));
-        c.gridx = 2;
-        c.gridy= 7;
-        c.gridwidth = 1;
-        c.weightx = 0.5;
-        c.insets = new Insets(10,5,10, 5);
-        panel.add(spinner, c);
-
-        //(3, 7)
-        label2 = new JLabel(" / ");
-        c.gridx = 3;
-        c.gridy= 7;
-        c.gridwidth = 1;
-        c.weightx = 0.5;
-        c.insets = new Insets(10,5,10, 5);
-        panel.add(label2, c);
-
-        //(4, 7)
-        spinner = new JSpinner(new SpinnerNumberModel(value2, min2, max2, step2));
-        c.gridx = 4;
-        c.gridy= 7;
-        c.gridwidth = 1;
-        c.weightx = 0.5;
-        c.insets = new Insets(10,5,10, 5);
-        panel.add(spinner, c);
-
-        return panel;
     }
 
     private JPanel creerPanelMesure(){
@@ -500,22 +168,14 @@ public class BarreOnglet extends JTabbedPane {
         JToggleButton bouton = (JToggleButton) e.getSource();
         int index = this.getSelectedIndex();
 
-        if(bouton.getText() == "Impérial (\")"){
-            this.estImperial = true;
-        }
-        else{
-            this.estImperial = false;
-        }
+        this.estImperial = bouton.getText().equals("Impérial (\")");
         this.rafraichir();
         this.setSelectedIndex(index);
     }
 
-    private JButton creerBouton(BootstrapIcons icone, int taille, Color couleur){
-        JButton bouton = new javax.swing.JButton();
-        FontIcon fontIcon = FontIcon.of(icone, taille, couleur);
-        bouton.setIcon(fontIcon);
-        this.add(bouton);
-        return bouton;
+
+    public boolean estImperial(){
+        return this.estImperial;
     }
 
 }

@@ -81,5 +81,6 @@ public enum TypeComposante {
         public String toString(){
             return "Mur profilé";
         }
-    }
+    };
+
 }

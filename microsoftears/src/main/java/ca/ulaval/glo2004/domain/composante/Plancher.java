@@ -37,6 +37,19 @@ public class Plancher extends Composante {
         this.setPolygone(rectangle.getPolygone());
         this.setType(TypeComposante.PLANCHER);
     }
+    /** Constructeur copie */
+    public Plancher(Plancher copie){
+        super(copie.parent);
+        this.epaisseur = copie.getEpaisseur();
+        this.margeAvant = copie.getMargeAvant();
+        this.margeArriere = copie.getMargeArriere();
+        this.rectangle = new Rectangle(getLongueur(), epaisseur, getCentre());
+        this.setCouleurInitiale(copie.getCouleurInitiale());
+        this.setCouleur(copie.getCouleur());
+        this.setPolygone(rectangle.getPolygone());
+        this.setType(copie.getType());
+
+    }
 
     public boolean verificationEpaisseur(Pouce valeur){
         MurBrute mur = (MurBrute) parent.getListeComposantes().get(0);
@@ -97,6 +110,11 @@ public class Plancher extends Composante {
         return new int[]{epaisseur.getPouces(), epaisseur.getNumerateur(), epaisseur.getDenominateur(),
                 margeAvant.getPouces(), margeAvant.getNumerateur(), margeAvant.getDenominateur(),
                 margeArriere.getPouces(), margeArriere.getNumerateur(), margeArriere.getDenominateur()};
+    }
+
+    @Override
+    public String[] getNomsAttributs() {
+        return new String[]{"Épaisseur", "Marge (avant)", "Marge (arrière)"};
     }
 
     private Pouce getLongueur(){

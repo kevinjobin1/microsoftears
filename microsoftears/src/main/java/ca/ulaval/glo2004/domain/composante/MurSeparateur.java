@@ -71,4 +71,9 @@ public class MurSeparateur extends Composante{
     public int[] getValeurs() {
         return new int[0];
     }
+
+    @Override
+    public String[] getNomsAttributs() {
+        return new String[0];
+    }
 }

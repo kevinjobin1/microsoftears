@@ -56,6 +56,27 @@ public class PoutreArriere extends Composante{
         this.setPolygone(rectangle.getPolygone());
     }
 
+    public PoutreArriere(PoutreArriere copie){
+        super(copie.parent);
+        this.longueur = copie.getLongueur();
+        this.hauteur = copie.getHauteur();
+        MurBrute murBrute = (MurBrute) parent.getListeComposantes().get(0);
+        centreX = murBrute.getCentre().getX().diff(murBrute.getLongueur().diviser(2)).
+                add(new Pouce(11,0,1));
+        Pouce centreY = getCentreY(centreX);
+        if(centreY != null) {
+            this.centre = new PointPouce(centreX, centreY);
+        }else{
+            this.centre = new PointPouce(centreX,murBrute.getCentre().getY().diff(murBrute.
+                    getLargeur().diviser(2)).add(hauteur.diviser(2)));
+        }
+        this.rectangle = new Rectangle(this.longueur,this.hauteur,this.centre,getAngle());
+        this.setCouleurInitiale(copie.getCouleurInitiale());
+        this.setCouleur(copie.getCouleur());
+        this.setType(copie.getType());
+        this.setPolygone(rectangle.getPolygone());
+    }
+
     public boolean verificationLongueur(Pouce valeur){
         MurBrute mur = (MurBrute) parent.getListeComposantes().get(0);
         return valeur.st(mur.getLongueur().diviser(2)) && valeur.gt(new Pouce(0,0,1));
@@ -95,6 +116,11 @@ public class PoutreArriere extends Composante{
         return new int[]{hauteur.getPouces(), hauteur.getNumerateur(), hauteur.getDenominateur(),
                 longueur.getPouces(), longueur.getNumerateur(), longueur.getDenominateur(),
                 centre.getX().getPouces(), centre.getX().getNumerateur(), centre.getX().getDenominateur()};
+    }
+
+    @Override
+    public String[] getNomsAttributs() {
+        return new String[]{"Hauteur", "Longueur", "CentreX"};
     }
 
     public void setCentre(PointPouce centre) {

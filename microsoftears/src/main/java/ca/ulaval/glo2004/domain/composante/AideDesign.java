@@ -59,6 +59,11 @@ public class AideDesign extends Composante{
         return new int[0];
     }
 
+    @Override
+    public String[] getNomsAttributs() {
+        return new String[0];
+    }
+
     public void setCentre(PointPouce centre) {
         this.centre = centre;
     }

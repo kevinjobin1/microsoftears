@@ -6,4 +6,5 @@ public interface IComposante {
 
     public int[] getValeurs();
     public TypeComposante getType();
+    public String[] getNomsAttributs();
 }

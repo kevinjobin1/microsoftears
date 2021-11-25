@@ -62,18 +62,30 @@ public class RoulotteController {
     public void updateComposante(int[] valeurs, TypeComposante type){
        switch(type){
            case MUR_PROFILE:
+               // Changement aux dimensions du mur brute, on doit recréé
+               // le panneau brute, le profile, le plancher,
                MurBrute mur = new MurBrute(this,
-                       new Pouce(valeurs[0], valeurs[1], valeurs[2]),
                        new Pouce(valeurs[3], valeurs[4], valeurs[5]),
+                       new Pouce(valeurs[0], valeurs[1], valeurs[2]),
                        new PointPouce(
                                new Pouce(valeurs[6], valeurs[7], valeurs[8]),
                                new Pouce(valeurs[9], valeurs[10], valeurs[11])));
+               MurBrute ancienMur = (MurBrute) listeComposantes.get(0);
                listeComposantes.set(0, mur);
+               MurProfile profile = new MurProfile(((MurProfile) listeComposantes.get(1)), new PointPouce(mur.getCentre().getX().diff(ancienMur.getCentre().getX()),
+                       mur.getCentre().getY().diff(ancienMur.getCentre().getY())));
+               listeComposantes.set(1, profile);
+               for(int i = 2, j = 0; i < 6; i++, j++){
+               listeComposantes.set(i, profile.getProfilEllipses()[j]);
+               }
+               listeComposantes.set(6, new Plancher((Plancher) listeComposantes.get(6)));
+               listeComposantes.set(7, new PoutreArriere((PoutreArriere) listeComposantes.get(7)));
+               listeComposantes.set(8, new Hayon((Hayon) listeComposantes.get(8)));
                break;
            case PROFIL_ELLIPSE_1:
                ProfilEllipse ellipse = new ProfilEllipse(this,
-                       new Pouce(valeurs[0], valeurs[1], valeurs[2]),
                        new Pouce(valeurs[3], valeurs[4], valeurs[5]),
+                       new Pouce(valeurs[0], valeurs[1], valeurs[2]),
                        new PointPouce(
                                new Pouce(valeurs[6], valeurs[7], valeurs[8]),
                                new Pouce(valeurs[9], valeurs[10], valeurs[11]))
@@ -83,8 +95,8 @@ public class RoulotteController {
                break;
            case PROFIL_ELLIPSE_2:
                ellipse = new ProfilEllipse(this,
-                       new Pouce(valeurs[0], valeurs[1], valeurs[2]),
                        new Pouce(valeurs[3], valeurs[4], valeurs[5]),
+                       new Pouce(valeurs[0], valeurs[1], valeurs[2]),
                        new PointPouce(
                                new Pouce(valeurs[6], valeurs[7], valeurs[8]),
                                new Pouce(valeurs[9], valeurs[10], valeurs[11]))
@@ -94,8 +106,8 @@ public class RoulotteController {
                break;
            case PROFIL_ELLIPSE_3:
                ellipse = new ProfilEllipse(this,
-                       new Pouce(valeurs[0], valeurs[1], valeurs[2]),
                        new Pouce(valeurs[3], valeurs[4], valeurs[5]),
+                       new Pouce(valeurs[0], valeurs[1], valeurs[2]),
                        new PointPouce(
                                new Pouce(valeurs[6], valeurs[7], valeurs[8]),
                                new Pouce(valeurs[9], valeurs[10], valeurs[11]))
@@ -105,8 +117,8 @@ public class RoulotteController {
                break;
            case PROFIL_ELLIPSE_4:
                ellipse = new ProfilEllipse(this,
-                       new Pouce(valeurs[0], valeurs[1], valeurs[2]),
                        new Pouce(valeurs[3], valeurs[4], valeurs[5]),
+                       new Pouce(valeurs[0], valeurs[1], valeurs[2]),
                        new PointPouce(
                                new Pouce(valeurs[6], valeurs[7], valeurs[8]),
                                new Pouce(valeurs[9], valeurs[10], valeurs[11]))

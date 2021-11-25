@@ -118,6 +118,11 @@ public class MurBrute extends Composante{
                 centre.getY().getPouces(), centre.getY().getNumerateur(), centre.getY().getDenominateur()};
     }
 
+    @Override
+    public String[] getNomsAttributs() {
+        return new String[]{"Hauteur", "Longueur", "CentreX", "CentreY"};
+    }
+
     public void setCentre(PointPouce centre) {
         this.centre = centre;
     }

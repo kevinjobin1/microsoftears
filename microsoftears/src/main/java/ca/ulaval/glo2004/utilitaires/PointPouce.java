@@ -155,5 +155,13 @@ public class PointPouce  implements Serializable {
         // Doesn't fall in any of the above cases
         return false;
     }
+
+    public boolean equals(PointPouce point){
+        return getX().equals(point.getX()) && getY().equals(point.getY()) ? true : false;
+    }
+
+    public PointPouce translate(Pouce deltaX, Pouce deltaY){
+        return new PointPouce(this.getX().add(deltaX), this.getY().add(deltaY));
+    }
 }
 

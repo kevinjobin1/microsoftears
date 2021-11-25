@@ -39,6 +39,11 @@ public class ProfilBezier extends Composante{
         return new int[0];
     }
 
+    @Override
+    public String[] getNomsAttributs() {
+        return new String[0];
+    }
+
     /**
      * Méthode d'affichage de la courbe de Bezier
      * @param g2d l'objet Graphics2d à dessiner dessus

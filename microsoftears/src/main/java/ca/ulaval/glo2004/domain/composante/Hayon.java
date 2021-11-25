@@ -46,6 +46,19 @@ public class Hayon extends Composante {
         this.setPolygone(getPolygone());
     }
 
+    public Hayon(Hayon copie) {
+        super(copie.parent);
+        this.epaisseur = copie.epaisseur;
+        this.distancePoutre = copie.distancePoutre;
+        this.distancePlancher = copie.distancePlancher;
+        this.epaisseurTraitScie = copie.epaisseurTraitScie;
+        this.rayonArcCercle = copie.rayonArcCercle;
+        this.setCouleurInitiale(copie.getCouleurInitiale());
+        this.setCouleur(copie.getCouleur());
+        this.setType(copie.getType());
+        this.setPolygone(getPolygone());
+    }
+
     public Pouce getEpaisseur() {
         return epaisseur;
     }
@@ -306,6 +319,11 @@ public class Hayon extends Composante {
                 epaisseurTraitScie.getPouces(), epaisseurTraitScie.getNumerateur(), epaisseurTraitScie.getDenominateur(),
                 rayonArcCercle.getPouces(), rayonArcCercle.getNumerateur(), rayonArcCercle.getDenominateur()
         };
+    }
+
+    @Override
+    public String[] getNomsAttributs() {
+        return new String[]{"Épaisseur", "Distance (poutre)","Distance (plancher)", "Épaisseur (scie)", "Rayon (arc)"};
     }
 }
 

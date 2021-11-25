@@ -102,10 +102,15 @@ public class ProfilEllipse extends Composante{
     @Override
     public int[] getValeurs() {
         return new int[]{
-                longueur.getPouces(), longueur.getNumerateur(), longueur.getDenominateur(),
                 hauteur.getPouces(), hauteur.getNumerateur(), hauteur.getDenominateur(),
+                longueur.getPouces(), longueur.getNumerateur(), longueur.getDenominateur(),
                 centre.getX().getPouces(), centre.getX().getNumerateur(), centre.getX().getDenominateur(),
                 centre.getY().getPouces(), centre.getY().getNumerateur(), centre.getY().getDenominateur()};
+    }
+
+    @Override
+    public String[] getNomsAttributs() {
+        return new String[]{"Hauteur", "Longueur", "CentreX", "CentreY"};
     }
 
     public void setCentre(PointPouce centre) {

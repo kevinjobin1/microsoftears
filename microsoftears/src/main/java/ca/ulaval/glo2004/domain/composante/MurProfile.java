@@ -36,36 +36,83 @@ public class MurProfile extends Composante{
         this.setCouleur(getCouleurInitiale());
         this.setType(TypeComposante.MUR_PROFILE);
         this.setPolygone(getPolygone());
+    }
 
+    /** Constructeur copie */
+    public MurProfile(MurProfile copie, PointPouce decalage){
+        super(copie.getParent());
+        this.mode = copie.getMode();
+        this.profilEllipses = copie.getProfilEllipses();
+        updateProfilEllipses(decalage);
+        this.profilBezier = copie.getProfilBezier();
+        this.setCouleurInitiale(copie.getCouleurInitiale());
+        this.setCouleur(copie.getCouleur());
+        this.setType(copie.getType());
+        this.setPolygone(copie.getPolygone());
     }
 
     private void initialiserEllipses(){
 
         LinkedList<PointPouce> murBrutePoints = parent.getListeComposantes().get(0).getPolygone().getListePoints();
 
-        this.profilEllipses[0] = new ProfilEllipse(parent, new Pouce(40,0,1), new Pouce(30,0,1),
-                new PointPouce(murBrutePoints.get(0).getX().diff(new Pouce(15,0,1)),
-                        murBrutePoints.get(0).getY().add(new Pouce(15,0,1))), TypeComposante.PROFIL_ELLIPSE_1); //ellipse en haut à droite
+        this.profilEllipses[0] = new ProfilEllipse(parent,
+                new Pouce(40,0,1),
+                new Pouce(30,0,1),
+                new PointPouce(
+                        murBrutePoints.get(0).getX().diff(new Pouce(15,0,1)),
+                        murBrutePoints.get(0).getY().add(new Pouce(15,0,1))
+                ), TypeComposante.PROFIL_ELLIPSE_1); //ellipse en haut à droite
 
-        this.profilEllipses[1] = new ProfilEllipse(parent, new Pouce(40,0,1), new Pouce(30,0,1),
-                new PointPouce(murBrutePoints.get(1).getX().add(new Pouce(15,1,2)),
-                        murBrutePoints.get(1).getY().add(new Pouce(15,0,1))), TypeComposante.PROFIL_ELLIPSE_2); //ellipse en haut à gauche
+        this.profilEllipses[1] = new ProfilEllipse(parent,
+                new Pouce(40,0,1),
+                new Pouce(30,0,1),
+                new PointPouce(
+                        murBrutePoints.get(1).getX().add(new Pouce(15,1,2)),
+                        murBrutePoints.get(1).getY().add(new Pouce(15,0,1))
+                ), TypeComposante.PROFIL_ELLIPSE_2); //ellipse en haut à gauche
 
-        this.profilEllipses[2] = new ProfilEllipse(parent, new Pouce(15,0,1), new Pouce(12,0,1),
-                new PointPouce(murBrutePoints.get(2).getX().add(new Pouce(7,0,1)),
-                        murBrutePoints.get(2).getY().diff(new Pouce(5,0,1))), TypeComposante.PROFIL_ELLIPSE_3); //ellipse en bas à gauche
+        this.profilEllipses[2] = new ProfilEllipse(parent,
+                new Pouce(15,0,1),
+                new Pouce(12,0,1),
+                new PointPouce(
+                        murBrutePoints.get(2).getX().add(new Pouce(7,0,1)),
+                        murBrutePoints.get(2).getY().diff(new Pouce(5,0,1))
+                ), TypeComposante.PROFIL_ELLIPSE_3); //ellipse en bas à gauche
 
-        this.profilEllipses[3] = new ProfilEllipse(parent, new Pouce(5,0,1), new Pouce(5,0,1),
-                murBrutePoints.get(3), TypeComposante.PROFIL_ELLIPSE_4); //ellipse en bas à droite
+        this.profilEllipses[3] = new ProfilEllipse(parent,
+                new Pouce(5,0,1),
+                new Pouce(5,0,1),
+                murBrutePoints.get(3),
+                TypeComposante.PROFIL_ELLIPSE_4); //ellipse en bas à droite
 
+    }
+
+    private void updateProfilEllipses(PointPouce decalage) {
+        for (int i = 0; i < 4; i++) {
+            this.profilEllipses[i] = new ProfilEllipse(parent,
+                    this.profilEllipses[i].getLongueur(),
+                    this.profilEllipses[i].getHauteur(),
+                    new PointPouce(
+                            this.profilEllipses[i].getCentre().getX().add(decalage.getX()),
+                            this.profilEllipses[i].getCentre().getY().add(decalage.getY())
+                    ), this.profilEllipses[i].getType());
+        }
     }
 
     public ProfilEllipse[] getProfilEllipses() {
         return profilEllipses;
     }
 
+    public void setProfilEllipses(ProfilEllipse[] profilEllipses) {
+        this.profilEllipses = profilEllipses;
+    }
+
     public ProfilBezier getProfilBezier() {
         return profilBezier;
+    }
+
+    public void setProfilBezier(ProfilBezier profilBezier) {
+        this.profilBezier = profilBezier;
     }
 
     public boolean getMode() {
@@ -95,6 +142,11 @@ public class MurProfile extends Composante{
     @Override
     public int[] getValeurs() {
         return parent.getListeComposantes().get(0).getValeurs();
+    }
+
+    @Override
+    public String[] getNomsAttributs() {
+        return parent.getListeComposantes().get(0).getNomsAttributs();
     }
 
     //todo mais pas pour le livrable 3

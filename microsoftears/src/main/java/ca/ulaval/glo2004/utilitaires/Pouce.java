@@ -5,7 +5,7 @@ public class Pouce
     private int pouces;
     private int numerateur;
     private int denominateur;
-    private int milimetres;
+    private double milimetres;
     private final double MM_PAR_POUCE = 25.4;
     private static final int PRECISION_POUCE = 64;
 
@@ -24,14 +24,14 @@ public class Pouce
             this.pouces = pouces;
             this.numerateur = 0;
             this.denominateur = 1;
-            this.milimetres = (int) ((int) MM_PAR_POUCE * toDouble());
+            this.milimetres = (MM_PAR_POUCE * toDouble());
             simplifier();
         }
         else {
             this.pouces = pouces;
             this.numerateur = numerateur;
             this.denominateur = denominateur;
-            this.milimetres = (int) ((int) MM_PAR_POUCE * toDouble());
+            this.milimetres = (MM_PAR_POUCE * toDouble());
             simplifier();
         }
     }
@@ -44,7 +44,7 @@ public class Pouce
     public Pouce(double mesurePouce)
     {
         // on convertit la mesure en milimètres
-        this.milimetres = (int) (mesurePouce * MM_PAR_POUCE);
+        this.milimetres = (mesurePouce * MM_PAR_POUCE);
 
         // on convertit la mesure de double vers entier + fraction
         int[] poucesConvertis = convertiPouceDecimalEnFraction(mesurePouce);
@@ -58,7 +58,7 @@ public class Pouce
             @param mesureMM (int) représentant la mesure en milimetres
         */
 
-        public Pouce(int mesureMM) {
+        public Pouce(double mesureMM, boolean estMM) {
 
         this.milimetres = mesureMM;
 
@@ -91,11 +91,11 @@ public class Pouce
         this.pouces = pouces;
     }
 
-    public int getMilimetres() {
+    public double getMilimetres() {
         return milimetres;
     }
 
-    public void setMilimetres(int milimetres) {
+    public void setMilimetres(double milimetres) {
         this.milimetres = milimetres;
     }
 
