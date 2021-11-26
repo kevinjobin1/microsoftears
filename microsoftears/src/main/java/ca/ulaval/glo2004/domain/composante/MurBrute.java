@@ -1,6 +1,7 @@
 package ca.ulaval.glo2004.domain.composante;
 
 import ca.ulaval.glo2004.domain.RoulotteController;
+import ca.ulaval.glo2004.utilitaires.Ellipse;
 import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Pouce;
 import ca.ulaval.glo2004.utilitaires.Rectangle;
@@ -116,6 +117,16 @@ public class MurBrute extends Composante{
                 longueur.getPouces(), longueur.getNumerateur(), longueur.getDenominateur(),
                 centre.getX().getPouces(), centre.getX().getNumerateur(), centre.getX().getDenominateur(),
                 centre.getY().getPouces(), centre.getY().getNumerateur(), centre.getY().getDenominateur()};
+    }
+
+    @Override
+    public void translate(PointPouce delta) {
+        PointPouce pSouris = parent.getPositionPlan(parent.getPositionSouris());
+        Pouce differenceX = centre.getX().add(delta.getX().diff(pSouris.getX()));
+        Pouce differenceY = centre.getY().add(delta.getY().diff(pSouris.getY()));
+        this.centre = new PointPouce(differenceX, differenceY);
+        this.rectangle = new Rectangle(this.longueur,this.largeur,this.centre);
+        this.setPolygone(rectangle.getPolygone());
     }
 
     @Override

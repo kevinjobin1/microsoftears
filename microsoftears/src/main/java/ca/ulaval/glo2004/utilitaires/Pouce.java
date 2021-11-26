@@ -23,9 +23,8 @@ public class Pouce
         if (numerateur == 0 || denominateur == 0) {
             this.pouces = pouces;
             this.numerateur = 0;
-            this.denominateur = 1;
+            this.denominateur = 64;
             this.milimetres = (MM_PAR_POUCE * toDouble());
-            simplifier();
         }
         else {
             this.pouces = pouces;
@@ -53,6 +52,10 @@ public class Pouce
         this.denominateur = poucesConvertis[2];
         simplifier();
 
+        if (numerateur == 0 || denominateur == 0) {
+            this.numerateur = 0;
+            this.denominateur = 64;
+        }
         }
         /** Ce constructeur acceptes une mesure en milimetres.
             @param mesureMM (int) représentant la mesure en milimetres

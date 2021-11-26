@@ -135,4 +135,6 @@ public abstract class Composante implements IComposante {
     }
 
     public abstract int[] getValeurs();
+
+    public abstract void translate(PointPouce delta);
 }

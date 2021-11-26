@@ -1,5 +1,6 @@
 package ca.ulaval.glo2004.gui.barres;
 
+import ca.ulaval.glo2004.domain.composante.TypeComposante;
 import ca.ulaval.glo2004.gui.FenetrePrincipale;
 import org.kordamp.ikonli.bootstrapicons.BootstrapIcons;
 import org.kordamp.ikonli.swing.FontIcon;
@@ -113,6 +114,13 @@ public class BarreBoutons extends JPanel {
     }
 
     private void nouveauButtonActionPerformed(ActionEvent e) {
+        parent.setActionChoisie(FenetrePrincipale.TypeAction.AJOUT);
+        parent.controller.ajouterComposante(TypeComposante.MUR_PROFILE);
+        parent.controller.ajouterComposante(TypeComposante.PLANCHER);
+        parent.controller.ajouterComposante(TypeComposante.POUTRE_ARRIERE);
+        parent.controller.ajouterComposante(TypeComposante.HAYON);
+        parent.setActionChoisie(FenetrePrincipale.TypeAction.SELECTION);
+        parent.updateBarreOnglet();
     }
 
 }

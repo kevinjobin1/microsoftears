@@ -119,6 +119,23 @@ public class PoutreArriere extends Composante{
     }
 
     @Override
+    public void translate(PointPouce delta) {
+        PointPouce pSouris = parent.getPositionPlan(parent.getPositionSouris());
+        this.centreX = centreX.add(delta.getX().diff(pSouris.getX()));
+        Pouce centreY = getCentreY(this.centreX);
+        MurBrute murBrute = (MurBrute) parent.getListeComposantes().get(0);
+        if(centreY != null) {
+            this.centre = new PointPouce(this.centreX, centreY);
+        }else {
+            this.centre = new PointPouce(this.centreX,murBrute.getCentre().getY().diff(murBrute.
+                    getLargeur().diviser(2)).add(hauteur.diviser(2)));
+        }
+        this.rectangle = new Rectangle(this.longueur,this.hauteur,this.centre,getAngle());
+        this.setPolygone(rectangle.getPolygone());
+
+    }
+
+    @Override
     public String[] getNomsAttributs() {
         return new String[]{"Hauteur", "Longueur", "CentreX"};
     }

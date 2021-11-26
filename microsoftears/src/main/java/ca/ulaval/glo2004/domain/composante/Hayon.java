@@ -322,6 +322,12 @@ public class Hayon extends Composante {
     }
 
     @Override
+    public void translate(PointPouce delta) {
+
+    }
+
+
+    @Override
     public String[] getNomsAttributs() {
         return new String[]{"Épaisseur", "Distance (poutre)","Distance (plancher)", "Épaisseur (scie)", "Rayon (arc)"};
     }

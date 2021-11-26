@@ -19,12 +19,12 @@ public class FenetrePrincipale extends JFrame {
     protected BarreBoutons boutonsTopPanel;
     protected PanelConception panelConception;
     protected BarreMenu barreMenu;
-    protected JTabbedPane barreOnglets;
+    protected BarreOnglet barreOnglets;
     protected Color couleurChoisie;
 
     // Éléments rattachés non-graphiques
     public RoulotteController controller;
-    public TypeComposante composanteChoisie;
+    private TypeComposante composanteChoisie;
     private TypeAction actionChoisie;
 
     public Color getCouleurChoisie() {
@@ -35,9 +35,18 @@ public class FenetrePrincipale extends JFrame {
         this.couleurChoisie = couleurChoisie;
     }
 
+    public TypeComposante getComposanteChoisie() {
+        return composanteChoisie;
+    }
+
     public void setComposanteChoisie(TypeComposante type) {
         this.composanteChoisie = type;
-        switch (type) {
+        updateBarreOnglet();
+    }
+
+    public void updateBarreOnglet() {
+        this.barreOnglets.update();
+        switch (composanteChoisie) {
             case HAYON:
                 this.barreOnglets.setSelectedIndex(7);
                 break;
@@ -79,8 +88,9 @@ public class FenetrePrincipale extends JFrame {
         // Couleur par défaut
         couleurChoisie = new Color(0, 217, 217);
 
-        // Action par défaut
+        // Action par défaut & composante par défaut (plan)
         actionChoisie = TypeAction.SELECTION;
+        composanteChoisie = TypeComposante.PLAN;
 
         // Initialisation des panneaux du GUI
         mainPanel = new JPanel();
@@ -100,7 +110,7 @@ public class FenetrePrincipale extends JFrame {
         //======== mainPanel ========
 
         mainPanel.setLayout(new BorderLayout());
-        
+
         //======== boutonsTopPanel ========
         boutonsTopPanel.setPreferredSize(new Dimension(400, 50));
         boutonsTopPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 15, 10));

@@ -92,17 +92,34 @@ public class PanelConception extends JPanel
             }
         });
 
+        this.panneauAffichage.addMouseMotionListener(new MouseAdapter() {
+            public void mouseDragged(MouseEvent e) {
+                panneauAffichageMouseDragged(e);
+            }
+        });
+
+
     }
 
+    private void panneauAffichageMouseDragged(MouseEvent e) {
+        if (parent.getActionChoisie() == FenetrePrincipale.TypeAction.SELECTION) {
+            parent.controller.dragSurPlan(e.getPoint(), parent.getComposanteChoisie());
+            this.panneauAffichage.repaint();
+        }
+    }
     private void panneauAffichageMousePressed(MouseEvent e) {
         if (parent.getActionChoisie() == FenetrePrincipale.TypeAction.REMPLIR)
         {
             this.parent.controller.remplirComposante(e.getPoint());
         }
+        else if(parent.getActionChoisie() == FenetrePrincipale.TypeAction.AJOUT){
+            //TODO: positionner l'élément en fonction du clic
+        }
         else{
             this.parent.controller.clicSurPlan(e.getPoint());
 
         }
+        this.parent.updateBarreOnglet();
         this.panneauAffichage.repaint();
     }
 
@@ -129,5 +146,7 @@ public class PanelConception extends JPanel
         String dimensionAfficheur = " Dimension Afficheur (" + panneauAffichage.getWidth() + "," + panneauAffichage.getHeight() + ")";
         this.parent.infoLabel.setText(position + centre + dimensionPlan + dimensionAfficheur);*/
     }
+
+
 }
 

@@ -81,6 +81,9 @@ public enum TypeComposante {
         public String toString(){
             return "Mur profilé";
         }
-    };
+    },
+    PLAN{
+        public String toString(){return "Plan";}
+    }
 
 }

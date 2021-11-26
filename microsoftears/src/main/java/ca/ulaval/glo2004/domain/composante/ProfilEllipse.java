@@ -64,7 +64,6 @@ public class ProfilEllipse extends Composante{
             g2d.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
             g2d.draw(path);
             double[] centreEllipse = parent.getPositionEcran(centre);
-            System.out.println("Centre : " + centreEllipse[0] + "," + centreEllipse[1]);
             g2d.fill(new Ellipse2D.Double(centreEllipse[0], centreEllipse[1], 5, 5));
         }
     }
@@ -106,6 +105,16 @@ public class ProfilEllipse extends Composante{
                 longueur.getPouces(), longueur.getNumerateur(), longueur.getDenominateur(),
                 centre.getX().getPouces(), centre.getX().getNumerateur(), centre.getX().getDenominateur(),
                 centre.getY().getPouces(), centre.getY().getNumerateur(), centre.getY().getDenominateur()};
+    }
+
+    @Override
+    public void translate(PointPouce delta) {
+        PointPouce pSouris = parent.getPositionPlan(parent.getPositionSouris());
+        Pouce differenceX = centre.getX().add(delta.getX().diff(pSouris.getX()));
+        Pouce differenceY = centre.getY().add(delta.getY().diff(pSouris.getY()));
+        this.centre = new PointPouce(differenceX, differenceY);
+        this.ellipse = new Ellipse(this.longueur,this.hauteur,this.centre, this.parent.getNombrePoint());
+        this.setPolygone(ellipse.getPolygone());
     }
 
     @Override

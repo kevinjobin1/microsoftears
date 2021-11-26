@@ -57,6 +57,11 @@ public class OuvertureLaterale extends Composante{
     }
 
     @Override
+    public void translate(PointPouce delta) {
+
+    }
+
+    @Override
     public String[] getNomsAttributs() {
         return new String[0];
     }

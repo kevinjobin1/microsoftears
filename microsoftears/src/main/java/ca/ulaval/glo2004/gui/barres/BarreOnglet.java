@@ -55,6 +55,30 @@ public class BarreOnglet extends JTabbedPane {
 
     }
 
+    public void update(){
+        this.removeAll();
+        for(IComposante composante : parent.controller.getListeIComposantes()){
+            if (composante.getType() == TypeComposante.MUR_BRUTE ||
+                    composante.getType() == TypeComposante.MUR_SEPARATEUR){
+                for (int i : composante.getValeurs()){
+                    System.out.println(i);}
+            }
+            else if (composante.getType() == TypeComposante.MUR_PROFILE ||
+                    composante.getType() == TypeComposante.PROFIL_ELLIPSE_1 ||
+                    composante.getType() == TypeComposante.PROFIL_ELLIPSE_2 ||
+                    composante.getType() == TypeComposante.PROFIL_ELLIPSE_3 ||
+                    composante.getType() == TypeComposante.PROFIL_ELLIPSE_4 ||
+                    composante.getType() == TypeComposante.POUTRE_ARRIERE ||
+                    composante.getType() == TypeComposante.PLANCHER ||
+                    composante.getType() == TypeComposante.HAYON){
+                this.addTab(composante.toString(), creerTabPanel(composante));
+            }
+            else{
+                this.addTab(composante.toString(), creerTabPanel(composante));
+
+            }
+    }
+    }
 
 
    public JPanel creerTabPanel(IComposante composante){

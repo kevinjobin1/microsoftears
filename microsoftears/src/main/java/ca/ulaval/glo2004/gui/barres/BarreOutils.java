@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.event.EventListenerList;
 import java.awt.*;
 
+import ca.ulaval.glo2004.domain.composante.TypeComposante;
 import ca.ulaval.glo2004.gui.FenetrePrincipale;
 import org.kordamp.ikonli.swing.*;
 import org.kordamp.ikonli.bootstrapicons.*;
@@ -114,15 +115,60 @@ public class BarreOutils extends JToolBar {
         FontIcon icone = FontIcon.of(BootstrapIcons.PLUS, 20, Color.WHITE);
 
         // item dans le popup menu (les composantes et aide au design)
+        popup.add(new JMenuItem(new AbstractAction("Profile (ellipses)", icone) {
+            public void actionPerformed(ActionEvent e) {
+                parent.setActionChoisie(FenetrePrincipale.TypeAction.AJOUT);
+                parent.controller.ajouterComposante(TypeComposante.MUR_PROFILE);
+                parent.setActionChoisie(FenetrePrincipale.TypeAction.SELECTION);
+                parent.updateBarreOnglet();
+            }
+        }));
+
+        // item dans le popup menu (les composantes et aide au design)
+        popup.add(new JMenuItem(new AbstractAction("Profile (bézier)", icone) {
+            public void actionPerformed(ActionEvent e) {
+                //TODO: ajouter un profil en mode bézier
+                parent.setActionChoisie(FenetrePrincipale.TypeAction.AJOUT);
+                parent.controller.ajouterComposante(TypeComposante.MUR_PROFILE);
+                parent.controller.ajouterComposante(TypeComposante.PROFIL_BEZIER);
+                parent.setActionChoisie(FenetrePrincipale.TypeAction.SELECTION);
+                parent.updateBarreOnglet();
+            }
+        }));
+
+        popup.add(new JMenuItem(new AbstractAction("Plancher", icone) {
+            public void actionPerformed(ActionEvent e) {
+                parent.setActionChoisie(FenetrePrincipale.TypeAction.AJOUT);
+                parent.controller.ajouterComposante(TypeComposante.PLANCHER);
+                parent.setActionChoisie(FenetrePrincipale.TypeAction.SELECTION);
+                parent.updateBarreOnglet();
+            }
+        }));
+
+        popup.add(new JMenuItem(new AbstractAction("Poutre arrière", icone) {
+            public void actionPerformed(ActionEvent e) {
+                parent.setActionChoisie(FenetrePrincipale.TypeAction.AJOUT);
+                parent.controller.ajouterComposante(TypeComposante.POUTRE_ARRIERE);
+                parent.setActionChoisie(FenetrePrincipale.TypeAction.SELECTION);
+                parent.updateBarreOnglet();
+            }
+        }));
 
         popup.add(new JMenuItem(new AbstractAction("Hayon", icone) {
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(parent, "Ajout d'hayon selectionné");
+                parent.setActionChoisie(FenetrePrincipale.TypeAction.AJOUT);
+                parent.controller.ajouterComposante(TypeComposante.HAYON);
+                parent.setActionChoisie(FenetrePrincipale.TypeAction.SELECTION);
+                parent.updateBarreOnglet();
             }
         }));
-        popup.add(new JMenuItem(new AbstractAction("Plancher", icone) {
+
+        popup.add(new JMenuItem(new AbstractAction("Mur séparateur", icone) {
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(parent, "Ajout de plancher selectionné");
+                parent.setActionChoisie(FenetrePrincipale.TypeAction.AJOUT);
+                parent.controller.ajouterComposante(TypeComposante.MUR_SEPARATEUR);
+                parent.setActionChoisie(FenetrePrincipale.TypeAction.SELECTION);
+                parent.updateBarreOnglet();
             }
         }));
 

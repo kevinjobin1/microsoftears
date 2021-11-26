@@ -145,6 +145,11 @@ public class MurProfile extends Composante{
     }
 
     @Override
+    public void translate(PointPouce delta) {
+
+    }
+
+    @Override
     public String[] getNomsAttributs() {
         return parent.getListeComposantes().get(0).getNomsAttributs();
     }

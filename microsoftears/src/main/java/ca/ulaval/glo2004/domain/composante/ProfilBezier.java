@@ -40,6 +40,11 @@ public class ProfilBezier extends Composante{
     }
 
     @Override
+    public void translate(PointPouce delta) {
+
+    }
+
+    @Override
     public String[] getNomsAttributs() {
         return new String[0];
     }
