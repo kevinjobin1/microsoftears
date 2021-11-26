@@ -43,6 +43,7 @@ public class BarreMenu extends JMenuBar
     public BarreMenu(FenetrePrincipale parent)
     {
         this.parent = parent;
+        this.setBorder(null);
         this.initialiser();
     }
 
@@ -203,11 +204,14 @@ public class BarreMenu extends JMenuBar
         affichageMenu.add(separator);
 
         // TODO: à changer pour obtenir la liste des composantes du plan en temps réel
+        if (!parent.controller.getListeComposantes().isEmpty()){
+            creerCheckBoxMenuItem("Afficher/masquer tout", true);
         for (Composante composante : parent.controller.getListeComposantes())
         {
             if ((composante.getType() != TypeComposante.MUR_SEPARATEUR)){
                 creerCheckBoxMenuItem(composante.toString(), composante.estVisible());
             }
+        }
         }
 
     }
@@ -343,6 +347,14 @@ public class BarreMenu extends JMenuBar
                 // si la composante n'est pas affichée, on la réaffiche
                 // on va appeler une fonction du controleur qui invalide l'affichage
                 // et qui repaint les composantes
+                if (composante == "Afficher/masquer tout"){
+                    for (int i = 0 ; i <  affichageMenu.getItemCount(); i++) {
+                        Object item = affichageMenu.getItem(i);
+                        if (item instanceof JCheckBoxMenuItem) {
+                            ((JCheckBoxMenuItem) item).setState(estAffiche);
+                        }
+                    }
+                }
                 parent.controller.setComposanteVisible(true, composante);
             }
 
@@ -350,6 +362,14 @@ public class BarreMenu extends JMenuBar
                 // sinon, on la fait disparaitre
                 // on va appeler une fonction du controleur qui invalide l'affichage
                 // et qui repaint les composantes
+                if (composante == "Afficher/masquer tout"){
+                    for (int i = 0 ; i <  affichageMenu.getItemCount(); i++) {
+                        Object item = affichageMenu.getItem(i);
+                        if (item instanceof JCheckBoxMenuItem) {
+                            ((JCheckBoxMenuItem) item).setState(estAffiche);
+                        }
+                    }
+                }
                 parent.controller.setComposanteVisible(false, composante);
             }
 

@@ -387,12 +387,16 @@ public class RoulotteController {
 
     public void setComposanteVisible(boolean estVisible, String nomComposante) {
         if (!listeComposantes.isEmpty()) {
-            for (Composante composante : listeComposantes) {
-            if (nomComposante == composante.toString()){
-                composante.setVisible(estVisible);
+                for (Composante composante : listeComposantes) {
+                    if (nomComposante == "Afficher/masquer tout"){
+                        composante.setVisible(estVisible);
+                    }
+                    else if (nomComposante == composante.toString()){
+                    composante.setVisible(estVisible);
+                    }
                 }
             }
-        }
+
     }
 
     public int getPixelsToInchesRatio() {

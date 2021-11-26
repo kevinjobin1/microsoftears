@@ -45,6 +45,8 @@ public class FenetrePrincipale extends JFrame {
     }
 
     public void updateBarreOnglet() {
+        this.barreMenu = new BarreMenu(this);
+        this.setJMenuBar(barreMenu);
         this.barreOnglets.update();
         switch (composanteChoisie) {
             case HAYON:
@@ -104,7 +106,6 @@ public class FenetrePrincipale extends JFrame {
         setTitle("Microsoftears");
 
         //======== barre de menu ===========
-        barreMenu.setBorder(null);
         this.setJMenuBar(barreMenu);
 
         //======== mainPanel ========
