@@ -56,7 +56,6 @@ public abstract class PanelComposante extends JPanel {
     }
 
     protected void creerLabelAttribut(String titre, int posY){
-        System.out.println("Label posX: " + 0 + " posY: " + posY);
         GridBagConstraints c = new GridBagConstraints();
         JLabel label = new JLabel(titre);
         c.gridx = 0;
@@ -79,7 +78,6 @@ public abstract class PanelComposante extends JPanel {
     }
 
     protected void creerLabelSymbole(String symbole, int posX, int posY){
-        System.out.println("Symbole posX: " + posX + " posY: " + posY);
         GridBagConstraints c = new GridBagConstraints();
         JLabel label = new JLabel(symbole);
         c.gridx = posX;
@@ -91,7 +89,6 @@ public abstract class PanelComposante extends JPanel {
     }
 
     protected JSpinner creerSpinnerPouces(int posX, int posY, Pouce valeur){
-        System.out.println("SpinnerPouce posX: " + posX + " posY: " + posY);
         GridBagConstraints c = new GridBagConstraints();
         JSpinner spinner;
         String symbole;

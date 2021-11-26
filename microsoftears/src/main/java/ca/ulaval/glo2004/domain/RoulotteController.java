@@ -316,7 +316,7 @@ public class RoulotteController {
                 composante.setTransparence(0.6f);
             }
             else {
-                parent.setComposanteChoisie(TypeComposante.PLAN);
+                //parent.setComposanteChoisie(TypeComposante.PLAN);
             }
         }
     }

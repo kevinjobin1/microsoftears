@@ -104,6 +104,7 @@ public class PanelConception extends JPanel
     private void panneauAffichageMouseDragged(MouseEvent e) {
         if (parent.getActionChoisie() == FenetrePrincipale.TypeAction.SELECTION) {
             parent.controller.dragSurPlan(e.getPoint(), parent.getComposanteChoisie());
+            this.parent.updateBarreOnglet();
             this.panneauAffichage.repaint();
         }
     }
