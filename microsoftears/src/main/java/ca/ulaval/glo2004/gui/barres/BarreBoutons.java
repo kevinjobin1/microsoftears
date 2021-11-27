@@ -119,6 +119,8 @@ public class BarreBoutons extends JPanel {
         parent.controller.ajouterComposante(TypeComposante.PLANCHER);
         parent.controller.ajouterComposante(TypeComposante.POUTRE_ARRIERE);
         parent.controller.ajouterComposante(TypeComposante.HAYON);
+        parent.controller.ajouterComposante(TypeComposante.MUR_SEPARATEUR);
+        parent.controller.ajouterComposante(TypeComposante.TOIT);
         parent.setActionChoisie(FenetrePrincipale.TypeAction.SELECTION);
         parent.updateBarreOnglet();
     }

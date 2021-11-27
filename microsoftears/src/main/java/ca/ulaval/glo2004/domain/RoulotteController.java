@@ -32,7 +32,7 @@ public class RoulotteController {
         this.delta = new int[]{0,0};
         this.scale = 1;
         this.positionSouris = new Point();
-        //calculerDisposition();
+        calculerDisposition();
     }
 
     protected void invaliderDisposition(){
@@ -42,7 +42,7 @@ public class RoulotteController {
     protected void calculerDisposition(){
         // TODO
         // Ordre (index): murBrute (0), murProfile(1), ellipses(2,3,4,5),
-        // plancher(6), poutre(7), hayon(8), murSeparateur(9)
+        // plancher(6), poutre(7), hayon(8), murSeparateur(9), toit (10)
         MurBrute murBrute = new MurBrute(this);
         listeComposantes.add(murBrute);
         MurProfile murProfile = new MurProfile(this,true);
@@ -59,6 +59,8 @@ public class RoulotteController {
         MurSeparateur murSeparateur = new MurSeparateur(this);
         listeComposantes.add(murSeparateur);
 
+        Toit toit = new Toit(this);
+        listeComposantes.add(toit);
     }
 
     public void updateComposante(int[] valeurs, TypeComposante type){
@@ -156,6 +158,16 @@ public class RoulotteController {
                        new Pouce(valeurs[9], valeurs[10], valeurs[11]),
                        new Pouce(valeurs[12], valeurs[13], valeurs[14]));
                listeComposantes.set(8, hayon);
+               break;
+
+           case MUR_SEPARATEUR:
+
+               break;
+
+           case TOIT:
+               Toit toit = new Toit(this,
+                       new Pouce(valeurs[0], valeurs[1], valeurs[2]));
+               listeComposantes.set(10, toit);
                break;
        }
     }
