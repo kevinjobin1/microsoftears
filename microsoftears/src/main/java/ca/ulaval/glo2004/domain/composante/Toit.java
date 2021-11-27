@@ -1,5 +1,6 @@
 package ca.ulaval.glo2004.domain.composante;
 
+import ca.ulaval.glo2004.domain.IComposante;
 import ca.ulaval.glo2004.domain.RoulotteController;
 import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Polygone;
@@ -129,7 +130,7 @@ public class Toit extends Composante{
 
     @Override
     public int[] getValeurs() {
-        return new int[0];
+        return new int[]{epaisseur.getPouces(), epaisseur.getNumerateur(), epaisseur.getDenominateur()};
     }
 
     @Override
@@ -139,6 +140,6 @@ public class Toit extends Composante{
 
     @Override
     public String[] getNomsAttributs() {
-        return new String[0];
-    }
+        return new String[]{"Épaisseur"};
+        }
 }
