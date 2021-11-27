@@ -40,7 +40,7 @@ public class Toit extends Composante{
         Plancher plancher = (Plancher) (parent.getListeComposantes().get(6));
         MurBrute murBrute = (MurBrute) parent.getListeComposantes().get(0);
         PoutreArriere poutreArriere = (PoutreArriere) parent.getListeComposantes().get(7);
-        MurProfile murProfile = (MurProfile) parent.getListeComposantes().get(2);
+        MurProfile murProfile = (MurProfile) parent.getListeComposantes().get(1);
         MurSeparateur murSeparateur = (MurSeparateur) parent.getListeComposantes().get(9); 
 
         Pouce xFin = murSeparateur.getCentre().getX().add(murSeparateur.getEpaisseur().diviser(2));

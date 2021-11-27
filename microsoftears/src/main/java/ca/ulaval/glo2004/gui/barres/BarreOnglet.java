@@ -1,6 +1,7 @@
 package ca.ulaval.glo2004.gui.barres;
 
 import ca.ulaval.glo2004.domain.IComposante;
+import ca.ulaval.glo2004.domain.composante.Toit;
 import ca.ulaval.glo2004.domain.composante.TypeComposante;
 import ca.ulaval.glo2004.gui.FenetrePrincipale;
 import ca.ulaval.glo2004.gui.panels.*;
@@ -43,7 +44,8 @@ public class BarreOnglet extends JTabbedPane {
                     composante.getType() == TypeComposante.PROFIL_ELLIPSE_4 ||
                     composante.getType() == TypeComposante.POUTRE_ARRIERE ||
                     composante.getType() == TypeComposante.PLANCHER ||
-                    composante.getType() == TypeComposante.HAYON){
+                    composante.getType() == TypeComposante.HAYON ||
+                    composante.getType() == TypeComposante.TOIT){
                 this.addTab(composante.toString(), creerTabPanel(composante));
             }
             else{
@@ -124,6 +126,9 @@ public class BarreOnglet extends JTabbedPane {
             }
              if (composante.toString().equals("Mur profilé")) {
                 contour = new PanelInfoProfile(this, composante);
+            }
+             if (composante.toString().equals("Toit")) {
+                contour = new PanelInfoToit(this, composante);
             }
        //borders are set
         panelMesure.setBorder(line);

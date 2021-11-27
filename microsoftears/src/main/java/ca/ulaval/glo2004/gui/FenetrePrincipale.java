@@ -73,6 +73,12 @@ public class FenetrePrincipale extends JFrame {
             case PROFIL_ELLIPSE_4:
                 this.barreOnglets.setSelectedIndex(4);
                 break;
+            case MUR_SEPARATEUR:
+                //this.barreOnglets.setSelectedIndex(4);
+                break;
+            case TOIT:
+                this.barreOnglets.setSelectedIndex(8);
+                break;
         }
     }
 
