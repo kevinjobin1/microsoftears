@@ -61,6 +61,9 @@ public class RoulotteController {
 
         Toit toit = new Toit(this);
         listeComposantes.add(toit);
+
+        OuvertureLaterale ouvertureLaterale = new OuvertureLaterale(this);
+        listeComposantes.add(ouvertureLaterale);
     }
 
     public void updateComposante(int[] valeurs, TypeComposante type){
@@ -168,6 +171,16 @@ public class RoulotteController {
                Toit toit = new Toit(this,
                        new Pouce(valeurs[0], valeurs[1], valeurs[2]));
                listeComposantes.set(10, toit);
+               break;
+
+           case OUVERTURE_LATERALE:
+               OuvertureLaterale ouvertureLaterale = new OuvertureLaterale( this,
+                       new Pouce(valeurs[0], valeurs[1], valeurs[2]),
+                       new Pouce(valeurs[3], valeurs[4], valeurs[5]),
+                       new PointPouce(
+                               new Pouce(valeurs[6], valeurs[7], valeurs[8]),
+                               new Pouce(valeurs[9], valeurs[10], valeurs[11])));
+               listeComposantes.set(11, ouvertureLaterale);
                break;
        }
     }

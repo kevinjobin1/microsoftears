@@ -127,7 +127,7 @@ public class BarreOnglet extends JTabbedPane {
              if (composante.toString().equals("Mur profilé")) {
                 contour = new PanelInfoProfile(this, composante);
             }
-            if (composante.toString().equals("Ouvertures latérales")) {
+            if (composante.toString().equals("Ouverture latérale")) {
                 contour = new PanelInfoOuvertureLaterales(this, composante);
             }
             if (composante.toString().equals("Toit")) {

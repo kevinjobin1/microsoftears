@@ -175,31 +175,32 @@ public class PanelInfoOuvertureLaterales extends PanelComposante {
                     this.centreYSpinner = creerSpinnerMM(i, pouces.getMilimetres());
                 }
             }
+            hauteurSpinner.addChangeListener(new ChangeListener() {
+                @Override
+                public void stateChanged(ChangeEvent e) {
+                    hauteurSpinnerChangeListener(e);
+                }
+            });
+            largeurSpinner.addChangeListener(new ChangeListener() {
+                @Override
+                public void stateChanged(ChangeEvent e) {
+                    largeurSpinnerChangeListener(e);
+                }
+            });
+            centreXSpinner.addChangeListener(new ChangeListener() {
+                @Override
+                public void stateChanged(ChangeEvent e) {
+                    centreXSpinnerChangeListener(e);
+                }
+            });
+            centreYSpinner.addChangeListener(new ChangeListener() {
+                @Override
+                public void stateChanged(ChangeEvent e) {
+                    centreYSpinnerChangeListener(e);
+                }
+            });
         }
-        hauteurSpinner.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                hauteurSpinnerChangeListener(e);
-            }
-        });
-        largeurSpinner.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                largeurSpinnerChangeListener(e);
-            }
-        });
-        centreXSpinner.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                centreXSpinnerChangeListener(e);
-            }
-        });
-        centreYSpinner.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                centreYSpinnerChangeListener(e);
-            }
-        });
+
     }
 
     private void hauteurSpinner1ChangeListener(ChangeEvent e) {

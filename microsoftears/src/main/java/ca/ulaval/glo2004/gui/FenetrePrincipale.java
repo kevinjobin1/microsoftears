@@ -79,6 +79,9 @@ public class FenetrePrincipale extends JFrame {
             case TOIT:
                 this.barreOnglets.setSelectedIndex(8);
                 break;
+            case OUVERTURE_LATERALE:
+                this.barreOnglets.setSelectedIndex(9);
+                break;
         }
     }
 
