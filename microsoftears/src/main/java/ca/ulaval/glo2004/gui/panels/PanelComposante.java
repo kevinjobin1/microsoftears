@@ -116,8 +116,8 @@ public abstract class PanelComposante extends JPanel {
 
     protected JSpinner creerSpinnerMM(int posY, double value){
         GridBagConstraints c = new GridBagConstraints();
-        JSpinner spinner = new JSpinner();
-        spinner.setEditor(new JSpinner.NumberEditor(spinner, "0.000"));
+        JSpinner spinner = new JSpinner(new SpinnerNumberModel(0.0,0.0,10000.0,0.1));
+        spinner.setEditor(new JSpinner.NumberEditor(spinner, "0.1"));
         spinner.setValue(value);
         c.gridx = 1;
         c.gridy= posY;

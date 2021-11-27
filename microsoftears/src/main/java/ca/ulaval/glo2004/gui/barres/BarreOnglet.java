@@ -37,13 +37,14 @@ public class BarreOnglet extends JTabbedPane {
                 System.out.println(i);}
             }
             else if (composante.getType() == TypeComposante.MUR_PROFILE ||
-            composante.getType() == TypeComposante.PROFIL_ELLIPSE_1 ||
+                    composante.getType() == TypeComposante.PROFIL_ELLIPSE_1 ||
                     composante.getType() == TypeComposante.PROFIL_ELLIPSE_2 ||
                     composante.getType() == TypeComposante.PROFIL_ELLIPSE_3 ||
                     composante.getType() == TypeComposante.PROFIL_ELLIPSE_4 ||
                     composante.getType() == TypeComposante.POUTRE_ARRIERE ||
                     composante.getType() == TypeComposante.PLANCHER ||
-                    composante.getType() == TypeComposante.HAYON){
+                    composante.getType() == TypeComposante.HAYON ||
+                    composante.getType() == TypeComposante.OUVERTURE_LATERALE){
                 this.addTab(composante.toString(), creerTabPanel(composante));
             }
             else{
@@ -70,7 +71,8 @@ public class BarreOnglet extends JTabbedPane {
                     composante.getType() == TypeComposante.PROFIL_ELLIPSE_4 ||
                     composante.getType() == TypeComposante.POUTRE_ARRIERE ||
                     composante.getType() == TypeComposante.PLANCHER ||
-                    composante.getType() == TypeComposante.HAYON){
+                    composante.getType() == TypeComposante.HAYON ||
+                    composante.getType() == TypeComposante.OUVERTURE_LATERALE){
                 this.addTab(composante.toString(), creerTabPanel(composante));
             }
             else{
@@ -124,6 +126,9 @@ public class BarreOnglet extends JTabbedPane {
             }
              if (composante.toString().equals("Mur profilé")) {
                 contour = new PanelInfoProfile(this, composante);
+            }
+            if (composante.toString().equals("Ouvertures latérales")) {
+                contour = new PanelInfoOuvertureLaterales(this, composante);
             }
        //borders are set
         panelMesure.setBorder(line);
