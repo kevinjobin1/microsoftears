@@ -79,7 +79,7 @@ public class BarreOnglet extends JTabbedPane {
                 this.addTab(composante.toString(), creerTabPanel(composante));
 
             }
-    }
+        }
     }
 
 
@@ -129,6 +129,9 @@ public class BarreOnglet extends JTabbedPane {
             }
             if (composante.toString().equals("Ouvertures latérales")) {
                 contour = new PanelInfoOuvertureLaterales(this, composante);
+            }
+            if (composante.toString().equals("Toit")) {
+                contour = new PanelInfoToit(this, composante);
             }
        //borders are set
         panelMesure.setBorder(line);
