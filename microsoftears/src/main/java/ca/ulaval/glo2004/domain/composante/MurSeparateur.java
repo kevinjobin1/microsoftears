@@ -69,7 +69,10 @@ public class MurSeparateur extends Composante{
 
     @Override
     public int[] getValeurs() {
-        return new int[0];
+        return new int[]{hauteur.getPouces(), hauteur.getNumerateur(), hauteur.getDenominateur(),
+                epaisseur.getPouces(), epaisseur.getNumerateur(), epaisseur.getDenominateur(),
+                distancePoutreArriere.getPouces(), distancePoutreArriere.getNumerateur(),
+                distancePoutreArriere.getDenominateur()};
     }
 
     @Override
@@ -79,6 +82,6 @@ public class MurSeparateur extends Composante{
 
     @Override
     public String[] getNomsAttributs() {
-        return new String[0];
+        return new String[]{"Hauteur", "Épaisseur", "Distance Poutre Arrière"};
     }
 }

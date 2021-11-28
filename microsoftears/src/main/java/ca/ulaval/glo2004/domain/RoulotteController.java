@@ -164,7 +164,11 @@ public class RoulotteController {
                break;
 
            case MUR_SEPARATEUR:
-
+               MurSeparateur murSeparateur = new MurSeparateur(this,
+                       new Pouce(valeurs[3], valeurs[4], valeurs[5]),
+                       new Pouce(valeurs[0], valeurs[1], valeurs[2]),
+                       new Pouce(valeurs[6], valeurs[7], valeurs[8]));
+               listeComposantes.set(9, murSeparateur);
                break;
 
            case TOIT:
