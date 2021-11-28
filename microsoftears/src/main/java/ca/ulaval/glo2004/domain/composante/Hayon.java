@@ -156,16 +156,17 @@ public class Hayon extends Composante {
         boolean xDepartManquant = true;
         boolean xFinManquant = true;
         PointPouce pointDepart = null;
+        PointPouce pointArcCercle = null;
         for(PointPouce point: murProfile.getPolygone().getListePoints()){
             if(point.getX().st(murBrute.getCentre().getX())) {
                 if(point.getX().ste(xDepart.add(rayonArcCercle)) && point.getY().st(yMinFin) && yFinArcCercleManquant){
                     yFinArcCercle = point.getY();
                     yFinArcCercleManquant = false;
-                    pointRotation = point;
+                    pointArcCercle = point;
                     if(point.getX().st(xDepart.add(rayonArcCercle.multiplier(Math.cos(poutreArriere.getAngle()))))) {
-                        pointRotation = new PointPouce(xDepart.add(rayonArcCercle.multiplier
-                                (Math.cos(poutreArriere.getAngle()))), point.getY());
-                        pointsProfil.add(pointRotation);
+                        pointArcCercle = new PointPouce(xDepart.add(rayonArcCercle.multiplier
+                                (Math.cos(poutreArriere.getAngle()))), point.getY().diff(rayonArcCercle.diff(epaisseur.add(epaisseurTraitScie))));
+                        pointsProfil.add(pointArcCercle);
                     }
                 }
                 if(point.getX().equals(xDepart) && point.getY().st(yMinFin)){
@@ -191,8 +192,9 @@ public class Hayon extends Composante {
             pointsProfil.add(pointFinHayon);
         }
 
-        pointsProfil.add(0, new PointPouce(murBrute.getCentre().getX(),
-                murBrute.getCentre().getY().diff(murBrute.getLargeur().diviser(2))));
+        PointPouce pointCentreDebut = new PointPouce(murBrute.getCentre().getX(),
+                murBrute.getCentre().getY().diff(murBrute.getLargeur().diviser(2)));
+        pointsProfil.add(0, pointCentreDebut);
 
         pointsProfil.add(new PointPouce(murBrute.getCentre().getX(),
                 murBrute.getCentre().getY().add(murBrute.getLargeur().diviser(2))));
@@ -296,12 +298,13 @@ public class Hayon extends Composante {
         }
 
         retour.addAll(pointsProfil.subList(indiceDepart,indiceFin));
-        if(pointRotation != null) {
-            retour.remove(pointRotation);
+        if(pointArcCercle != null) {
+            retour.remove(pointArcCercle);
         }
         if(pointDepart != null) {
             retour.remove(pointDepart);
         }
+        retour.remove(pointCentreDebut);
         retour.addAll(pointsHayon);
         return new Polygone(retour);
     }
