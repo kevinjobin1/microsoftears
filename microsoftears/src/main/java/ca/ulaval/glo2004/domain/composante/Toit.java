@@ -39,7 +39,6 @@ public class Toit extends Composante{
 
         Plancher plancher = (Plancher) (parent.getListeComposantes().get(6));
         MurBrute murBrute = (MurBrute) parent.getListeComposantes().get(0);
-        PoutreArriere poutreArriere = (PoutreArriere) parent.getListeComposantes().get(7);
         MurProfile murProfile = (MurProfile) parent.getListeComposantes().get(1);
         MurSeparateur murSeparateur = (MurSeparateur) parent.getListeComposantes().get(9); 
 
@@ -102,8 +101,8 @@ public class Toit extends Composante{
             }
             if(y.st(murBrute.getCentre().getY().diff(murBrute.getLargeur().diviser(2)).
                     add(epaisseur))) {
-                y = murBrute.getCentre().getY().add(murBrute.getLargeur().diviser(2)).
-                        diff(epaisseur);
+                y = murBrute.getCentre().getY().diff(murBrute.getLargeur().diviser(2)).
+                        add(epaisseur);
             }
             //exception: retirer les points qui sont plus petit que la courbe
             boolean pointValide = true;
