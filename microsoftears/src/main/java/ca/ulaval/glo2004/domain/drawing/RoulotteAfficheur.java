@@ -167,7 +167,7 @@ public class RoulotteAfficheur
         Stroke dashed = new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL,
                 0, new float[]{9}, 0);
         g2d.setStroke(dashed);
-        g2d.setColor(new Color(150,150,150));
+        g2d.setColor(Color.BLACK);
         g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.6f));
         // On loop sur les 4 points et on trace une ligne entre chaque
         for (int i=0, j=3; i < p.size(); j=i++){

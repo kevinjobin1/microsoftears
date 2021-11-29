@@ -46,7 +46,8 @@ public class MurBrute extends Composante{
         super(parent);
         this.longueur = new Pouce(96,0,1);
         this.largeur = new Pouce(48,0,1);
-        this.centre = new PointPouce();
+        this.centre = new PointPouce(new Pouce(66, 0,1),
+                new Pouce(35, 0,1));
         this.rectangle = new Rectangle(longueur, largeur, centre);
         this.setCouleurInitiale(new Color(200,200,200));
         this.setCouleur(getCouleurInitiale());
