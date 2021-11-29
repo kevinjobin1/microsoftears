@@ -1,6 +1,7 @@
 package ca.ulaval.glo2004.domain;
 
 import ca.ulaval.glo2004.domain.composante.*;
+import ca.ulaval.glo2004.utilitaires.CourbeBezier;
 import ca.ulaval.glo2004.utilitaires.Ellipse;
 import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Pouce;
@@ -45,25 +46,28 @@ public class RoulotteController {
         // plancher(6), poutre(7), hayon(8), murSeparateur(9), toit (10)
         MurBrute murBrute = new MurBrute(this);
         listeComposantes.add(murBrute);
-        MurProfile murProfile = new MurProfile(this,true);
+        MurProfile murProfile = new MurProfile(this,false);
         listeComposantes.add(murProfile);
-        for (ProfilEllipse ellipse : murProfile.getProfilEllipses()){
-            listeComposantes.add(ellipse);
+        if (murProfile.getMode()){
+            for (ProfilEllipse ellipse : murProfile.getProfilEllipses()){
+                listeComposantes.add(ellipse);}
         }
+      else {
+        for (PointControle pointControle : murProfile.getProfilBezier().getPointsControle()){
+            listeComposantes.add(pointControle);}
+      }
         Plancher plancher = new Plancher(this);
         listeComposantes.add(plancher);
-        PoutreArriere poutre = new PoutreArriere(this);
+       /* PoutreArriere poutre = new PoutreArriere(this);
         listeComposantes.add(poutre);
         Hayon hayon = new Hayon(this);
         listeComposantes.add(hayon);
         MurSeparateur murSeparateur = new MurSeparateur(this);
         listeComposantes.add(murSeparateur);
-
         Toit toit = new Toit(this);
         listeComposantes.add(toit);
-
-        OuvertureLaterale ouvertureLaterale = new OuvertureLaterale(this);
-        listeComposantes.add(ouvertureLaterale);
+        OuvertureLaterale ouverture = new OuvertureLaterale(this);
+        listeComposantes.add(ouverture);*/
     }
 
     public void updateComposante(int[] valeurs, TypeComposante type){
@@ -139,6 +143,55 @@ public class RoulotteController {
                ((MurProfile) listeComposantes.get(1)).getProfilEllipses()[3] = ellipse;
                listeComposantes.set(5, ellipse);
                break;
+           case POINT_CONTROLE_1:
+               PointControle pointControle = new PointControle(this,
+                       new Pouce(valeurs[3], valeurs[4], valeurs[5]),
+                       new Pouce(valeurs[0], valeurs[1], valeurs[2]),
+                       new PointPouce(
+                               new Pouce(valeurs[6], valeurs[7], valeurs[8]),
+                               new Pouce(valeurs[9], valeurs[10], valeurs[11]))
+                       , type);
+               ((MurProfile) listeComposantes.get(1)).getProfilBezier().getPointsControle().set(0, pointControle);
+               ((MurProfile) listeComposantes.get(1)).getProfilBezier().updatePointsControles();
+               listeComposantes.set(2, pointControle);
+
+               break;
+           case POINT_CONTROLE_2:
+                pointControle = new PointControle(this,
+                       new Pouce(valeurs[3], valeurs[4], valeurs[5]),
+                       new Pouce(valeurs[0], valeurs[1], valeurs[2]),
+                       new PointPouce(
+                               new Pouce(valeurs[6], valeurs[7], valeurs[8]),
+                               new Pouce(valeurs[9], valeurs[10], valeurs[11]))
+                       , type);
+               ((MurProfile) listeComposantes.get(1)).getProfilBezier().getPointsControle().set(1, pointControle);
+               ((MurProfile) listeComposantes.get(1)).getProfilBezier().updatePointsControles();
+               listeComposantes.set(3, pointControle);
+               break;
+           case POINT_CONTROLE_3:
+               pointControle = new PointControle(this,
+                       new Pouce(valeurs[3], valeurs[4], valeurs[5]),
+                       new Pouce(valeurs[0], valeurs[1], valeurs[2]),
+                       new PointPouce(
+                               new Pouce(valeurs[6], valeurs[7], valeurs[8]),
+                               new Pouce(valeurs[9], valeurs[10], valeurs[11]))
+                       , type);
+               ((MurProfile) listeComposantes.get(1)).getProfilBezier().getPointsControle().set(2, pointControle);
+               ((MurProfile) listeComposantes.get(1)).getProfilBezier().updatePointsControles();
+               listeComposantes.set(4, pointControle);
+               break;
+           case POINT_CONTROLE_4:
+               pointControle = new PointControle(this,
+                       new Pouce(valeurs[3], valeurs[4], valeurs[5]),
+                       new Pouce(valeurs[0], valeurs[1], valeurs[2]),
+                       new PointPouce(
+                               new Pouce(valeurs[6], valeurs[7], valeurs[8]),
+                               new Pouce(valeurs[9], valeurs[10], valeurs[11]))
+                       , type);
+               ((MurProfile) listeComposantes.get(1)).getProfilBezier().getPointsControle().set(3, pointControle);
+               ((MurProfile) listeComposantes.get(1)).getProfilBezier().updatePointsControles();
+               listeComposantes.set(5, pointControle);
+               break;
            case PLANCHER:
                Plancher plancher = new Plancher(this,
                        new Pouce(valeurs[0], valeurs[1], valeurs[2]),
@@ -187,6 +240,9 @@ public class RoulotteController {
                listeComposantes.set(11, ouvertureLaterale);
                break;
        }
+       int index = getIndexComposante(parent.getComposanteChoisie());
+       System.out.println("Index choisi : " + index);
+       listeComposantes.get(index).setCouleur(new Color(255,60,60));
     }
 
     public void ajouterComposante(TypeComposante type) {
@@ -340,6 +396,7 @@ public class RoulotteController {
             }
             if (indexComposante != -1){
                 Composante composante = listeComposantes.get(indexComposante);
+                System.out.println("Clique sur : " + composante);
                 parent.setComposanteChoisie(composante.getType());
                 composante.setCouleur(new Color(255,60,60));
                 composante.setTransparence(0.6f);
@@ -356,9 +413,14 @@ public class RoulotteController {
             setTranslate((int) mousePoint.getX(), (int) mousePoint.getY());
         }
         else {
-            if (type == TypeComposante.MUR_PROFILE){
+            if (type == TypeComposante.MUR_PROFILE) {
                 for (int i = 0; i < listeComposantes.size(); i++){
                  listeComposantes.get(i).translate(getPositionPlan(mousePoint));
+                }
+            }
+            else if(type == TypeComposante.MUR_BRUTE){
+                for (int i = 1; i < listeComposantes.size(); i++){
+                    listeComposantes.get(i).translate(getPositionPlan(mousePoint));
                 }
             }
             listeComposantes.get(index).translate(getPositionPlan(mousePoint));
@@ -379,6 +441,14 @@ public class RoulotteController {
           case PROFIL_ELLIPSE_3:
               return 4;
           case PROFIL_ELLIPSE_4:
+              return 5;
+          case POINT_CONTROLE_1:
+              return 2;
+          case POINT_CONTROLE_2:
+              return 3;
+          case POINT_CONTROLE_3:
+              return 4;
+          case POINT_CONTROLE_4:
               return 5;
           case PLANCHER:
               return 6;

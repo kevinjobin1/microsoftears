@@ -2,10 +2,14 @@ package ca.ulaval.glo2004.domain.drawing;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 
 import ca.ulaval.glo2004.domain.composante.Composante;
 import ca.ulaval.glo2004.domain.RoulotteController;
+import ca.ulaval.glo2004.domain.composante.MurProfile;
+import ca.ulaval.glo2004.domain.composante.ProfilBezier;
+import ca.ulaval.glo2004.utilitaires.Ellipse;
 import ca.ulaval.glo2004.utilitaires.PointPouce;
 
 public class RoulotteAfficheur

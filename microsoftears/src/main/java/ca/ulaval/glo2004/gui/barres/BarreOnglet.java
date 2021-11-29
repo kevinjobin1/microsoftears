@@ -69,6 +69,10 @@ public class BarreOnglet extends JTabbedPane {
                     composante.getType() == TypeComposante.PROFIL_ELLIPSE_2 ||
                     composante.getType() == TypeComposante.PROFIL_ELLIPSE_3 ||
                     composante.getType() == TypeComposante.PROFIL_ELLIPSE_4 ||
+                    composante.getType() == TypeComposante.POINT_CONTROLE_1 ||
+                    composante.getType() == TypeComposante.POINT_CONTROLE_2 ||
+                    composante.getType() == TypeComposante.POINT_CONTROLE_3 ||
+                    composante.getType() == TypeComposante.POINT_CONTROLE_4 ||
                     composante.getType() == TypeComposante.POUTRE_ARRIERE ||
                     composante.getType() == TypeComposante.PLANCHER ||
                     composante.getType() == TypeComposante.HAYON ||
@@ -79,6 +83,7 @@ public class BarreOnglet extends JTabbedPane {
                 this.addTab(composante.toString(), creerTabPanel(composante));
 
             }
+            parent.controller.updateComposante(composante.getValeurs(), composante.getType());
         }
     }
 
@@ -124,6 +129,18 @@ public class BarreOnglet extends JTabbedPane {
              if (composante.toString().equals("Ellipse 4")) {
                 contour = new PanelInfoEllipse(this, composante);
             }
+             if (composante.toString().equals("Point contrôle 1")){
+                 contour = new PanelInfoEllipse(this, composante);
+             }
+       if (composante.toString().equals("Point contrôle 2")){
+           contour = new PanelInfoEllipse(this, composante);
+       }
+       if (composante.toString().equals("Point contrôle 3")){
+           contour = new PanelInfoEllipse(this, composante);
+       }
+       if (composante.toString().equals("Point contrôle 4")){
+           contour = new PanelInfoEllipse(this, composante);
+       }
              if (composante.toString().equals("Mur profilé")) {
                 contour = new PanelInfoProfile(this, composante);
             }

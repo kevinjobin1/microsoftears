@@ -156,7 +156,7 @@ public class MurProfile extends Composante{
 
     //todo mais pas pour le livrable 3
     private LinkedList<PointPouce> listePointsModeBezier() {
-        return null;
+        return this.profilBezier.getPolygone().getListePoints();
     }
 
 

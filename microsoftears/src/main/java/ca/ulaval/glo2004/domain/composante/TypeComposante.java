@@ -67,6 +67,26 @@ public enum TypeComposante {
             return "Ellipse 4";
         }
     },
+    POINT_CONTROLE_1{
+        public String toString(){
+            return "Point contrôle 1";
+        }
+    },
+    POINT_CONTROLE_2{
+        public String toString(){
+            return "Point contrôle 2";
+        }
+    },
+    POINT_CONTROLE_3{
+        public String toString(){
+            return "Point contrôle 3";
+        }
+    },
+    POINT_CONTROLE_4{
+        public String toString(){
+            return "Point contrôle 4";
+        }
+    },
     CONTREPLAQUE_EXTERIEUR{
         public String toString(){
             return "Contreplaqué extérieur";

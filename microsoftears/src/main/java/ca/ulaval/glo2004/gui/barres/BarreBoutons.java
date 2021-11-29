@@ -114,7 +114,7 @@ public class BarreBoutons extends JPanel {
     }
 
     private void nouveauButtonActionPerformed(ActionEvent e) {
-        parent.setActionChoisie(FenetrePrincipale.TypeAction.AJOUT);
+        /*parent.setActionChoisie(FenetrePrincipale.TypeAction.AJOUT);
         parent.controller.ajouterComposante(TypeComposante.MUR_PROFILE);
         parent.controller.ajouterComposante(TypeComposante.PLANCHER);
         parent.controller.ajouterComposante(TypeComposante.POUTRE_ARRIERE);
@@ -122,7 +122,7 @@ public class BarreBoutons extends JPanel {
         parent.controller.ajouterComposante(TypeComposante.MUR_SEPARATEUR);
         parent.controller.ajouterComposante(TypeComposante.TOIT);
         parent.setActionChoisie(FenetrePrincipale.TypeAction.SELECTION);
-        parent.updateBarreOnglet();
+        parent.updateBarreOnglet();*/
     }
 
 }

@@ -27,7 +27,7 @@ public class PanelConception extends JPanel
     public PanneauAffichage panneauAffichage;
     public BarreOutils barreOutils;
     public JScrollPane mainScrollPane;
-    private Point actualMousePoint;
+
 
     public PanelConception(FenetrePrincipale parent)
     {
@@ -114,7 +114,7 @@ public class PanelConception extends JPanel
             this.parent.controller.remplirComposante(e.getPoint());
         }
         else if(parent.getActionChoisie() == FenetrePrincipale.TypeAction.AJOUT){
-            //TODO: positionner l'élément en fonction du clic
+            //this.parent.controller.setPointControle(e.getPoint());
         }
         else{
             this.parent.controller.clicSurPlan(e.getPoint());

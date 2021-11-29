@@ -10,36 +10,33 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.GeneralPath;
 import java.util.LinkedList;
 
+public class PointControle extends Composante{
 
-public class ProfilEllipse extends Composante{
+    private Ellipse ellipse;
+    private PointPouce centre;
     private Pouce longueur;
     private Pouce hauteur;
-    private PointPouce centre;
-    private Ellipse ellipse;
 
-    public ProfilEllipse(RoulotteController parent, Pouce longueur, Pouce hauteur, PointPouce centre, TypeComposante type) {
+
+    public PointControle(RoulotteController parent, Pouce longueur, Pouce hauteur, PointPouce centre, TypeComposante type) {
         super(parent);
-        if (verificationLongueur(longueur)){
-        this.longueur = longueur;}
-        else {
-            System.out.println("ERREUR LONGUEUR ELLIPSE");
-            this.longueur = longueur;
-        }
-        if (verificationHauteur(hauteur)){
-            this.hauteur = hauteur;}
-        else {
-            System.out.println("ERREUR HAUTEUR ELLIPSE");
-            this.hauteur = hauteur;
-        }
-        System.out.println("CentreInit : " + centre.getX() + "," + centre.getY());
+        this.hauteur = hauteur;
+        this.longueur = longueur;
         this.centre = centre;
-        this.ellipse = new Ellipse(this.longueur,this.hauteur,this.centre, this.parent.getNombrePoint());
+        this.ellipse = new Ellipse(longueur, hauteur,
+                            centre, this.parent.getNombrePoint());
         this.setCouleur(getCouleurInitiale());
         this.setPolygone(ellipse.getPolygone());
         this.setType(type);
+        System.out.println(centre);
     }
-        @Override
-        public void afficher(Graphics2D g2d){
+
+    public void setCentre(PointPouce centre) {
+        this.centre = centre;
+    }
+
+    @Override
+    public void afficher(Graphics2D g2d){
         if (this.estVisible()){
             GeneralPath path = new GeneralPath();
             LinkedList<PointPouce> polygoneList = this.getPolygone().getListePoints();
@@ -64,38 +61,13 @@ public class ProfilEllipse extends Composante{
             g2d.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
             g2d.draw(path);
             double[] centreEllipse = parent.getPositionEcran(centre);
-            g2d.fill(new Ellipse2D.Double(centreEllipse[0], centreEllipse[1], 5, 5));
+            g2d.fill(new Ellipse2D.Double(centreEllipse[0], centreEllipse[1], 2, 2));
         }
     }
 
-    public boolean verificationLongueur(Pouce valeur){
-        MurBrute mur = (MurBrute) parent.getListeComposantes().get(0);
-        return valeur.st(mur.getLongueur()) && valeur.gt(new Pouce(0,0,1));
-    }
-
-    public boolean verificationHauteur(Pouce valeur){
-        MurBrute mur = (MurBrute) parent.getListeComposantes().get(0);
-        return valeur.st(mur.getLargeur()) && valeur.gt(new Pouce(0,0,1));
-    }
-
-    public Pouce getLongueur() {
-        return longueur;
-    }
-
-    public void setLongueur(Pouce longueur) {
-        this.longueur = longueur;
-    }
-
-    public Pouce getHauteur() {
-        return hauteur;
-    }
-
-    public void setHauteur(Pouce hauteur) {
-        this.hauteur = hauteur;
-    }
-
+    @Override
     public PointPouce getCentre() {
-        return centre;
+        return this.centre;
     }
 
     @Override
@@ -121,10 +93,5 @@ public class ProfilEllipse extends Composante{
     public String[] getNomsAttributs() {
         return new String[]{"Hauteur", "Longueur", "CentreX", "CentreY"};
     }
-
-    public void setCentre(PointPouce centre) {
-        this.centre = centre;
-    }
-
 
 }

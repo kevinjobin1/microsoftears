@@ -129,10 +129,6 @@ public class BarreOutils extends JToolBar {
             public void actionPerformed(ActionEvent e) {
                 //TODO: ajouter un profil en mode bézier
                 parent.setActionChoisie(FenetrePrincipale.TypeAction.AJOUT);
-                parent.controller.ajouterComposante(TypeComposante.MUR_PROFILE);
-                parent.controller.ajouterComposante(TypeComposante.PROFIL_BEZIER);
-                parent.setActionChoisie(FenetrePrincipale.TypeAction.SELECTION);
-                parent.updateBarreOnglet();
             }
         }));
 
@@ -164,6 +160,15 @@ public class BarreOutils extends JToolBar {
         }));
 
         popup.add(new JMenuItem(new AbstractAction("Mur séparateur", icone) {
+            public void actionPerformed(ActionEvent e) {
+                parent.setActionChoisie(FenetrePrincipale.TypeAction.AJOUT);
+                parent.controller.ajouterComposante(TypeComposante.MUR_SEPARATEUR);
+                parent.setActionChoisie(FenetrePrincipale.TypeAction.SELECTION);
+                parent.updateBarreOnglet();
+            }
+        }));
+
+        popup.add(new JMenuItem(new AbstractAction("Ouvertures Latérales", icone) {
             public void actionPerformed(ActionEvent e) {
                 parent.setActionChoisie(FenetrePrincipale.TypeAction.AJOUT);
                 parent.controller.ajouterComposante(TypeComposante.MUR_SEPARATEUR);

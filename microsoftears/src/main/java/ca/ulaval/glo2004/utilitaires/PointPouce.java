@@ -2,6 +2,7 @@ package ca.ulaval.glo2004.utilitaires;
 
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 import java.io.Serializable;
 
 public class PointPouce  implements Serializable {
@@ -154,6 +155,10 @@ public class PointPouce  implements Serializable {
 
         // Doesn't fall in any of the above cases
         return false;
+    }
+
+    public Point2D toPoint2D(){
+        return new Point2D.Double(this.getX().toDouble(), this.getY().toDouble());
     }
 
     public boolean equals(PointPouce point){
