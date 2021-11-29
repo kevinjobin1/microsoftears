@@ -91,4 +91,9 @@ public class PointControle extends Composante{
         return new String[]{"Hauteur", "Longueur", "CentreX", "CentreY"};
     }
 
+    @Override
+    public boolean getMode() {
+        return false;
+    }
+
 }

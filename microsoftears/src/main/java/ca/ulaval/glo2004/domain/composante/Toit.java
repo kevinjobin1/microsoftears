@@ -142,4 +142,9 @@ public class Toit extends Composante{
     public String[] getNomsAttributs() {
         return new String[]{"Épaisseur"};
         }
+
+    @Override
+    public boolean getMode() {
+        return false;
+    }
 }

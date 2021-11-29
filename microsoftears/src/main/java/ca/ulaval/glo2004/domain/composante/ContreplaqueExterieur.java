@@ -62,4 +62,9 @@ public class ContreplaqueExterieur extends Composante {
     public String[] getNomsAttributs() {
         return new String[0];
     }
+
+    @Override
+    public boolean getMode() {
+        return false;
+    }
 }

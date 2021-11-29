@@ -335,5 +335,10 @@ public class Hayon extends Composante {
     public String[] getNomsAttributs() {
         return new String[]{"Épaisseur", "Distance (poutre)","Distance (plancher)", "Épaisseur (scie)", "Rayon (arc)"};
     }
+
+    @Override
+    public boolean getMode() {
+        return false;
+    }
 }
 

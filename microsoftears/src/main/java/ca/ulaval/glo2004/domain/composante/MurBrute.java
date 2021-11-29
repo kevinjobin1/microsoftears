@@ -137,6 +137,11 @@ public class MurBrute extends Composante{
         return new String[]{"Hauteur", "Longueur", "CentreX", "CentreY"};
     }
 
+    @Override
+    public boolean getMode() {
+        return false;
+    }
+
     public void setCentre(PointPouce centre) {
         this.centre = centre;
     }

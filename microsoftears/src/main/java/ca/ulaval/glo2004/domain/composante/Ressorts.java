@@ -45,6 +45,11 @@ public class Ressorts extends Composante{
         return new String[0];
     }
 
+    @Override
+    public boolean getMode() {
+        return false;
+    }
+
     private PointPouce[] calculerPositionRessorts(){
         return null;
     }

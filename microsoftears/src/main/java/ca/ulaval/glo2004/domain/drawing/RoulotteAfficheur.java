@@ -9,6 +9,7 @@ import java.util.Arrays;
 import ca.ulaval.glo2004.domain.composante.Composante;
 import ca.ulaval.glo2004.domain.RoulotteController;
 import ca.ulaval.glo2004.domain.composante.MurProfile;
+import ca.ulaval.glo2004.domain.composante.PointControle;
 import ca.ulaval.glo2004.domain.composante.ProfilBezier;
 import ca.ulaval.glo2004.utilitaires.Ellipse;
 import ca.ulaval.glo2004.utilitaires.PointPouce;
@@ -152,33 +153,41 @@ public class RoulotteAfficheur
             for (Composante composante : composantes) {
               composante.afficher(g2d);
             }
-            if (!((MurProfile) composantes.get(1)).getMode()){ // mode bézier
-                ArrayList<PointPouce> points = ((MurProfile) composantes.get(1)).getProfilBezier().getBezier().getPointsControle();
-                afficherLignesPointsControle(g2d, points);
+            if (!composantes.get(1).getMode()){ // mode bézier
+                ArrayList<PointControle> points = ((MurProfile) composantes.get(1)).getProfilBezier().getPointsControle();
+                ArrayList<PointPouce> pointsPouce = new ArrayList<>();
+                for (PointControle pointControle : points){
+                    if (pointControle.estVisible()){
+                    pointsPouce.add(pointControle.getCentre());
+                    }
+                }
+                afficherLignesPointsControle(g2d, pointsPouce);
             }
         }
     }
 
     private void afficherLignesPointsControle(Graphics2D g2d, ArrayList<PointPouce> p) {
-        // On conserve l'état de l'objet graphics avant de le modifier
-        Stroke strokeInitial = g2d.getStroke();
-        Composite compositeInitial = g2d.getComposite();
+        if (p.size() == 4) {
+            // On conserve l'état de l'objet graphics avant de le modifier
+            Stroke strokeInitial = g2d.getStroke();
+            Composite compositeInitial = g2d.getComposite();
 
-        Stroke dashed = new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL,
-                0, new float[]{9}, 0);
-        g2d.setStroke(dashed);
-        g2d.setColor(Color.BLACK);
-        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.6f));
-        // On loop sur les 4 points et on trace une ligne entre chaque
-        for (int i=0, j=3; i < p.size(); j=i++){
-          double[] p1 = roulotte.getPositionEcran(p.get(i));
-            double[] p2 = roulotte.getPositionEcran(p.get(j));
-        g2d.drawLine((int) p1[0], (int) p1[1], (int) p2[0], (int) p2[1]);
+            Stroke dashed = new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL,
+                    0, new float[]{9}, 0);
+            g2d.setStroke(dashed);
+            g2d.setColor(Color.BLACK);
+            g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.6f));
+            // On loop sur les 4 points et on trace une ligne entre chaque
+            for (int i = 0, j = p.size()-1; i < p.size(); j = i++) {
+                double[] p1 = roulotte.getPositionEcran(p.get(i));
+                double[] p2 = roulotte.getPositionEcran(p.get(j));
+                g2d.drawLine((int) p1[0], (int) p1[1], (int) p2[0], (int) p2[1]);
+            }
+
+            // On remet le stroke et le composite initiaux
+            g2d.setComposite(compositeInitial);
+            g2d.setStroke(strokeInitial);
         }
-
-        // On remet le stroke et le composite initiaux
-        g2d.setComposite(compositeInitial);
-        g2d.setStroke(strokeInitial);
     }
 
 

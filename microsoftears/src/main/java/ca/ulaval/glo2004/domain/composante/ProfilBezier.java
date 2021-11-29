@@ -90,4 +90,9 @@ public class ProfilBezier extends Composante {
         return new String[0];
     }
 
+    @Override
+    public boolean getMode() {
+        return false;
+    }
+
 }

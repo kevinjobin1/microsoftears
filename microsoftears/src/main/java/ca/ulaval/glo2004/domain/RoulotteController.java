@@ -443,9 +443,26 @@ public class RoulotteController {
                     if (nomComposante == "Afficher/masquer tout"){
                         composante.setVisible(estVisible);
                     }
+                    else if (nomComposante == "Afficher/masquer ellipses"){
+                        if (composante.getType() == TypeComposante.PROFIL_ELLIPSE_1 ||
+                                composante.getType() == TypeComposante.PROFIL_ELLIPSE_2 ||
+                                composante.getType() == TypeComposante.PROFIL_ELLIPSE_3 ||
+                                composante.getType() == TypeComposante.PROFIL_ELLIPSE_4){
+                            composante.setVisible(estVisible);
+                        }
+                    }
+                    else if (nomComposante == "Afficher/masquer points de contrôles"){
+                        if (composante.getType() == TypeComposante.POINT_CONTROLE_1 ||
+                                composante.getType() == TypeComposante.POINT_CONTROLE_2 ||
+                                composante.getType() == TypeComposante.POINT_CONTROLE_3 ||
+                                composante.getType() == TypeComposante.POINT_CONTROLE_4){
+                            composante.setVisible(estVisible);
+                        }
+                    }
                     else if (nomComposante == composante.toString()){
                     composante.setVisible(estVisible);
                     }
+
                 }
             }
 

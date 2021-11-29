@@ -140,6 +140,11 @@ public class PoutreArriere extends Composante{
         return new String[]{"Hauteur", "Longueur", "CentreX"};
     }
 
+    @Override
+    public boolean getMode() {
+        return false;
+    }
+
     public void setCentre(PointPouce centre) {
         this.centre = centre;
         this.centreX = centre.getX();

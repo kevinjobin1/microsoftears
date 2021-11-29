@@ -124,6 +124,11 @@ public class Plancher extends Composante {
         return new String[]{"Épaisseur", "Marge (avant)", "Marge (arrière)"};
     }
 
+    @Override
+    public boolean getMode() {
+        return false;
+    }
+
     private Pouce getLongueur(){
         return ((MurBrute)(parent.getListeComposantes().get(0))).getLongueur().diff(this.margeArriere).diff(this.margeAvant);
     }

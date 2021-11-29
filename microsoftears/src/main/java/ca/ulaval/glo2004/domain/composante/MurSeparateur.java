@@ -84,4 +84,9 @@ public class MurSeparateur extends Composante{
     public String[] getNomsAttributs() {
         return new String[]{"Hauteur", "Épaisseur", "Distance Poutre Arrière"};
     }
+
+    @Override
+    public boolean getMode() {
+        return false;
+    }
 }
