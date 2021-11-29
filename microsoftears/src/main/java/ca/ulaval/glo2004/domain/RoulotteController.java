@@ -241,7 +241,7 @@ public class RoulotteController {
                break;
        }
        int index = getIndexComposante(parent.getComposanteChoisie());
-       System.out.println("Index choisi : " + index);
+
        listeComposantes.get(index).setCouleur(new Color(255,60,60));
     }
 
@@ -317,7 +317,6 @@ public class RoulotteController {
     }
 
     public void setTranslate(double deltaX, double deltaY){
-        System.out.println("Delta entrée: " + delta[0] + "," + delta[1]);
         delta[0] -= (deltaX/scale) - (positionSouris.getX()/scale);
         delta[1] -= (deltaY/scale) - (positionSouris.getY()/scale);
 
@@ -334,19 +333,19 @@ public class RoulotteController {
     }
 
     /** Converti les coordonnées réelles --> coordonnées dans l'écran */
-    private double xVersEcran(Pouce x)
+    public double xVersEcran(Pouce x)
     {
         return (x.toPixel(this.getPixelsToInchesRatio()) - delta[0]) * this.getScale();
     }
 
-    private double yVersEcran(Pouce y)
+    public double yVersEcran(Pouce y)
     {
         return (y.toPixel(this.getPixelsToInchesRatio()) - delta[1]) * this.getScale();
     }
 
     /** Converti les coordonnées de l'écran --> coordonnées réelles */
 
-    private Pouce xVersReel(double x)
+    public Pouce xVersReel(double x)
     {
         // On veut la coordonnée sans le zoom
         x /= this.getScale();
@@ -358,7 +357,7 @@ public class RoulotteController {
         return new Pouce(x);
     }
 
-    private Pouce yVersReel(double y)
+    public Pouce yVersReel(double y)
     {
         // On veut la coordonnée sans le zoom
         y /= this.getScale();
@@ -390,19 +389,17 @@ public class RoulotteController {
                 composante.resetTransparence();
 
                 if (composante.getPolygone().contient(positionClic) && composante.estVisible()) {
-                    System.out.println("Clique sur : " + composante);
                     indexComposante = i;
                 }
             }
             if (indexComposante != -1){
                 Composante composante = listeComposantes.get(indexComposante);
-                System.out.println("Clique sur : " + composante);
                 parent.setComposanteChoisie(composante.getType());
                 composante.setCouleur(new Color(255,60,60));
                 composante.setTransparence(0.6f);
             }
             else {
-                //parent.setComposanteChoisie(TypeComposante.PLAN);
+                parent.setComposanteChoisie(TypeComposante.PLAN);
             }
         }
     }
@@ -540,5 +537,9 @@ public class RoulotteController {
 
     public Point getPositionSouris() {
         return positionSouris;
+    }
+
+    public int[] getDelta() {
+        return delta;
     }
 }

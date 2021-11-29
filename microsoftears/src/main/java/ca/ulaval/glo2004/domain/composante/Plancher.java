@@ -98,7 +98,8 @@ public class Plancher extends Composante {
         this.margeArriere = margeArriere;
     }
 
-    protected PointPouce getCentre(){
+    @Override
+    public PointPouce getCentre(){
         MurBrute mur = (MurBrute) parent.getListeComposantes().get(0);
         Pouce x = mur.getCentre().getX().add(mur.getLongueur().diviser(2)).diff(margeAvant).diff(getLongueur().diviser(2));
         Pouce y = mur.getLargeur().diviser(2).add(mur.getCentre().getY()).diff(this.epaisseur.diviser(2));

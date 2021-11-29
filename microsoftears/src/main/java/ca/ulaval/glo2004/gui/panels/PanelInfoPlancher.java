@@ -35,7 +35,6 @@ public class PanelInfoPlancher extends PanelComposante {
             for (int i = 0; i < getNbAttributs(); i++) {
                 creerLabelAttribut(attributs[i] + " : ", 2 * i);
                 posY = 2 * (i+1) - 1;
-                System.out.println(posY);
                 if (i == 0) {
                     pouces = new Pouce(valeurs[0], valeurs[1], valeurs[2]);
                     this.epaisseurSpinner1 = creerSpinnerPouces(0, posY, pouces);

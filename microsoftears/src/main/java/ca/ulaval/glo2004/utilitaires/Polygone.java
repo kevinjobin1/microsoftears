@@ -1,5 +1,6 @@
 package ca.ulaval.glo2004.utilitaires;
 
+import java.awt.*;
 import java.awt.Rectangle;
 import java.util.LinkedList;
 

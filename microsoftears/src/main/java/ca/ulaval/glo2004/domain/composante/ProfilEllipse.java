@@ -31,7 +31,6 @@ public class ProfilEllipse extends Composante{
             System.out.println("ERREUR HAUTEUR ELLIPSE");
             this.hauteur = hauteur;
         }
-        System.out.println("CentreInit : " + centre.getX() + "," + centre.getY());
         this.centre = centre;
         this.ellipse = new Ellipse(this.longueur,this.hauteur,this.centre, this.parent.getNombrePoint());
         this.setCouleur(getCouleurInitiale());

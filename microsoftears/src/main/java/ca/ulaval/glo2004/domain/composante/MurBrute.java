@@ -83,6 +83,11 @@ public class MurBrute extends Composante{
 
     }
 
+    @Override
+    public PointPouce getCentre() {
+        return this.centre;
+    }
+
     public boolean verificationLongueur(Pouce valeur){
         return valeur.ste(new Pouce(96,0,1)) && valeur.gt(new Pouce(0,0,1));
     }
@@ -107,9 +112,6 @@ public class MurBrute extends Composante{
         this.largeur = largeur;
     }
 
-    public PointPouce getCentre() {
-        return centre;
-    }
 
     @Override
     public int[] getValeurs() {

@@ -28,7 +28,6 @@ public class PointControle extends Composante{
         this.setCouleur(getCouleurInitiale());
         this.setPolygone(ellipse.getPolygone());
         this.setType(type);
-        System.out.println(centre);
     }
 
     public void setCentre(PointPouce centre) {
@@ -60,8 +59,6 @@ public class PointControle extends Composante{
             g2d.setColor(Color.LIGHT_GRAY);
             g2d.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
             g2d.draw(path);
-            double[] centreEllipse = parent.getPositionEcran(centre);
-            g2d.fill(new Ellipse2D.Double(centreEllipse[0], centreEllipse[1], 2, 2));
         }
     }
 

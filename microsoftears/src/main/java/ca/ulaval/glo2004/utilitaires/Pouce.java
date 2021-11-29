@@ -138,20 +138,6 @@ public class Pouce
      la somme des deux mesures.
      @param mesure (Pouce) l'autre objet Pouce à additionner
      @return référence au nouvel objet calculé
-     
-        Exemple: 1-1/2 + 3-3/4
-     // 1. On multiplie l'entier par son dénominateur pour obtenir son numérateur
-     //              1-1/2 = 3/2    et      3-3/4 = 15/4
-     // 2. On additionne chaque numérateur multiplié par le dénominateur de l'autre terme
-     //              3 * 4 + 15 * 2 = 12 + 30 = 42
-     // 3. On multiplie les dénominateurs
-     //              2 * 4 = 8
-     // 4. On obtient l'entier par division entière de la somme des numérateurs
-     // par le produit des dénominateurs
-     //              nb pouce entier = 42 // 8
-     // 5. On obtient le reste fractionnaire en calculant la valeur du numérateur qui est égal au
-     // modulo de la division par le nouveau dénominateur commun
-     //             num = num % denom                           
      */
 
     public Pouce add(Pouce mesure)
@@ -360,6 +346,9 @@ public class Pouce
 
     public double toPixel(double ratio) {
         return this.toDouble() * ratio;
+    }
+    public int toInt(){
+        return (int) this.toDouble();
     }
 
     public static Pouce max(Pouce a, Pouce b){

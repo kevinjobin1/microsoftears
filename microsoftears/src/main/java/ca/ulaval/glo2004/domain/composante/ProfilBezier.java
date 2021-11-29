@@ -23,25 +23,30 @@ public class ProfilBezier extends Composante {
         points.add(parent.getListeComposantes().get(0).getPolygone().getListePoints().get(0));
         points.add(parent.getListeComposantes().get(0).getPolygone().getListePoints().get(3));
         this.pointsControle.add(new PointControle(parent,
-                new Pouce(2,0,1),
-                new Pouce(2,0,1),
+                new Pouce(3,0,1),
+                new Pouce(3,0,1),
                 points.get(0), TypeComposante.POINT_CONTROLE_1));
         this.pointsControle.add(new PointControle(parent,
-                new Pouce(2,0,1),
-                new Pouce(2,0,1),
+                new Pouce(3,0,1),
+                new Pouce(3,0,1),
                 points.get(1), TypeComposante.POINT_CONTROLE_2));
         this.pointsControle.add(new PointControle(parent,
-                new Pouce(2,0,1),
-                new Pouce(2,0,1),
+                new Pouce(3,0,1),
+                new Pouce(3,0,1),
                 points.get(2), TypeComposante.POINT_CONTROLE_3));
         this.pointsControle.add(new PointControle(parent,
-                new Pouce(2,0,1),
-                new Pouce(2,0,1),
+                new Pouce(3,0,1),
+                new Pouce(3,0,1),
                 points.get(3),
                 TypeComposante.POINT_CONTROLE_4));
         this.bezier = new CourbeBezier(points);
         this.setPolygone(bezier.getPolygone());
         this.setType(TypeComposante.PROFIL_BEZIER);
+    }
+
+    @Override
+    public PointPouce getCentre() {
+        return null;
     }
 
     public void updatePointsControles(){
@@ -69,10 +74,6 @@ public class ProfilBezier extends Composante {
         this.pointsControle = pointsControle;
     }
 
-    @Override
-    protected PointPouce getCentre() {
-        return null;
-    }
 
     @Override
     public int[] getValeurs() {

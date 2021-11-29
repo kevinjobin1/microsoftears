@@ -128,7 +128,7 @@ public abstract class Composante implements IComposante {
         return estVisible;
     }
 
-    protected abstract PointPouce getCentre();
+    public abstract PointPouce getCentre();
 
     public void estVisible(boolean b) {
         this.estVisible = b;

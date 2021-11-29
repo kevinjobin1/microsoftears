@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class FenetrePrincipale extends JFrame {
     // Composantes graphiques du Frame
-    private JPanel mainPanel;
+    private JPanel mainPanel, bottomPanel;
     protected BarreBoutons boutonsTopPanel;
     protected PanelConception panelConception;
     protected BarreMenu barreMenu;
@@ -117,6 +117,7 @@ public class FenetrePrincipale extends JFrame {
 
         // Initialisation des panneaux du GUI
         mainPanel = new JPanel();
+        bottomPanel = new JPanel();
         barreMenu = new BarreMenu(this);
         boutonsTopPanel = new BarreBoutons(this);
         barreOnglets = new BarreOnglet(this);
@@ -145,6 +146,10 @@ public class FenetrePrincipale extends JFrame {
         //======== panelConception =======
 
         mainPanel.add(panelConception, BorderLayout.CENTER);
+
+        //======== bottomPanel ===========
+        bottomPanel.add("Pixel Par Pouce", new JLabel("Pixel par pouce : " + controller.getPixelsToInchesRatio()));
+        mainPanel.add(bottomPanel, BorderLayout.SOUTH);
 
 
         //======== Layout Final ==========

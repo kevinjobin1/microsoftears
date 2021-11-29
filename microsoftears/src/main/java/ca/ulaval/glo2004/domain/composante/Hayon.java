@@ -310,9 +310,10 @@ public class Hayon extends Composante {
     }
 
     @Override
-    protected PointPouce getCentre() {
+    public PointPouce getCentre() {
         return null;
     }
+
 
     @Override
     public int[] getValeurs() {

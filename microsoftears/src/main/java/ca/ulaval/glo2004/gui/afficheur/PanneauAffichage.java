@@ -19,7 +19,7 @@ public class PanneauAffichage extends JPanel implements Serializable {
     public PanneauAffichage(FenetrePrincipale parent) {
         this.parent = parent;
         setVisible(true);
-        this.setBackground(Color.WHITE);
+        this.setBackground(Color.DARK_GRAY);
     }
 
     @Override

@@ -33,8 +33,7 @@ public class BarreOnglet extends JTabbedPane {
         for(IComposante composante : parent.controller.getListeIComposantes()){
             if (composante.getType() == TypeComposante.MUR_BRUTE ||
                     composante.getType() == TypeComposante.MUR_SEPARATEUR){
-                for (int i : composante.getValeurs()){
-                System.out.println(i);}
+                // TODO: à traiter éventuellement
             }
             else if (composante.getType() == TypeComposante.MUR_PROFILE ||
                     composante.getType() == TypeComposante.PROFIL_ELLIPSE_1 ||
@@ -61,8 +60,7 @@ public class BarreOnglet extends JTabbedPane {
         for(IComposante composante : parent.controller.getListeIComposantes()){
             if (composante.getType() == TypeComposante.MUR_BRUTE ||
                     composante.getType() == TypeComposante.MUR_SEPARATEUR){
-                for (int i : composante.getValeurs()){
-                    System.out.println(i);}
+                // TODO: à traiter éventuellement
             }
             else if (composante.getType() == TypeComposante.MUR_PROFILE ||
                     composante.getType() == TypeComposante.PROFIL_ELLIPSE_1 ||
