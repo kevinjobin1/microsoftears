@@ -133,10 +133,10 @@ public class PanelInfoMurSeparateur extends PanelComposante{
             Pouce pouces;
             for (int i = 0; i < getNbAttributs(); i++) {
                 creerLabelAttributMM(attributs[i] + " : ", i);
-                if (i == 1) {
+                if (i == 0) {
                     pouces = new Pouce(valeurs[0], valeurs[1], valeurs[2]);
                     this.hauteurSpinner = creerSpinnerMM(i, pouces.getMilimetres());
-                } else if (i == 2) {
+                } else if (i == 1) {
                     pouces = new Pouce(valeurs[3], valeurs[4], valeurs[5]);
                     this.epaisseurSpinner = creerSpinnerMM(i, pouces.getMilimetres());
                 } else {
