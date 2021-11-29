@@ -16,6 +16,7 @@ public class RoulotteController {
     private ArrayList<Composante> listeComposantes;
     private ArrayList<OuvertureLaterale> listeOuverturesLaterales;
     private ArrayList<AideDesign> listeAidesDesign;
+    private boolean modeProfil;
 
 
     // controle de l'affichage
@@ -33,6 +34,7 @@ public class RoulotteController {
         this.delta = new int[]{0,0};
         this.scale = 1;
         this.positionSouris = new Point();
+        this.modeProfil = true; // ellipses
         calculerDisposition();
     }
 
@@ -46,7 +48,7 @@ public class RoulotteController {
         // plancher(6), poutre(7), hayon(8), murSeparateur(9), toit (10)
         MurBrute murBrute = new MurBrute(this);
         listeComposantes.add(murBrute);
-        MurProfile murProfile = new MurProfile(this,false);
+        MurProfile murProfile = new MurProfile(this);
         listeComposantes.add(murProfile);
         if (murProfile.getMode()){
             for (ProfilEllipse ellipse : murProfile.getProfilEllipses()){
@@ -86,18 +88,24 @@ public class RoulotteController {
                MurProfile profile = new MurProfile(((MurProfile) listeComposantes.get(1)), new PointPouce(mur.getCentre().getX().diff(ancienMur.getCentre().getX()),
                        mur.getCentre().getY().diff(ancienMur.getCentre().getY())));
                listeComposantes.set(1, profile);
+
                for(int i = 2, j = 0; i < 6; i++, j++){
-               listeComposantes.set(i, profile.getProfilEllipses()[j]);
+                   if (profile.getMode()){
+                   listeComposantes.set(i, profile.getProfilEllipses()[j]);
+                   }
+                   else {
+                       listeComposantes.set(i, profile.getProfilBezier().getPointsControle().get(j));
+                   }
                }
                if (listeComposantes.size() > 6){
                    listeComposantes.set(6, new Plancher((Plancher) listeComposantes.get(6)));
                }
-               if (listeComposantes.size() > 7) {
+              /* if (listeComposantes.size() > 7) {
                    listeComposantes.set(7, new PoutreArriere((PoutreArriere) listeComposantes.get(7)));
                }
                if (listeComposantes.size() > 8) {
                    listeComposantes.set(8, new Hayon((Hayon) listeComposantes.get(8)));
-               }
+               }*/
                break;
            case PROFIL_ELLIPSE_1:
                ProfilEllipse ellipse = new ProfilEllipse(this,
@@ -240,64 +248,11 @@ public class RoulotteController {
                listeComposantes.set(11, ouvertureLaterale);
                break;
        }
+
        int index = getIndexComposante(parent.getComposanteChoisie());
-
-       listeComposantes.get(index).setCouleur(new Color(255,60,60));
-    }
-
-    public void ajouterComposante(TypeComposante type) {
-        switch(type){
-            case MUR_PROFILE:
-                // si déjà existant, size == 6 (0,1,2,3,4,5)
-                if (listeComposantes.size() == 0){
-                   listeComposantes.add(new MurBrute(this));
-                }
-                else {
-                    listeComposantes.set(0, new MurBrute(this));
-                }
-                if (listeComposantes.size() == 1){
-                    listeComposantes.add(new MurProfile(this,true));
-                    for (ProfilEllipse ellipse : ((MurProfile) listeComposantes.get(1)).getProfilEllipses()){
-                        listeComposantes.add(ellipse);
-                    }
-                }
-                else {
-                    listeComposantes.set(1, new MurProfile(this, true));
-                    for (int i = 2; i < 6; i++){
-                        ProfilEllipse ellipse = ((MurProfile) listeComposantes.get(1)).getProfilEllipses()[i];
-                        listeComposantes.set(i, ellipse);
-                    }
-                }
-                break;
-            case PROFIL_BEZIER:
-                 //TODO: ajouter un profil en mode bézier
-                break;
-            case PLANCHER:
-                if (listeComposantes.size() == 6){
-                    listeComposantes.add(new Plancher(this));
-                }
-                else {
-                    listeComposantes.set(6, new Plancher(this));
-                    }
-                break;
-            case POUTRE_ARRIERE:
-                if (listeComposantes.size() == 7){
-                    listeComposantes.add(new PoutreArriere(this));
-                }
-                else{
-                    listeComposantes.set(7, new PoutreArriere(this));
-                }
-
-                break;
-            case HAYON:
-                if (listeComposantes.size() == 8){
-                    listeComposantes.add(new Hayon(this));
-                }
-                else{
-                    listeComposantes.set(8, new Hayon(this));
-                }
-                break;
-        }
+       if (index != -1){
+           listeComposantes.get(index).setCouleur(new Color(255,60,60));
+       }
     }
 
     public void setScale(int wheelRotation){
@@ -403,6 +358,7 @@ public class RoulotteController {
             }
         }
     }
+
 
     public void dragSurPlan(Point mousePoint, TypeComposante type){
         int index = getIndexComposante(type);
@@ -541,5 +497,13 @@ public class RoulotteController {
 
     public int[] getDelta() {
         return delta;
+    }
+
+    public boolean getModeProfil() {
+        return modeProfil;
+    }
+
+    public void setModeProfil(boolean modeProfil) {
+        this.modeProfil = modeProfil;
     }
 }

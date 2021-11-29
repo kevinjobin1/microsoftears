@@ -7,6 +7,7 @@ import ca.ulaval.glo2004.utilitaires.Pouce;
 import ca.ulaval.glo2004.utilitaires.Rectangle;
 
 import java.awt.*;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -26,9 +27,9 @@ public class MurProfile extends Composante{
      */
     private boolean mode;
 
-    public MurProfile(RoulotteController parent, boolean mode) {
+    public MurProfile(RoulotteController parent) {
         super(parent);
-        this.mode = mode;
+        this.mode = parent.getModeProfil();
         this.profilEllipses = new ProfilEllipse[4];
         this.initialiserEllipses();
         this.profilBezier = new ProfilBezier(parent);
@@ -41,7 +42,7 @@ public class MurProfile extends Composante{
     /** Constructeur copie */
     public MurProfile(MurProfile copie, PointPouce decalage){
         super(copie.getParent());
-        this.mode = copie.getMode();
+        this.mode = parent.getModeProfil();
         this.profilEllipses = copie.getProfilEllipses();
         updateProfilEllipses(decalage);
         this.profilBezier = copie.getProfilBezier();
@@ -142,7 +143,13 @@ public class MurProfile extends Composante{
 
     @Override
     public int[] getValeurs() {
-        return parent.getListeComposantes().get(0).getValeurs();
+        int[] valeurs = new int[13];
+        int[] valeursMurBrute = parent.getListeComposantes().get(0).getValeurs();
+        for (int i = 0; i < valeursMurBrute.length; i++) {
+            valeurs = Arrays.copyOf(valeursMurBrute, valeursMurBrute.length +1);
+        }
+        valeurs[12] = mode ? 1 : 0;
+        return valeurs;
     }
 
     @Override

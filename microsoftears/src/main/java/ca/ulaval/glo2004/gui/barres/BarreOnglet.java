@@ -8,6 +8,8 @@ import ca.ulaval.glo2004.gui.panels.*;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -31,51 +33,20 @@ public class BarreOnglet extends JTabbedPane {
     private void initialiser()
     {
         for(IComposante composante : parent.controller.getListeIComposantes()){
-            if (composante.getType() == TypeComposante.MUR_BRUTE ||
-                    composante.getType() == TypeComposante.MUR_SEPARATEUR){
+            if (composante.getType() == TypeComposante.MUR_BRUTE){
                 // TODO: à traiter éventuellement
-            }
-            else if (composante.getType() == TypeComposante.MUR_PROFILE ||
-                    composante.getType() == TypeComposante.PROFIL_ELLIPSE_1 ||
-                    composante.getType() == TypeComposante.PROFIL_ELLIPSE_2 ||
-                    composante.getType() == TypeComposante.PROFIL_ELLIPSE_3 ||
-                    composante.getType() == TypeComposante.PROFIL_ELLIPSE_4 ||
-                    composante.getType() == TypeComposante.POUTRE_ARRIERE ||
-                    composante.getType() == TypeComposante.PLANCHER ||
-                    composante.getType() == TypeComposante.HAYON ||
-                    composante.getType() == TypeComposante.OUVERTURE_LATERALE){
-                this.addTab(composante.toString(), creerTabPanel(composante));
             }
             else{
                 this.addTab(composante.toString(), creerTabPanel(composante));
-
             }
-
         }
-
     }
 
     public void update(){
         this.removeAll();
         for(IComposante composante : parent.controller.getListeIComposantes()){
-            if (composante.getType() == TypeComposante.MUR_BRUTE ||
-                    composante.getType() == TypeComposante.MUR_SEPARATEUR){
+            if (composante.getType() == TypeComposante.MUR_BRUTE){
                 // TODO: à traiter éventuellement
-            }
-            else if (composante.getType() == TypeComposante.MUR_PROFILE ||
-                    composante.getType() == TypeComposante.PROFIL_ELLIPSE_1 ||
-                    composante.getType() == TypeComposante.PROFIL_ELLIPSE_2 ||
-                    composante.getType() == TypeComposante.PROFIL_ELLIPSE_3 ||
-                    composante.getType() == TypeComposante.PROFIL_ELLIPSE_4 ||
-                    composante.getType() == TypeComposante.POINT_CONTROLE_1 ||
-                    composante.getType() == TypeComposante.POINT_CONTROLE_2 ||
-                    composante.getType() == TypeComposante.POINT_CONTROLE_3 ||
-                    composante.getType() == TypeComposante.POINT_CONTROLE_4 ||
-                    composante.getType() == TypeComposante.POUTRE_ARRIERE ||
-                    composante.getType() == TypeComposante.PLANCHER ||
-                    composante.getType() == TypeComposante.HAYON ||
-                    composante.getType() == TypeComposante.OUVERTURE_LATERALE){
-                this.addTab(composante.toString(), creerTabPanel(composante));
             }
             else{
                 this.addTab(composante.toString(), creerTabPanel(composante));
@@ -102,8 +73,6 @@ public class BarreOnglet extends JTabbedPane {
        //layout is set to y_axis
        tabPanel.setLayout(new BoxLayout(tabPanel, BoxLayout.Y_AXIS));
 
-       JPanel panelMesure = creerPanelMesure();
-
        PanelComposante contour = null;
 
             if (composante.toString().equals("Hayon")) {
@@ -128,17 +97,17 @@ public class BarreOnglet extends JTabbedPane {
                 contour = new PanelInfoEllipse(this, composante);
             }
              if (composante.toString().equals("Point contrôle 1")){
-                 contour = new PanelInfoEllipse(this, composante);
+                 contour = new PanelInfoPointControle(this, composante);
              }
-       if (composante.toString().equals("Point contrôle 2")){
-           contour = new PanelInfoEllipse(this, composante);
-       }
-       if (composante.toString().equals("Point contrôle 3")){
-           contour = new PanelInfoEllipse(this, composante);
-       }
-       if (composante.toString().equals("Point contrôle 4")){
-           contour = new PanelInfoEllipse(this, composante);
-       }
+           if (composante.toString().equals("Point contrôle 2")){
+               contour = new PanelInfoPointControle(this, composante);
+           }
+           if (composante.toString().equals("Point contrôle 3")){
+               contour = new PanelInfoPointControle(this, composante);
+           }
+           if (composante.toString().equals("Point contrôle 4")){
+               contour = new PanelInfoPointControle(this, composante);
+           }
              if (composante.toString().equals("Mur profilé")) {
                 contour = new PanelInfoProfile(this, composante);
             }
@@ -151,6 +120,8 @@ public class BarreOnglet extends JTabbedPane {
            if (composante.toString().equals("Mur Séparateur")) {
                contour = new PanelInfoToit(this, composante);
            }
+
+       JPanel panelMesure = creerPanelMesure();
        //borders are set
         panelMesure.setBorder(line);
         contour.setBorder(line);
@@ -165,28 +136,27 @@ public class BarreOnglet extends JTabbedPane {
 
     private JPanel creerPanelMesure(){
 
-        //creating a panel to hold the buttons inside
+        // Notre panel d'options
         JPanel panel = new JPanel(new GridBagLayout());
-
         ButtonGroup groupeBoutonMesure = new ButtonGroup();
 
-        //establishing constraints for the gridbaglayout
+        // Layout gridbaglayout
         GridBagConstraints c = new GridBagConstraints();
 
-        //creating first button
+        // Bouton mm
         JToggleButton boutonMM = new JToggleButton("Métrique (mm)");
         boutonMM.setSelected(false);
         groupeBoutonMesure.add(boutonMM);
-        c.gridx = 1;
+        c.gridx = 0;
         c.gridy = 0;
         c.gridwidth = 1;
         panel.add(boutonMM, c);
 
-        //creating second button
+        // Bouton pouces
         JToggleButton boutonPouces = new JToggleButton("Impérial (\")");
         boutonPouces.setSelected(true);
         groupeBoutonMesure.add(boutonPouces);
-        c.gridx = 2;
+        c.gridx = 1;
         c.gridy = 0;
         c.gridwidth = 1;
         panel.add(boutonPouces, c);
@@ -198,7 +168,7 @@ public class BarreOnglet extends JTabbedPane {
             }
         });
 
-        // ==== Bouton MM =======
+        // ==== Bouton Pouces =======
         boutonPouces.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 boutonUniteMesureActionPerformed(e);
@@ -217,12 +187,10 @@ public class BarreOnglet extends JTabbedPane {
     private void boutonUniteMesureActionPerformed(ActionEvent e) {
         JToggleButton bouton = (JToggleButton) e.getSource();
         int index = this.getSelectedIndex();
-
         this.estImperial = bouton.getText().equals("Impérial (\")");
         this.rafraichir();
         this.setSelectedIndex(index);
     }
-
 
     public boolean estImperial(){
         return this.estImperial;

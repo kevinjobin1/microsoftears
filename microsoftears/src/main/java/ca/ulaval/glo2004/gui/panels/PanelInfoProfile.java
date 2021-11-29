@@ -8,6 +8,9 @@ import ca.ulaval.glo2004.utilitaires.Pouce;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class PanelInfoProfile extends PanelComposante{
     private JSpinner
@@ -27,6 +30,8 @@ public class PanelInfoProfile extends PanelComposante{
             centreYSpinner1,
             centreYSpinner2,
             centreYSpinner3;
+    private JToggleButton boutonEllipse, boutonBezier;
+    private ButtonGroup groupeBoutonProfil;
 
     public PanelInfoProfile(BarreOnglet parent, IComposante composante) {
         super(parent, composante);
@@ -207,6 +212,29 @@ public class PanelInfoProfile extends PanelComposante{
                 }
             });
         }
+
+        boolean estEllipse = valeurs[12] == 1? true : false;
+        boolean estBezier = valeurs[12] == 1? false : true;
+        groupeBoutonProfil = new ButtonGroup();
+        boutonEllipse = creerBoutonsOptionsProfil("Ellipses", estEllipse, 0,8);
+        groupeBoutonProfil.add(boutonEllipse);
+        boutonBezier = creerBoutonsOptionsProfil("Bézier", estBezier, 2,8);
+        groupeBoutonProfil.add(boutonBezier);
+
+        boutonEllipse.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                boutonProfilActionPerformed(e);
+            }
+        });
+
+
+        boutonBezier.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+               boutonProfilActionPerformed(e);
+            }
+        });
+
+
     }
 
     private void hauteurSpinner1ChangeListener(ChangeEvent e) {
@@ -358,4 +386,24 @@ public class PanelInfoProfile extends PanelComposante{
         updateComposante();
     }
 
-}
+    private JToggleButton creerBoutonsOptionsProfil(String titre, boolean estSelectionne, int posX, int posY){
+            GridBagConstraints c = new GridBagConstraints();
+            JToggleButton bouton = new JToggleButton(titre);
+            c.gridx = posX;
+            c.gridy= posY;
+            c.gridwidth = 1;
+            c.weightx = 0.5;
+            c.insets = new Insets(10,5,10, 5);
+            this.add(bouton, c);
+            return bouton;
+        }
+
+    public void boutonProfilActionPerformed(ActionEvent e) {
+        System.out.println("boutonProfilActionPerformed");
+        JToggleButton bouton = (JToggleButton) e.getSource();
+       parent.parent.controller.setModeProfil(bouton.getText().equals("Ellipses"));
+        parent.parent.controller.updateComposante(getValeurs(), TypeComposante.MUR_PROFILE);
+        parent.rafraichir();
+        parent.setSelectedIndex(0);
+    }
+    }

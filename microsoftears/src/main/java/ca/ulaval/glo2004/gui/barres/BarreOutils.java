@@ -115,54 +115,10 @@ public class BarreOutils extends JToolBar {
         FontIcon icone = FontIcon.of(BootstrapIcons.PLUS, 20, Color.WHITE);
 
         // item dans le popup menu (les composantes et aide au design)
-        popup.add(new JMenuItem(new AbstractAction("Profile (ellipses)", icone) {
+        popup.add(new JMenuItem(new AbstractAction("Aide au design", icone) {
             public void actionPerformed(ActionEvent e) {
                 parent.setActionChoisie(FenetrePrincipale.TypeAction.AJOUT);
-                parent.controller.ajouterComposante(TypeComposante.MUR_PROFILE);
-                parent.setActionChoisie(FenetrePrincipale.TypeAction.SELECTION);
-                parent.updateBarreOnglet();
-            }
-        }));
-
-        // item dans le popup menu (les composantes et aide au design)
-        popup.add(new JMenuItem(new AbstractAction("Profile (bézier)", icone) {
-            public void actionPerformed(ActionEvent e) {
-                //TODO: ajouter un profil en mode bézier
-                parent.setActionChoisie(FenetrePrincipale.TypeAction.AJOUT);
-            }
-        }));
-
-        popup.add(new JMenuItem(new AbstractAction("Plancher", icone) {
-            public void actionPerformed(ActionEvent e) {
-                parent.setActionChoisie(FenetrePrincipale.TypeAction.AJOUT);
-                parent.controller.ajouterComposante(TypeComposante.PLANCHER);
-                parent.setActionChoisie(FenetrePrincipale.TypeAction.SELECTION);
-                parent.updateBarreOnglet();
-            }
-        }));
-
-        popup.add(new JMenuItem(new AbstractAction("Poutre arrière", icone) {
-            public void actionPerformed(ActionEvent e) {
-                parent.setActionChoisie(FenetrePrincipale.TypeAction.AJOUT);
-                parent.controller.ajouterComposante(TypeComposante.POUTRE_ARRIERE);
-                parent.setActionChoisie(FenetrePrincipale.TypeAction.SELECTION);
-                parent.updateBarreOnglet();
-            }
-        }));
-
-        popup.add(new JMenuItem(new AbstractAction("Hayon", icone) {
-            public void actionPerformed(ActionEvent e) {
-                parent.setActionChoisie(FenetrePrincipale.TypeAction.AJOUT);
-                parent.controller.ajouterComposante(TypeComposante.HAYON);
-                parent.setActionChoisie(FenetrePrincipale.TypeAction.SELECTION);
-                parent.updateBarreOnglet();
-            }
-        }));
-
-        popup.add(new JMenuItem(new AbstractAction("Mur séparateur", icone) {
-            public void actionPerformed(ActionEvent e) {
-                parent.setActionChoisie(FenetrePrincipale.TypeAction.AJOUT);
-                parent.controller.ajouterComposante(TypeComposante.MUR_SEPARATEUR);
+                // TODO: fonction d'ajout d'aide au design
                 parent.setActionChoisie(FenetrePrincipale.TypeAction.SELECTION);
                 parent.updateBarreOnglet();
             }
@@ -171,7 +127,7 @@ public class BarreOutils extends JToolBar {
         popup.add(new JMenuItem(new AbstractAction("Ouvertures Latérales", icone) {
             public void actionPerformed(ActionEvent e) {
                 parent.setActionChoisie(FenetrePrincipale.TypeAction.AJOUT);
-                parent.controller.ajouterComposante(TypeComposante.MUR_SEPARATEUR);
+                // TODO: fonction d'ajout d'ouvertures latérales
                 parent.setActionChoisie(FenetrePrincipale.TypeAction.SELECTION);
                 parent.updateBarreOnglet();
             }
