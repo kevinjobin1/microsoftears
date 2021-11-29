@@ -17,6 +17,7 @@ public class OuvertureLaterale extends Composante{
         this.largeur = largeur;
         this.centre = centre;
         this.rectangle = new Rectangle(hauteur, largeur, centre);
+        this.setTransparence(0.1f);
         this.setPolygone(rectangle.getPolygone());
         this.setType(TypeComposante.OUVERTURE_LATERALE);
     }
@@ -27,6 +28,7 @@ public class OuvertureLaterale extends Composante{
         this.largeur = new Pouce(10,0,1);
         this.centre = parent.getListeComposantes().get(0).getCentre();
         this.rectangle = new Rectangle(hauteur, largeur, centre);
+        this.setTransparence(0.1f);
         this.setPolygone(rectangle.getPolygone());
         this.setType(TypeComposante.OUVERTURE_LATERALE);
     }

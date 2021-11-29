@@ -15,7 +15,7 @@ public abstract class Composante implements IComposante {
     private TypeComposante type;
     private Polygone polygone;
     private Color couleur;
-    private float transparence = 1.0f;
+    private float transparence = 0.75f;
     private boolean estVisible;
     private Color couleurInitiale;
 

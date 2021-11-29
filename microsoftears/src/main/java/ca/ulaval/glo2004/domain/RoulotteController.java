@@ -60,7 +60,7 @@ public class RoulotteController {
       }
         Plancher plancher = new Plancher(this);
         listeComposantes.add(plancher);
-       /* PoutreArriere poutre = new PoutreArriere(this);
+        PoutreArriere poutre = new PoutreArriere(this);
         listeComposantes.add(poutre);
         Hayon hayon = new Hayon(this);
         listeComposantes.add(hayon);
@@ -69,7 +69,7 @@ public class RoulotteController {
         Toit toit = new Toit(this);
         listeComposantes.add(toit);
         OuvertureLaterale ouverture = new OuvertureLaterale(this);
-        listeComposantes.add(ouverture);*/
+        listeComposantes.add(ouverture);
     }
 
     public void updateComposante(int[] valeurs, TypeComposante type){
@@ -351,7 +351,7 @@ public class RoulotteController {
                 Composante composante = listeComposantes.get(indexComposante);
                 parent.setComposanteChoisie(composante.getType());
                 composante.setCouleur(new Color(255,60,60));
-                composante.setTransparence(0.6f);
+                composante.setTransparence(1.0f);
             }
             else {
                 parent.setComposanteChoisie(TypeComposante.PLAN);
@@ -411,6 +411,10 @@ public class RoulotteController {
               return 8;
           case MUR_SEPARATEUR:
               return 9;
+          case TOIT:
+              return 10;
+          case OUVERTURE_LATERALE:
+              return 11;
       }
       // si aucune composante n'est trouvée, retourne -1
       return -1;

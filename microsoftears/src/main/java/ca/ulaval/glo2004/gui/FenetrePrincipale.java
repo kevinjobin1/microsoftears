@@ -86,13 +86,13 @@ public class FenetrePrincipale extends JFrame {
                 this.barreOnglets.setSelectedIndex(4);
                 break;
             case MUR_SEPARATEUR:
-                //this.barreOnglets.setSelectedIndex(4);
-                break;
-            case TOIT:
                 this.barreOnglets.setSelectedIndex(8);
                 break;
-            case OUVERTURE_LATERALE:
+            case TOIT:
                 this.barreOnglets.setSelectedIndex(9);
+                break;
+            case OUVERTURE_LATERALE:
+                this.barreOnglets.setSelectedIndex(10);
                 break;
         }
     }
