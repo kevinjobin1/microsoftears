@@ -14,7 +14,6 @@ import javax.swing.*;
 public class PanneauAffichage extends JPanel implements Serializable {
 
     protected final FenetrePrincipale parent;
-    
 
     public PanneauAffichage(FenetrePrincipale parent) {
         this.parent = parent;

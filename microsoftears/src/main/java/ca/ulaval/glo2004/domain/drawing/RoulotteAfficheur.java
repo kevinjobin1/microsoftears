@@ -17,16 +17,13 @@ public class RoulotteAfficheur
 
     private final RoulotteController roulotte;
     private final Dimension dimensionEcran;
-    private final Point origineEcran;
-    private final Point limiteEcran;
 
     
     public RoulotteAfficheur(RoulotteController roulotte, Dimension dimensionEcran)
     {
         this.roulotte = roulotte;
         this.dimensionEcran = dimensionEcran;
-        this.origineEcran = new Point(0,0);
-        this.limiteEcran = new Point((int) dimensionEcran.getWidth(),(int) dimensionEcran.getHeight());
+
        }
 
     //todo rendre ça propre
@@ -39,108 +36,9 @@ public class RoulotteAfficheur
         g2d.setTransform(af);
     }
 
-    private void afficherGrille(Graphics2D g2d){
-
-        PointPouce debutEcran = roulotte.getPositionPlan(origineEcran);
-        PointPouce finEcran = roulotte.getPositionPlan(limiteEcran);
-        System.out.println("Debut écran : " + debutEcran);
-        System.out.println("Fin écran" + finEcran);
-
-        double[] p1,p2;
-        g2d.setColor(Color.BLACK);
-        p1 = roulotte.getPositionEcran(debutEcran);
-        p2 = roulotte.getPositionEcran(finEcran);
-        g2d.drawRect((int) p1[0], (int) p1[1],(int) p2[0], (int) p2[1]);
-        g2d.setColor(Color.WHITE);
-        g2d.fillRect((int) p1[0], (int) p1[1],(int) p2[0], (int) p2[1]);
-
-        if((roulotte.getScale() >= 0.5) && (roulotte.getScale() <= 1.5)){
-            // lignes horizontales
-            int limite = finEcran.getX().toInt();
-            for (int i=debutEcran.getY().toInt(); i < finEcran.getY().toInt(); i+=3){
-                p1 = roulotte.getPositionEcran(new PointPouce(debutEcran.getX(), new Pouce(i)));
-                p2 = roulotte.getPositionEcran(new PointPouce(finEcran.getX(), new Pouce(i)));
-                if (i % 6 != 0){
-                    // Couleur ligne 3 pouces
-                    g2d.setColor(new Color(200,200, 200));
-                }
-
-                else {
-                    // Couleur ligne 6 pouces
-                    g2d.setColor(new Color(160,160, 160));
-                }
-                g2d.drawLine((int) p1[0], (int) p1[1],(int) p2[0], (int) p2[1]);
-            }
-
-            // lignes verticales
-            limite = finEcran.getY().toInt();
-            for (int i=debutEcran.getX().toInt(); i < finEcran.getX().toInt(); i+=3){
-                p1 = roulotte.getPositionEcran(new PointPouce(new Pouce(i), debutEcran.getY()));
-                p2 = roulotte.getPositionEcran(new PointPouce(new Pouce(i), finEcran.getY()));
-                if (i % 6 != 0){
-                    // Couleur ligne 3 pouces
-                    g2d.setColor(new Color(200,200, 200));
-                }
-
-                else {
-                    // Couleur ligne 6 pouces
-                    g2d.setColor(new Color(160,160, 160));
-                }
-                g2d.drawLine((int) p1[0], (int) p1[1],(int) p2[0], (int) p2[1]);
-            }
-        }
-        else if (roulotte.getScale() > 1.5){
-            // lignes horizontales
-            int limite = finEcran.getX().toInt();
-            for (int i=debutEcran.getY().toInt(); i < finEcran.getY().toInt(); i++){
-                p1 = roulotte.getPositionEcran(new PointPouce(debutEcran.getX(), new Pouce(i)));
-                p2 = roulotte.getPositionEcran(new PointPouce(finEcran.getX(), new Pouce(i)));
-                if (i % 6 != 0){
-                    // Couleur ligne pouces
-                    g2d.setColor(new Color(200,200, 200));
-                }
-                else {
-                    // Couleur ligne pieds
-                    g2d.setColor(new Color(150,150, 150));
-                }
-                g2d.drawLine((int) p1[0], (int) p1[1],(int) p2[0], (int) p2[1]);
-            }
-
-            // lignes verticales
-            limite = finEcran.getY().toInt();
-            for (int i=debutEcran.getX().toInt(); i < finEcran.getX().toInt(); i++){
-                p1 = roulotte.getPositionEcran(new PointPouce(new Pouce(i), debutEcran.getY()));
-                p2 = roulotte.getPositionEcran(new PointPouce(new Pouce(i), finEcran.getY()));
-                if (i % 6 != 0){
-                    // Couleur ligne pouces
-                    g2d.setColor(new Color(200,200, 200));
-                }
-                else {
-                    // Couleur ligne pieds
-                    g2d.setColor(new Color(150,150, 150));
-                }
-                g2d.drawLine((int) p1[0], (int) p1[1],(int) p2[0], (int) p2[1]);
-            }
-        }
-        else {
-            g2d.setColor(new Color(160,160, 160));
-            // lignes horizontales
-            int limite = finEcran.getX().toInt();
-            for (int i=debutEcran.getY().toInt(); i < finEcran.getY().toInt(); i+=12){
-                p1 = roulotte.getPositionEcran(new PointPouce(debutEcran.getX(), new Pouce(i)));
-                p2 = roulotte.getPositionEcran(new PointPouce(finEcran.getX(), new Pouce(i)));
-                g2d.drawLine((int) p1[0], (int) p1[1],(int) p2[0], (int) p2[1]);
-            }
-
-            // lignes verticales
-            limite = finEcran.getY().toInt();
-            for (int i=debutEcran.getX().toInt(); i < finEcran.getX().toInt(); i+=12){
-                p1 = roulotte.getPositionEcran(new PointPouce(new Pouce(i), debutEcran.getY()));
-                p2 = roulotte.getPositionEcran(new PointPouce(new Pouce(i), finEcran.getY()));
-                g2d.drawLine((int) p1[0], (int) p1[1],(int) p2[0], (int) p2[1]);
-            }
-        }
-
+    private void afficherGrille(Graphics2D g2d) {
+        Grille grille = new Grille(roulotte, 6,true, dimensionEcran);
+        grille.afficher(g2d);
     }
 
     private void afficherTousPolygones(Graphics2D g2d)
@@ -148,10 +46,7 @@ public class RoulotteAfficheur
         ArrayList<Composante> composantes = roulotte.getListeComposantes();
         if (!composantes.isEmpty()) {
             for (Composante composante : composantes) {
-                if (composante.getType() != TypeComposante.OUVERTURE_LATERALE){
                     composante.afficher(g2d);
-                }
-
             }
             if (!composantes.get(1).getMode()){ // mode bézier
                 ArrayList<PointControle> points = ((MurProfile) composantes.get(1)).getProfilBezier().getPointsControle();

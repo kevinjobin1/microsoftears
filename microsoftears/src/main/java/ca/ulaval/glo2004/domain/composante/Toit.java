@@ -8,6 +8,7 @@ import ca.ulaval.glo2004.utilitaires.Pouce;
 import ca.ulaval.glo2004.utilitaires.Rectangle;
 
 import java.awt.*;
+import java.awt.geom.Area;
 import java.util.LinkedList;
 
 public class Toit extends Composante{
@@ -16,8 +17,9 @@ public class Toit extends Composante{
     public Toit(RoulotteController parent, Pouce epaisseur) {
         super(parent);
         this.epaisseur = epaisseur;
-        this.setCouleurInitiale(new Color(100,70,200));
-        this.setCouleur(getCouleurInitiale());
+        //this.setCouleurInitiale(new Color(100,70,200));
+        //this.setCouleur(getCouleurInitiale());
+        this.setTransparence(0.1f);
         this.setType(TypeComposante.TOIT);
         this.setPolygone(getPolygone());
     }
@@ -25,10 +27,23 @@ public class Toit extends Composante{
     public Toit(RoulotteController parent) {
         super(parent);
         this.epaisseur = new Pouce(2,1,4);
-        this.setCouleurInitiale(new Color(100,70,200));
-        this.setCouleur(getCouleurInitiale());
+        //this.setCouleurInitiale(new Color(100,70,200));
+        //this.setCouleur(getCouleurInitiale());
+        this.setTransparence(0.1f);
         this.setType(TypeComposante.TOIT);
         this.setPolygone(getPolygone());
+    }
+
+    @Override
+    public void afficher(Graphics2D g2d){
+        if (estVisible()){
+            Area area = getArea();
+            Composite compositeInitial = g2d.getComposite();
+            g2d.setComposite(definirComposite(getTransparence()));
+            g2d.setPaint(getCouleur());
+            g2d.fill(area);
+            g2d.setComposite(compositeInitial);
+        }
     }
 
     public Pouce getEpaisseur() {

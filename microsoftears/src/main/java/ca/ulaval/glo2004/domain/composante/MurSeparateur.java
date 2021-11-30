@@ -6,6 +6,7 @@ import ca.ulaval.glo2004.utilitaires.Pouce;
 import ca.ulaval.glo2004.utilitaires.Rectangle;
 
 import java.awt.*;
+import java.awt.geom.Area;
 
 public class MurSeparateur extends Composante{
 
@@ -20,8 +21,9 @@ public class MurSeparateur extends Composante{
         this.hauteur = hauteur;
         this.distancePoutreArriere = distancePoutreArriere;
         this.rectangle = new Rectangle(this.epaisseur, this.hauteur, this.getCentre());
-        this.setCouleurInitiale(new Color(200,100,150));
-        this.setCouleur(getCouleurInitiale());
+        //this.setCouleurInitiale(new Color(200,100,150));
+        //this.setCouleur(getCouleurInitiale());
+        this.setTransparence(0.1f);
         this.setPolygone(rectangle.getPolygone());
         this.setType(TypeComposante.MUR_SEPARATEUR);
 
@@ -33,11 +35,25 @@ public class MurSeparateur extends Composante{
         this.hauteur = new Pouce(40,0,1);
         this.distancePoutreArriere = new Pouce(5,0,1);
         this.rectangle = new Rectangle(this.epaisseur, this.hauteur, this.getCentre());
-        this.setCouleurInitiale(new Color(200,100,150));
-        this.setCouleur(getCouleurInitiale());
+        //this.setCouleurInitiale(new Color(200,100,150));
+        //this.setCouleur(getCouleurInitiale());
+        this.setTransparence(0.1f);
         this.setPolygone(rectangle.getPolygone());
         this.setType(TypeComposante.MUR_SEPARATEUR);
         this.estVisible(true);
+    }
+
+    @Override
+    public void afficher(Graphics2D g2d){
+        if (estVisible()){
+            Area area = getArea();
+            Composite compositeInitial = g2d.getComposite();
+            g2d.setComposite(definirComposite(getTransparence()));
+            g2d.setPaint(getCouleur());
+            g2d.fill(area);
+            g2d.setComposite(compositeInitial);
+        }
+
     }
 
     public Pouce getEpaisseur() {

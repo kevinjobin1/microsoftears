@@ -5,6 +5,9 @@ import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Pouce;
 import ca.ulaval.glo2004.utilitaires.Rectangle;
 
+import java.awt.*;
+import java.awt.geom.Area;
+
 public class OuvertureLaterale extends Composante{
     private Pouce hauteur;
     private Pouce largeur;
@@ -31,6 +34,18 @@ public class OuvertureLaterale extends Composante{
         this.setTransparence(0.1f);
         this.setPolygone(rectangle.getPolygone());
         this.setType(TypeComposante.OUVERTURE_LATERALE);
+    }
+
+    @Override
+    public void afficher(Graphics2D g2d){
+        if (estVisible()){
+            Area area = getArea();
+            Composite compositeInitial = g2d.getComposite();
+            g2d.setComposite(definirComposite(getTransparence()));
+            g2d.setPaint(getCouleur());
+            g2d.fill(area);
+            g2d.setComposite(compositeInitial);
+        }
     }
 
     public Pouce gethauteur() {

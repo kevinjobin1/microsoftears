@@ -59,12 +59,22 @@ public class MurProfile extends Composante{
         if (estVisible()){
             Area area = getArea();
             if (!parent.getListeOuverturesLaterales().isEmpty()){
-                Area a = getArea();
                 for(OuvertureLaterale ouverture : parent.getListeOuverturesLaterales()){
                     Area areaOuverture = ouverture.getArea();
                     area.subtract(areaOuverture);
                 }
             }
+            int indexMurSeparateur = parent.getIndexComposante(TypeComposante.MUR_SEPARATEUR);
+            if (indexMurSeparateur != -1){
+               Area areaMurSeparateur = parent.getListeComposantes().get(indexMurSeparateur).getArea();
+               area.subtract(areaMurSeparateur);
+            }
+            int indexToit = parent.getIndexComposante(TypeComposante.TOIT);
+            if (indexToit != -1){
+                Area areaToit = parent.getListeComposantes().get(indexToit).getArea();
+                area.subtract(areaToit);
+            }
+
             Composite compositeInitial = g2d.getComposite();
             g2d.setComposite(definirComposite(getTransparence()));
             g2d.setPaint(getCouleur());

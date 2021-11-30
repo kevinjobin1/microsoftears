@@ -168,5 +168,6 @@ public class PointPouce  implements Serializable {
     public PointPouce translate(Pouce deltaX, Pouce deltaY){
         return new PointPouce(this.getX().add(deltaX), this.getY().add(deltaY));
     }
+
 }
 

@@ -357,4 +357,6 @@ public class PanelInfoPointControle extends PanelComposante  {
             valeurs[11] = pouces.getDenominateur();
             updateComposante();
         }
+
+
     }

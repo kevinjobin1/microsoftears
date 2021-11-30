@@ -18,6 +18,8 @@ public abstract class Composante implements IComposante {
     private Polygone polygone;
     private Color couleur;
     private float transparence = 0.75f;
+    private BasicStroke stroke = new BasicStroke(1.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
+    private Color strokeCouleur = Color.BLACK;
     private boolean estVisible;
     private Color couleurInitiale;
 
@@ -67,8 +69,8 @@ public abstract class Composante implements IComposante {
             g2d.setPaint(getCouleur());
             g2d.fill(area);
             g2d.setComposite(compositeInitial);
-            g2d.setColor(Color.BLACK);
-            g2d.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+            g2d.setColor(getStrokeCouleur());
+            g2d.setStroke(getStroke());
             g2d.draw(area);
         }
 
@@ -148,4 +150,22 @@ public abstract class Composante implements IComposante {
     public abstract int[] getValeurs();
 
     public abstract void translate(PointPouce delta);
+
+    public BasicStroke getStroke() {
+        return stroke;
+    }
+
+    public Color getStrokeCouleur() {
+        return strokeCouleur;
+    }
+
+    public void setStroke(BasicStroke stroke) {
+        this.stroke = stroke;
+    }
+
+    public void setStrokeCouleur(Color strokeCouleur) {
+        this.strokeCouleur = strokeCouleur;
+    }
+
+
 }
