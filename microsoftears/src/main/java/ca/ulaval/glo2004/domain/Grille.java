@@ -5,25 +5,32 @@ import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Pouce;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
+import java.util.*;
 
 public class Grille {
     private final RoulotteController parent;
     private final Color couleurGrille = Color.WHITE;
     private final Color couleurBordureGrille = Color.BLACK;
+    private Set<Point> points;
     private int echelle;
     private boolean estMagnetique;
     private boolean estAffiche;
+    private Dimension dimensions;
 
-    public Grille(RoulotteController parent, int echelle, boolean estMagnetique, boolean estAffiche) {
+    public Grille(RoulotteController parent, int echelle, boolean estMagnetique, boolean estAffiche, Dimension dimensions) {
         this.parent = parent;
         this.echelle = echelle;
         this.estMagnetique = estMagnetique;
         this.estAffiche = estAffiche;
-
+        this.dimensions = dimensions;
+        this.points = calculerPoints();
     }
 
     public void afficher(Graphics2D g2d, Dimension dimensionEcran){
         if(estAffiche){
+            this.dimensions = dimensionEcran;
+            this.points = calculerPoints();
             Point origineEcran = new Point(0,0);
             Point limiteEcran = new Point((int) dimensionEcran.getWidth(),(int) dimensionEcran.getHeight());
             PointPouce debutEcran = parent.getPositionPlan(origineEcran);
@@ -126,18 +133,44 @@ public class Grille {
             }*/
     }
 
-    public void getPositionGrille(PointPouce p){
-        /*int largeurGrille = dimensions.getWidth();
-        if (p.X %  < gridWidth/2)
-            p.X = pt.X - pt.X % gridWidth;
-        else
-            p.X = pt.X + (gridWidth - pt.X % gridWidth);
+    private Set<Point> calculerPoints(){
+        Set<Point> points = new HashSet<>();
+        Point origineEcran = new Point(0,0);
+        Point limiteEcran = new Point((int) dimensions.getWidth(),(int) dimensions.getHeight());
+        PointPouce debutEcran = parent.getPositionPlan(origineEcran);
+        PointPouce finEcran = parent.getPositionPlan(limiteEcran);
+        double[] p;
+            for (int i=debutEcran.getX().toInt(); i < finEcran.getX().toInt(); i+=echelle){
+                for (int j=debutEcran.getY().toInt(); j < finEcran.getY().toInt(); j+=echelle){
+                    p = parent.getPositionEcran(new PointPouce(new Pouce(i), new Pouce(j)));
+                    points.add(new Point((int) p[0], (int) p[1]));
+                }
+            }
 
-        if (p.Y % gridHeight < gridHeight / 2)
-            p.Y = pt.Y - pt.Y % gridHeight;
-        else
-            p.Y = pt.Y + (gridHeight - pt.Y % gridHeight);*/
+         /*   System.out.println("Début points");
+        Iterator<Point> it = points.iterator();
+        while(it.hasNext()){
+            System.out.println(it.next());
+        }
+        System.out.println("Fin points");*/
+      return points;
+
     }
+
+    public Point pointLePlusProche(Point p1){
+        double distanceMin = Double.MAX_VALUE;
+        Point plusProchePoint = new Point();
+        Iterator<Point> it = points.iterator();
+        while(it.hasNext()){
+            Point p2 = it.next();
+            if (p2.distance(p1) < distanceMin){
+                plusProchePoint = p2;
+                distanceMin = p2.distance(p1);
+            }
+        }
+        return plusProchePoint;
+    }
+
 
     public int getEchelle() {
         return echelle;
@@ -151,11 +184,11 @@ public class Grille {
         return parent;
     }
 
-    public boolean isEstMagnetique() {
+    public boolean estMagnetique() {
         return estMagnetique;
     }
 
-    public void setEstMagnetique(boolean estMagnetique) {
+    public void setMagnetique(boolean estMagnetique) {
         this.estMagnetique = estMagnetique;
     }
 

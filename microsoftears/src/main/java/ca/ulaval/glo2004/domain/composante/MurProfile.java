@@ -193,6 +193,12 @@ public class MurProfile extends Composante{
     }
 
     @Override
+    public void snapToGrid(PointPouce pointGrille){
+
+    }
+
+
+    @Override
     public String[] getNomsAttributs() {
         return parent.getListeComposantes().get(0).getNomsAttributs();
     }

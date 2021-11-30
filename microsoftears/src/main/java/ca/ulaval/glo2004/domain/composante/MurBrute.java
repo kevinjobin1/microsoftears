@@ -133,6 +133,13 @@ public class MurBrute extends Composante{
     }
 
     @Override
+    public void snapToGrid(PointPouce pointGrille){
+        this.centre = pointGrille;
+        this.rectangle = new Rectangle(this.longueur, this.longueur, this.centre);
+        this.setPolygone(rectangle.getPolygone());
+    }
+
+    @Override
     public String[] getNomsAttributs() {
         return new String[]{"Hauteur", "Longueur", "CentreX", "CentreY"};
     }

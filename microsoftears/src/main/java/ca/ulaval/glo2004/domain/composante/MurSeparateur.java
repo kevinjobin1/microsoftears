@@ -103,6 +103,12 @@ public class MurSeparateur extends Composante{
     }
 
     @Override
+    public void snapToGrid(PointPouce pointGrille){
+
+    }
+
+
+    @Override
     public String[] getNomsAttributs() {
         return new String[]{"Hauteur", "Épaisseur", "Distance Poutre Arrière"};
     }

@@ -110,13 +110,28 @@ public class BarreBoutons extends JPanel {
             }
         });
 
-        // ==== Bouton exporter un projet  =======
+        // ==== Afficher/masquer grille  =======
         afficherGrilleCheckBox.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 afficherGrilleCheckBoxActionPerformed(e);
             }
         });
-        
+
+        // ==== Magnétiser la grille  =======
+        estMagnetiqueCheckBox.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                estMagnetiqueCheckBoxActionPerformed(e);
+            }
+        });
+    }
+
+    private void estMagnetiqueCheckBoxActionPerformed(ActionEvent e) {
+        if (e.getSource() instanceof JCheckBox) {
+            JCheckBox checkBox = (JCheckBox) e.getSource();
+            parent.controller.setGrilleMagnetique(value, checkBox.isSelected(), afficherGrilleCheckBox.isSelected());
+            parent.repaint();
+        }
+
     }
 
     public void update(){

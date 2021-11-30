@@ -84,8 +84,15 @@ public class OuvertureLaterale extends Composante{
         this.centre = new PointPouce(differenceX, differenceY);
         this.rectangle = new Rectangle(this.hauteur,this.largeur,this.centre);
         this.setPolygone(rectangle.getPolygone());
-
     }
+
+    @Override
+    public void snapToGrid(PointPouce pointGrille){
+        this.centre = pointGrille;
+        this.rectangle = new Rectangle(this.hauteur,this.largeur,this.centre);
+        this.setPolygone(rectangle.getPolygone());
+    }
+
 
     @Override
     public String[] getNomsAttributs() {

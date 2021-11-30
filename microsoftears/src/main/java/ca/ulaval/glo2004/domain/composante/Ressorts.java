@@ -41,6 +41,11 @@ public class Ressorts extends Composante{
     }
 
     @Override
+    public void snapToGrid(PointPouce pointGrille) {
+
+    }
+
+    @Override
     public String[] getNomsAttributs() {
         return new String[0];
     }

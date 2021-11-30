@@ -20,7 +20,6 @@ public class RoulotteAfficheur
     {
         this.roulotte = roulotte;
         this.dimensionEcran = dimensionEcran;
-
        }
 
     //todo rendre ça propre

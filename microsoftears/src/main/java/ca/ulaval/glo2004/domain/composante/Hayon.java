@@ -330,6 +330,12 @@ public class Hayon extends Composante {
 
     }
 
+    @Override
+    public void snapToGrid(PointPouce pointGrille){
+
+    }
+
+
 
     @Override
     public String[] getNomsAttributs() {

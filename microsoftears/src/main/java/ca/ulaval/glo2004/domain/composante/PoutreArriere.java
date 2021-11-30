@@ -1,6 +1,7 @@
 package ca.ulaval.glo2004.domain.composante;
 
 import ca.ulaval.glo2004.domain.RoulotteController;
+import ca.ulaval.glo2004.utilitaires.Ellipse;
 import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Pouce;
 import ca.ulaval.glo2004.utilitaires.Rectangle;
@@ -133,6 +134,21 @@ public class PoutreArriere extends Composante{
         this.rectangle = new Rectangle(this.longueur,this.hauteur,this.centre,getAngle());
         this.setPolygone(rectangle.getPolygone());
 
+    }
+
+    @Override
+    public void snapToGrid(PointPouce pointGrille){
+        this.centreX = pointGrille.getX();
+        Pouce centreY = getCentreY(this.centreX);
+        MurBrute murBrute = (MurBrute) parent.getListeComposantes().get(0);
+        if(centreY != null) {
+            this.centre = new PointPouce(this.centreX, centreY);
+        }else {
+            this.centre = new PointPouce(this.centreX,murBrute.getCentre().getY().diff(murBrute.
+                    getLargeur().diviser(2)).add(hauteur.diviser(2)));
+        }
+        this.rectangle = new Rectangle(this.longueur,this.hauteur,this.centre,getAngle());
+        this.setPolygone(rectangle.getPolygone());
     }
 
     @Override

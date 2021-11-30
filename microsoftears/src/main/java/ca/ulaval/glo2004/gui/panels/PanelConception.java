@@ -99,7 +99,6 @@ public class PanelConception extends JPanel
             }
         });
 
-
     }
 
     private void panneauAffichageMouseDragged(MouseEvent e) {
@@ -109,6 +108,7 @@ public class PanelConception extends JPanel
             this.panneauAffichage.repaint();
         }
     }
+
     private void panneauAffichageMousePressed(MouseEvent e) {
         if (parent.getActionChoisie() == FenetrePrincipale.TypeAction.REMPLIR)
         {

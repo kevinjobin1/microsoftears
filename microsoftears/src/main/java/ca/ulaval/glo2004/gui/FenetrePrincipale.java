@@ -28,6 +28,10 @@ public class FenetrePrincipale extends JFrame {
     private TypeAction actionChoisie;
     private boolean estImperial = true;
 
+    public Dimension getDimensionAfficheur(){
+        return this.panelConception.panneauAffichage.getSize();
+    }
+
     public boolean estImperial() {
         return estImperial;
     }

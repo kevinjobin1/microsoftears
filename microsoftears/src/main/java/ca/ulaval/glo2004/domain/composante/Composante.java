@@ -151,6 +151,8 @@ public abstract class Composante implements IComposante {
 
     public abstract void translate(PointPouce delta);
 
+    public abstract void snapToGrid(PointPouce pointGrille);
+
     public BasicStroke getStroke() {
         return stroke;
     }

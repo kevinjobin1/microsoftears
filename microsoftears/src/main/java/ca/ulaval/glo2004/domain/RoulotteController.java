@@ -38,8 +38,8 @@ public class RoulotteController {
         this.positionSouris = new Point();
         this.modeProfil = true; // ellipses
         this.afficherGrille = true;
-        this.grille = new Grille(this, 6,true, afficherGrille);
         calculerDisposition();
+        this.grille = new Grille(this, 6,false, afficherGrille, new Dimension());
     }
 
     protected void invaliderDisposition(){
@@ -284,6 +284,7 @@ public class RoulotteController {
     }
 
     public PointPouce getPositionPlan(Point mousePoint) {
+
         Pouce x = xVersReel(mousePoint.getX()),
                 y = yVersReel(mousePoint.getY());
         return new PointPouce(x, y);
@@ -368,18 +369,31 @@ public class RoulotteController {
 
     public void dragSurPlan(Point mousePoint, TypeComposante type){
         int index = getIndexComposante(type);
+        Point plusProcheVoisin = null;
+        if (grille != null && grille.estMagnetique()){
+            plusProcheVoisin = grille.pointLePlusProche(mousePoint);
+        }
         if(index != -1){
             if (type == TypeComposante.MUR_PROFILE) {
                 for (int i = 0; i < listeComposantes.size(); i++){
-                 listeComposantes.get(i).translate(getPositionPlan(mousePoint));
+                    if (plusProcheVoisin != null){
+                        listeComposantes.get(i).snapToGrid(getPositionPlan(plusProcheVoisin));
+                    }
+                 else {listeComposantes.get(i).translate(getPositionPlan(mousePoint));}
                 }
             }
             else if(type == TypeComposante.MUR_BRUTE){
                 for (int i = 1; i < listeComposantes.size(); i++){
-                    listeComposantes.get(i).translate(getPositionPlan(mousePoint));
+                    if (plusProcheVoisin != null){
+                        listeComposantes.get(i).snapToGrid(getPositionPlan(plusProcheVoisin));
+                    }
+                    else{listeComposantes.get(i).translate(getPositionPlan(mousePoint));}
                 }
             }
-            listeComposantes.get(index).translate(getPositionPlan(mousePoint));
+            if (plusProcheVoisin != null){
+                listeComposantes.get(index).snapToGrid(getPositionPlan(plusProcheVoisin));
+            }
+            else{listeComposantes.get(index).translate(getPositionPlan(mousePoint));}
         }
         else {
             setTranslate((int) mousePoint.getX(), (int) mousePoint.getY());
@@ -543,7 +557,8 @@ public class RoulotteController {
     }
 
     public void setGrilleMagnetique(int echelleGrille, boolean estMagnetique, boolean estAffiche){
-        this.grille = new Grille(this, echelleGrille, estMagnetique, estAffiche);
+
+        this.grille = new Grille(this, echelleGrille, estMagnetique, estAffiche, parent.getDimensionAfficheur());
     }
 
 }

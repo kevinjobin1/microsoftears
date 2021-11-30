@@ -120,6 +120,12 @@ public class Plancher extends Composante {
     }
 
     @Override
+    public void snapToGrid(PointPouce pointGrille){
+        this.rectangle = new Rectangle(this.getLongueur(), this.epaisseur, this.getCentre());
+        this.setPolygone(rectangle.getPolygone());
+    }
+
+    @Override
     public String[] getNomsAttributs() {
         return new String[]{"Épaisseur", "Marge (avant)", "Marge (arrière)"};
     }
