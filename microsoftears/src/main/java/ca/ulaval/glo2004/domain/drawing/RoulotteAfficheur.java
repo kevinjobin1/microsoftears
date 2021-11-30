@@ -2,12 +2,19 @@ package ca.ulaval.glo2004.domain.drawing;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import ca.ulaval.glo2004.domain.Grille;
 import ca.ulaval.glo2004.domain.composante.*;
 import ca.ulaval.glo2004.domain.RoulotteController;
 import ca.ulaval.glo2004.utilitaires.PointPouce;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
+
+import static ca.ulaval.glo2004.utilitaires.ImageDesign.toBufferedImage;
 
 public class RoulotteAfficheur
 {
@@ -27,6 +34,8 @@ public class RoulotteAfficheur
     {
         afficherGrille(g2d);
         afficherTousPolygones(g2d);
+        //afficherImage(g2d, "man_sleeping.png", 170,350, 200, 152);
+        //afficherImage(g2d, "man_standing.png", 360,230, 200, 200);
         AffineTransform af = new AffineTransform();
         af.scale(roulotte.getScale(), roulotte.getScale());
         g2d.setTransform(af);
@@ -80,21 +89,10 @@ public class RoulotteAfficheur
         }
     }
 
-
-    //todo pourrait être pratique
-    public void afficherComposante(Graphics2D g2d, Composante composante){
-
+    private void afficherImage(Graphics2D g2d, String fileName, int posX, int posY, int largeur, int hauteur){
+        BufferedImage image = toBufferedImage(new ImageIcon(fileName).getImage());
+        g2d.drawImage(image, posX, posY, largeur, hauteur, null);
     }
-    //todo mais pas pour le livrable 3
-    private void afficherRessort(Graphics g){
-    }
-    
-    //todo mais pas pour le livrable 3
-    public static void afficherBezier() {
-
-    }
-
-
 
 }
 

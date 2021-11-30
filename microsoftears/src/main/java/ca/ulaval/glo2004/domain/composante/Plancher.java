@@ -6,7 +6,11 @@ import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Pouce;
 import ca.ulaval.glo2004.utilitaires.Rectangle;
 
+import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+
+import static ca.ulaval.glo2004.utilitaires.ImageDesign.toBufferedImage;
 
 public class Plancher extends Composante {
     private Pouce epaisseur;
@@ -72,6 +76,19 @@ public class Plancher extends Composante {
                 valeur.gt(profil.getProfilEllipses()[2].getLongueur().diviser(2).
                         diff(mur.getPolygone().getListePoints().get(2).getX().
                                 diff(profil.getProfilEllipses()[2].getCentre().getX())));
+    }
+
+    @Override
+    public void afficher(Graphics2D g2d) {
+        super.afficher(g2d);
+        if (estVisible()){
+            BufferedImage image = toBufferedImage(new ImageIcon("trailer_wheel.png").getImage());
+            double[] pos = parent.getPositionEcran(new PointPouce(this.getCentre().getX().diff(new Pouce(35,0,1)),
+                    this.getCentre().getY().diff(new Pouce(7,0,1))));
+
+            g2d.drawImage(image, (int) pos[0], (int) pos[1],(int) (152 * parent.getScale()), (int) (152 * parent.getScale()), null);
+        }
+
     }
 
     public Pouce getEpaisseur() {
