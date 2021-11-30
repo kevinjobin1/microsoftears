@@ -4,22 +4,26 @@ import ca.ulaval.glo2004.domain.RoulotteController;
 import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Pouce;
 import ca.ulaval.glo2004.utilitaires.Rectangle;
+import ca.ulaval.glo2004.utilitaires.RectangleCoinRond;
 
 import java.awt.*;
 import java.awt.geom.Area;
+import java.awt.geom.RoundRectangle2D;
 
 public class OuvertureLaterale extends Composante{
     private Pouce hauteur;
     private Pouce largeur;
     private PointPouce centre;
-    private Rectangle rectangle;
+    private Pouce rayon;
+    private RectangleCoinRond rectangle;
 
-    public OuvertureLaterale(RoulotteController parent, Pouce hauteur, Pouce largeur, PointPouce centre) {
+    public OuvertureLaterale(RoulotteController parent, Pouce hauteur, Pouce largeur, PointPouce centre, Pouce rayonCourbure) {
         super(parent);
         this.hauteur = hauteur;
         this.largeur = largeur;
         this.centre = centre;
-        this.rectangle = new Rectangle(hauteur, largeur, centre);
+        this.rayon = rayonCourbure;
+        this.rectangle = new RectangleCoinRond(hauteur, largeur, centre, rayon);
         this.setTransparence(0.1f);
         this.setPolygone(rectangle.getPolygone());
         this.setType(TypeComposante.OUVERTURE_LATERALE);
@@ -27,10 +31,11 @@ public class OuvertureLaterale extends Composante{
 
     public OuvertureLaterale(RoulotteController parent) {
         super(parent);
-        this.hauteur = new Pouce(10,0,1);
-        this.largeur = new Pouce(10,0,1);
+        this.hauteur = new Pouce(36,0,1);
+        this.largeur = new Pouce(26,0,1);
         this.centre = parent.getListeComposantes().get(0).getCentre();
-        this.rectangle = new Rectangle(hauteur, largeur, centre);
+        this.rayon = new Pouce(4,1,2);
+        this.rectangle = new RectangleCoinRond(hauteur, largeur, centre, rayon);
         this.setTransparence(0.1f);
         this.setPolygone(rectangle.getPolygone());
         this.setType(TypeComposante.OUVERTURE_LATERALE);
@@ -73,7 +78,8 @@ public class OuvertureLaterale extends Composante{
         return new int[]{hauteur.getPouces(), hauteur.getNumerateur(), hauteur.getDenominateur(),
                 largeur.getPouces(), largeur.getNumerateur(), largeur.getDenominateur(),
                 centre.getX().getPouces(), centre.getX().getNumerateur(), centre.getX().getDenominateur(),
-                centre.getY().getPouces(), centre.getY().getNumerateur(), centre.getY().getDenominateur()};
+                centre.getY().getPouces(), centre.getY().getNumerateur(), centre.getY().getDenominateur(),
+                rayon.getPouces(), rayon.getNumerateur(), rayon.getDenominateur()};
     }
 
     @Override
@@ -82,21 +88,21 @@ public class OuvertureLaterale extends Composante{
         Pouce differenceX = centre.getX().add(delta.getX().diff(pSouris.getX()));
         Pouce differenceY = centre.getY().add(delta.getY().diff(pSouris.getY()));
         this.centre = new PointPouce(differenceX, differenceY);
-        this.rectangle = new Rectangle(this.hauteur,this.largeur,this.centre);
+        this.rectangle = new RectangleCoinRond(this.hauteur,this.largeur,this.centre, this.rayon);
         this.setPolygone(rectangle.getPolygone());
     }
 
     @Override
     public void snapToGrid(PointPouce pointGrille){
         this.centre = pointGrille;
-        this.rectangle = new Rectangle(this.hauteur,this.largeur,this.centre);
+        this.rectangle = new RectangleCoinRond(this.hauteur,this.largeur,this.centre, this.rayon);
         this.setPolygone(rectangle.getPolygone());
     }
 
 
     @Override
     public String[] getNomsAttributs() {
-        return new String[]{"Hauteur", "Longueur", "CentreX", "CentreY"};
+        return new String[]{"Hauteur", "Longueur", "CentreX", "CentreY", "Rayon (courbure)"};
     }
 
     @Override

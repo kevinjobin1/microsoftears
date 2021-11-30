@@ -25,6 +25,11 @@ public class PointPouce  implements Serializable {
         this.y = pointCopie.getY();
     }
 
+    public PointPouce(Point2D p) {
+        x = new Pouce(p.getX());
+        y = new Pouce(p.getY());
+    }
+
     @Override
     public String toString() {
         return "PointPouce[x=" + x.toString() + ", y=" + y.toString() + "]";

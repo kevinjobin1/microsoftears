@@ -162,7 +162,7 @@ public class BarreBoutons extends JPanel {
     private JButton creerBoutonLogo() {
         ImageIcon imageIcon = new ImageIcon("caravan.png");
         Image image = imageIcon.getImage();
-        Image newImage = image.getScaledInstance(30, 30,  java.awt.Image.SCALE_SMOOTH);
+        Image newImage = image.getScaledInstance(40, 40,  java.awt.Image.SCALE_SMOOTH);
         imageIcon = new ImageIcon(newImage);
         JButton bouton = new JButton(imageIcon);
         bouton.setBackground(null);

@@ -22,10 +22,14 @@ public class PanelInfoOuvertureLaterales extends PanelComposante {
             centreYSpinner1,
             centreYSpinner2,
             centreYSpinner3,
+            rayonSpinner1,
+            rayonSpinner2,
+            rayonSpinner3,
             hauteurSpinner,
             largeurSpinner,
             centreXSpinner,
-            centreYSpinner;
+            centreYSpinner,
+            rayonSpinner;
 
     public PanelInfoOuvertureLaterales(BarreOnglet parent, IComposante composante) {
         super(parent, composante);
@@ -53,11 +57,17 @@ public class PanelInfoOuvertureLaterales extends PanelComposante {
                     this.centreXSpinner1 = creerSpinnerPouces(0, posY, pouces);
                     this.centreXSpinner2 = creerSpinnerPouces(2, posY, pouces);
                     this.centreXSpinner3 = creerSpinnerPouces(4, posY, pouces);
-                } else {
+                } else if (i==3){
                     pouces = new Pouce(valeurs[9], valeurs[10], valeurs[11]);
                     this.centreYSpinner1 = creerSpinnerPouces(0, posY, pouces);
                     this.centreYSpinner2 = creerSpinnerPouces(2, posY, pouces);
                     this.centreYSpinner3 = creerSpinnerPouces(4, posY, pouces);
+                }
+                else{
+                    pouces = new Pouce(valeurs[12], valeurs[13], valeurs[14]);
+                    this.rayonSpinner1 = creerSpinnerPouces(0, posY, pouces);
+                    this.rayonSpinner2 = creerSpinnerPouces(2, posY, pouces);
+                    this.rayonSpinner3 = creerSpinnerPouces(4, posY, pouces);
                 }
             }
 
@@ -156,6 +166,28 @@ public class PanelInfoOuvertureLaterales extends PanelComposante {
                 centreYSpinner3ChangeListener(e);
             }
         });
+        
+            //============== RAYON COURBURE =============//
+            rayonSpinner1.addChangeListener(new ChangeListener() {
+                @Override
+                public void stateChanged(ChangeEvent e) {
+                    rayonSpinner1ChangeListener(e);
+                }
+            });
+
+            rayonSpinner2.addChangeListener(new ChangeListener() {
+                @Override
+                public void stateChanged(ChangeEvent e) {
+                    rayonSpinner2ChangeListener(e);
+                }
+            });
+
+            rayonSpinner3.addChangeListener(new ChangeListener() {
+                @Override
+                public void stateChanged(ChangeEvent e) {
+                    rayonSpinner3ChangeListener(e);
+                }
+            });
     }
         else {
             Pouce pouces;
@@ -170,9 +202,13 @@ public class PanelInfoOuvertureLaterales extends PanelComposante {
                 } else if (i == 2) {
                     pouces = new Pouce(valeurs[6], valeurs[7], valeurs[8]);
                     this.centreXSpinner = creerSpinnerMM(i, pouces.getMilimetres());
-                } else {
+                } else if (i == 3){
                     pouces = new Pouce(valeurs[9], valeurs[10], valeurs[11]);
                     this.centreYSpinner = creerSpinnerMM(i, pouces.getMilimetres());
+                }
+                else {
+                    pouces = new Pouce(valeurs[12], valeurs[13], valeurs[14]);
+                    this.rayonSpinner = creerSpinnerMM(i, pouces.getMilimetres());
                 }
             }
             hauteurSpinner.addChangeListener(new ChangeListener() {
@@ -197,6 +233,13 @@ public class PanelInfoOuvertureLaterales extends PanelComposante {
                 @Override
                 public void stateChanged(ChangeEvent e) {
                     centreYSpinnerChangeListener(e);
+                }
+            });
+
+            rayonSpinner.addChangeListener(new ChangeListener() {
+                @Override
+                public void stateChanged(ChangeEvent e) {
+                    rayonSpinnerChangeListener(e);
                 }
             });
         }
@@ -322,6 +365,37 @@ public class PanelInfoOuvertureLaterales extends PanelComposante {
         }
         updateComposante();
     }
+    
+    private void rayonSpinner1ChangeListener(ChangeEvent e) {
+        int value = (int) ((JSpinner) e.getSource()).getValue();;
+        this.valeurs[12] =  value;
+        updateComposante();
+    }
+    
+    private void rayonSpinner2ChangeListener(ChangeEvent e) {
+        int value = (int) ((JSpinner) e.getSource()).getValue();
+        if (value < this.valeurs[14]){
+            this.valeurs[13] =  value;
+        }
+        else if (value >= this.valeurs[14]){
+            this.rayonSpinner1.setValue((int) rayonSpinner1.getValue() + 1);
+            this.rayonSpinner2.setValue(0);
+            this.valeurs[13] = 0;
+        }
+        updateComposante();
+    }
+
+    private void rayonSpinner3ChangeListener(ChangeEvent e) {
+        int value = (int) ((JSpinner) e.getSource()).getValue();
+        if (value > this.valeurs[13]){ // 4/4
+            this.valeurs[14] =  value;
+        }
+        else if (value <= this.valeurs[13]){
+            this.rayonSpinner3.setValue(this.valeurs[14]);
+        }
+        updateComposante();
+    }
+
 
     private void hauteurSpinnerChangeListener(ChangeEvent e) {
         JSpinner spinner = (JSpinner) e.getSource();
@@ -356,6 +430,15 @@ public class PanelInfoOuvertureLaterales extends PanelComposante {
         valeurs[9] = pouces.getPouces();
         valeurs[10] = pouces.getNumerateur();
         valeurs[11] = pouces.getDenominateur();
+        updateComposante();
+    }
+
+    private void rayonSpinnerChangeListener(ChangeEvent e) {
+        JSpinner spinner = (JSpinner) e.getSource();
+        Pouce pouces = new Pouce((double) spinner.getValue(), true);
+        valeurs[12] = pouces.getPouces();
+        valeurs[13] = pouces.getNumerateur();
+        valeurs[14] = pouces.getDenominateur();
         updateComposante();
     }
 }

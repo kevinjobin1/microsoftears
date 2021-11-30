@@ -245,19 +245,24 @@ public class RoulotteController {
 
            case OUVERTURE_LATERALE:
                OuvertureLaterale ouvertureLaterale = new OuvertureLaterale( this,
-                       new Pouce(valeurs[3], valeurs[4], valeurs[5]),
                        new Pouce(valeurs[0], valeurs[1], valeurs[2]),
+                       new Pouce(valeurs[3], valeurs[4], valeurs[5]),
                        new PointPouce(
                                new Pouce(valeurs[6], valeurs[7], valeurs[8]),
-                               new Pouce(valeurs[9], valeurs[10], valeurs[11])));
+                               new Pouce(valeurs[9], valeurs[10], valeurs[11])),
+                       new Pouce(valeurs[12], valeurs[13], valeurs[14]));
                listeComposantes.set(11, ouvertureLaterale);
                listeOuverturesLaterales.set(0, ouvertureLaterale);
                break;
        }
 
        int index = getIndexComposante(parent.getComposanteChoisie());
-       if (index != -1){
+       if (index != -1 && parent.getActionChoisie() == FenetrePrincipale.TypeAction.SELECTION){
            listeComposantes.get(index).setCouleur(new Color(255,60,60));
+       }
+       else if  (index != -1 && parent.getActionChoisie() == FenetrePrincipale.TypeAction.REMPLIR) {
+           listeComposantes.get(index).setCouleurInitiale(parent.getCouleurChoisie());
+           listeComposantes.get(index).resetCouleur();
        }
     }
 
@@ -342,28 +347,30 @@ public class RoulotteController {
     public void clicSurPlan(Point mousePressedPoint) {
 
         PointPouce positionClic = getPositionPlan(mousePressedPoint);
+        if (parent.getActionChoisie() == FenetrePrincipale.TypeAction.SELECTION){
+            int indexComposante = -1;
+            if (!listeComposantes.isEmpty()) {
+                for (int i=0; i < listeComposantes.size(); i++) {
+                    Composante composante = listeComposantes.get(i);
+                    composante.resetCouleur();
+                    composante.resetTransparence();
 
-        int indexComposante = -1;
-        if (!listeComposantes.isEmpty()) {
-            for (int i=0; i < listeComposantes.size(); i++) {
-                Composante composante = listeComposantes.get(i);
-                composante.resetCouleur();
-                composante.resetTransparence();
-
-                if (composante.getPolygone().contient(positionClic) && composante.estVisible()) {
-                    indexComposante = i;
+                    if (composante.getPolygone().contient(positionClic) && composante.estVisible()) {
+                        indexComposante = i;
+                    }
+                }
+                if (indexComposante != -1){
+                    Composante composante = listeComposantes.get(indexComposante);
+                    parent.setComposanteChoisie(composante.getType());
+                    composante.setCouleur(new Color(255,60,60));
+                    composante.setTransparence(1.0f);
+                }
+                else {
+                    parent.setComposanteChoisie(TypeComposante.PLAN);
                 }
             }
-            if (indexComposante != -1){
-                Composante composante = listeComposantes.get(indexComposante);
-                parent.setComposanteChoisie(composante.getType());
-                composante.setCouleur(new Color(255,60,60));
-                composante.setTransparence(1.0f);
-            }
-            else {
-                parent.setComposanteChoisie(TypeComposante.PLAN);
-            }
         }
+
     }
 
 
