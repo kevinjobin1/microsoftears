@@ -16,7 +16,8 @@ import java.awt.event.ActionListener;
 
 public class BarreBoutons extends JPanel {
     private final FenetrePrincipale parent;
-    private JButton nouveauButton,
+    private JButton logoButton,
+            nouveauButton,
             chargerButton,
             undoButton,
             redoButton,
@@ -42,6 +43,7 @@ public class BarreBoutons extends JPanel {
 
     private void initialiser() {
         // ======= Boutons ======== //
+        logoButton = creerBoutonLogo();
         nouveauButton = creerBouton(BootstrapIcons.FILE_EARMARK_PLUS_FILL, 30, Color.WHITE);
         chargerButton = creerBouton(BootstrapIcons.FOLDER2_OPEN, 30, Color.WHITE);
         undoButton = creerBouton(BootstrapIcons.ARROW_LEFT, 30, Color.WHITE);
@@ -60,6 +62,12 @@ public class BarreBoutons extends JPanel {
         creerSpinnerMM(parent.controller.getEchelleGrille().getMilimetres());
         this.update();
 
+        // ==== Bouton À propos (logo) =======
+       logoButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                logoButtonActionPerformed(e);
+            }
+        });
 
         // ==== Bouton nouveau projet =======
         nouveauButton.addActionListener(new ActionListener() {
@@ -123,6 +131,44 @@ public class BarreBoutons extends JPanel {
                 estMagnetiqueCheckBoxActionPerformed(e);
             }
         });
+    }
+
+    private void logoButtonActionPerformed(ActionEvent e) {
+        JDialog d = new JDialog(parent, "À propos");
+        d.setLayout(new BoxLayout(d.getContentPane(),BoxLayout.Y_AXIS));
+        // create a label
+        JLabel espace1 = new JLabel("================================================");
+        JLabel espace2 = new JLabel("================================================");
+        JLabel espace3 = new JLabel("================================================");
+        JLabel espace4 = new JLabel("================================================");
+        JLabel label1 = new JLabel("....................//** 2021 Projet Microsoftears **\\\\....................");
+        JLabel label2 = new JLabel("....................//** Conception et code réalisé par **\\\\....................");
+        JLabel label3 = new JLabel("....................//** Kevin Jobin, Lucas Niquet et Lydia Lelièvre **\\\\....................");
+        d.add(espace1);
+        d.add(label1);
+        d.add(espace2);
+        d.add(label2);
+        d.add(espace3);
+        d.add(label3);
+        d.add(espace4);
+
+        // setsize of dialog
+        d.setSize(400, 150);
+
+        // set visibility of dialog
+        d.setVisible(true);
+    }
+
+    private JButton creerBoutonLogo() {
+        ImageIcon imageIcon = new ImageIcon("caravan.png");
+        Image image = imageIcon.getImage();
+        Image newImage = image.getScaledInstance(30, 30,  java.awt.Image.SCALE_SMOOTH);
+        imageIcon = new ImageIcon(newImage);
+        JButton bouton = new JButton(imageIcon);
+        bouton.setBackground(null);
+        bouton.setBorder(null);
+        this.add(bouton);
+        return bouton;
     }
 
     private void estMagnetiqueCheckBoxActionPerformed(ActionEvent e) {

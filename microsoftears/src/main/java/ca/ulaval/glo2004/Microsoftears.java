@@ -5,6 +5,8 @@ import javax.swing.*;
 import ca.ulaval.glo2004.gui.FenetrePrincipale;
 import com.formdev.flatlaf.FlatDarculaLaf;
 
+import java.awt.*;
+
 public class Microsoftears {
 
     public static void main(String[] args) {
@@ -18,6 +20,8 @@ public class Microsoftears {
             e.printStackTrace();
         }
         FenetrePrincipale fenetrePrincipale = new FenetrePrincipale();
+        Image icon = Toolkit.getDefaultToolkit().getImage("caravan.png");
+        fenetrePrincipale.setIconImage(icon);
         fenetrePrincipale.setTitle("Microsoftears");
         fenetrePrincipale.setExtendedState(fenetrePrincipale.getExtendedState() | JFrame.MAXIMIZED_BOTH);
         fenetrePrincipale.setVisible(true);
