@@ -31,6 +31,7 @@ public class BarreBoutons extends JPanel {
             longueurLigneGrilleSpinner1,
             longueurLigneGrilleSpinner2,
             longueurLigneGrilleSpinner3;
+    private int value;
 
     public BarreBoutons(FenetrePrincipale parent) {
         this.parent = parent;
@@ -54,6 +55,7 @@ public class BarreBoutons extends JPanel {
         estMagnetiqueCheckBox = new JCheckBox(" Magnétique", false);
         this.add(afficherGrilleCheckBox);
         this.add(estMagnetiqueCheckBox);
+        this.value = parent.controller.getEchelleGrille().toInt();
         creerSpinnerPouces(parent.controller.getEchelleGrille());
         creerSpinnerMM(parent.controller.getEchelleGrille().getMilimetres());
         this.update();
@@ -153,6 +155,8 @@ public class BarreBoutons extends JPanel {
             this.longueurLigneGrilleSpinner.setVisible(checkBox.isSelected());
             this.labelPouce.setVisible(checkBox.isSelected());
             this.labelMM.setVisible(checkBox.isSelected());
+            parent.controller.setGrilleMagnetique(value, estMagnetiqueCheckBox.isSelected(), afficherGrilleCheckBox.isSelected());
+            parent.repaint();
             
         }
     }
@@ -210,13 +214,13 @@ public class BarreBoutons extends JPanel {
     }
 
     private void longueurLigneGrilleSpinner1ChangeListener(ChangeEvent e) {
-        int value = (int) ((JSpinner) e.getSource()).getValue();
+        this.value = (int) ((JSpinner) e.getSource()).getValue();
         parent.controller.setGrilleMagnetique(value, estMagnetiqueCheckBox.isSelected(), afficherGrilleCheckBox.isSelected());
         parent.repaint();
     }
 
     private void longueurLigneGrilleSpinnerChangeListener(ChangeEvent e) {
-        int value = (int) (((double) ((JSpinner) e.getSource()).getValue())/25.4);
+        this.value = (int) (((double) ((JSpinner) e.getSource()).getValue())/25.4);
         parent.controller.setGrilleMagnetique(value, estMagnetiqueCheckBox.isSelected(), afficherGrilleCheckBox.isSelected());
         parent.repaint();
     }
