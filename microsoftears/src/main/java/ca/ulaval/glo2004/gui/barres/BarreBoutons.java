@@ -2,30 +2,45 @@ package ca.ulaval.glo2004.gui.barres;
 
 import ca.ulaval.glo2004.domain.composante.TypeComposante;
 import ca.ulaval.glo2004.gui.FenetrePrincipale;
+import ca.ulaval.glo2004.utilitaires.Pouce;
 import org.kordamp.ikonli.bootstrapicons.BootstrapIcons;
+import org.kordamp.ikonli.*;
 import org.kordamp.ikonli.swing.FontIcon;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class BarreBoutons extends JPanel {
+    private final FenetrePrincipale parent;
     private JButton nouveauButton,
             chargerButton,
             undoButton,
             redoButton,
             saveButton,
             deleteButton,
-            exportButton;
-    private FenetrePrincipale parent;
+            exportButton,
+            grilleButton;
+    private JCheckBox afficherGrilleCheckBox,
+                        estMagnetiqueCheckBox;
+    private JLabel labelPouce, labelNum, labelDenum, labelMM;
+    private JSpinner longueurLigneGrilleSpinner,
+            longueurLigneGrilleSpinner1,
+            longueurLigneGrilleSpinner2,
+            longueurLigneGrilleSpinner3;
 
     public BarreBoutons(FenetrePrincipale parent) {
         this.parent = parent;
+        this.setPreferredSize(new Dimension(400, 50));
+        this.setLayout(new FlowLayout(FlowLayout.LEFT, 15, 10));
        this.initialiser();
     }
 
     private void initialiser() {
+        // ======= Boutons ======== //
         nouveauButton = creerBouton(BootstrapIcons.FILE_EARMARK_PLUS_FILL, 30, Color.WHITE);
         chargerButton = creerBouton(BootstrapIcons.FOLDER2_OPEN, 30, Color.WHITE);
         undoButton = creerBouton(BootstrapIcons.ARROW_LEFT, 30, Color.WHITE);
@@ -33,6 +48,16 @@ public class BarreBoutons extends JPanel {
         saveButton = creerBouton(BootstrapIcons.SAVE, 30, Color.WHITE);
         deleteButton = creerBouton(BootstrapIcons.TRASH_FILL, 30, Color.WHITE);
         exportButton = creerBouton(BootstrapIcons.ARROW_BAR_RIGHT, 30, Color.WHITE);
+
+        // ======= CheckBox ======== //
+        afficherGrilleCheckBox = new JCheckBox(" Afficher grille", true);
+        estMagnetiqueCheckBox = new JCheckBox(" Magnétique", false);
+        this.add(afficherGrilleCheckBox);
+        this.add(estMagnetiqueCheckBox);
+        creerSpinnerPouces(parent.controller.getEchelleGrille());
+        creerSpinnerMM(parent.controller.getEchelleGrille().getMilimetres());
+        this.update();
+
 
         // ==== Bouton nouveau projet =======
         nouveauButton.addActionListener(new ActionListener() {
@@ -82,6 +107,31 @@ public class BarreBoutons extends JPanel {
                 exportButtonActionPerformed(e);
             }
         });
+
+        // ==== Bouton exporter un projet  =======
+        afficherGrilleCheckBox.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                afficherGrilleCheckBoxActionPerformed(e);
+            }
+        });
+        
+    }
+
+    public void update(){
+        if (parent.estImperial()){
+            this.add(longueurLigneGrilleSpinner1);
+            this.add(labelPouce);
+            this.remove(longueurLigneGrilleSpinner);
+            this.remove(labelMM);
+            creerSpinnerMM(parent.controller.getEchelleGrille().getMilimetres());
+        }
+        else{
+            this.remove(longueurLigneGrilleSpinner1);
+            this.remove(labelPouce);
+            this.add(longueurLigneGrilleSpinner);
+            this.add(labelMM);
+            creerSpinnerPouces(parent.controller.getEchelleGrille());
+        }
     }
 
     private JButton creerBouton(BootstrapIcons icone, int taille, Color couleur){
@@ -93,6 +143,18 @@ public class BarreBoutons extends JPanel {
         bouton.setBorder(null);
         this.add(bouton);
         return bouton;
+    }
+
+    private void afficherGrilleCheckBoxActionPerformed(ActionEvent e) {
+        if (e.getSource() instanceof JCheckBox) {
+            JCheckBox checkBox = (JCheckBox) e.getSource();
+            this.estMagnetiqueCheckBox.setVisible(checkBox.isSelected());
+            this.longueurLigneGrilleSpinner1.setVisible(checkBox.isSelected());
+            this.longueurLigneGrilleSpinner.setVisible(checkBox.isSelected());
+            this.labelPouce.setVisible(checkBox.isSelected());
+            this.labelMM.setVisible(checkBox.isSelected());
+            
+        }
     }
 
     private void exportButtonActionPerformed(ActionEvent e) {
@@ -114,15 +176,49 @@ public class BarreBoutons extends JPanel {
     }
 
     private void nouveauButtonActionPerformed(ActionEvent e) {
-        /*parent.setActionChoisie(FenetrePrincipale.TypeAction.AJOUT);
-        parent.controller.ajouterComposante(TypeComposante.MUR_PROFILE);
-        parent.controller.ajouterComposante(TypeComposante.PLANCHER);
-        parent.controller.ajouterComposante(TypeComposante.POUTRE_ARRIERE);
-        parent.controller.ajouterComposante(TypeComposante.HAYON);
-        parent.controller.ajouterComposante(TypeComposante.MUR_SEPARATEUR);
-        parent.controller.ajouterComposante(TypeComposante.TOIT);
-        parent.setActionChoisie(FenetrePrincipale.TypeAction.SELECTION);
-        parent.updateBarreOnglet();*/
+
+    }
+
+    protected void creerSpinnerPouces(Pouce valeur){
+        this.longueurLigneGrilleSpinner1 = new JSpinner(new SpinnerNumberModel(valeur.getPouces(),1,24,1));
+        this.labelPouce = creerLabelSymbole(" \" ");
+        
+        longueurLigneGrilleSpinner1.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                longueurLigneGrilleSpinner1ChangeListener(e);
+            }
+        });
+        
+    }
+
+    protected void creerSpinnerMM(double value){
+        this.longueurLigneGrilleSpinner = new JSpinner(new SpinnerNumberModel(value,25.4,609.6,25.4));
+        this.labelMM =  creerLabelSymbole(" mm ");
+        
+        longueurLigneGrilleSpinner.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                longueurLigneGrilleSpinnerChangeListener(e);
+            }
+        });
+    }
+
+    protected JLabel creerLabelSymbole(String symbole){
+        JLabel label = new JLabel(symbole);
+        return label;
+    }
+
+    private void longueurLigneGrilleSpinner1ChangeListener(ChangeEvent e) {
+        int value = (int) ((JSpinner) e.getSource()).getValue();
+        parent.controller.setGrilleMagnetique(value, estMagnetiqueCheckBox.isSelected(), afficherGrilleCheckBox.isSelected());
+        parent.repaint();
+    }
+
+    private void longueurLigneGrilleSpinnerChangeListener(ChangeEvent e) {
+        int value = (int) (((double) ((JSpinner) e.getSource()).getValue())/25.4);
+        parent.controller.setGrilleMagnetique(value, estMagnetiqueCheckBox.isSelected(), afficherGrilleCheckBox.isSelected());
+        parent.repaint();
     }
 
 }

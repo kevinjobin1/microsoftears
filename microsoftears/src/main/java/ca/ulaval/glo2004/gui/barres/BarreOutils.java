@@ -120,7 +120,7 @@ public class BarreOutils extends JToolBar {
                 parent.setActionChoisie(FenetrePrincipale.TypeAction.AJOUT);
                 // TODO: fonction d'ajout d'aide au design
                 parent.setActionChoisie(FenetrePrincipale.TypeAction.SELECTION);
-                parent.updateBarreOnglet();
+                parent.updateBarres();
             }
         }));
 
@@ -129,7 +129,7 @@ public class BarreOutils extends JToolBar {
                 parent.setActionChoisie(FenetrePrincipale.TypeAction.AJOUT);
                 // TODO: fonction d'ajout d'ouvertures latérales
                 parent.setActionChoisie(FenetrePrincipale.TypeAction.SELECTION);
-                parent.updateBarreOnglet();
+                parent.updateBarres();
             }
         }));
 

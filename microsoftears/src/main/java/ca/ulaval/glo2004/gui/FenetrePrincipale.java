@@ -16,16 +16,26 @@ import java.util.ArrayList;
 public class FenetrePrincipale extends JFrame {
     // Composantes graphiques du Frame
     private JPanel mainPanel, bottomPanel;
-    protected BarreBoutons boutonsTopPanel;
+    protected BarreBoutons barreBoutons;
     protected PanelConception panelConception;
     protected BarreMenu barreMenu;
-    protected BarreOnglet barreOnglets;
+    public BarreOnglet barreOnglets;
     protected Color couleurChoisie;
 
     // Éléments rattachés non-graphiques
     public RoulotteController controller;
     private TypeComposante composanteChoisie;
     private TypeAction actionChoisie;
+    private boolean estImperial = true;
+
+    public boolean estImperial() {
+        return estImperial;
+    }
+
+    public void estImperial(boolean estImperial) {
+        this.estImperial = estImperial;
+        updateBarres();
+    }
 
     public Color getCouleurChoisie() {
         return couleurChoisie;
@@ -41,12 +51,12 @@ public class FenetrePrincipale extends JFrame {
 
     public void setComposanteChoisie(TypeComposante type) {
         this.composanteChoisie = type;
-        updateBarreOnglet();
+        updateBarres();
     }
 
-    public void updateBarreOnglet() {
-        this.barreMenu = new BarreMenu(this);
-        this.setJMenuBar(barreMenu);
+    public void updateBarres() {
+        this.barreMenu.update();
+        this.barreBoutons.update();
         this.barreOnglets.update();
         switch (composanteChoisie) {
             case HAYON:
@@ -95,6 +105,7 @@ public class FenetrePrincipale extends JFrame {
                 this.barreOnglets.setSelectedIndex(10);
                 break;
         }
+
     }
 
     public enum TypeAction {
@@ -119,7 +130,7 @@ public class FenetrePrincipale extends JFrame {
         mainPanel = new JPanel();
         bottomPanel = new JPanel();
         barreMenu = new BarreMenu(this);
-        boutonsTopPanel = new BarreBoutons(this);
+        barreBoutons = new BarreBoutons(this);
         barreOnglets = new BarreOnglet(this);
         panelConception = new PanelConception(this);
 
@@ -134,10 +145,10 @@ public class FenetrePrincipale extends JFrame {
 
         mainPanel.setLayout(new BorderLayout());
 
-        //======== boutonsTopPanel ========
-        boutonsTopPanel.setPreferredSize(new Dimension(400, 50));
-        boutonsTopPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 15, 10));
-        mainPanel.add(boutonsTopPanel, BorderLayout.NORTH);
+        //======== barreBoutons ========
+        barreBoutons.setPreferredSize(new Dimension(400, 50));
+        barreBoutons.setLayout(new FlowLayout(FlowLayout.LEFT, 15, 10));
+        mainPanel.add(barreBoutons, BorderLayout.NORTH);
 
         //======== barreOnglets ========
 

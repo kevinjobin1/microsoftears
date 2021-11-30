@@ -13,10 +13,12 @@ import java.util.ArrayList;
 
 public class RoulotteController {
     private final FenetrePrincipale parent;
+    private Grille grille;
     private ArrayList<Composante> listeComposantes;
     private ArrayList<OuvertureLaterale> listeOuverturesLaterales;
     private ArrayList<AideDesign> listeAidesDesign;
     private boolean modeProfil;
+    private boolean afficherGrille;
 
 
     // controle de l'affichage
@@ -35,6 +37,8 @@ public class RoulotteController {
         this.scale = 1;
         this.positionSouris = new Point();
         this.modeProfil = true; // ellipses
+        this.afficherGrille = true;
+        this.grille = new Grille(this, 6,true, afficherGrille);
         calculerDisposition();
     }
 
@@ -528,6 +532,18 @@ public class RoulotteController {
 
     public void setModeProfil(boolean modeProfil) {
         this.modeProfil = modeProfil;
+    }
+
+    public Grille getGrille(){
+        return this.grille;
+    }
+
+    public Pouce getEchelleGrille(){
+        return new Pouce(this.grille.getEchelle());
+    }
+
+    public void setGrilleMagnetique(int echelleGrille, boolean estMagnetique, boolean estAffiche){
+        this.grille = new Grille(this, echelleGrille, estMagnetique, estAffiche);
     }
 
 }

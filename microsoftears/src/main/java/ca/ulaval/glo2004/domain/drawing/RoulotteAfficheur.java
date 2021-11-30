@@ -2,15 +2,12 @@ package ca.ulaval.glo2004.domain.drawing;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
-import java.util.Arrays;
 
+import ca.ulaval.glo2004.domain.Grille;
 import ca.ulaval.glo2004.domain.composante.*;
 import ca.ulaval.glo2004.domain.RoulotteController;
-import ca.ulaval.glo2004.utilitaires.Ellipse;
 import ca.ulaval.glo2004.utilitaires.PointPouce;
-import ca.ulaval.glo2004.utilitaires.Pouce;
 
 public class RoulotteAfficheur
 {
@@ -37,8 +34,7 @@ public class RoulotteAfficheur
     }
 
     private void afficherGrille(Graphics2D g2d) {
-        Grille grille = new Grille(roulotte, 6,true, dimensionEcran);
-        grille.afficher(g2d);
+        roulotte.getGrille().afficher(g2d, dimensionEcran);
     }
 
     private void afficherTousPolygones(Graphics2D g2d)

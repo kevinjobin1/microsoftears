@@ -444,4 +444,7 @@ public class BarreMenu extends JMenuBar
         System.exit(0);
     }
 
+    public void update() {
+
+    }
 }

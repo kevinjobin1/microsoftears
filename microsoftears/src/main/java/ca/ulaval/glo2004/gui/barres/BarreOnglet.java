@@ -8,8 +8,6 @@ import ca.ulaval.glo2004.gui.panels.*;
 
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,13 +18,11 @@ import java.awt.event.ActionListener;
  */
 public class BarreOnglet extends JTabbedPane {
 
-    private boolean estImperial;
     public FenetrePrincipale parent;
 
     public BarreOnglet(FenetrePrincipale parent)
     {
         this.parent = parent;
-        this.estImperial = true;
         this.initialiser();
     }
 
@@ -187,13 +183,13 @@ public class BarreOnglet extends JTabbedPane {
     private void boutonUniteMesureActionPerformed(ActionEvent e) {
         JToggleButton bouton = (JToggleButton) e.getSource();
         int index = this.getSelectedIndex();
-        this.estImperial = bouton.getText().equals("Impérial (\")");
+        this.parent.estImperial(bouton.getText().equals("Impérial (\")"));
         this.rafraichir();
         this.setSelectedIndex(index);
     }
 
     public boolean estImperial(){
-        return this.estImperial;
+        return parent.estImperial();
     }
 
 }

@@ -403,6 +403,6 @@ public class PanelInfoProfile extends PanelComposante{
         JToggleButton bouton = (JToggleButton) e.getSource();
        parent.parent.controller.setModeProfil(bouton.getText().equals("Ellipses"));
         parent.parent.controller.updateComposante(getValeurs(), TypeComposante.MUR_PROFILE);
-        parent.parent.updateBarreOnglet();
+        parent.parent.updateBarres();
     }
     }
