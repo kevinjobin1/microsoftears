@@ -7,6 +7,8 @@ import ca.ulaval.glo2004.utilitaires.Pouce;
 import ca.ulaval.glo2004.utilitaires.Rectangle;
 
 import java.awt.*;
+import java.awt.geom.Area;
+import java.awt.geom.Path2D;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -50,6 +52,29 @@ public class MurProfile extends Composante{
         this.setCouleur(copie.getCouleur());
         this.setType(copie.getType());
         this.setPolygone(copie.getPolygone());
+    }
+
+    @Override
+    public void afficher(Graphics2D g2d){
+        if (estVisible()){
+            Area area = getArea();
+            if (!parent.getListeOuverturesLaterales().isEmpty()){
+                Area a = getArea();
+                for(OuvertureLaterale ouverture : parent.getListeOuverturesLaterales()){
+                    Area areaOuverture = ouverture.getArea();
+                    area.subtract(areaOuverture);
+                }
+            }
+            Composite compositeInitial = g2d.getComposite();
+            g2d.setComposite(definirComposite(getTransparence()));
+            g2d.setPaint(getCouleur());
+            g2d.fill(area);
+            g2d.setComposite(compositeInitial);
+            g2d.setColor(Color.BLACK);
+            g2d.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+            g2d.draw(area);
+        }
+
     }
 
     private void initialiserEllipses(){

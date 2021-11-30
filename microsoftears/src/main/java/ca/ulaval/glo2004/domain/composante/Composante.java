@@ -6,7 +6,9 @@ import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Polygone;
 
 import java.awt.*;
+import java.awt.geom.Area;
 import java.awt.geom.GeneralPath;
+import java.awt.geom.Path2D;
 import java.util.LinkedList;
 
 public abstract class Composante implements IComposante {
@@ -27,6 +29,27 @@ public abstract class Composante implements IComposante {
         this.estVisible = true;
     }
 
+    public Path2D getPath(){
+        Path2D path = new Path2D.Double();
+        LinkedList<PointPouce> polygoneList = this.getPolygone().getListePoints();
+        double[] point;
+        for (int i = 0; i < polygoneList.size(); i++){
+            point = parent.getPositionEcran(polygoneList.get(i));
+            if(i == 0) {
+                path.moveTo(point[0], point[1]);
+            }
+            else{
+                path.lineTo(point[0] ,point[1]);
+            }
+        }
+        path.closePath();
+        return path;
+    }
+
+    public Area getArea(){
+        return new Area(getPath());
+    }
+
     public void resetCouleur(){
         this.setCouleur(couleurInitiale);
     }
@@ -38,27 +61,15 @@ public abstract class Composante implements IComposante {
 
     public void afficher(Graphics2D g2d){
         if (estVisible){
-            GeneralPath path = new GeneralPath();
-            LinkedList<PointPouce> polygoneList = this.getPolygone().getListePoints();
-            double[] point;
-            for (int i = 0; i < polygoneList.size(); i++){
-                 point = parent.getPositionEcran(polygoneList.get(i));
-                if(i == 0) {
-                    path.moveTo(point[0], point[1]);
-                }
-                else{
-                    path.lineTo(point[0] ,point[1]);
-                }
-            }
-            path.closePath();
+            Area area = getArea();
             Composite compositeInitial = g2d.getComposite();
-            g2d.setComposite(definirComposite(transparence));
-            g2d.setPaint(couleur);
-            g2d.fill(path);
+            g2d.setComposite(definirComposite(getTransparence()));
+            g2d.setPaint(getCouleur());
+            g2d.fill(area);
             g2d.setComposite(compositeInitial);
             g2d.setColor(Color.BLACK);
             g2d.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
-            g2d.draw(path);
+            g2d.draw(area);
         }
 
     }

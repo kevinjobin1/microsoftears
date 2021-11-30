@@ -6,11 +6,8 @@ import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import ca.ulaval.glo2004.domain.composante.Composante;
+import ca.ulaval.glo2004.domain.composante.*;
 import ca.ulaval.glo2004.domain.RoulotteController;
-import ca.ulaval.glo2004.domain.composante.MurProfile;
-import ca.ulaval.glo2004.domain.composante.PointControle;
-import ca.ulaval.glo2004.domain.composante.ProfilBezier;
 import ca.ulaval.glo2004.utilitaires.Ellipse;
 import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Pouce;
@@ -151,7 +148,10 @@ public class RoulotteAfficheur
         ArrayList<Composante> composantes = roulotte.getListeComposantes();
         if (!composantes.isEmpty()) {
             for (Composante composante : composantes) {
-              composante.afficher(g2d);
+                if (composante.getType() != TypeComposante.OUVERTURE_LATERALE){
+                    composante.afficher(g2d);
+                }
+
             }
             if (!composantes.get(1).getMode()){ // mode bézier
                 ArrayList<PointControle> points = ((MurProfile) composantes.get(1)).getProfilBezier().getPointsControle();

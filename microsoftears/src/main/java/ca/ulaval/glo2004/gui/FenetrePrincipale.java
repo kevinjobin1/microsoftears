@@ -180,6 +180,8 @@ public class FenetrePrincipale extends JFrame {
     public TypeAction getActionChoisie() {
         return actionChoisie;
     }
+
+
 }
 
 

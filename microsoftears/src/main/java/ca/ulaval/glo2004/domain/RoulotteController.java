@@ -70,6 +70,7 @@ public class RoulotteController {
         listeComposantes.add(toit);
         OuvertureLaterale ouverture = new OuvertureLaterale(this);
         listeComposantes.add(ouverture);
+        listeOuverturesLaterales.add(ouverture);
     }
 
     public void updateComposante(int[] valeurs, TypeComposante type){
@@ -240,12 +241,13 @@ public class RoulotteController {
 
            case OUVERTURE_LATERALE:
                OuvertureLaterale ouvertureLaterale = new OuvertureLaterale( this,
-                       new Pouce(valeurs[0], valeurs[1], valeurs[2]),
                        new Pouce(valeurs[3], valeurs[4], valeurs[5]),
+                       new Pouce(valeurs[0], valeurs[1], valeurs[2]),
                        new PointPouce(
                                new Pouce(valeurs[6], valeurs[7], valeurs[8]),
                                new Pouce(valeurs[9], valeurs[10], valeurs[11])));
                listeComposantes.set(11, ouvertureLaterale);
+               listeOuverturesLaterales.set(0, ouvertureLaterale);
                break;
        }
 
@@ -362,10 +364,7 @@ public class RoulotteController {
 
     public void dragSurPlan(Point mousePoint, TypeComposante type){
         int index = getIndexComposante(type);
-        if(index == -1){
-            setTranslate((int) mousePoint.getX(), (int) mousePoint.getY());
-        }
-        else {
+        if(index != -1){
             if (type == TypeComposante.MUR_PROFILE) {
                 for (int i = 0; i < listeComposantes.size(); i++){
                  listeComposantes.get(i).translate(getPositionPlan(mousePoint));
@@ -378,10 +377,13 @@ public class RoulotteController {
             }
             listeComposantes.get(index).translate(getPositionPlan(mousePoint));
         }
+        else {
+            setTranslate((int) mousePoint.getX(), (int) mousePoint.getY());
+        }
         setPositionSouris((int) mousePoint.getX(), (int) mousePoint.getY());
     }
 
-    private int getIndexComposante(TypeComposante type){
+    public int getIndexComposante(TypeComposante type){
       switch(type){
           case MUR_BRUTE:
               return 0;
@@ -527,4 +529,5 @@ public class RoulotteController {
     public void setModeProfil(boolean modeProfil) {
         this.modeProfil = modeProfil;
     }
+
 }

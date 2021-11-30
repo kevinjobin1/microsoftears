@@ -2,6 +2,9 @@ package ca.ulaval.glo2004.utilitaires;
 
 import java.awt.*;
 import java.awt.Rectangle;
+import java.awt.geom.Area;
+import java.awt.geom.GeneralPath;
+import java.awt.geom.Path2D;
 import java.util.LinkedList;
 
 public class Polygone {
@@ -146,5 +149,4 @@ public class Polygone {
 
         return ((intersections & 1) != 0);
     }
-
     }
