@@ -149,7 +149,7 @@ public class RectangleCoinRond extends Forme {
         double gauche = pointCercle.getX() - rayon;
         double haut = pointCercle.getY() - rayon;
         double diameter = 2 * rayon;
-        double facteurDegree = 180 / Math.PI;
+        double facteurDegree = 90 / Math.PI;
 
         return calculerPointsArc(angleArc, facteurDegree, pointCercle, rayon, angleDebut);
 

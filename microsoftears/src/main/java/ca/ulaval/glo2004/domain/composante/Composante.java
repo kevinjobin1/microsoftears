@@ -19,7 +19,7 @@ public abstract class Composante implements IComposante {
     private Color couleur;
     private float transparence = 0.75f;
     private BasicStroke stroke = new BasicStroke(1.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
-    private Color strokeCouleur = Color.BLACK;
+    private Color strokeCouleur = new Color(75,75,75);
     private boolean estVisible;
     private Color couleurInitiale;
 

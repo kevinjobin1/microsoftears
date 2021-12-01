@@ -80,14 +80,20 @@ public class Plancher extends Composante {
 
     @Override
     public void afficher(Graphics2D g2d) {
-        super.afficher(g2d);
         if (estVisible()){
-            BufferedImage image = toBufferedImage(new ImageIcon("trailer_wheel.png").getImage());
+            Composite compositeInitial = g2d.getComposite();
+            g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.6f));
+            BufferedImage roue = toBufferedImage(new ImageIcon("trailer_wheel.png").getImage());
             double[] pos = parent.getPositionEcran(new PointPouce(this.getCentre().getX().diff(new Pouce(35,0,1)),
                     this.getCentre().getY().diff(new Pouce(7,0,1))));
 
-            g2d.drawImage(image, (int) pos[0], (int) pos[1],(int) (152 * parent.getScale()), (int) (152 * parent.getScale()), null);
+            g2d.drawImage(roue, (int) (pos[0] + (100 * parent.getScale())), (int) pos[1],(int) (152 * parent.getScale()), (int) (152 * parent.getScale()), null);
+            BufferedImage trailer = toBufferedImage(new ImageIcon("trailer_frame.png").getImage());
+            g2d.drawImage(trailer, (int) (pos[0] - (105 * parent.getScale())), (int) pos[1],(int) (1050 * parent.getScale()), (int) (152 * parent.getScale()), null);
+            g2d.setComposite(compositeInitial);
+            super.afficher(g2d);
         }
+
 
     }
 
