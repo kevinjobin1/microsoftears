@@ -1,6 +1,7 @@
 package ca.ulaval.glo2004.gui.barres;
 
 import ca.ulaval.glo2004.domain.IComposante;
+import ca.ulaval.glo2004.domain.RoulotteController;
 import ca.ulaval.glo2004.domain.composante.Composante;
 import ca.ulaval.glo2004.domain.composante.TypeComposante;
 import ca.ulaval.glo2004.gui.FenetrePrincipale;
@@ -12,6 +13,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.*;
 
 public class BarreMenu extends JMenuBar
 {
@@ -301,9 +303,44 @@ public class BarreMenu extends JMenuBar
     }
 
     protected void sauvegarderProjetActionPerformed(ActionEvent e) {
+        JFileChooser chooser = new JFileChooser();
+        int valeur = chooser.showOpenDialog(null);
+        if(valeur == JFileChooser.APPROVE_OPTION){
+            File selectedFile = chooser.getSelectedFile();
+            try {
+                FileOutputStream fos = new FileOutputStream(selectedFile.getAbsolutePath());
+                ObjectOutputStream oos = new ObjectOutputStream(fos);
+                oos.writeObject(parent.controller);
+                oos.close();
+                fos.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+
     }
 
     protected void ouvrirProjetActionPerformed(ActionEvent e) {
+        RoulotteController roulotte;
+        JFileChooser chooser = new JFileChooser();
+        int valeur = chooser.showOpenDialog(null);
+        if(valeur == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = chooser.getSelectedFile();
+            try {
+                FileInputStream fileIn = new FileInputStream(selectedFile.getAbsolutePath());
+                ObjectInputStream in = new ObjectInputStream(fileIn);
+                roulotte = (RoulotteController) in.readObject();
+                parent.controller = roulotte;
+                in.close();
+                fileIn.close();
+            } catch (IOException i) {
+                i.printStackTrace();
+            } catch (ClassNotFoundException c) {
+                System.out.println("RoulotteController class not found");
+                c.printStackTrace();
+            }
+            parent.repaint();
+        }
     }
 
     protected void exporterProjetActionPerformed(ActionEvent e) {

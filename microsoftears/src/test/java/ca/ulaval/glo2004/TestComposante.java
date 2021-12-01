@@ -8,7 +8,7 @@ import org.junit.Test;
 
 public class TestComposante extends TestCase {
     FenetrePrincipale fenetrePrincipale = new FenetrePrincipale();
-    RoulotteController parent = new RoulotteController(fenetrePrincipale);
+    RoulotteController parent = new RoulotteController();
     MurBrute mur= new MurBrute(parent);
 
     @Test

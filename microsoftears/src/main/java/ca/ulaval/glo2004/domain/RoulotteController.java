@@ -8,18 +8,18 @@ import ca.ulaval.glo2004.utilitaires.Pouce;
 import ca.ulaval.glo2004.gui.FenetrePrincipale;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-public class RoulotteController {
-    private final FenetrePrincipale parent;
+public class RoulotteController implements Serializable{
     private Grille grille;
     private ArrayList<Composante> listeComposantes;
     private ArrayList<OuvertureLaterale> listeOuverturesLaterales;
     private ArrayList<AideDesign> listeAidesDesign;
     private boolean modeProfil;
     private boolean afficherGrille;
-
+    private Composante composanteChoisie;
 
     // controle de l'affichage
     private static final int PIXEL_RATIO = 7;
@@ -28,8 +28,7 @@ public class RoulotteController {
     private Point positionSouris;
     private double scale;
 
-    public RoulotteController(FenetrePrincipale parent) {
-        this.parent = parent;
+    public RoulotteController() {
         this.listeComposantes = new ArrayList<>();
         this.listeOuverturesLaterales = new ArrayList<>();
         this.listeAidesDesign = new ArrayList<>();
@@ -255,16 +254,8 @@ public class RoulotteController {
                listeOuverturesLaterales.set(0, ouvertureLaterale);
                break;
        }
-
-       int index = getIndexComposante(parent.getComposanteChoisie());
-       if (index != -1 && parent.getActionChoisie() == FenetrePrincipale.TypeAction.SELECTION){
-           listeComposantes.get(index).setCouleur(new Color(255,60,60));
-       }
-       else if  (index != -1 && parent.getActionChoisie() == FenetrePrincipale.TypeAction.REMPLIR) {
-           listeComposantes.get(index).setCouleurInitiale(parent.getCouleurChoisie());
-           listeComposantes.get(index).resetCouleur();
-       }
     }
+
 
     public void setScale(int wheelRotation){
         // on limite à une rotation seulement
@@ -343,45 +334,48 @@ public class RoulotteController {
         
     }
 
+    public IComposante getComposanteChoisie() {
+        return composanteChoisie;
+    }
+
+    public void setComposanteChoisie(Composante composanteChoisie) {
+        this.composanteChoisie = composanteChoisie;
+    }
+
     /** Fonction qui détermine quelle forme a été sélectionnée */
     public void clicSurPlan(Point mousePressedPoint) {
 
         PointPouce positionClic = getPositionPlan(mousePressedPoint);
-        if (parent.getActionChoisie() == FenetrePrincipale.TypeAction.SELECTION){
-            int indexComposante = -1;
-            if (!listeComposantes.isEmpty()) {
-                for (int i=0; i < listeComposantes.size(); i++) {
-                    Composante composante = listeComposantes.get(i);
-                    composante.resetCouleur();
-                    composante.resetTransparence();
 
-                    if (composante.getPolygone().contient(positionClic) && composante.estVisible()) {
-                        indexComposante = i;
-                    }
-                }
-                if (indexComposante != -1){
-                    Composante composante = listeComposantes.get(indexComposante);
-                    parent.setComposanteChoisie(composante.getType());
-                    composante.setCouleur(new Color(255,60,60));
-                    composante.setTransparence(1.0f);
-                }
-                else {
-                    parent.setComposanteChoisie(TypeComposante.PLAN);
+        int indexComposante = -1;
+        if (!listeComposantes.isEmpty()) {
+            for (int i=0; i < listeComposantes.size(); i++) {
+                Composante composante = listeComposantes.get(i);
+                composante.resetCouleur();
+                composante.resetTransparence();
+
+                if (composante.getPolygone().contient(positionClic) && composante.estVisible()) {
+                    indexComposante = i;
                 }
             }
+            if (indexComposante != -1){
+                composanteChoisie = listeComposantes.get(indexComposante);
+                composanteChoisie.setCouleur(new Color(255,60,60));
+                composanteChoisie.setTransparence(1.0f);
+            } else{
+                composanteChoisie = null;
+            }
         }
-
     }
 
 
-    public void dragSurPlan(Point mousePoint, TypeComposante type){
-        int index = getIndexComposante(type);
+    public void dragSurPlan(Point mousePoint){
         Point plusProcheVoisin = null;
         if (grille != null && grille.estMagnetique()){
             plusProcheVoisin = grille.pointLePlusProche(mousePoint);
         }
-        if(index != -1){
-            if (type == TypeComposante.MUR_PROFILE) {
+        if(composanteChoisie != null){
+            if (composanteChoisie.getType() == TypeComposante.MUR_PROFILE) {
                 for (int i = 0; i < listeComposantes.size(); i++){
                     if (plusProcheVoisin != null){
                         listeComposantes.get(i).snapToGrid(getPositionPlan(plusProcheVoisin));
@@ -389,7 +383,7 @@ public class RoulotteController {
                  else {listeComposantes.get(i).translate(getPositionPlan(mousePoint));}
                 }
             }
-            else if(type == TypeComposante.MUR_BRUTE){
+            else if(composanteChoisie.getType() == TypeComposante.MUR_BRUTE){
                 for (int i = 1; i < listeComposantes.size(); i++){
                     if (plusProcheVoisin != null){
                         listeComposantes.get(i).snapToGrid(getPositionPlan(plusProcheVoisin));
@@ -398,9 +392,9 @@ public class RoulotteController {
                 }
             }
             if (plusProcheVoisin != null){
-                listeComposantes.get(index).snapToGrid(getPositionPlan(plusProcheVoisin));
+                composanteChoisie.snapToGrid(getPositionPlan(plusProcheVoisin));
             }
-            else{listeComposantes.get(index).translate(getPositionPlan(mousePoint));}
+            else{composanteChoisie.translate(getPositionPlan(mousePoint));}
         }
         else {
             setTranslate((int) mousePoint.getX(), (int) mousePoint.getY());
@@ -460,10 +454,9 @@ public class RoulotteController {
                 }
             }
             if (indexComposante != -1){
-                Composante composante = listeComposantes.get(indexComposante);
-                parent.setComposanteChoisie(composante.getType());
-                composante.setCouleurInitiale(parent.getCouleurChoisie());
-                composante.resetCouleur();
+                composanteChoisie = listeComposantes.get(indexComposante);
+                /*composante.setCouleurInitiale(parent.getCouleurChoisie());
+                composante.resetCouleur();*/
             }
         }
     }
@@ -563,9 +556,9 @@ public class RoulotteController {
         return new Pouce(this.grille.getEchelle());
     }
 
-    public void setGrilleMagnetique(int echelleGrille, boolean estMagnetique, boolean estAffiche){
+    public void setGrilleMagnetique(int echelleGrille, boolean estMagnetique, boolean estAffiche, Dimension dimensionAfficheur){
 
-        this.grille = new Grille(this, echelleGrille, estMagnetique, estAffiche, parent.getDimensionAfficheur());
+        this.grille = new Grille(this, echelleGrille, estMagnetique, estAffiche, dimensionAfficheur);
     }
 
 }

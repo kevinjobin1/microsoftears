@@ -6,9 +6,10 @@ import ca.ulaval.glo2004.utilitaires.Pouce;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
+import java.io.Serializable;
 import java.util.*;
 
-public class Grille {
+public class Grille implements Serializable{
     private final RoulotteController parent;
     private final Color couleurGrille = Color.WHITE;
     private final Color couleurBordureGrille = Color.BLACK;

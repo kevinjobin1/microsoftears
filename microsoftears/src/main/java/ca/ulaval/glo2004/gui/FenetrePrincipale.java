@@ -11,6 +11,7 @@ import ca.ulaval.glo2004.gui.panels.PanelConception;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class FenetrePrincipale extends JFrame {
@@ -49,8 +50,8 @@ public class FenetrePrincipale extends JFrame {
         this.couleurChoisie = couleurChoisie;
     }
 
-    public TypeComposante getComposanteChoisie() {
-        return composanteChoisie;
+    public IComposante getComposanteChoisie() {
+        return controller.getComposanteChoisie();
     }
 
     public void setComposanteChoisie(TypeComposante type) {
@@ -122,7 +123,7 @@ public class FenetrePrincipale extends JFrame {
 
     private void initComponents() {
         // Initialisation de la roulotte avec les valeurs par défaut
-        controller = new RoulotteController(this);
+        controller = new RoulotteController();
         // Couleur par défaut
         couleurChoisie = new Color(0, 217, 217);
 

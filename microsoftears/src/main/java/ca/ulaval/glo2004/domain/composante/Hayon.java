@@ -133,7 +133,7 @@ public class Hayon extends Composante {
     }
 
     public boolean verificationRayonArcCercle(Pouce valeur){
-        return true;
+        return valeur.st(epaisseur.add(new Pouce(1,0,1))) && valeur.gt(epaisseur.diff(new Pouce(1,0,1)));
     }
 
     @Override
@@ -161,11 +161,12 @@ public class Hayon extends Composante {
             if(point.getX().st(murBrute.getCentre().getX())) {
                 if(point.getX().ste(xDepart.add(rayonArcCercle)) && point.getY().st(yMinFin) && yFinArcCercleManquant){
                     yFinArcCercle = point.getY();
+                    pointRotation = point;
                     yFinArcCercleManquant = false;
-                    pointArcCercle = point;
+                    pointArcCercle = new PointPouce(point.getX(),point.getY().diff(rayonArcCercle.diff(epaisseur.add(epaisseurTraitScie))));
                     if(point.getX().st(xDepart.add(rayonArcCercle.multiplier(Math.cos(poutreArriere.getAngle()))))) {
                         pointArcCercle = new PointPouce(xDepart.add(rayonArcCercle.multiplier
-                                (Math.cos(poutreArriere.getAngle()))), point.getY().diff(rayonArcCercle.diff(epaisseur.add(epaisseurTraitScie))));
+                                (Math.cos(poutreArriere.getAngle()))), point.getY().diff(rayonArcCercle).diff(epaisseur.add(epaisseurTraitScie)));
                         pointsProfil.add(pointArcCercle);
                     }
                 }

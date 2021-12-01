@@ -1,8 +1,9 @@
 package ca.ulaval.glo2004.utilitaires;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 
-public abstract class Forme {
+public abstract class Forme implements Serializable {
     private Pouce longueur;
     private Pouce hauteur;
     private PointPouce centre;

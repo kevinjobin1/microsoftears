@@ -1,6 +1,8 @@
 package ca.ulaval.glo2004.utilitaires;
 
-public class Pouce
+import java.io.Serializable;
+
+public class Pouce implements Serializable
 {
     private int pouces;
     private int numerateur;

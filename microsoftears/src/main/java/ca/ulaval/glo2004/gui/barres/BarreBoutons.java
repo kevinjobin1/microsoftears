@@ -174,7 +174,7 @@ public class BarreBoutons extends JPanel {
     private void estMagnetiqueCheckBoxActionPerformed(ActionEvent e) {
         if (e.getSource() instanceof JCheckBox) {
             JCheckBox checkBox = (JCheckBox) e.getSource();
-            parent.controller.setGrilleMagnetique(value, checkBox.isSelected(), afficherGrilleCheckBox.isSelected());
+            parent.controller.setGrilleMagnetique(value, checkBox.isSelected(), afficherGrilleCheckBox.isSelected(),parent.getDimensionAfficheur());
             parent.repaint();
         }
 
@@ -216,7 +216,7 @@ public class BarreBoutons extends JPanel {
             this.longueurLigneGrilleSpinner.setVisible(checkBox.isSelected());
             this.labelPouce.setVisible(checkBox.isSelected());
             this.labelMM.setVisible(checkBox.isSelected());
-            parent.controller.setGrilleMagnetique(value, estMagnetiqueCheckBox.isSelected(), afficherGrilleCheckBox.isSelected());
+            parent.controller.setGrilleMagnetique(value, estMagnetiqueCheckBox.isSelected(), afficherGrilleCheckBox.isSelected(), parent.getDimensionAfficheur());
             parent.repaint();
             
         }
@@ -276,13 +276,13 @@ public class BarreBoutons extends JPanel {
 
     private void longueurLigneGrilleSpinner1ChangeListener(ChangeEvent e) {
         this.value = (int) ((JSpinner) e.getSource()).getValue();
-        parent.controller.setGrilleMagnetique(value, estMagnetiqueCheckBox.isSelected(), afficherGrilleCheckBox.isSelected());
+        parent.controller.setGrilleMagnetique(value, estMagnetiqueCheckBox.isSelected(), afficherGrilleCheckBox.isSelected(), parent.getDimensionAfficheur());
         parent.repaint();
     }
 
     private void longueurLigneGrilleSpinnerChangeListener(ChangeEvent e) {
         this.value = (int) (((double) ((JSpinner) e.getSource()).getValue())/25.4);
-        parent.controller.setGrilleMagnetique(value, estMagnetiqueCheckBox.isSelected(), afficherGrilleCheckBox.isSelected());
+        parent.controller.setGrilleMagnetique(value, estMagnetiqueCheckBox.isSelected(), afficherGrilleCheckBox.isSelected(), parent.getDimensionAfficheur());
         parent.repaint();
     }
 

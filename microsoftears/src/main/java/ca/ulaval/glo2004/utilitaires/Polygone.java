@@ -5,9 +5,10 @@ import java.awt.Rectangle;
 import java.awt.geom.Area;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Path2D;
+import java.io.Serializable;
 import java.util.LinkedList;
 
-public class Polygone {
+public class Polygone implements Serializable {
 
     private LinkedList<PointPouce> listePoints;
     private Rectangle rectangleLimite;
