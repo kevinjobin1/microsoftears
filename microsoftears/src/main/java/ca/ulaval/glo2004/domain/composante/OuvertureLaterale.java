@@ -23,6 +23,7 @@ public class OuvertureLaterale extends Composante{
         this.centre = centre;
         this.rayon = rayonCourbure;
         this.rectangle = new RectangleCoinRond(hauteur, largeur, centre, rayon);
+        this.setTransparenceInitiale(0.1f);
         this.setTransparence(0.1f);
         this.setPolygone(rectangle.getPolygone());
         this.setType(TypeComposante.OUVERTURE_LATERALE);
@@ -36,6 +37,7 @@ public class OuvertureLaterale extends Composante{
         this.centre = new PointPouce(centreX, parent.getListeComposantes().get(0).getCentre().getY());
         this.rayon = new Pouce(4,1,2);
         this.rectangle = new RectangleCoinRond(hauteur, largeur, centre, rayon);
+        this.setTransparenceInitiale(0.1f);
         this.setTransparence(0.1f);
         this.setPolygone(rectangle.getPolygone());
         this.setType(TypeComposante.OUVERTURE_LATERALE);

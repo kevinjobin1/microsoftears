@@ -26,11 +26,11 @@ public class MurProfile extends Composante{
      * true: Éllipses
      * false: Bézier
      */
-    private boolean mode;
+    private boolean mode; // true -> profil ellipse, false -> bézier
 
     public MurProfile(RoulotteController parent) {
         super(parent);
-        this.mode = parent.getModeProfil();
+        this.mode = true; // ellipses par défaut
         this.profilEllipses = new ProfilEllipse[4];
         this.initialiserEllipses();
         this.profilBezier = new ProfilBezier(parent);
@@ -41,9 +41,9 @@ public class MurProfile extends Composante{
     }
 
     /** Constructeur copie */
-    public MurProfile(MurProfile copie, PointPouce decalage){
+    public MurProfile(MurProfile copie, PointPouce decalage, boolean modeProfil){
         super(copie.getParent());
-        this.mode = parent.getModeProfil();
+        this.mode = modeProfil;
         this.profilEllipses = copie.getProfilEllipses();
         updateProfilEllipses(decalage);
         this.profilBezier = copie.getProfilBezier();
@@ -166,13 +166,13 @@ public class MurProfile extends Composante{
 
     @Override
     public Polygone getPolygone(){
-        Polygone retour;
+        Polygone polygone;
         if(mode){
-            retour = new Polygone(listePointsModeEllipse());
+            polygone = new Polygone(listePointsModeEllipse());
         } else {
-            retour = new Polygone(listePointsModeBezier());
+            polygone = new Polygone(listePointsModeBezier());
         }
-        return retour;
+        return polygone;
     }
 
     @Override
@@ -202,15 +202,14 @@ public class MurProfile extends Composante{
 
     }
 
-
     @Override
     public String[] getNomsAttributs() {
         return parent.getListeComposantes().get(0).getNomsAttributs();
     }
 
-    //todo mais pas pour le livrable 3
     private LinkedList<PointPouce> listePointsModeBezier() {
-        return this.profilBezier.getPolygone().getListePoints();
+        profilBezier.updatePointsControles();
+        return profilBezier.getPolygone().getListePoints();
     }
 
 

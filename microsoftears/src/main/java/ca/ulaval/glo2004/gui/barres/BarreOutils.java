@@ -50,8 +50,8 @@ public class BarreOutils extends JToolBar {
         dessinerButton  = creerBouton(BootstrapIcons.PENCIL, 20, Color.WHITE);
         removeComposanteButton  = creerBouton(BootstrapIcons.TRASH, 20, Color.WHITE);
         remplirButton = creerBouton(BootstrapIcons.PAINT_BUCKET, 20, Color.WHITE);
-        couleurButton = creerBouton(BootstrapIcons.SQUARE_FILL, 20, parent.getCouleurChoisie());
-        couleurChooser = new JColorChooser(parent.getCouleurChoisie());
+        couleurButton = creerBouton(BootstrapIcons.SQUARE_FILL, 20, parent.controller.getCouleurChoisie());
+        couleurChooser = new JColorChooser(parent.controller.getCouleurChoisie());
 
         //======= Actions (Events) ========
         selectionButton.addMouseListener(new MouseAdapter() {
@@ -73,11 +73,11 @@ public class BarreOutils extends JToolBar {
         couleurButton.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
                 // on affiche le colorchooser lorsque le user clique sur le carré, et on change pour la couleur choisie
-                parent.setCouleurChoisie(JColorChooser.showDialog(couleurChooser, "Palette de couleurs", couleurButton.getBackground()));
-                if (parent.getCouleurChoisie() == null){
-                    parent.setCouleurChoisie(Color.WHITE);
+                parent.controller.setCouleurChoisie(JColorChooser.showDialog(couleurChooser, "Palette de couleurs", couleurButton.getBackground()));
+                if (parent.controller.getCouleurChoisie() == null){
+                    parent.controller.setCouleurChoisie(Color.WHITE);
                 }
-                FontIcon nouvelIcon = FontIcon.of(BootstrapIcons.SQUARE_FILL, 20, parent.getCouleurChoisie());
+                FontIcon nouvelIcon = FontIcon.of(BootstrapIcons.SQUARE_FILL, 20, parent.controller.getCouleurChoisie());
                 couleurButton.setIcon(nouvelIcon);
             }
         });
@@ -102,7 +102,7 @@ public class BarreOutils extends JToolBar {
                 Image image = (FontIcon.of(BootstrapIcons.PAINT_BUCKET, 20, Color.BLACK)).toImageIcon().getImage();
                 Toolkit toolkit = Toolkit.getDefaultToolkit();
                 parent.setCursor(toolkit.createCustomCursor(image , new Point(e.getX(),
-                        e.getY()), "remplir"));
+                        e.getY()), "Remplir"));
         }});
     }
 

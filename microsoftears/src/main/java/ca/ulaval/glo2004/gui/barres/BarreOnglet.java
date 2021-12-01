@@ -48,7 +48,7 @@ public class BarreOnglet extends JTabbedPane {
                 this.addTab(composante.toString(), creerTabPanel(composante));
 
             }
-            parent.controller.updateComposante(composante.getValeurs(), composante.getType());
+            //parent.controller.updateComposante(composante.getValeurs(), composante.getType());
         }
     }
 

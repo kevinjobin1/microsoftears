@@ -2,7 +2,6 @@ package ca.ulaval.glo2004.gui;
 
 import ca.ulaval.glo2004.domain.IComposante;
 import ca.ulaval.glo2004.domain.RoulotteController;
-import ca.ulaval.glo2004.domain.TypeComposante;
 import ca.ulaval.glo2004.gui.barres.BarreBoutons;
 import ca.ulaval.glo2004.gui.barres.BarreMenu;
 import ca.ulaval.glo2004.gui.barres.BarreOnglet;
@@ -19,7 +18,6 @@ public class FenetrePrincipale extends JFrame {
     protected PanelConception panelConception;
     protected BarreMenu barreMenu;
     public BarreOnglet barreOnglets;
-    protected Color couleurChoisie;
 
     // Éléments rattachés non-graphiques
     public RoulotteController controller;
@@ -39,14 +37,6 @@ public class FenetrePrincipale extends JFrame {
         updateBarres();
     }
 
-    public Color getCouleurChoisie() {
-        return couleurChoisie;
-    }
-
-    public void setCouleurChoisie(Color couleurChoisie) {
-        this.couleurChoisie = couleurChoisie;
-    }
-
     public IComposante getComposanteChoisie() {
         return controller.getComposanteChoisie();
     }
@@ -56,52 +46,55 @@ public class FenetrePrincipale extends JFrame {
         this.barreMenu.update();
         this.barreBoutons.update();
         this.barreOnglets.update();
-        switch (getComposanteChoisie().getType()) {
-            case HAYON:
-                this.barreOnglets.setSelectedIndex(7);
-                break;
-            case PLANCHER:
-                this.barreOnglets.setSelectedIndex(5);
-                break;
-            case POUTRE_ARRIERE:
-                this.barreOnglets.setSelectedIndex(6);
-                break;
-            case MUR_PROFILE:
-                this.barreOnglets.setSelectedIndex(0);
-                break;
-            case PROFIL_ELLIPSE_1:
-                this.barreOnglets.setSelectedIndex(1);
-                break;
-            case PROFIL_ELLIPSE_2:
-                this.barreOnglets.setSelectedIndex(2);
-                break;
-            case PROFIL_ELLIPSE_3:
-                this.barreOnglets.setSelectedIndex(3);
-                break;
-            case PROFIL_ELLIPSE_4:
-                this.barreOnglets.setSelectedIndex(4);
-                break;
-            case POINT_CONTROLE_1:
-                this.barreOnglets.setSelectedIndex(1);
-                break;
-            case POINT_CONTROLE_2:
-                this.barreOnglets.setSelectedIndex(2);
-                break;
-            case POINT_CONTROLE_3:
-                this.barreOnglets.setSelectedIndex(3);
-                break;
-            case POINT_CONTROLE_4:
-                this.barreOnglets.setSelectedIndex(4);
-                break;
-            case MUR_SEPARATEUR:
-                this.barreOnglets.setSelectedIndex(8);
-                break;
-            case TOIT:
-                this.barreOnglets.setSelectedIndex(9);
-                break;
-            case OUVERTURE_LATERALE:
-                this.barreOnglets.setSelectedIndex(10);
-                break;
+        IComposante composanteChoisie = getComposanteChoisie();
+        if (composanteChoisie != null){
+            switch (composanteChoisie.getType()) {
+                case HAYON:
+                    this.barreOnglets.setSelectedIndex(7);
+                    break;
+                case PLANCHER:
+                    this.barreOnglets.setSelectedIndex(5);
+                    break;
+                case POUTRE_ARRIERE:
+                    this.barreOnglets.setSelectedIndex(6);
+                    break;
+                case MUR_PROFILE:
+                    this.barreOnglets.setSelectedIndex(0);
+                    break;
+                case PROFIL_ELLIPSE_1:
+                    this.barreOnglets.setSelectedIndex(1);
+                    break;
+                case PROFIL_ELLIPSE_2:
+                    this.barreOnglets.setSelectedIndex(2);
+                    break;
+                case PROFIL_ELLIPSE_3:
+                    this.barreOnglets.setSelectedIndex(3);
+                    break;
+                case PROFIL_ELLIPSE_4:
+                    this.barreOnglets.setSelectedIndex(4);
+                    break;
+                case POINT_CONTROLE_1:
+                    this.barreOnglets.setSelectedIndex(1);
+                    break;
+                case POINT_CONTROLE_2:
+                    this.barreOnglets.setSelectedIndex(2);
+                    break;
+                case POINT_CONTROLE_3:
+                    this.barreOnglets.setSelectedIndex(3);
+                    break;
+                case POINT_CONTROLE_4:
+                    this.barreOnglets.setSelectedIndex(4);
+                    break;
+                case MUR_SEPARATEUR:
+                    this.barreOnglets.setSelectedIndex(8);
+                    break;
+                case TOIT:
+                    this.barreOnglets.setSelectedIndex(9);
+                    break;
+                case OUVERTURE_LATERALE:
+                    this.barreOnglets.setSelectedIndex(10);
+                    break;
+            }
         }
 
     }
@@ -117,8 +110,6 @@ public class FenetrePrincipale extends JFrame {
     private void initComponents() {
         // Initialisation de la roulotte avec les valeurs par défaut
         controller = new RoulotteController();
-        // Couleur par défaut
-        couleurChoisie = new Color(0, 217, 217);
 
         // Action par défaut & composante par défaut (plan)
         actionChoisie = TypeAction.SELECTION;
