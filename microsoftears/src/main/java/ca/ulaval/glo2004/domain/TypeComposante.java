@@ -1,4 +1,4 @@
-package ca.ulaval.glo2004.domain.composante;
+package ca.ulaval.glo2004.domain;
 
 public enum TypeComposante {
     HAYON {
