@@ -1,10 +1,8 @@
 package ca.ulaval.glo2004.gui.barres;
 
 import javax.swing.*;
-import javax.swing.event.EventListenerList;
 import java.awt.*;
 
-import ca.ulaval.glo2004.domain.composante.TypeComposante;
 import ca.ulaval.glo2004.gui.FenetrePrincipale;
 import org.kordamp.ikonli.swing.*;
 import org.kordamp.ikonli.bootstrapicons.*;

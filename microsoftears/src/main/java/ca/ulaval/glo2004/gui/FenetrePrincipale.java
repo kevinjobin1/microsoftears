@@ -1,8 +1,8 @@
 package ca.ulaval.glo2004.gui;
 
 import ca.ulaval.glo2004.domain.IComposante;
-import ca.ulaval.glo2004.domain.composante.*;
 import ca.ulaval.glo2004.domain.RoulotteController;
+import ca.ulaval.glo2004.domain.TypeComposante;
 import ca.ulaval.glo2004.gui.barres.BarreBoutons;
 import ca.ulaval.glo2004.gui.barres.BarreMenu;
 import ca.ulaval.glo2004.gui.barres.BarreOnglet;
@@ -11,8 +11,6 @@ import ca.ulaval.glo2004.gui.panels.PanelConception;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.Serializable;
-import java.util.ArrayList;
 
 public class FenetrePrincipale extends JFrame {
     // Composantes graphiques du Frame
@@ -25,7 +23,6 @@ public class FenetrePrincipale extends JFrame {
 
     // Éléments rattachés non-graphiques
     public RoulotteController controller;
-    private TypeComposante composanteChoisie;
     private TypeAction actionChoisie;
     private boolean estImperial = true;
 
@@ -54,16 +51,12 @@ public class FenetrePrincipale extends JFrame {
         return controller.getComposanteChoisie();
     }
 
-    public void setComposanteChoisie(TypeComposante type) {
-        this.composanteChoisie = type;
-        updateBarres();
-    }
 
     public void updateBarres() {
         this.barreMenu.update();
         this.barreBoutons.update();
         this.barreOnglets.update();
-        switch (composanteChoisie) {
+        switch (getComposanteChoisie().getType()) {
             case HAYON:
                 this.barreOnglets.setSelectedIndex(7);
                 break;
@@ -114,7 +107,7 @@ public class FenetrePrincipale extends JFrame {
     }
 
     public enum TypeAction {
-        SELECTION, AJOUT, SUPPRIMER, REMPLIR
+        SELECTION, AJOUT, REMPLIR
     }
 
     public FenetrePrincipale() {
@@ -129,7 +122,6 @@ public class FenetrePrincipale extends JFrame {
 
         // Action par défaut & composante par défaut (plan)
         actionChoisie = TypeAction.SELECTION;
-        composanteChoisie = TypeComposante.PLAN;
 
         // Initialisation des panneaux du GUI
         mainPanel = new JPanel();

@@ -1,13 +1,12 @@
 package ca.ulaval.glo2004.domain.composante;
 
 import ca.ulaval.glo2004.domain.RoulotteController;
+import ca.ulaval.glo2004.domain.TypeComposante;
 import ca.ulaval.glo2004.utilitaires.Ellipse;
 import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Pouce;
-import ca.ulaval.glo2004.utilitaires.Rectangle;
 
 import java.awt.*;
-import java.awt.geom.Ellipse2D;
 import java.awt.geom.GeneralPath;
 import java.util.LinkedList;
 

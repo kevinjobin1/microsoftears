@@ -1,15 +1,11 @@
 package ca.ulaval.glo2004.domain;
 
 import ca.ulaval.glo2004.domain.composante.*;
-import ca.ulaval.glo2004.utilitaires.CourbeBezier;
-import ca.ulaval.glo2004.utilitaires.Ellipse;
 import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Pouce;
-import ca.ulaval.glo2004.gui.FenetrePrincipale;
 
 import java.awt.*;
 import java.io.Serializable;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class RoulotteController implements Serializable{
@@ -344,9 +340,7 @@ public class RoulotteController implements Serializable{
 
     /** Fonction qui détermine quelle forme a été sélectionnée */
     public void clicSurPlan(Point mousePressedPoint) {
-
         PointPouce positionClic = getPositionPlan(mousePressedPoint);
-
         int indexComposante = -1;
         if (!listeComposantes.isEmpty()) {
             for (int i=0; i < listeComposantes.size(); i++) {
@@ -359,7 +353,9 @@ public class RoulotteController implements Serializable{
                 }
             }
             if (indexComposante != -1){
+
                 composanteChoisie = listeComposantes.get(indexComposante);
+                System.out.println(composanteChoisie);
                 composanteChoisie.setCouleur(new Color(255,60,60));
                 composanteChoisie.setTransparence(1.0f);
             } else{

@@ -1,6 +1,7 @@
 package ca.ulaval.glo2004.domain.composante;
 
 import ca.ulaval.glo2004.domain.RoulotteController;
+import ca.ulaval.glo2004.domain.TypeComposante;
 import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.CourbeBezier;
 import ca.ulaval.glo2004.utilitaires.Pouce;
@@ -29,11 +30,11 @@ public class ProfilBezier extends Composante {
         this.pointsControle.add(new PointControle(parent,
                 new Pouce(3,0,1),
                 new Pouce(3,0,1),
-                points.get(1).diff(3,10), TypeComposante.POINT_CONTROLE_2));
+                points.get(1).diff(3,13), TypeComposante.POINT_CONTROLE_2));
         this.pointsControle.add(new PointControle(parent,
                 new Pouce(3,0,1),
                 new Pouce(3,0,1),
-                points.get(2).diff(0,10).add(3,0), TypeComposante.POINT_CONTROLE_3));
+                points.get(2).diff(0,13).add(3,0), TypeComposante.POINT_CONTROLE_3));
         this.pointsControle.add(new PointControle(parent,
                 new Pouce(3,0,1),
                 new Pouce(3,0,1),

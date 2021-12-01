@@ -1,11 +1,8 @@
 package ca.ulaval.glo2004.gui.panels;
 
-import ca.ulaval.glo2004.domain.composante.TypeComposante;
 import ca.ulaval.glo2004.gui.barres.BarreOutils;
 import ca.ulaval.glo2004.gui.FenetrePrincipale;
 import ca.ulaval.glo2004.gui.afficheur.PanneauAffichage;
-import org.kordamp.ikonli.bootstrapicons.BootstrapIcons;
-import org.kordamp.ikonli.swing.FontIcon;
 
 import java.awt.*;
 import java.awt.event.*;

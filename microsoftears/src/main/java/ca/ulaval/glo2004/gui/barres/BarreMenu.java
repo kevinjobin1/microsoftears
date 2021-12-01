@@ -2,8 +2,7 @@ package ca.ulaval.glo2004.gui.barres;
 
 import ca.ulaval.glo2004.domain.IComposante;
 import ca.ulaval.glo2004.domain.RoulotteController;
-import ca.ulaval.glo2004.domain.composante.Composante;
-import ca.ulaval.glo2004.domain.composante.TypeComposante;
+import ca.ulaval.glo2004.domain.TypeComposante;
 import ca.ulaval.glo2004.gui.FenetrePrincipale;
 import com.formdev.flatlaf.icons.*;
 import org.kordamp.ikonli.swing.*;

@@ -1,10 +1,10 @@
 package ca.ulaval.glo2004.domain.composante;
 
 import ca.ulaval.glo2004.domain.RoulotteController;
+import ca.ulaval.glo2004.domain.TypeComposante;
 import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Polygone;
 import ca.ulaval.glo2004.utilitaires.Pouce;
-import ca.ulaval.glo2004.utilitaires.Rectangle;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

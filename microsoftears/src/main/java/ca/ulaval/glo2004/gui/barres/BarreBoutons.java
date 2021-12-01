@@ -1,10 +1,8 @@
 package ca.ulaval.glo2004.gui.barres;
 
-import ca.ulaval.glo2004.domain.composante.TypeComposante;
 import ca.ulaval.glo2004.gui.FenetrePrincipale;
 import ca.ulaval.glo2004.utilitaires.Pouce;
 import org.kordamp.ikonli.bootstrapicons.BootstrapIcons;
-import org.kordamp.ikonli.*;
 import org.kordamp.ikonli.swing.FontIcon;
 
 import javax.swing.*;

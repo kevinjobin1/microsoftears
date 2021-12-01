@@ -2,7 +2,6 @@ package ca.ulaval.glo2004.gui.panels;
 
 
 import ca.ulaval.glo2004.domain.IComposante;
-import ca.ulaval.glo2004.domain.composante.TypeComposante;
 import ca.ulaval.glo2004.gui.barres.BarreOnglet;
 import ca.ulaval.glo2004.utilitaires.Pouce;
 

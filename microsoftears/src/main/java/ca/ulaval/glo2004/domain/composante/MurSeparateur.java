@@ -1,6 +1,7 @@
 package ca.ulaval.glo2004.domain.composante;
 
 import ca.ulaval.glo2004.domain.RoulotteController;
+import ca.ulaval.glo2004.domain.TypeComposante;
 import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Pouce;
 import ca.ulaval.glo2004.utilitaires.Rectangle;
@@ -109,7 +110,7 @@ public class MurSeparateur extends Composante{
 
     @Override
     public String[] getNomsAttributs() {
-        return new String[]{"Hauteur", "Épaisseur", "Distance Poutre Arrière"};
+        return new String[]{"Hauteur", "Épaisseur", "Distance (poutre-arrière)"};
     }
 
     @Override

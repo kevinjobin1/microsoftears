@@ -1,14 +1,13 @@
 package ca.ulaval.glo2004.domain.composante;
 
 import ca.ulaval.glo2004.domain.RoulotteController;
+import ca.ulaval.glo2004.domain.TypeComposante;
 import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Polygone;
 import ca.ulaval.glo2004.utilitaires.Pouce;
-import ca.ulaval.glo2004.utilitaires.Rectangle;
 
 import java.awt.*;
 import java.awt.geom.Area;
-import java.awt.geom.Path2D;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
