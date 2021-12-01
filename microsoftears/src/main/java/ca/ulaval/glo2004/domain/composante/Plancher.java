@@ -8,6 +8,7 @@ import ca.ulaval.glo2004.utilitaires.Rectangle;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.Area;
 import java.awt.image.BufferedImage;
 
 import static ca.ulaval.glo2004.utilitaires.ImageDesign.toBufferedImage;
@@ -91,7 +92,11 @@ public class Plancher extends Composante {
             BufferedImage trailer = toBufferedImage(new ImageIcon("trailer_frame.png").getImage());
             g2d.drawImage(trailer, (int) (pos[0] - (105 * parent.getScale())), (int) pos[1],(int) (1050 * parent.getScale()), (int) (152 * parent.getScale()), null);
             g2d.setComposite(compositeInitial);
-            super.afficher(g2d);
+            Area area = getArea();
+            g2d.setComposite(definirComposite(getTransparence()));
+            g2d.setPaint(getCouleur());
+            g2d.fill(area);
+            g2d.setComposite(compositeInitial);
         }
 
 

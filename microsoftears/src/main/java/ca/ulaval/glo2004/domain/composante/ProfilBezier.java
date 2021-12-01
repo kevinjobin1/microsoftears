@@ -29,11 +29,11 @@ public class ProfilBezier extends Composante {
         this.pointsControle.add(new PointControle(parent,
                 new Pouce(3,0,1),
                 new Pouce(3,0,1),
-                points.get(1), TypeComposante.POINT_CONTROLE_2));
+                points.get(1).diff(3,10), TypeComposante.POINT_CONTROLE_2));
         this.pointsControle.add(new PointControle(parent,
                 new Pouce(3,0,1),
                 new Pouce(3,0,1),
-                points.get(2), TypeComposante.POINT_CONTROLE_3));
+                points.get(2).diff(0,10).add(3,0), TypeComposante.POINT_CONTROLE_3));
         this.pointsControle.add(new PointControle(parent,
                 new Pouce(3,0,1),
                 new Pouce(3,0,1),

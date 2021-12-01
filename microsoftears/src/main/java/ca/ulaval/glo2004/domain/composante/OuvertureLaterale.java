@@ -33,7 +33,8 @@ public class OuvertureLaterale extends Composante{
         super(parent);
         this.hauteur = new Pouce(36,0,1);
         this.largeur = new Pouce(26,0,1);
-        this.centre = parent.getListeComposantes().get(0).getCentre();
+        Pouce centreX = parent.getListeComposantes().get(0).getCentre().getX().add(new Pouce(15,0,0));
+        this.centre = new PointPouce(centreX, parent.getListeComposantes().get(0).getCentre().getY());
         this.rayon = new Pouce(4,1,2);
         this.rectangle = new RectangleCoinRond(hauteur, largeur, centre, rayon);
         this.setTransparence(0.1f);

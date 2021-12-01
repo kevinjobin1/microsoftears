@@ -17,9 +17,8 @@ public class Toit extends Composante{
     public Toit(RoulotteController parent, Pouce epaisseur) {
         super(parent);
         this.epaisseur = epaisseur;
-        //this.setCouleurInitiale(new Color(100,70,200));
-        //this.setCouleur(getCouleurInitiale());
-        this.setTransparence(0.1f);
+        this.setCouleurInitiale(new Color(100,70,200));
+        this.setCouleur(getCouleurInitiale());
         this.setType(TypeComposante.TOIT);
         this.setPolygone(getPolygone());
     }
@@ -27,9 +26,8 @@ public class Toit extends Composante{
     public Toit(RoulotteController parent) {
         super(parent);
         this.epaisseur = new Pouce(2,1,4);
-        //this.setCouleurInitiale(new Color(100,70,200));
-        //this.setCouleur(getCouleurInitiale());
-        this.setTransparence(0.1f);
+        this.setCouleurInitiale(new Color(100,70,200));
+        this.setCouleur(getCouleurInitiale());
         this.setType(TypeComposante.TOIT);
         this.setPolygone(getPolygone());
     }

@@ -7,6 +7,7 @@ import ca.ulaval.glo2004.utilitaires.Pouce;
 import ca.ulaval.glo2004.utilitaires.Rectangle;
 
 import java.awt.*;
+import java.awt.geom.Area;
 import java.util.LinkedList;
 
 public class PoutreArriere extends Composante{
@@ -76,6 +77,18 @@ public class PoutreArriere extends Composante{
         this.setCouleur(copie.getCouleur());
         this.setType(copie.getType());
         this.setPolygone(rectangle.getPolygone());
+    }
+
+    @Override
+    public void afficher(Graphics2D g2d){
+        if (estVisible()){
+            Area area = getArea();
+            Composite compositeInitial = g2d.getComposite();
+            g2d.setComposite(definirComposite(getTransparence()));
+            g2d.setPaint(getCouleur());
+            g2d.fill(area);
+            g2d.setComposite(compositeInitial);
+        }
     }
 
     public boolean verificationLongueur(Pouce valeur){

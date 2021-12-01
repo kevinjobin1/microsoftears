@@ -64,7 +64,7 @@ public class MurProfile extends Composante{
                     area.subtract(areaOuverture);
                 }
             }
-            int indexMurSeparateur = parent.getIndexComposante(TypeComposante.MUR_SEPARATEUR);
+           /* int indexMurSeparateur = parent.getIndexComposante(TypeComposante.MUR_SEPARATEUR);
             if (indexMurSeparateur != -1){
                Area areaMurSeparateur = parent.getListeComposantes().get(indexMurSeparateur).getArea();
                area.subtract(areaMurSeparateur);
@@ -72,6 +72,12 @@ public class MurProfile extends Composante{
             int indexToit = parent.getIndexComposante(TypeComposante.TOIT);
             if (indexToit != -1){
                 Area areaToit = parent.getListeComposantes().get(indexToit).getArea();
+                area.subtract(areaToit);
+            }*/
+
+            int indexHayon = parent.getIndexComposante(TypeComposante.HAYON);
+            if (indexHayon != -1){
+                Area areaToit = parent.getListeComposantes().get(indexHayon).getArea();
                 area.subtract(areaToit);
             }
 
