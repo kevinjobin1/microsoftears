@@ -15,7 +15,7 @@ public class RectangleCoinRond extends Forme {
     }
 
     @Override
-    public Polygone getPolygone() {
+    protected LinkedList<PointPouce> getListePoints() {
         LinkedList<PointPouce> listePoints = new LinkedList<>();
         double longueur = this.getLongueur().toDouble();
         double hauteur = this.getHauteur().toDouble();
@@ -59,10 +59,10 @@ public class RectangleCoinRond extends Forme {
         listePoints.add(new PointPouce(p2));
 
         //coin en haut à gauche
-         coin = new Point2D.Double(centre.getX() - (longueur/2), centre.getY() - (hauteur/2));
-         p1 = new Point2D.Double(centre.getX() - (longueur/2), centre.getY() - (hauteur/2) + rayon);
-         p2 = new Point2D.Double(centre.getX() - (longueur/2) + rayon, centre.getY() - (hauteur/2));
-         points = calculerCoinsArrondis(coin, p1, p2, rayon);
+        coin = new Point2D.Double(centre.getX() - (longueur/2), centre.getY() - (hauteur/2));
+        p1 = new Point2D.Double(centre.getX() - (longueur/2), centre.getY() - (hauteur/2) + rayon);
+        p2 = new Point2D.Double(centre.getX() - (longueur/2) + rayon, centre.getY() - (hauteur/2));
+        points = calculerCoinsArrondis(coin, p1, p2, rayon);
 
         listePoints.add(new PointPouce(p1));
         for (int i = points.length - 1; i >= 0; i--){
@@ -70,6 +70,7 @@ public class RectangleCoinRond extends Forme {
         }
         listePoints.add(new PointPouce(p2));
 
-        return new Polygone(listePoints);
+        return listePoints;
     }
+
 }

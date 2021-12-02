@@ -78,6 +78,13 @@ public class Pouce implements Serializable
         simplifier();
         }
 
+        public Pouce(){
+            this.pouces = 0;
+            this.numerateur = 0;
+            this.denominateur = 1;
+            this.milimetres = 0;
+        }
+
     /**
      Constructeur copie
      @param copie l'objet Pouce à copier
@@ -358,6 +365,9 @@ public class Pouce implements Serializable
         }
     public static Pouce min(Pouce a, Pouce b) {
         return (a.ste(b)) ? a : b;
+    }
+    public static Pouce abs(Pouce a){
+        return new Pouce(Math.abs(a.toDouble()));
     }
 
     }

@@ -1,6 +1,8 @@
 package ca.ulaval.glo2004.utilitaires;
 
 
+import java.util.LinkedList;
+
 // NE PAS ENLEVER *** kJ
 public class Irregulier extends Forme {
 
@@ -9,7 +11,8 @@ public class Irregulier extends Forme {
     }
 
     @Override
-    public Polygone getPolygone() {
+    protected LinkedList<PointPouce> getListePoints() {
         return null;
     }
+
 }

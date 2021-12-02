@@ -20,7 +20,6 @@ public class RoulotteController implements Serializable{
 
     // controle de l'affichage
     private static final int PIXEL_RATIO = 7;
-    private static final int NOMBRE_POINTS = 300;
     private int[] delta;
     private Point positionSouris;
     private double scale;
@@ -491,9 +490,6 @@ public class RoulotteController implements Serializable{
         return this.PIXEL_RATIO;
     }
 
-    public int getNombrePoint() {
-        return this.NOMBRE_POINTS;
-    }
 
     public double getScale() {
         return scale;
