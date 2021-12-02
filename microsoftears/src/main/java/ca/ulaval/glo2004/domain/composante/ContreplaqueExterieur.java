@@ -37,6 +37,7 @@ public class ContreplaqueExterieur extends Composante {
 
     public Polygone getPolygone(){
         ArrayList<OuvertureLaterale> ouverturesLaterales = parent.getListeOuverturesLaterales();
+        ArrayList<AideDesign> aideDesign = parent.getListeAidesDesign();
         LinkedList<PointPouce> hayon = parent.getListeComposantes().get(8).getPolygone().getListePoints();
         LinkedList<PointPouce> murProfile = parent.getListeComposantes().get(2).getPolygone().getListePoints();
         return null;

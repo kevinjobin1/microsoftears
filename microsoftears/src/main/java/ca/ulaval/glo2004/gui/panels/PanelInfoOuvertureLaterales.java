@@ -167,27 +167,27 @@ public class PanelInfoOuvertureLaterales extends PanelComposante {
             }
         });
         
-            //============== RAYON COURBURE =============//
-            rayonSpinner1.addChangeListener(new ChangeListener() {
-                @Override
-                public void stateChanged(ChangeEvent e) {
-                    rayonSpinner1ChangeListener(e);
-                }
-            });
+        //============== RAYON COURBURE =============//
+        rayonSpinner1.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                rayonSpinner1ChangeListener(e);
+            }
+        });
 
-            rayonSpinner2.addChangeListener(new ChangeListener() {
-                @Override
-                public void stateChanged(ChangeEvent e) {
-                    rayonSpinner2ChangeListener(e);
-                }
-            });
+        rayonSpinner2.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                rayonSpinner2ChangeListener(e);
+            }
+        });
 
-            rayonSpinner3.addChangeListener(new ChangeListener() {
-                @Override
-                public void stateChanged(ChangeEvent e) {
-                    rayonSpinner3ChangeListener(e);
-                }
-            });
+        rayonSpinner3.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                rayonSpinner3ChangeListener(e);
+            }
+        });
     }
         else {
             Pouce pouces;
@@ -235,7 +235,6 @@ public class PanelInfoOuvertureLaterales extends PanelComposante {
                     centreYSpinnerChangeListener(e);
                 }
             });
-
             rayonSpinner.addChangeListener(new ChangeListener() {
                 @Override
                 public void stateChanged(ChangeEvent e) {
@@ -243,7 +242,6 @@ public class PanelInfoOuvertureLaterales extends PanelComposante {
                 }
             });
         }
-
     }
 
     private void hauteurSpinner1ChangeListener(ChangeEvent e) {
@@ -395,7 +393,6 @@ public class PanelInfoOuvertureLaterales extends PanelComposante {
         }
         updateComposante();
     }
-
 
     private void hauteurSpinnerChangeListener(ChangeEvent e) {
         JSpinner spinner = (JSpinner) e.getSource();

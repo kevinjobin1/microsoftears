@@ -72,6 +72,9 @@ public class RoulotteController implements Serializable{
         OuvertureLaterale ouverture = new OuvertureLaterale(this);
         listeComposantes.add(ouverture);
         listeOuverturesLaterales.add(ouverture);
+        AideDesign aideDesign = new AideDesign(this);
+        listeComposantes.add(aideDesign);
+        //listeAidesDesign.add(aideDesign);
     }
 
     public void updateComposante(int[] valeurs, TypeComposante type){
@@ -251,6 +254,17 @@ public class RoulotteController implements Serializable{
                        new Pouce(valeurs[12], valeurs[13], valeurs[14]));
                listeComposantes.set(11, ouvertureLaterale);
                listeOuverturesLaterales.set(0, ouvertureLaterale);
+               break;
+
+           case AIDE_DESIGN:
+               AideDesign aideDesign = new AideDesign(this,
+                       new Pouce(valeurs[0], valeurs[1], valeurs[2]),
+                       new Pouce(valeurs[3], valeurs[4], valeurs[5]),
+                       new PointPouce(
+                               new Pouce(valeurs[6], valeurs[7], valeurs[8]),
+                               new Pouce(valeurs[9], valeurs[10], valeurs[11])));
+               listeComposantes.set(12, aideDesign);
+               //listeAidesDesign.set(0, aideDesign);
                break;
        }
     }
@@ -445,6 +459,8 @@ public class RoulotteController implements Serializable{
               return 10;
           case OUVERTURE_LATERALE:
               return 11;
+          case AIDE_DESIGN:
+              return 12;
       }
       // si aucune composante n'est trouvée, retourne -1
       return -1;
