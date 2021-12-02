@@ -13,11 +13,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.*;
+import java.util.ArrayList;
 
 public class BarreMenu extends JMenuBar
 {
 
     public FenetrePrincipale parent;
+
     public JMenu fichierMenu,
             editionMenu,
             outilsMenu,
@@ -349,11 +351,23 @@ public class BarreMenu extends JMenuBar
     }
 
     protected void undoActionPerformed(ActionEvent e) {
-        // TODO: à coder au livrable 4, undo action
+        // TODO: à tester
+        if(!parent.controller.getUndoList().isEmpty()) {
+            RoulotteController roulotte = parent.controller.getUndoList().get(parent.controller.getUndoList().size() - 2);
+            parent.controller.getRedoList().add(parent.controller.getUndoList().get(parent.controller.getUndoList().size() - 1));
+            parent.controller.getUndoList().remove(parent.controller.getUndoList().size() - 1);
+            parent.controller = roulotte;
+        }
     }
 
     protected void redoActionPerformed(ActionEvent e) {
-        // TODO: à coder au livrable 4, redo action
+        // TODO: à tester
+        if(!parent.controller.getRedoList().isEmpty()) {
+            RoulotteController roulotte = parent.controller.getRedoList().get(parent.controller.getRedoList().size() - 1);
+            parent.controller.getUndoList().add(parent.controller.getRedoList().get(parent.controller.getRedoList().size() - 1));
+            parent.controller.getRedoList().remove(parent.controller.getRedoList().size() - 1);
+            parent.controller = roulotte;
+        }
     }
 
     protected void supprimerActionPerformed(ActionEvent e) {
@@ -485,4 +499,5 @@ public class BarreMenu extends JMenuBar
     public void update() {
 
     }
+
 }
