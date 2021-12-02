@@ -252,6 +252,11 @@ public class RoulotteController implements Serializable{
                listeComposantes.set(11, ouvertureLaterale);
                listeOuverturesLaterales.set(0, ouvertureLaterale);
                break;
+
+           case RESSORTS:
+               Ressorts ressorts = new Ressorts(this,valeurs[0]);
+               listeComposantes.set(12,ressorts);
+               break;
        }
     }
 

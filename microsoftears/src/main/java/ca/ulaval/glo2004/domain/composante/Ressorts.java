@@ -6,25 +6,34 @@ import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Pouce;
 
 public class Ressorts extends Composante{
-    private double poidsHayon;
+    private int poidsHayon;
     private PointPouce positionSurHayon;
     private PointPouce positionSurMur;
     private Pouce longueurExactExtension;
     private Pouce longueurIdealExtension;
+    private Pouce DistancePointHayonDuPointDeRotation;
     private double force;
 
-    public Ressorts(RoulotteController parent, double poidsHayon) {
+    public Ressorts(RoulotteController parent, int poidsHayon) {
         super(parent);
         this.poidsHayon = poidsHayon;
         this.setType(TypeComposante.RESSORTS);
         this.longueurIdealExtension = getLongueurHayon().multiplier(0.6);
         this.force = calculerForce();
+        calculerDistancePositionsDuPointDeRotation();
+        calculerPositionSurHayon();
+        calculerPositionSurMur();
     }
 
     public Ressorts(RoulotteController parent) {
         super(parent);
         this.poidsHayon = 50;
         this.setType(TypeComposante.RESSORTS);
+        this.longueurIdealExtension = getLongueurHayon().multiplier(0.6);
+        this.force = calculerForce();
+        calculerDistancePositionsDuPointDeRotation();
+        calculerPositionSurHayon();
+        calculerPositionSurMur();
     }
 
     @Override
@@ -66,11 +75,11 @@ public class Ressorts extends Composante{
         return force;
     }
 
-    public double getPoidsHayon() {
+    public int getPoidsHayon() {
         return poidsHayon;
     }
 
-    public void setPoidsHayon(double poidsHayon) {
+    public void setPoidsHayon(int poidsHayon) {
         this.poidsHayon = poidsHayon;
     }
 
@@ -84,9 +93,9 @@ public class Ressorts extends Composante{
     }
     //todo: à tester
     public double calculerForce(){
-        double deadWeightNewton = poidsHayon * 4.4482216;
+        double deadWeightNewton = ((double) poidsHayon) * 4.4482216;
         double centerOfGravityLengthMM = getLongueurHayon().toDouble() * (25.4/2);
-        double powerArmLengthMM = getDistanceRessortsDuPointDeRotation().toDouble() * 25.4;
+        double powerArmLengthMM = DistancePointHayonDuPointDeRotation.toDouble() * 25.4;
         double forceRequiredNewton = deadWeightNewton*centerOfGravityLengthMM/(powerArmLengthMM*2);
         double safetyFactorNewton;
         if(deadWeightNewton < 300) {
@@ -111,16 +120,16 @@ public class Ressorts extends Composante{
             PointPouce point = hayon.getPointsInterieurHayon().get(i);
             double distancePointRotation = calculerDistanceEntre2Points(point, hayon.getPointRotation());
 
-            if(distancePointRotation <= getDistanceRessortsDuPointDeRotation().toDouble() && !positionSurHayonCalculer) {
+            if(distancePointRotation <= DistancePointHayonDuPointDeRotation.toDouble() && !positionSurHayonCalculer) {
                 dernierPointHayon = point;
-                if (distancePointRotation == getDistanceRessortsDuPointDeRotation().toDouble()) {
+                if (distancePointRotation == DistancePointHayonDuPointDeRotation.toDouble()) {
                     positionSurHayon = point;
                     positionSurHayonCalculer = true;
                 }
             }
         }
         if(!positionSurHayonCalculer){
-            double y = Math.sqrt(Math.pow(getDistanceRessortsDuPointDeRotation().toDouble(),2) -
+            double y = Math.sqrt(Math.pow(DistancePointHayonDuPointDeRotation.toDouble(),2) -
                     Math.pow(dernierPointHayon.getX().toDouble(),2));
             positionSurHayon = new PointPouce(dernierPointHayon.getX(), new Pouce(y).add(hayon.getPointRotation().getY()));
         }
@@ -138,7 +147,7 @@ public class Ressorts extends Composante{
             if(distancePointRotation <= longueurExactExtension.toDouble() && !positionSurMurCalculer) {
                 dernierPointMur = point;
                 if (distancePointRotation == longueurExactExtension.toDouble()) {
-                    positionSurHayon = point;
+                    positionSurMur = point;
                     positionSurMurCalculer = true;
                 }
             }
@@ -146,11 +155,11 @@ public class Ressorts extends Composante{
         if(!positionSurMurCalculer){
             double y = Math.sqrt(Math.pow(longueurExactExtension.toDouble(),2) -
                     Math.pow(dernierPointMur.getX().toDouble(),2));
-            positionSurHayon = new PointPouce(dernierPointMur.getX(), new Pouce(y).add(hayon.getPointRotation().getY()));
+            positionSurMur = new PointPouce(dernierPointMur.getX(), new Pouce(y).add(hayon.getPointRotation().getY()));
         }
     }
 
-    public Pouce getDistanceRessortsDuPointDeRotation(){
+    public void calculerDistancePositionsDuPointDeRotation(){
         Pouce strokeLength;
         if(longueurIdealExtension.ste(new Pouce(7,1,100))){
             strokeLength = new Pouce(1,97,100);
@@ -198,6 +207,6 @@ public class Ressorts extends Composante{
             strokeLength = new Pouce(16,7,50);
             longueurExactExtension =new Pouce(35,43,100);
         }
-        return strokeLength.multiplier(0.85);
+        DistancePointHayonDuPointDeRotation = strokeLength.multiplier(0.85);
     }
 }
