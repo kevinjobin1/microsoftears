@@ -49,17 +49,6 @@ public class PanneauAffichage extends JPanel implements Serializable {
             g2d.setRenderingHints(renderHints);
     }
 
-
-    public PointPouce getPositionReelle(Point position) {
-        //TODO:
-        return new PointPouce();
-    }
-
-    public Point getPositionGrille(Point position) {
-        //TODO:
-        return new Point();
-    }
-
 }
 
 

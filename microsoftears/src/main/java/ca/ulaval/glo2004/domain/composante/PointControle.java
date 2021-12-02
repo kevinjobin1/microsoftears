@@ -25,7 +25,7 @@ public class PointControle extends Composante{
         this.longueur = longueur;
         this.centre = centre;
         this.ellipse = new Ellipse(longueur, hauteur,
-                            centre, this.parent.getNombrePoint());
+                            centre);
         this.setCouleur(getCouleurInitiale());
         this.setPolygone(ellipse.getPolygone());
         this.setType(type);
@@ -71,14 +71,14 @@ public class PointControle extends Composante{
         Pouce differenceX = centre.getX().add(delta.getX().diff(pSouris.getX()));
         Pouce differenceY = centre.getY().add(delta.getY().diff(pSouris.getY()));
         this.centre = new PointPouce(differenceX, differenceY);
-        this.ellipse = new Ellipse(this.longueur,this.hauteur,this.centre, this.parent.getNombrePoint());
+        this.ellipse = new Ellipse(this.longueur,this.hauteur,this.centre);
         this.setPolygone(ellipse.getPolygone());
     }
 
     @Override
     public void snapToGrid(PointPouce pointGrille){
         this.centre = pointGrille;
-        this.ellipse = new Ellipse(this.longueur,this.hauteur,this.centre, this.parent.getNombrePoint());
+        this.ellipse = new Ellipse(this.longueur,this.hauteur,this.centre);
         this.setPolygone(ellipse.getPolygone());
     }
 

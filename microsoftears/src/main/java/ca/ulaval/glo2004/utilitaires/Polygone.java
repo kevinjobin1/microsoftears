@@ -1,18 +1,14 @@
 package ca.ulaval.glo2004.utilitaires;
 
-import java.awt.*;
-import java.awt.Rectangle;
-import java.awt.geom.Area;
-import java.awt.geom.GeneralPath;
-import java.awt.geom.Path2D;
-import java.awt.geom.Point2D;
+import java.awt.geom.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Polygone implements Serializable {
 
     private LinkedList<PointPouce> listePoints;
-    private Rectangle rectangleLimite;
+    private Rectangle2D rectangleLimite;
     private double[] xPoints;
     private double[] yPoints;
 
@@ -34,28 +30,28 @@ public class Polygone implements Serializable {
     }
 
     private void calculerLimite() {
-        int rectangleLimiteMinX = Integer.MAX_VALUE;
-        int rectangleLimiteMinY = Integer.MAX_VALUE;
-        int rectangleLimiteMaxX = Integer.MIN_VALUE;
-        int rectangleLimiteMaxY = Integer.MIN_VALUE;
+        double rectangleLimiteMinX = Double.MAX_VALUE;
+        double rectangleLimiteMinY = Double.MAX_VALUE;
+        double rectangleLimiteMaxX = Double.MIN_VALUE;
+        double rectangleLimiteMaxY = Double.MIN_VALUE;
 
 
         for (int i = 0; i < listePoints.size(); i++) {
             double x = xPoints[i];
-            rectangleLimiteMinX = (int)Math.min(rectangleLimiteMinX, x);
-            rectangleLimiteMaxX = (int)Math.max(rectangleLimiteMaxX, x);
+            rectangleLimiteMinX = Math.min(rectangleLimiteMinX, x);
+            rectangleLimiteMaxX = Math.max(rectangleLimiteMaxX, x);
             double y = yPoints[i];
-            rectangleLimiteMinY = (int)Math.min(rectangleLimiteMinY, y);
-            rectangleLimiteMaxY = (int)Math.max(rectangleLimiteMaxY, y);
+            rectangleLimiteMinY = Math.min(rectangleLimiteMinY, y);
+            rectangleLimiteMaxY = Math.max(rectangleLimiteMaxY, y);
         }
-        rectangleLimite = new Rectangle(rectangleLimiteMinX, rectangleLimiteMinY,
+        rectangleLimite = new Rectangle2D.Double(rectangleLimiteMinX, rectangleLimiteMinY,
                 rectangleLimiteMaxX - rectangleLimiteMinX,
                 rectangleLimiteMaxY - rectangleLimiteMinY);
     }
 
-    public Rectangle getBounds() {
+    public Rectangle2D getBounds() {
         if (listePoints.size() == 0) {
-            return new Rectangle();
+            return new Rectangle2D.Double();
         }
         if (rectangleLimite == null) {
             calculerLimite();
@@ -151,4 +147,8 @@ public class Polygone implements Serializable {
 
         return ((intersections & 1) != 0);
     }
+
+
+
+
     }

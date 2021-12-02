@@ -20,7 +20,6 @@ public class RoulotteController implements Serializable{
 
     // controle de l'affichage
     private static final int PIXEL_RATIO = 7;
-    private static final int NOMBRE_POINTS = 300;
     private int[] delta;
     private Point positionSouris;
     private double scale;
@@ -266,6 +265,11 @@ public class RoulotteController implements Serializable{
                listeComposantes.set(12, aideDesign);
                //listeAidesDesign.set(0, aideDesign);
                break;
+
+           case RESSORTS:
+               Ressorts ressorts = new Ressorts(this,valeurs[0]);
+               listeComposantes.set(13,ressorts);
+               break;
        }
     }
 
@@ -461,6 +465,8 @@ public class RoulotteController implements Serializable{
               return 11;
           case AIDE_DESIGN:
               return 12;
+          case RESSORTS:
+              return 13;
       }
       // si aucune composante n'est trouvée, retourne -1
       return -1;
@@ -502,9 +508,6 @@ public class RoulotteController implements Serializable{
         return this.PIXEL_RATIO;
     }
 
-    public int getNombrePoint() {
-        return this.NOMBRE_POINTS;
-    }
 
     public double getScale() {
         return scale;

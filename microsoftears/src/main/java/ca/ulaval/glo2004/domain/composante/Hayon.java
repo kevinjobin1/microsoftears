@@ -297,8 +297,8 @@ public class Hayon extends Composante {
 
         double angle;
 
-        for (int i = (parent.getNombrePoint()/2); i >= -(parent.getNombrePoint()/4); i--) {
-            angle = Math.toRadians(360 * i / parent.getNombrePoint());
+        for (int i = (Forme.getNombrePoint()/2); i >= -(Forme.getNombrePoint()/4); i--) {
+            angle = Math.toRadians(360 * i / Forme.getNombrePoint());
             Pouce xCercle = rayonArcCercle.multiplier(Math.cos(angle)).add(pointCercle.getX());
             Pouce yCercle = rayonArcCercle.multiplier(Math.sin(angle)).add(pointCercle.getY());
             if(yCercle.gte(yFinArcCercle) && xCercle.gte(xDebutCercle)) {

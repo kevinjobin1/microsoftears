@@ -2,6 +2,7 @@ package ca.ulaval.glo2004.domain.composante;
 
 import ca.ulaval.glo2004.domain.RoulotteController;
 import ca.ulaval.glo2004.domain.TypeComposante;
+import ca.ulaval.glo2004.utilitaires.Forme;
 import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Polygone;
 import ca.ulaval.glo2004.utilitaires.Pouce;
@@ -214,23 +215,24 @@ public class MurProfile extends Composante{
 
 
     private LinkedList<PointPouce> listePointsModeEllipse(){
-        List<PointPouce> pointsMur = parent.getListeComposantes().get(0).getPolygone().getListePoints();
 
+        List<PointPouce> pointsMur = parent.getListeComposantes().get(0).getPolygone().getListePoints();
+        
         //cadran en haut à droite de l'éllipse0
         List<PointPouce> listeEllipse0 = new LinkedList<> (profilEllipses[0].getPolygone().getListePoints().
-                subList(0, Math.round(parent.getNombrePoint()/4)));
+                subList(0, Math.round(Forme.getNombrePoint()/4)));
 
         //cadran en haut à gauche de l'éllipse1
         List<PointPouce> listeEllipse1 = new LinkedList<> (profilEllipses[1].getPolygone().getListePoints().
-                subList( Math.round(parent.getNombrePoint()/4),  Math.round(parent.getNombrePoint()/2)));
+                subList( Math.round(Forme.getNombrePoint()/4),  Math.round(Forme.getNombrePoint()/2)));
 
         //cadran en bas à gauche de l'éllipse2
         List<PointPouce> listeEllipse2 = new LinkedList<> (profilEllipses[2].getPolygone().getListePoints().
-                subList(  Math.round(parent.getNombrePoint()/2),  Math.round(parent.getNombrePoint()*3/4)));
+                subList(  Math.round(Forme.getNombrePoint()/2),  Math.round(Forme.getNombrePoint()*3/4)));
 
         //cadran en bas à droite de l'éllipse3
         List<PointPouce> listeEllipse3 = new LinkedList<> (profilEllipses[3].getPolygone().getListePoints().
-                subList(  Math.round(parent.getNombrePoint()*3/4),  Math.round(parent.getNombrePoint())));
+                subList(  Math.round(Forme.getNombrePoint()*3/4),  Math.round(Forme.getNombrePoint())));
 
         LinkedList<PointPouce> listeRetour = new LinkedList<>();
 

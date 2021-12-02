@@ -31,15 +31,16 @@ public class CourbeBezier extends Forme {
     }
 
     @Override
-    public Polygone getPolygone() {
+    protected LinkedList<PointPouce> getListePoints() {
         LinkedList<PointPouce> listePoints = new LinkedList<>();
         Point2D p0 = pointsControle.get(0).toPoint2D();
         Point2D p1 = pointsControle.get(1).toPoint2D();
         Point2D p2 = pointsControle.get(2).toPoint2D();
         Point2D p3 = pointsControle.get(3).toPoint2D();
         calculerBezier(listePoints, p0, p1, p2, p3, 0, 0);
-        return new Polygone(listePoints);
+        return listePoints;
     }
+
 
     /**
      * Méthode de calcul de la courbe de Bezier
