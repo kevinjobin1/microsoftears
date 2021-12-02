@@ -101,7 +101,6 @@ public class MurProfile extends Composante{
             double[] point;
             for (int i = 0; i < polygoneList.size(); i++){
                 point = parent.getPositionEcran(polygoneList.get(i));
-                System.out.println(point[0] + "," + point[1]);
                 if(i == 0) {
                     path.moveTo(point[0], point[1]);
                 }
