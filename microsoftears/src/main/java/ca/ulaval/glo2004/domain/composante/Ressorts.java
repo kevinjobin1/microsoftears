@@ -7,15 +7,17 @@ import ca.ulaval.glo2004.utilitaires.Pouce;
 
 public class Ressorts extends Composante{
     private double poidsHayon;
-    private PointPouce[] position = new PointPouce[2];
-    private Pouce longueur;
+    private PointPouce positionSurHayon;
+    private PointPouce positionSurMur;
+    private Pouce longueurExactExtension;
+    private Pouce longueurIdealExtension;
     private double force;
 
     public Ressorts(RoulotteController parent, double poidsHayon) {
         super(parent);
         this.poidsHayon = poidsHayon;
         this.setType(TypeComposante.RESSORTS);
-        this.longueur = getLongueurHayon().multiplier(0.6);
+        this.longueurIdealExtension = getLongueurHayon().multiplier(0.6);
         this.force = calculerForce();
     }
 
@@ -56,16 +58,8 @@ public class Ressorts extends Composante{
         return false;
     }
 
-    private PointPouce[] calculerPositionRessorts(){
-        return null;
-    }
-
-    public PointPouce[] getPosition() {
-        return position;
-    }
-
-    public Pouce getLongueur() {
-        return longueur;
+    public Pouce getLongueurExactExtension() {
+        return longueurExactExtension;
     }
 
     public double getForce() {
@@ -103,32 +97,106 @@ public class Ressorts extends Composante{
         return (forceRequiredNewton+safetyFactorNewton)*0.224808943871;
     }
 
+    private double calculerDistanceEntre2Points(PointPouce point1, PointPouce point2){
+        return Math.sqrt(Math.pow(point2.getX().toDouble()-point1.getX().toDouble(),2) +
+                Math.pow(point2.getY().toDouble()-point1.getY().toDouble(),2));
+    }
+
+    //todo: à tester
+    public void calculerPositionSurHayon(){
+        Hayon hayon = (Hayon) parent.getListeComposantes().get(8);
+        PointPouce dernierPointHayon = hayon.getPointsInterieurHayon().getFirst();
+        boolean positionSurHayonCalculer = false;
+        for (int i =0 ; i < hayon.getPointsInterieurHayon().size(); i++) {
+            PointPouce point = hayon.getPointsInterieurHayon().get(i);
+            double distancePointRotation = calculerDistanceEntre2Points(point, hayon.getPointRotation());
+
+            if(distancePointRotation <= getDistanceRessortsDuPointDeRotation().toDouble() && !positionSurHayonCalculer) {
+                dernierPointHayon = point;
+                if (distancePointRotation == getDistanceRessortsDuPointDeRotation().toDouble()) {
+                    positionSurHayon = point;
+                    positionSurHayonCalculer = true;
+                }
+            }
+        }
+        if(!positionSurHayonCalculer){
+            double y = Math.sqrt(Math.pow(getDistanceRessortsDuPointDeRotation().toDouble(),2) -
+                    Math.pow(dernierPointHayon.getX().toDouble(),2));
+            positionSurHayon = new PointPouce(dernierPointHayon.getX(), new Pouce(y).add(hayon.getPointRotation().getY()));
+        }
+    }
+
+    //todo: à tester
+    public void calculerPositionSurMur(){
+        Hayon hayon = (Hayon) parent.getListeComposantes().get(8);
+        PointPouce dernierPointMur = hayon.getPointsInterieurHayon().getFirst();
+        boolean positionSurMurCalculer = false;
+        for (int i =0 ; i < hayon.getPointsInterieurHayon().size(); i++) {
+            PointPouce point = hayon.getPointsInterieurHayon().get(i);
+            double distancePointRotation = calculerDistanceEntre2Points(point, hayon.getPointRotation());
+
+            if(distancePointRotation <= longueurExactExtension.toDouble() && !positionSurMurCalculer) {
+                dernierPointMur = point;
+                if (distancePointRotation == longueurExactExtension.toDouble()) {
+                    positionSurHayon = point;
+                    positionSurMurCalculer = true;
+                }
+            }
+        }
+        if(!positionSurMurCalculer){
+            double y = Math.sqrt(Math.pow(longueurExactExtension.toDouble(),2) -
+                    Math.pow(dernierPointMur.getX().toDouble(),2));
+            positionSurHayon = new PointPouce(dernierPointMur.getX(), new Pouce(y).add(hayon.getPointRotation().getY()));
+        }
+    }
+
     public Pouce getDistanceRessortsDuPointDeRotation(){
         Pouce strokeLength;
-        if(longueur.ste(new Pouce(7,1,100))){
+        if(longueurIdealExtension.ste(new Pouce(7,1,100))){
             strokeLength = new Pouce(1,97,100);
-        }else if(longueur.ste(new Pouce(7,2,5))){
+            longueurExactExtension = new Pouce(7,1,100);
+
+        }else if(longueurIdealExtension.ste(new Pouce(7,2,5))){
             strokeLength = new Pouce(2,9,25);
-        }else if(longueur.ste(new Pouce(9,13,20))){
+            longueurExactExtension = new Pouce(7,2,5);
+
+        }else if(longueurIdealExtension.ste(new Pouce(9,13,20))){
             strokeLength = new Pouce(3,27,50);
-        }else if(longueur.ste(new Pouce(12,1,5))){
+            longueurExactExtension = new Pouce(9,13,20);
+
+        }else if(longueurIdealExtension.ste(new Pouce(12,1,5))){
             strokeLength = new Pouce(3,47,50);
-        }else if(longueur.ste(new Pouce(13,19,100))){
+            longueurExactExtension = new Pouce(12,1,5);
+
+        }else if(longueurIdealExtension.ste(new Pouce(13,19,100))){
             strokeLength = new Pouce(4,23,25);
-        }else if(longueur.ste(new Pouce(15,6,25))){
+            longueurExactExtension = new Pouce(13,19,100);
+
+        }else if(longueurIdealExtension.ste(new Pouce(15,6,25))){
             strokeLength = new Pouce(5,47,100);
-        }else if(longueur.ste(new Pouce(17,13,100))){
+            longueurExactExtension = new Pouce(15,6,25);
+
+        }else if(longueurIdealExtension.ste(new Pouce(17,13,100))){
             strokeLength = new Pouce(6,3,10);
-        }else if(longueur.ste(new Pouce(19,18,25))){
+            longueurExactExtension =new Pouce(17,13,100);
+
+        }else if(longueurIdealExtension.ste(new Pouce(19,18,25))){
             strokeLength = new Pouce(7,87,100);
-        }else if(longueur.ste(new Pouce(20,3,25))){
+            longueurExactExtension =new Pouce(19,18,25);
+
+        }else if(longueurIdealExtension.ste(new Pouce(20,3,25))){
             strokeLength = new Pouce(8,27,100);
-        }else if(longueur.ste(new Pouce(27,87,100))){
+            longueurExactExtension =new Pouce(20,3,25);
+
+        }else if(longueurIdealExtension.ste(new Pouce(27,87,100))){
             strokeLength = new Pouce(10,6,25);
-        }else if(longueur.ste(new Pouce(29,49,100))){
+            longueurExactExtension =new Pouce(27,87,100);
+        }else if(longueurIdealExtension.ste(new Pouce(29,49,100))){
             strokeLength = new Pouce(12,4,5);
+            longueurExactExtension =new Pouce(29,49,100);
         }else {
             strokeLength = new Pouce(16,7,50);
+            longueurExactExtension =new Pouce(35,43,100);
         }
         return strokeLength.multiplier(0.85);
     }

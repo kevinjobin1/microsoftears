@@ -6,6 +6,7 @@ import ca.ulaval.glo2004.utilitaires.*;
 import ca.ulaval.glo2004.utilitaires.Rectangle;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -17,6 +18,7 @@ public class Hayon extends Composante {
     private Pouce distancePlancher;
     private Pouce epaisseurTraitScie;
     private Pouce rayonArcCercle;
+    private LinkedList<PointPouce> pointsInterieurHayon;
     private PointPouce pointRotation = null;
     private PointPouce pointFinHayon;
 
@@ -282,8 +284,8 @@ public class Hayon extends Composante {
         pente = point2.getY().diff(point1.getY()).diviser(point2.getX().diff(point1.getX()));
         angleNormale = Math.atan(1 / pente);
 
-        Pouce x = pointsProfil.get(indiceDepartCercle).getX().diff((rayonArcCercle.diff(epaisseur)).multiplier(Math.cos(angleNormale)));
-        Pouce y = pointsProfil.get(indiceDepartCercle).getY().diff((rayonArcCercle.diff(epaisseur)).multiplier(-Math.sin(angleNormale)));
+        Pouce x = pointsProfil.get(indiceDepartCercle).getX().diff((rayonArcCercle.diff(epaisseur).diff(epaisseurTraitScie)).multiplier(Math.cos(angleNormale)));
+        Pouce y = pointsProfil.get(indiceDepartCercle).getY().diff((rayonArcCercle.diff(epaisseur).diff(epaisseurTraitScie)).multiplier(-Math.sin(angleNormale)));
         PointPouce pointCercle = new PointPouce(x, y);
 
         Collections.reverse(pointsHayon);
@@ -307,6 +309,7 @@ public class Hayon extends Composante {
             retour.remove(pointDepart);
         }
         retour.remove(pointCentreDebut);
+        pointsInterieurHayon = pointsHayon;
         retour.addAll(pointsHayon);
         return new Polygone(retour);
     }
@@ -347,6 +350,10 @@ public class Hayon extends Composante {
     @Override
     public boolean getMode() {
         return false;
+    }
+
+    public LinkedList<PointPouce> getPointsInterieurHayon() {
+        return pointsInterieurHayon;
     }
 }
 
