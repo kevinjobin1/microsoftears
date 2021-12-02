@@ -146,6 +146,11 @@ public class Hayon extends Composante {
         PoutreArriere poutreArriere = (PoutreArriere) parent.getListeComposantes().get(7);
         MurProfile murProfile = (MurProfile) parent.getListeComposantes().get(1);
 
+        // xdepart = (poutre.centreX - poutre.longueur/2 - distancePoutre - rayonArcCercle)
+        // xFin = (plancher.centreX - plancher.longueur/2 - distancePlancher)
+        // yMinFin = (
+        // yFinArcCercle =
+
         Pouce xDepart = poutreArriere.getCentre().getX().
                 diff(poutreArriere.getLongueur().diviser(2)).diff(distancePoutre).diff(rayonArcCercle);
         Pouce xFin = plancher.getCentre().getX().

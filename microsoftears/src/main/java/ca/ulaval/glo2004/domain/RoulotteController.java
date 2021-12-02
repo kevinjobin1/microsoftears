@@ -1,6 +1,7 @@
 package ca.ulaval.glo2004.domain;
 
 import ca.ulaval.glo2004.domain.composante.*;
+import ca.ulaval.glo2004.gui.FenetrePrincipale;
 import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Pouce;
 
@@ -13,9 +14,9 @@ public class RoulotteController implements Serializable{
     private ArrayList<Composante> listeComposantes;
     private ArrayList<OuvertureLaterale> listeOuverturesLaterales;
     private ArrayList<AideDesign> listeAidesDesign;
-    private boolean modeProfil;
     private boolean afficherGrille;
     private Composante composanteChoisie;
+    private Color couleurChoisie;
 
     // controle de l'affichage
     private static final int PIXEL_RATIO = 7;
@@ -24,6 +25,7 @@ public class RoulotteController implements Serializable{
     private Point positionSouris;
     private double scale;
 
+
     public RoulotteController() {
         this.listeComposantes = new ArrayList<>();
         this.listeOuverturesLaterales = new ArrayList<>();
@@ -31,8 +33,8 @@ public class RoulotteController implements Serializable{
         this.delta = new int[]{0,0};
         this.scale = 1;
         this.positionSouris = new Point();
-        this.modeProfil = true; // ellipses
         this.afficherGrille = true;
+        this.couleurChoisie = new Color(0, 217, 217); // couleur par défaut
         calculerDisposition();
         this.grille = new Grille(this, 6,false, afficherGrille, new Dimension());
     }
@@ -85,8 +87,9 @@ public class RoulotteController implements Serializable{
                                new Pouce(valeurs[9], valeurs[10], valeurs[11])));
                MurBrute ancienMur = (MurBrute) listeComposantes.get(0);
                listeComposantes.set(0, mur);
+               boolean modeProfil = valeurs[12] == 1? true: false;
                MurProfile profile = new MurProfile(((MurProfile) listeComposantes.get(1)), new PointPouce(mur.getCentre().getX().diff(ancienMur.getCentre().getX()),
-                       mur.getCentre().getY().diff(ancienMur.getCentre().getY())));
+                       mur.getCentre().getY().diff(ancienMur.getCentre().getY())), modeProfil);
                listeComposantes.set(1, profile);
 
                for(int i = 2, j = 0; i < 6; i++, j++){
@@ -339,26 +342,36 @@ public class RoulotteController implements Serializable{
     }
 
     /** Fonction qui détermine quelle forme a été sélectionnée */
-    public void clicSurPlan(Point mousePressedPoint) {
+    public void clicSurPlan(Point mousePressedPoint, FenetrePrincipale.TypeAction actionChoisie) {
+
         PointPouce positionClic = getPositionPlan(mousePressedPoint);
         int indexComposante = -1;
+
         if (!listeComposantes.isEmpty()) {
             for (int i=0; i < listeComposantes.size(); i++) {
                 Composante composante = listeComposantes.get(i);
-                composante.resetCouleur();
-                composante.resetTransparence();
+                composante.setChoisie(false);
 
                 if (composante.getPolygone().contient(positionClic) && composante.estVisible()) {
                     indexComposante = i;
                 }
             }
+            // Si on a cliqué sur une composante, on agit en fonction de l'action demandée
             if (indexComposante != -1){
-
                 composanteChoisie = listeComposantes.get(indexComposante);
-                System.out.println(composanteChoisie);
-                composanteChoisie.setCouleur(new Color(255,60,60));
-                composanteChoisie.setTransparence(1.0f);
-            } else{
+                switch(actionChoisie){
+                    case SELECTION:
+                        composanteChoisie.setChoisie(true);
+                        break;
+                    case REMPLIR:
+                        composanteChoisie.setCouleurInitiale(couleurChoisie);
+                }
+
+
+            }
+            // Sinon, on ne fait rien
+            else
+            {
                 composanteChoisie = null;
             }
         }
@@ -437,25 +450,6 @@ public class RoulotteController implements Serializable{
       return -1;
     }
 
-    public void remplirComposante(Point mousePressedPoint){
-        PointPouce positionClic = getPositionPlan(mousePressedPoint);
-
-        int indexComposante = -1;
-        if (!listeComposantes.isEmpty()) {
-            for (int i=0; i < listeComposantes.size(); i++) {
-                Composante composante = listeComposantes.get(i);
-
-                if (composante.getPolygone().contient(positionClic) && composante.estVisible()) {
-                    indexComposante = i;
-                }
-            }
-            if (indexComposante != -1){
-                composanteChoisie = listeComposantes.get(indexComposante);
-                /*composante.setCouleurInitiale(parent.getCouleurChoisie());
-                composante.resetCouleur();*/
-            }
-        }
-    }
 
     public void setComposanteVisible(boolean estVisible, String nomComposante) {
         if (!listeComposantes.isEmpty()) {
@@ -536,13 +530,6 @@ public class RoulotteController implements Serializable{
         return delta;
     }
 
-    public boolean getModeProfil() {
-        return modeProfil;
-    }
-
-    public void setModeProfil(boolean modeProfil) {
-        this.modeProfil = modeProfil;
-    }
 
     public Grille getGrille(){
         return this.grille;
@@ -557,4 +544,11 @@ public class RoulotteController implements Serializable{
         this.grille = new Grille(this, echelleGrille, estMagnetique, estAffiche, dimensionAfficheur);
     }
 
+    public Color getCouleurChoisie() {
+        return this.couleurChoisie;
+    }
+
+    public void setCouleurChoisie(Color couleur) {
+        this.couleurChoisie = couleur;
+    }
 }

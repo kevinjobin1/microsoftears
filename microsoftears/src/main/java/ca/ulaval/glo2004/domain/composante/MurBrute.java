@@ -47,40 +47,12 @@ public class MurBrute extends Composante{
         this.longueur = new Pouce(96,0,1);
         this.largeur = new Pouce(48,0,1);
         this.centre = new PointPouce(new Pouce(65, 0,1),
-                new Pouce(45, 0,1));
+                new Pouce(50, 0,1));
         this.rectangle = new Rectangle(longueur, largeur, centre);
         this.setCouleurInitiale(new Color(200,200,200));
         this.setCouleur(getCouleurInitiale());
         this.setType(TypeComposante.MUR_BRUTE);
         this.setPolygone(rectangle.getPolygone());
-
-    }
-
-    @Override
-    public void afficher(Graphics2D g2d){
-        if (estVisible()){
-            GeneralPath path = new GeneralPath();
-            LinkedList<PointPouce> polygoneList = this.getPolygone().getListePoints();
-            double[] point;
-            for (int i = 0; i < polygoneList.size(); i++){
-                point = parent.getPositionEcran(polygoneList.get(i));
-                if(i == 0) {
-                    path.moveTo(point[0], point[1]);
-                }
-                else{
-                    path.lineTo(point[0] ,point[1]);
-                }
-            }
-            path.closePath();
-            Composite compositeInitial = g2d.getComposite();
-            g2d.setComposite(definirComposite(getTransparence()));
-            g2d.setPaint(getCouleur());
-            g2d.fill(path);
-            g2d.setComposite(compositeInitial);
-            g2d.setColor(Color.LIGHT_GRAY);
-            g2d.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
-            g2d.draw(path);
-        }
 
     }
 

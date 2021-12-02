@@ -107,17 +107,7 @@ public class PanelConception extends JPanel
     }
 
     private void panneauAffichageMousePressed(MouseEvent e) {
-        if (parent.getActionChoisie() == FenetrePrincipale.TypeAction.REMPLIR)
-        {
-            this.parent.controller.remplirComposante(e.getPoint());
-        }
-        else if(parent.getActionChoisie() == FenetrePrincipale.TypeAction.AJOUT){
-            //this.parent.controller.setPointControle(e.getPoint());
-        }
-        else{
-            this.parent.controller.clicSurPlan(e.getPoint());
-
-        }
+        this.parent.controller.clicSurPlan(e.getPoint(), parent.getActionChoisie());
         this.parent.updateBarres();
         this.panneauAffichage.repaint();
     }

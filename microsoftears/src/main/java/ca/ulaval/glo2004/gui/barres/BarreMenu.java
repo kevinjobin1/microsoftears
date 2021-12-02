@@ -376,7 +376,6 @@ public class BarreMenu extends JMenuBar
     }
 
     protected void showComposanteActionPerformed(ActionEvent e) {
-        // TODO: à coder
         Object objet = e.getSource();
 
         if (objet instanceof JCheckBoxMenuItem) {

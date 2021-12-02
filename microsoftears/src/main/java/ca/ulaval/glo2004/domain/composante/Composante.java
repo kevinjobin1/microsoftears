@@ -17,18 +17,24 @@ public abstract class Composante implements IComposante, Serializable {
     protected RoulotteController parent;
     private TypeComposante type;
     private Polygone polygone;
-    private Color couleur;
-    private float transparence = 0.75f;
-    //private BasicStroke stroke = new BasicStroke(1.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
-    private Color strokeCouleur = new Color(75,75,75);
-    private boolean estVisible;
     private Color couleurInitiale;
+    private Color couleur;
+    private float transparence ;
+    private float transparenceInitiale;
+    private Color strokeCouleurInitiale;
+    private Color strokeCouleur;
+    private boolean estVisible;
+    private boolean estChoisie;
 
 
     public Composante(RoulotteController parent) {
         this.parent = parent;
+        this.transparenceInitiale = 0.75f;
+        this.transparence = 0.75f;
         this.couleur = Color.WHITE;
         this.couleurInitiale = Color.WHITE;
+        this.strokeCouleurInitiale = new Color(75,75,75);
+        this.strokeCouleur = new Color(75,75,75);
         this.estVisible = true;
     }
 
@@ -51,10 +57,6 @@ public abstract class Composante implements IComposante, Serializable {
 
     public Area getArea(){
         return new Area(getPath());
-    }
-
-    public void resetCouleur(){
-        this.setCouleur(couleurInitiale);
     }
 
     static AlphaComposite definirComposite(float alpha) {
@@ -97,10 +99,24 @@ public abstract class Composante implements IComposante, Serializable {
         return couleurInitiale;
     }
 
-    public void setCouleurInitiale(Color couleur) {
-        this.couleurInitiale = couleur;
+    public void setCouleurInitiale(Color couleurInitiale) {
+        this.couleurInitiale = couleurInitiale;
+        this.couleur = couleurInitiale;
     }
 
+    public void setTransparenceInitiale(float transparenceInitiale) {
+        this.transparenceInitiale = transparenceInitiale;
+        this.transparence = transparenceInitiale;
+    }
+
+    public void setStrokeCouleurInitiale(Color strokeCouleurInitiale) {
+        this.strokeCouleurInitiale = strokeCouleurInitiale;
+        this.strokeCouleur = strokeCouleurInitiale;
+    }
+
+    public float getTransparenceInitiale() {
+        return transparenceInitiale;
+    }
 
     public void setTransparence(float alpha){
         this.transparence = alpha;
@@ -108,10 +124,6 @@ public abstract class Composante implements IComposante, Serializable {
 
     public float getTransparence(){
         return transparence;
-    }
-
-    public void resetTransparence(){
-        this.transparence = 1.0f;
     }
 
     public Polygone getPolygone() {
@@ -134,17 +146,13 @@ public abstract class Composante implements IComposante, Serializable {
         return type.toString();
     }
 
-    public void setVisible(boolean b){
-        this.estVisible = b;
-    }
-
     public boolean estVisible() {
         return estVisible;
     }
 
     public abstract PointPouce getCentre();
 
-    public void estVisible(boolean b) {
+    public void setVisible(boolean b) {
         this.estVisible = b;
     }
 
@@ -154,21 +162,43 @@ public abstract class Composante implements IComposante, Serializable {
 
     public abstract void snapToGrid(PointPouce pointGrille);
 
-    /*public BasicStroke getStroke() {
-        return stroke;
+    public Color getStrokeCouleurInitiale() {
+        return strokeCouleurInitiale;
     }
-*/
+
     public Color getStrokeCouleur() {
         return strokeCouleur;
     }
-/*
-    public void setStroke(BasicStroke stroke) {
-        this.stroke = stroke;
-    }
-*/
+
     public void setStrokeCouleur(Color strokeCouleur) {
         this.strokeCouleur = strokeCouleur;
     }
 
+    public void resetTransparence(){
+        this.transparence = transparenceInitiale;
+    }
 
+    public void resetCouleur(){
+        this.couleur = couleurInitiale;
+    }
+
+    public void resetStrokeCouleur(){
+        this.strokeCouleur = strokeCouleurInitiale;
+    }
+
+    public boolean estChoisie() {
+        return estChoisie;
+    }
+
+    public void setChoisie(boolean estChoisie) {
+        if (estChoisie){
+            this.couleur = new Color(255,60,60);
+            this.transparence = 0.9f;
+        }
+        else {
+            resetCouleur();
+            resetTransparence();
+        }
+        this.estChoisie = estChoisie;
+    }
 }

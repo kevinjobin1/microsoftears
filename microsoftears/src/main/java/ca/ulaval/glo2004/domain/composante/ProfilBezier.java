@@ -4,6 +4,7 @@ import ca.ulaval.glo2004.domain.RoulotteController;
 import ca.ulaval.glo2004.domain.TypeComposante;
 import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.CourbeBezier;
+import ca.ulaval.glo2004.utilitaires.Polygone;
 import ca.ulaval.glo2004.utilitaires.Pouce;
 
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ public class ProfilBezier extends Composante {
 
     private CourbeBezier bezier;
     private ArrayList<PointControle> pointsControle;
-    //TODO: à remplacer, mais pas pour le livrable 3
+
     public ProfilBezier(RoulotteController parent) {
         super(parent);
         // Points de contrôles initiaux
@@ -30,11 +31,11 @@ public class ProfilBezier extends Composante {
         this.pointsControle.add(new PointControle(parent,
                 new Pouce(3,0,1),
                 new Pouce(3,0,1),
-                points.get(1).diff(3,13), TypeComposante.POINT_CONTROLE_2));
+                points.get(1).diff(3,15), TypeComposante.POINT_CONTROLE_2));
         this.pointsControle.add(new PointControle(parent,
                 new Pouce(3,0,1),
                 new Pouce(3,0,1),
-                points.get(2).diff(0,13).add(3,0), TypeComposante.POINT_CONTROLE_3));
+                points.get(2).diff(0,15).add(3,0), TypeComposante.POINT_CONTROLE_3));
         this.pointsControle.add(new PointControle(parent,
                 new Pouce(3,0,1),
                 new Pouce(3,0,1),
@@ -52,29 +53,17 @@ public class ProfilBezier extends Composante {
 
     public void updatePointsControles(){
         ArrayList<PointPouce> points = new ArrayList<>();
-        for (PointControle point : this.getPointsControle()){
+        for (PointControle point : getPointsControle()){
             points.add(point.getCentre());
         }
         this.bezier = new CourbeBezier(points);
         this.setPolygone(bezier.getPolygone());
     }
 
-    public CourbeBezier getBezier() {
-        return bezier;
-    }
-
-    public void setBezier(CourbeBezier bezier) {
-        this.bezier = bezier;
-    }
 
     public ArrayList<PointControle> getPointsControle() {
         return pointsControle;
     }
-
-    public void setPointsControle(ArrayList<PointControle> pointsControle) {
-        this.pointsControle = pointsControle;
-    }
-
 
     @Override
     public int[] getValeurs() {
