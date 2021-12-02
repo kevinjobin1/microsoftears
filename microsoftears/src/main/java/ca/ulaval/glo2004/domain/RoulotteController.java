@@ -91,7 +91,7 @@ public class RoulotteController implements Serializable{
                listeComposantes.set(0, mur);
                boolean modeProfil = valeurs[12] == 1? true: false;
                MurProfile profile = new MurProfile(((MurProfile) listeComposantes.get(1)), new PointPouce(mur.getCentre().getX().diff(ancienMur.getCentre().getX()),
-                       mur.getCentre().getY().diff(ancienMur.getCentre().getY())), modeProfil);
+                       mur.getCentre().getY().diff(ancienMur.getCentre().getY())), modeProfil, true); // TODO: à changer
                listeComposantes.set(1, profile);
 
                for(int i = 2, j = 0; i < 6; i++, j++){

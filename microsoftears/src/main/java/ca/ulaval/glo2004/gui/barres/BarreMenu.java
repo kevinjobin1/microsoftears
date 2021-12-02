@@ -210,15 +210,18 @@ public class BarreMenu extends JMenuBar
             creerCheckBoxMenuItem("Afficher/masquer tout", true);
         for (IComposante composante : parent.controller.getListeIComposantes())
         {
-                creerCheckBoxMenuItem(composante.toString(), composante.estVisible());
             if ((composante.getType() == TypeComposante.MUR_PROFILE)){
+                // TODO: ajouter afficher contreplaqué extérieur/intérieur
                 if (composante.getMode()){
                     creerCheckBoxMenuItem("Afficher/masquer ellipses", composante.estVisible());
                 }
                 else {
                     creerCheckBoxMenuItem("Afficher/masquer points de contrôles", composante.estVisible());
                 }
+
             }
+            creerCheckBoxMenuItem(composante.toString(), composante.estVisible());
+
         }
         }
 

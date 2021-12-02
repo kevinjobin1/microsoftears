@@ -6,9 +6,11 @@ import ca.ulaval.glo2004.utilitaires.Forme;
 import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Polygone;
 import ca.ulaval.glo2004.utilitaires.Pouce;
+import ca.ulaval.glo2004.utilitaires.Rectangle;
 
 import java.awt.*;
 import java.awt.geom.Area;
+import java.awt.geom.Path2D;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -28,10 +30,12 @@ public class MurProfile extends Composante{
      * false: Bézier
      */
     private boolean mode; // true -> profil ellipse, false -> bézier
+    private boolean afficheContreplaque; // true -> si extérieur, false -> intérieur
 
     public MurProfile(RoulotteController parent) {
         super(parent);
         this.mode = true; // ellipses par défaut
+        this.afficheContreplaque = true; // on affiche le contreplaqué extérieur par défaut
         this.profilEllipses = new ProfilEllipse[4];
         this.initialiserEllipses();
         this.profilBezier = new ProfilBezier(parent);
@@ -42,9 +46,10 @@ public class MurProfile extends Composante{
     }
 
     /** Constructeur copie */
-    public MurProfile(MurProfile copie, PointPouce decalage, boolean modeProfil){
+    public MurProfile(MurProfile copie, PointPouce decalage, boolean modeProfil, boolean afficheContreplaque){
         super(copie.getParent());
         this.mode = modeProfil;
+        this.afficheContreplaque = afficheContreplaque;
         this.profilEllipses = copie.getProfilEllipses();
         updateProfilEllipses(decalage);
         this.profilBezier = copie.getProfilBezier();
@@ -57,14 +62,66 @@ public class MurProfile extends Composante{
     @Override
     public void afficher(Graphics2D g2d){
         if (estVisible()){
-            Area area = getArea();
+            Area area = getArea(); // on va l'aire totale du profile
+
+            // Portion contreplaqué extérieur
             if (!parent.getListeOuverturesLaterales().isEmpty()){
+                // on retranche tous les ouvertures latérales
                 for(OuvertureLaterale ouverture : parent.getListeOuverturesLaterales()){
                     Area areaOuverture = ouverture.getArea();
                     area.subtract(areaOuverture);
                 }
             }
-           /* int indexMurSeparateur = parent.getIndexComposante(TypeComposante.MUR_SEPARATEUR);
+
+            int indexHayon = parent.getIndexComposante(TypeComposante.HAYON);
+            if (indexHayon != -1){
+                Area areaHayon = parent.getListeComposantes().get(indexHayon).getArea();
+                area.subtract(areaHayon);
+            }
+
+
+            Hayon hayon = ((Hayon) (parent.getListeComposantes().get(indexHayon)));
+            int indexPlancher = parent.getIndexComposante(TypeComposante.PLANCHER);
+            Plancher plancher = ((Plancher) (parent.getListeComposantes().get(indexPlancher)));
+
+            // Portion a retiré
+            Pouce epaisseurHayon = hayon.getEpaisseur();
+            Pouce distancePlancher = hayon.getDistancePlancher();
+            Pouce centreXPlancher = plancher.getCentre().getX();
+            Pouce centreYPlancher = plancher.getCentre().getY();
+            Pouce epaisseurPlancher = plancher.getEpaisseur();
+            Pouce largeurPlancher = plancher.getRectangle().getLongueur();
+            Pouce centreXPortionARetirer = centreXPlancher.diff(largeurPlancher.diviser(2)).diff(distancePlancher.diviser(2));
+            Pouce centreYPortionARetirer = centreYPlancher.add(epaisseurPlancher.diviser(2)).diff(epaisseurHayon.diviser(2));
+            PointPouce centrePortionARetirer = new PointPouce(centreXPortionARetirer, centreYPortionARetirer); // TODO: à faire, calculer le centre du rectangle
+            Rectangle portionARetirer = new Rectangle(distancePlancher, epaisseurHayon, centrePortionARetirer);
+
+            Path2D path = new Path2D.Double();
+            LinkedList<PointPouce> polygoneList = portionARetirer.getPolygone().getListePoints();
+            double[] point;
+            for (int i = 0; i < polygoneList.size(); i++){
+                point = parent.getPositionEcran(polygoneList.get(i));
+                System.out.println(point[0] + "," + point[1]);
+                if(i == 0) {
+                    path.moveTo(point[0], point[1]);
+                }
+                else{
+                    path.lineTo(point[0] ,point[1]);
+                }
+            }
+            path.closePath();
+
+            Area areaPortionARetirer = new Area(path);
+            area.subtract(areaPortionARetirer);
+
+
+            // Portion contreplaqué intérieur
+            if (indexPlancher != -1){
+                Area areaPlancher = plancher.getArea();
+                area.subtract(areaPlancher);
+            }
+
+            int indexMurSeparateur = parent.getIndexComposante(TypeComposante.MUR_SEPARATEUR);
             if (indexMurSeparateur != -1){
                Area areaMurSeparateur = parent.getListeComposantes().get(indexMurSeparateur).getArea();
                area.subtract(areaMurSeparateur);
@@ -73,13 +130,14 @@ public class MurProfile extends Composante{
             if (indexToit != -1){
                 Area areaToit = parent.getListeComposantes().get(indexToit).getArea();
                 area.subtract(areaToit);
-            }*/
 
-            int indexHayon = parent.getIndexComposante(TypeComposante.HAYON);
-            if (indexHayon != -1){
-                Area areaToit = parent.getListeComposantes().get(indexHayon).getArea();
-                area.subtract(areaToit);
+                 int indexPoutre = parent.getIndexComposante(TypeComposante.POUTRE_ARRIERE);
+            if (indexPoutre != -1){
+                Area areaPoutre = parent.getListeComposantes().get(indexPoutre).getArea();
+                area.subtract(areaPoutre);
             }
+
+            // Sinon, on skip direct ici
 
             Composite compositeInitial = g2d.getComposite();
             g2d.setComposite(definirComposite(getTransparence()));
@@ -89,8 +147,9 @@ public class MurProfile extends Composante{
             g2d.setColor(Color.BLACK);
             g2d.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
             g2d.draw(area);
-        }
+            }
 
+        }
     }
 
     private void initialiserEllipses(){
