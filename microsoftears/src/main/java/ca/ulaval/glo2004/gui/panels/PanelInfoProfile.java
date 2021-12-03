@@ -2,6 +2,7 @@ package ca.ulaval.glo2004.gui.panels;
 
 import ca.ulaval.glo2004.domain.IComposante;
 import ca.ulaval.glo2004.domain.TypeComposante;
+import ca.ulaval.glo2004.domain.composante.Hayon;
 import ca.ulaval.glo2004.gui.barres.BarreOnglet;
 import ca.ulaval.glo2004.utilitaires.Pouce;
 
@@ -238,8 +239,9 @@ public class PanelInfoProfile extends PanelComposante{
     }
 
     private void hauteurSpinner1ChangeListener(ChangeEvent e) {
-        int value = (int) ((JSpinner) e.getSource()).getValue();;
-        this.valeurs[0] =  value;
+        int value = (int) ((JSpinner) e.getSource()).getValue();
+        this.valeurs[0] = value;
+
         updateComposante();
     }
     private void hauteurSpinner2ChangeListener(ChangeEvent e) {
@@ -266,9 +268,9 @@ public class PanelInfoProfile extends PanelComposante{
     }
 
     private void longueurSpinner1ChangeListener(ChangeEvent e) {
-        int value = (int) ((JSpinner) e.getSource()).getValue();;
-        this.valeurs[3] =  value;
-        updateComposante();
+        int value = (int) ((JSpinner) e.getSource()).getValue();
+            this.valeurs[3] = value;
+            updateComposante();
     }
     private void longueurSpinner2ChangeListener(ChangeEvent e) {
         int value = (int) ((JSpinner) e.getSource()).getValue();

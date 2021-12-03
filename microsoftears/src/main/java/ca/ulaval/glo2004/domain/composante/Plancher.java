@@ -163,6 +163,11 @@ public class Plancher extends Composante {
         return new boolean[]{};
     }
 
+    @Override
+    public Pouce[] getLimit() {
+        return new Pouce[0];
+    }
+
     private Pouce getLongueur(){
         return ((MurBrute)(parent.getListeComposantes().get(0))).getLongueur().diff(this.margeArriere).diff(this.margeAvant);
     }

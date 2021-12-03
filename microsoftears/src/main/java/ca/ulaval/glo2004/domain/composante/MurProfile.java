@@ -435,6 +435,11 @@ public class MurProfile extends Composante{
         return new boolean[]{mode, modeContreplaque};
     }
 
+    @Override
+    public Pouce[] getLimit() {
+        return new Pouce[0];
+    }
+
     public boolean getModeContreplaque() {
         return modeContreplaque;
     }

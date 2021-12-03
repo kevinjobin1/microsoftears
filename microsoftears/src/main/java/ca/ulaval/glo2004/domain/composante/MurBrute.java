@@ -121,6 +121,15 @@ public class MurBrute extends Composante{
         return new boolean[]{};
     }
 
+    @Override
+    public Pouce[] getLimit() {
+        Pouce maxLongueur = new Pouce(96,0,1);
+        Pouce minLongueur = new Pouce(0,1,64);
+        Pouce maxLargeur = new Pouce(48,0,1);
+        Pouce minLargeur = new Pouce(0,1,64);
+        return new Pouce[] {maxLongueur, minLongueur, maxLargeur, minLargeur};
+    }
+
     public void setCentre(PointPouce centre) {
         this.centre = centre;
     }

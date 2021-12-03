@@ -169,4 +169,9 @@ public class Toit extends Composante implements Cloneable {
     public boolean[] getModes(){
         return new boolean[]{};
     }
+
+    @Override
+    public Pouce[] getLimit() {
+        return new Pouce[0];
+    }
 }

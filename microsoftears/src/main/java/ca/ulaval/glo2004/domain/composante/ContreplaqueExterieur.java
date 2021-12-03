@@ -73,4 +73,9 @@ public class ContreplaqueExterieur extends Composante {
     public boolean[] getModes(){
         return new boolean[]{};
     }
+
+    @Override
+    public Pouce[] getLimit() {
+        return new Pouce[0];
+    }
 }
