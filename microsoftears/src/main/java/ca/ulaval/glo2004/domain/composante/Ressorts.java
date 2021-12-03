@@ -20,6 +20,7 @@ public class Ressorts extends Composante{
     private Ellipse pointHayon;
     private Ellipse pointMur;
     private Ligne ligne;
+    private boolean afficherPosition;
     private RectangleCoinRond corpsRessort;
     private static final Pouce RAYON_TIGE = new Pouce(0.31);
     private static final  Pouce LARGEUR_CORPS = new Pouce(0.73);
@@ -29,6 +30,7 @@ public class Ressorts extends Composante{
 
     public Ressorts(RoulotteController parent, int poidsHayon) {
         super(parent);
+        this.afficherPosition = false;
         this.poidsHayon = poidsHayon;
         this.setType(TypeComposante.RESSORTS);
         this.longueurIdealExtension = getLongueurHayon().multiplier(0.6);
@@ -55,6 +57,7 @@ public class Ressorts extends Composante{
 
     public Ressorts(RoulotteController parent) {
         super(parent);
+        this.afficherPosition = false;
         this.poidsHayon = 50;
         this.setType(TypeComposante.RESSORTS);
         this.longueurIdealExtension = getLongueurHayon().multiplier(0.6);
@@ -82,6 +85,13 @@ public class Ressorts extends Composante{
     @Override
     public void afficher(Graphics2D g2d) {
         if (estVisible()){
+            if (afficherPosition){
+                String positionMur = "Point (mur) : " + positionSurMur;
+                String positionHayon = "Point (hayon) : " + positionSurHayon;
+                g2d.drawString(this.toString(), (float) parent.getPositionSouris().getX() + 30,(float) parent.getPositionSouris().getY());
+                g2d.drawString(positionMur, (float) parent.getPositionSouris().getX() + 30,(float) parent.getPositionSouris().getY() + 30);
+                g2d.drawString(positionHayon, (float) parent.getPositionSouris().getX() + 30,(float) parent.getPositionSouris().getY() + 60);
+            }
             afficherLigne(g2d, ligne);
             afficherCorpsRessort(g2d,corpsRessort);
             afficherPointRessort(g2d, pointHayon);
@@ -345,5 +355,11 @@ public class Ressorts extends Composante{
         return new boolean[]{};
     }
 
+    public boolean getAfficherPosition() {
+        return afficherPosition;
+    }
 
+    public void setAfficherPosition(boolean afficherPosition) {
+        this.afficherPosition = afficherPosition;
+    }
 }

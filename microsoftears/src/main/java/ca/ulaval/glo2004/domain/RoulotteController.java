@@ -6,6 +6,7 @@ import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Pouce;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 import java.io.*;
 import java.util.ArrayList;
 
@@ -23,7 +24,7 @@ public class RoulotteController implements Serializable{
     // controle de l'affichage
     private static final int PIXEL_RATIO = 7;
     private int[] delta;
-    private Point positionSouris;
+    private Point2D positionSouris;
     private double scale;
 
 
@@ -346,7 +347,7 @@ public class RoulotteController implements Serializable{
 
     }
 
-    public PointPouce getPositionPlan(Point mousePoint) {
+    public PointPouce getPositionPlan(Point2D mousePoint) {
 
         Pouce x = xVersReel(mousePoint.getX()),
                 y = yVersReel(mousePoint.getY());
@@ -396,8 +397,17 @@ public class RoulotteController implements Serializable{
 
     /** Setter pour la position de la souris */
 
-    public void setPositionSouris(int x, int y) {
-        this.positionSouris = new Point(x,y);
+    public void setPositionSouris(Point mousePoint) {
+        PointPouce positionSouris = getPositionPlan(mousePoint);
+        int indexRessorts = getIndexComposante(TypeComposante.RESSORTS);
+        Ressorts ressorts = (Ressorts) listeComposantes.get(indexRessorts);
+        if (ressorts.getPolygone().contient(positionSouris)){
+            ressorts.setAfficherPosition(true);
+        }
+        else{
+            ressorts.setAfficherPosition(false);
+        }
+        this.positionSouris = new Point2D.Double( mousePoint.getX(),mousePoint.getY());
         
     }
 
@@ -474,7 +484,7 @@ public class RoulotteController implements Serializable{
         else {
             setTranslate((int) mousePoint.getX(), (int) mousePoint.getY());
         }
-        setPositionSouris((int) mousePoint.getX(), (int) mousePoint.getY());
+        setPositionSouris(mousePoint);
     }
 
     public int getIndexComposante(TypeComposante type){
@@ -589,7 +599,7 @@ public class RoulotteController implements Serializable{
         this.listeAidesDesign = listeAidesDesign;
     }
 
-    public Point getPositionSouris() {
+    public Point2D getPositionSouris() {
         return positionSouris;
     }
 
@@ -623,4 +633,5 @@ public class RoulotteController implements Serializable{
         int indexProfil = getIndexComposante(TypeComposante.MUR_PROFILE);
         ((MurProfile) (listeComposantes.get(indexProfil))).setModeContreplaque(afficheContreplaqueExterieur);
     }
+
 }
