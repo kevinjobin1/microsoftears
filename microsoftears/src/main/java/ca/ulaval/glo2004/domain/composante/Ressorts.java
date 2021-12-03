@@ -218,12 +218,11 @@ public class Ressorts extends Composante{
                 Math.pow(point2.getY().toDouble()-point1.getY().toDouble(),2));
     }
 
-    //todo: à tester
     public void calculerPositionSurHayon(){
         Hayon hayon = (Hayon) parent.getListeComposantes().get(8);
         PointPouce dernierPointHayon = hayon.getPointsInterieurHayon().getFirst();
         boolean positionSurHayonCalculer = false;
-        for (int i =0 ; i < hayon.getPointsInterieurHayon().size(); i++) {
+        for (int i =hayon.getPointsInterieurHayon().size()-1; i >= 0; i--) {
             PointPouce point = hayon.getPointsInterieurHayon().get(i);
             double distancePointRotation = calculerDistanceEntre2Points(point, hayon.getPointRotation());
 
@@ -237,17 +236,16 @@ public class Ressorts extends Composante{
         }
         if(!positionSurHayonCalculer){
             double y = Math.sqrt(Math.pow(DistancePointHayonDuPointDeRotation.toDouble(),2) -
-                    Math.pow(dernierPointHayon.getX().toDouble(),2));
+                    Math.pow(dernierPointHayon.getX().toDouble()-hayon.getPointRotation().getX().toDouble(),2));
             positionSurHayon = new PointPouce(dernierPointHayon.getX(), new Pouce(y).add(hayon.getPointRotation().getY()));
         }
     }
 
-    //todo: à tester
     public void calculerPositionSurMur(){
         Hayon hayon = (Hayon) parent.getListeComposantes().get(8);
         PointPouce dernierPointMur = hayon.getPointsInterieurHayon().getFirst();
         boolean positionSurMurCalculer = false;
-        for (int i =0 ; i < hayon.getPointsInterieurHayon().size(); i++) {
+        for (int i =hayon.getPointsInterieurHayon().size()-1 ; i >= 0; i--) {
             PointPouce point = hayon.getPointsInterieurHayon().get(i);
             double distancePointRotation = calculerDistanceEntre2Points(point, hayon.getPointRotation());
 
@@ -261,7 +259,7 @@ public class Ressorts extends Composante{
         }
         if(!positionSurMurCalculer){
             double y = Math.sqrt(Math.pow(longueurExactExtension.toDouble(),2) -
-                    Math.pow(dernierPointMur.getX().toDouble(),2));
+                    Math.pow(dernierPointMur.getX().toDouble() - hayon.getPointRotation().getX().toDouble(),2));
             positionSurMur = new PointPouce(dernierPointMur.getX(), new Pouce(y).add(hayon.getPointRotation().getY()));
         }
     }

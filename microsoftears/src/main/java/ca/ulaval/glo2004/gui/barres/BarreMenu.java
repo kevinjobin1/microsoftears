@@ -380,7 +380,6 @@ public class BarreMenu extends JMenuBar
     }
 
     protected void undoActionPerformed(ActionEvent e) {
-        // TODO: à tester
         if(parent.controller.getUndoController() != null) {
             RoulotteController controller = parent.controller;
             parent.controller = parent.controller.getUndoController();
@@ -389,7 +388,6 @@ public class BarreMenu extends JMenuBar
     }
 
     protected void redoActionPerformed(ActionEvent e) {
-        // TODO: à tester
         if(parent.controller.getUndoController() != null) {
             RoulotteController controller = parent.controller;
             parent.controller = parent.controller.getRedoController();

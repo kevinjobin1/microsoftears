@@ -105,24 +105,21 @@ public class RoulotteController implements Serializable{
         RoulotteController copy = null;
         ObjectOutputStream oos = null;
         ObjectInputStream ois = null;
-        try
-        {
-            ByteArrayOutputStream bos =
-                    new ByteArrayOutputStream(); // A
-            oos = new ObjectOutputStream(bos); // B
+        try {
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            oos = new ObjectOutputStream(bos);
             // serialize and pass the object
-            oos.writeObject(this);   // C
-            oos.flush();               // D
+            oos.writeObject(this);
+            oos.flush();
             ByteArrayInputStream bin =
-                    new ByteArrayInputStream(bos.toByteArray()); // E
-            ois = new ObjectInputStream(bin);                  // F
+                    new ByteArrayInputStream(bos.toByteArray());
+            ois = new ObjectInputStream(bin);
             // return the new object
-            copy = (RoulotteController) ois.readObject(); // G
+            copy = (RoulotteController) ois.readObject();
             oos.close();
             ois.close();
         }
-        catch(Exception e)
-        {
+        catch(Exception e) {
             e.printStackTrace();
         }
         return copy;
