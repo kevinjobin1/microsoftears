@@ -99,12 +99,13 @@ public class MurSeparateur extends Composante{
 
     @Override
     public void translate(PointPouce delta) {
-
+        this.rectangle = new Rectangle(this.epaisseur, this.hauteur, this.getCentre());
+        this.setPolygone(rectangle.getPolygone());
     }
 
     @Override
     public void snapToGrid(PointPouce pointGrille){
-
+        translate(pointGrille);
     }
 
 

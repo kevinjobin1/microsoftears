@@ -5,6 +5,8 @@ import ca.ulaval.glo2004.domain.TypeComposante;
 import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Pouce;
 import ca.ulaval.glo2004.utilitaires.Rectangle;
+import ca.ulaval.glo2004.utilitaires.RectangleCoinRond;
+
 import java.awt.*;
 
 
@@ -13,14 +15,14 @@ public class AideDesign extends Composante{
     private Pouce longueur;
     private Pouce largeur;
     private PointPouce centre;
-    private Rectangle rectangle;
+    private RectangleCoinRond rectangle;
 
     public AideDesign(RoulotteController parent, Pouce longueur, Pouce largeur, PointPouce centre) {
         super(parent);
         this.longueur = longueur;
         this.largeur = largeur;
         this.centre = centre;
-        this.rectangle = new Rectangle(longueur,largeur, centre);
+        this.rectangle = new RectangleCoinRond(longueur,largeur, centre, new Pouce(4.75));
         this.setType(TypeComposante.AIDE_DESIGN);
         this.setPolygone(rectangle.getPolygone());
     }
@@ -29,11 +31,11 @@ public class AideDesign extends Composante{
         super(parent);
         this.longueur = new Pouce(10,0,1);
         this.largeur = new Pouce(10,0,1);
-        Pouce centreX = parent.getListeComposantes().get(0).getCentre().getX().add(new Pouce(15,0,0));
-        Pouce centreY = parent.getListeComposantes().get(0).getCentre().getY();
+        Pouce centreX = parent.getListeComposantes().get(0).getCentre().getX().diff(new Pouce(15));
+        Pouce centreY = parent.getListeComposantes().get(0).getCentre().getY().diff(new Pouce(10));
         this.centre = new PointPouce(centreX, centreY);
         //this.centre = parent.getListeComposantes().get(0).getCentre();
-        this.rectangle = new Rectangle(longueur, largeur, centre);
+        this.rectangle = new RectangleCoinRond(longueur, largeur, centre, new Pouce(4.75));
         this.setType(TypeComposante.AIDE_DESIGN);
         this.setPolygone(rectangle.getPolygone());
     }
@@ -72,14 +74,14 @@ public class AideDesign extends Composante{
         Pouce differenceX = centre.getX().add(delta.getX().diff(pSouris.getX()));
         Pouce differenceY = centre.getY().add(delta.getY().diff(pSouris.getY()));
         this.centre = new PointPouce(differenceX, differenceY);
-        this.rectangle = new Rectangle(this.longueur,this.largeur, this.centre);
+        this.rectangle = new RectangleCoinRond(this.longueur,this.largeur, this.centre , new Pouce(4.75));
         this.setPolygone(rectangle.getPolygone());
     }
 
     @Override
     public void snapToGrid(PointPouce pointGrille) {
         this.centre = pointGrille;
-        this.rectangle = new Rectangle(this.longueur,this.largeur, this.centre);
+        this.rectangle = new RectangleCoinRond(this.longueur,this.largeur, this.centre, new Pouce(4.75));
         this.setPolygone(rectangle.getPolygone());
     }
 

@@ -74,13 +74,12 @@ public class MurProfile extends Composante{
             }
 
             int indexHayon = parent.getIndexComposante(TypeComposante.HAYON);
+            Hayon hayon = ((Hayon) (parent.getListeComposantes().get(indexHayon)));
             if (indexHayon != -1){
-                Area areaHayon = parent.getListeComposantes().get(indexHayon).getArea();
+                Area areaHayon = hayon.getArea();
                 area.subtract(areaHayon);
             }
 
-
-            Hayon hayon = ((Hayon) (parent.getListeComposantes().get(indexHayon)));
             int indexPlancher = parent.getIndexComposante(TypeComposante.PLANCHER);
             Plancher plancher = ((Plancher) (parent.getListeComposantes().get(indexPlancher)));
 
