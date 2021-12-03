@@ -24,18 +24,18 @@ public class FenetrePrincipale extends JFrame {
     // Éléments rattachés non-graphiques
     public RoulotteController controller;
     private TypeAction actionChoisie;
-    private boolean estImperial = true;
+
 
     public Dimension getDimensionAfficheur(){
         return this.panelConception.panneauAffichage.getSize();
     }
 
     public boolean estImperial() {
-        return estImperial;
+        return controller.estImperial();
     }
 
     public void estImperial(boolean estImperial) {
-        this.estImperial = estImperial;
+        controller.setEstImperial(estImperial);
         updateBarres();
     }
 

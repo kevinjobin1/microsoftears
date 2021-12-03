@@ -35,6 +35,10 @@ public class PointPouce  implements Serializable {
         return "(" + x.toString() + ", " + y.toString()+ ")";
     }
 
+    public String toStringMM(){
+        return "(" + (int) x.getMilimetres() + " mm, " + (int) y.getMilimetres()+ "mm )";
+    }
+
     public Pouce getX() {
         return x;
     }

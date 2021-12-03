@@ -86,8 +86,9 @@ public class Ressorts extends Composante{
     public void afficher(Graphics2D g2d) {
         if (estVisible()){
             if (afficherPosition){
-                String positionMur = "Point (mur) : " + positionSurMur;
-                String positionHayon = "Point (hayon) : " + positionSurHayon;
+
+                String positionMur = parent.estImperial() ? "Point (mur) : " + positionSurMur : "Point (mur) : " + positionSurMur.toStringMM();
+                String positionHayon = parent.estImperial() ?  "Point (hayon) : " + positionSurHayon : "Point (hayon) : " + positionSurHayon.toStringMM();
                 g2d.drawString(this.toString(), (float) parent.getPositionSouris().getX() + 30,(float) parent.getPositionSouris().getY());
                 g2d.drawString(positionMur, (float) parent.getPositionSouris().getX() + 30,(float) parent.getPositionSouris().getY() + 30);
                 g2d.drawString(positionHayon, (float) parent.getPositionSouris().getX() + 30,(float) parent.getPositionSouris().getY() + 60);

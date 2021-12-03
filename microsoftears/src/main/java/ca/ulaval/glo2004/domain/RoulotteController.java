@@ -20,6 +20,7 @@ public class RoulotteController implements Serializable{
     private Color couleurChoisie;
     private RoulotteController undoController = null;
     private RoulotteController redoController = null;
+    private boolean estImperial = true;
 
     // controle de l'affichage
     private static final int PIXEL_RATIO = 7;
@@ -634,4 +635,11 @@ public class RoulotteController implements Serializable{
         ((MurProfile) (listeComposantes.get(indexProfil))).setModeContreplaque(afficheContreplaqueExterieur);
     }
 
+    public boolean estImperial() {
+        return estImperial;
+    }
+
+    public void setEstImperial(boolean estImperial) {
+        this.estImperial = estImperial;
+    }
 }
