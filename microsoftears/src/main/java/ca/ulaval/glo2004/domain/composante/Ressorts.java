@@ -166,12 +166,27 @@ public class Ressorts extends Composante{
 
     @Override
     public void translate(PointPouce delta) {
+        this.longueurIdealExtension = getLongueurHayon().multiplier(0.6);
+        calculerDistancePositionsDuPointDeRotation();
+        calculerPositionSurHayon();
+        calculerPositionSurMur();
+        this.force = calculerForce();
 
+        // la ligne qui constitue le ressort
+        this.ligne = new Ligne(positionSurHayon, positionSurMur);
+
+        // Le corps du ressort à gaz
+        this.corpsRessort = new RectangleCoinRond(ligne.getLongueur().diff(RAYON_TIGE.multiplier(2)),LARGEUR_CORPS, ligne.getCentre(), RAYON_TIGE);
+
+        // Les points d'attache (têtes du ressort)
+        this.pointHayon = new Ellipse(RAYON_TIGE, RAYON_TIGE, positionSurHayon);
+        this.pointMur = new Ellipse(RAYON_TIGE,RAYON_TIGE, positionSurMur);
+        this.setPolygone(new Polygone(corpsRessort.getListePoints()));
     }
 
     @Override
     public void snapToGrid(PointPouce pointGrille) {
-
+        translate(pointGrille);
     }
 
     public Pouce getLongueurExactExtension() {

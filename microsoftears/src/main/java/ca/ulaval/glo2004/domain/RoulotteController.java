@@ -459,7 +459,7 @@ public class RoulotteController implements Serializable{
                 }
             }
             else if(composanteChoisie.getType() == TypeComposante.MUR_BRUTE){
-                for (int i = 1; i < listeComposantes.size(); i++){
+                for (int i = 0; i < listeComposantes.size(); i++){
                     if (plusProcheVoisin != null){
                         listeComposantes.get(i).snapToGrid(getPositionPlan(plusProcheVoisin));
                     }
