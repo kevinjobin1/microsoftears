@@ -97,6 +97,8 @@ public class RoulotteController implements Serializable{
         AideDesign aideDesign = new AideDesign(this);
         listeComposantes.add(aideDesign);
         //listeAidesDesign.add(aideDesign);
+        Ressorts ressorts = new Ressorts(this);
+        listeComposantes.add(ressorts);
     }
 
     public RoulotteController deepCopy(){
@@ -435,8 +437,6 @@ public class RoulotteController implements Serializable{
                     case REMPLIR:
                         composanteChoisie.setCouleurInitiale(couleurChoisie);
                 }
-
-
             }
             // Sinon, on ne fait rien
             else
@@ -620,5 +620,10 @@ public class RoulotteController implements Serializable{
 
     public void setCouleurChoisie(Color couleur) {
         this.couleurChoisie = couleur;
+    }
+
+    public void setAffichageContreplaque(boolean afficheContreplaqueExterieur) {
+        int indexProfil = getIndexComposante(TypeComposante.MUR_PROFILE);
+        ((MurProfile) (listeComposantes.get(indexProfil))).setModeContreplaque(afficheContreplaqueExterieur);
     }
 }

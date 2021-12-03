@@ -52,7 +52,7 @@ public class RoulotteAfficheur
             for (Composante composante : composantes) {
                     composante.afficher(g2d);
             }
-            if (!composantes.get(1).getMode()){ // mode bézier
+            if (!composantes.get(1).getModes()[0]){ // mode bézier
                 ArrayList<PointControle> points = ((MurProfile) composantes.get(1)).getProfilBezier().getPointsControle();
                 ArrayList<PointPouce> pointsPouce = new ArrayList<>();
                 for (PointControle pointControle : points){

@@ -353,8 +353,8 @@ public class Hayon extends Composante {
     }
 
     @Override
-    public boolean getMode() {
-        return false;
+    public boolean[] getModes(){
+        return new boolean[]{};
     }
 
     public LinkedList<PointPouce> getPointsInterieurHayon() {

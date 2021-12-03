@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public abstract class Forme implements Serializable {
-    protected static int NOMBRE_POINTS = 360;
+    protected static int NOMBRE_POINTS = 300;
     protected static double FACTEUR_DEGREE = 90 / Math.PI;
     private Pouce longueur;
     private Pouce hauteur;

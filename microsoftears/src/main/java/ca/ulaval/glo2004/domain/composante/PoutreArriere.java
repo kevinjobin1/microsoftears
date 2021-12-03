@@ -170,8 +170,8 @@ public class PoutreArriere extends Composante{
     }
 
     @Override
-    public boolean getMode() {
-        return false;
+    public boolean[] getModes(){
+        return new boolean[]{};
     }
 
     public void setCentre(PointPouce centre) {

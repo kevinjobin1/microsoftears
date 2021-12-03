@@ -99,6 +99,9 @@ public class FenetrePrincipale extends JFrame {
                 case AIDE_DESIGN:
                     this.barreOnglets.setSelectedIndex(11);
                     break;
+                case RESSORTS:
+                    this.barreOnglets.setSelectedIndex(12);
+                    break;
             }
         }
 

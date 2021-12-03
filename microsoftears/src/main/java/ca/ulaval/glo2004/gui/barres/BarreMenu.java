@@ -212,25 +212,39 @@ public class BarreMenu extends JMenuBar
         affichageMenu.add(reduireMenuItem);
         affichageMenu.add(separator);
 
-        JRadioButtonMenuItem contreplaqueExterieur = new JRadioButtonMenuItem("Contreplaqué exterieur");
-        JRadioButtonMenuItem contreplaqueInterieur = new JRadioButtonMenuItem("Contreplaqué interieur");
-
-        ButtonGroup selectionContreplaque = new ButtonGroup();
-        selectionContreplaque.add(contreplaqueExterieur);
-        selectionContreplaque.add(contreplaqueInterieur);
-
-        contreplaqueSubMenu.add(contreplaqueExterieur);
-        contreplaqueSubMenu.add(contreplaqueInterieur);
-
-        affichageMenu.add(contreplaqueSubMenu);
 
         if (!parent.controller.getListeComposantes().isEmpty()){
             creerCheckBoxMenuItem("Afficher/masquer tout", true);
         for (IComposante composante : parent.controller.getListeIComposantes())
         {
+            creerCheckBoxMenuItem(composante.toString(), composante.estVisible());
+
             if ((composante.getType() == TypeComposante.MUR_PROFILE)){
                 // TODO: ajouter afficher contreplaqué extérieur/intérieur
-                if (composante.getMode()){
+                JRadioButtonMenuItem contreplaqueExterieur = new JRadioButtonMenuItem("Contreplaqué extérieur");
+                contreplaqueExterieur.setSelected(true);
+                contreplaqueExterieur.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        showComposanteActionPerformed(e);
+                    }
+                });
+                JRadioButtonMenuItem contreplaqueInterieur = new JRadioButtonMenuItem("Contreplaqué intérieur");
+                contreplaqueInterieur.setSelected(false);
+                contreplaqueInterieur.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        showComposanteActionPerformed(e);
+                    }
+                });
+                ButtonGroup selectionContreplaque = new ButtonGroup();
+                selectionContreplaque.add(contreplaqueExterieur);
+                selectionContreplaque.add(contreplaqueInterieur);
+
+                contreplaqueSubMenu.add(contreplaqueExterieur);
+                contreplaqueSubMenu.add(contreplaqueInterieur);
+
+                affichageMenu.add(contreplaqueSubMenu);
+
+                if (composante.getModes()[0]){
                     creerCheckBoxMenuItem("Afficher/masquer ellipses", composante.estVisible());
                 }
                 else {
@@ -238,7 +252,6 @@ public class BarreMenu extends JMenuBar
                 }
 
             }
-            creerCheckBoxMenuItem(composante.toString(), composante.estVisible());
 
         }
         }
@@ -503,6 +516,17 @@ public class BarreMenu extends JMenuBar
             }
 
             parent.repaint();
+        }
+        else if (objet instanceof JRadioButtonMenuItem){
+            JRadioButtonMenuItem radioButton = (JRadioButtonMenuItem) objet;
+            String composante = radioButton.getText();
+            boolean estAffiche = radioButton.isSelected();
+            if (composante == "Contreplaqué extérieur"){
+                parent.controller.setAffichageContreplaque(true);
+            }
+            else {
+                parent.controller.setAffichageContreplaque(false);
+            }
         }
     }
 

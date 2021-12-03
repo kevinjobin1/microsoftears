@@ -8,7 +8,7 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-public class PanelAideAuDesign extends PanelComposante {
+public class PanelInfoAideAuDesign extends PanelComposante {
     private JSpinner largeurSpinner,
             longueurSpinner,
             centreXSpinner,
@@ -26,7 +26,7 @@ public class PanelAideAuDesign extends PanelComposante {
             centreYSpinner2,
             centreYSpinner3;
 
-    public PanelAideAuDesign(BarreOnglet parent, IComposante composante) {
+    public PanelInfoAideAuDesign(BarreOnglet parent, IComposante composante) {
         super(parent, composante);
     }
 

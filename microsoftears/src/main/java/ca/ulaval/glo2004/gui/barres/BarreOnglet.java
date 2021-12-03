@@ -117,7 +117,10 @@ public class BarreOnglet extends JTabbedPane {
                contour = new PanelInfoMurSeparateur(this, composante);
            }
             if (composante.toString().equals("Aide au design")) {
-                contour = new PanelAideAuDesign(this, composante);
+                contour = new PanelInfoAideAuDesign(this, composante);
+            }
+            if (composante.toString().equals("Ressorts")){
+                contour = new PanelInfoRessorts(this, composante);
             }
 
 

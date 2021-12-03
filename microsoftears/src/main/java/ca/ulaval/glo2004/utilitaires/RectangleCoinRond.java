@@ -15,7 +15,7 @@ public class RectangleCoinRond extends Forme {
     }
 
     @Override
-    protected LinkedList<PointPouce> getListePoints() {
+    public LinkedList<PointPouce> getListePoints() {
         LinkedList<PointPouce> listePoints = new LinkedList<>();
         double longueur = this.getLongueur().toDouble();
         double hauteur = this.getHauteur().toDouble();

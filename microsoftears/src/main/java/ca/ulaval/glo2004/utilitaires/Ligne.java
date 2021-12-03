@@ -80,12 +80,21 @@ public class Ligne extends Forme {
     }
 
     @Override
-    protected LinkedList<PointPouce> getListePoints() {
+    public LinkedList<PointPouce> getListePoints() {
         LinkedList<PointPouce> listePoints = new LinkedList<>();
         listePoints.add(new PointPouce(gauche, haut));
         listePoints.add(getCentre());
         listePoints.add(new PointPouce(droite, bas));
 
         return listePoints;
+    }
+
+    @Override
+    public Pouce getLongueur() {
+        return new Pouce(Math.sqrt(Math.pow(droite.diff(gauche).toDouble(),2) + Math.pow(haut.diff(bas).toDouble(),2)));
+    }
+
+    @Override public PointPouce getCentre(){
+        return new PointPouce(gauche.add(droite).diviser(2), haut.add(bas).diviser(2));
     }
 }

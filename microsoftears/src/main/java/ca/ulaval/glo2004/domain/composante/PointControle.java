@@ -88,8 +88,8 @@ public class PointControle extends Composante{
     }
 
     @Override
-    public boolean getMode() {
-        return false;
+    public boolean[] getModes(){
+        return new boolean[]{};
     }
 
 }

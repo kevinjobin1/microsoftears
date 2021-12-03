@@ -30,12 +30,12 @@ public class MurProfile extends Composante{
      * false: Bézier
      */
     private boolean mode; // true -> profil ellipse, false -> bézier
-    private boolean afficheContreplaque; // true -> si extérieur, false -> intérieur
+    private boolean modeContreplaque; // true -> si extérieur, false -> intérieur
 
     public MurProfile(RoulotteController parent) {
         super(parent);
         this.mode = true; // ellipses par défaut
-        this.afficheContreplaque = true; // on affiche le contreplaqué extérieur par défaut
+        this.modeContreplaque = true; // on affiche le contreplaqué extérieur par défaut
         this.profilEllipses = new ProfilEllipse[4];
         this.initialiserEllipses();
         this.profilBezier = new ProfilBezier(parent);
@@ -49,7 +49,7 @@ public class MurProfile extends Composante{
     public MurProfile(MurProfile copie, PointPouce decalage, boolean modeProfil, boolean afficheContreplaque){
         super(copie.getParent());
         this.mode = modeProfil;
-        this.afficheContreplaque = afficheContreplaque;
+        this.modeContreplaque = afficheContreplaque;
         this.profilEllipses = copie.getProfilEllipses();
         updateProfilEllipses(decalage);
         this.profilBezier = copie.getProfilBezier();
@@ -113,7 +113,7 @@ public class MurProfile extends Composante{
             Area areaPortionARetirer = new Area(path);
             area.subtract(areaPortionARetirer);
 
-
+            if(!modeContreplaque){
             // Portion contreplaqué intérieur
             if (indexPlancher != -1){
                 Area areaPlancher = plancher.getArea();
@@ -126,16 +126,16 @@ public class MurProfile extends Composante{
                area.subtract(areaMurSeparateur);
             }
             int indexToit = parent.getIndexComposante(TypeComposante.TOIT);
-            if (indexToit != -1){
+            if (indexToit != -1) {
                 Area areaToit = parent.getListeComposantes().get(indexToit).getArea();
                 area.subtract(areaToit);
-
-                 int indexPoutre = parent.getIndexComposante(TypeComposante.POUTRE_ARRIERE);
-            if (indexPoutre != -1){
-                Area areaPoutre = parent.getListeComposantes().get(indexPoutre).getArea();
-                area.subtract(areaPoutre);
             }
-
+                int indexPoutre = parent.getIndexComposante(TypeComposante.POUTRE_ARRIERE);
+                if (indexPoutre != -1) {
+                    Area areaPoutre = parent.getListeComposantes().get(indexPoutre).getArea();
+                    area.subtract(areaPoutre);
+                }
+            }
             // Sinon, on skip direct ici
 
             Composite compositeInitial = g2d.getComposite();
@@ -147,8 +147,6 @@ public class MurProfile extends Composante{
             g2d.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
             g2d.draw(area);
             }
-
-        }
     }
 
     private void initialiserEllipses(){
@@ -431,5 +429,18 @@ public class MurProfile extends Composante{
         }
 
         return listeRetour;
+    }
+
+    @Override
+    public boolean[] getModes(){
+        return new boolean[]{mode, modeContreplaque};
+    }
+
+    public boolean getModeContreplaque() {
+        return modeContreplaque;
+    }
+
+    public void setModeContreplaque(boolean modeContreplaque) {
+        this.modeContreplaque = modeContreplaque;
     }
 }

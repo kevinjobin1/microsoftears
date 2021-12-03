@@ -9,7 +9,7 @@ public class Ellipse extends Forme {
     }
 
     @Override
-    protected LinkedList<PointPouce> getListePoints() {
+    public LinkedList<PointPouce> getListePoints() {
         LinkedList<PointPouce> listePoints = new LinkedList<>();
         for(int i = 0; i < NOMBRE_POINTS; i++) {
             // x = centreX + ((longueur/2) * cos(angle))

@@ -2,8 +2,13 @@ package ca.ulaval.glo2004.domain.composante;
 
 import ca.ulaval.glo2004.domain.RoulotteController;
 import ca.ulaval.glo2004.domain.TypeComposante;
-import ca.ulaval.glo2004.utilitaires.PointPouce;
-import ca.ulaval.glo2004.utilitaires.Pouce;
+import ca.ulaval.glo2004.utilitaires.*;
+import ca.ulaval.glo2004.utilitaires.Rectangle;
+
+import java.awt.*;
+import java.awt.geom.Area;
+import java.awt.geom.Path2D;
+import java.util.LinkedList;
 
 public class Ressorts extends Composante{
     private int poidsHayon;
@@ -12,6 +17,14 @@ public class Ressorts extends Composante{
     private Pouce longueurExactExtension;
     private Pouce longueurIdealExtension;
     private Pouce DistancePointHayonDuPointDeRotation;
+    private Ellipse pointHayon;
+    private Ellipse pointMur;
+    private Ligne ligne;
+    private RectangleCoinRond corpsRessort;
+    private static final Pouce RAYON_TIGE = new Pouce(0.31);
+    private static final  Pouce LARGEUR_CORPS = new Pouce(0.73);
+    
+    
     private double force;
 
     public Ressorts(RoulotteController parent, int poidsHayon) {
@@ -19,10 +32,25 @@ public class Ressorts extends Composante{
         this.poidsHayon = poidsHayon;
         this.setType(TypeComposante.RESSORTS);
         this.longueurIdealExtension = getLongueurHayon().multiplier(0.6);
-        this.force = calculerForce();
         calculerDistancePositionsDuPointDeRotation();
         calculerPositionSurHayon();
         calculerPositionSurMur();
+        this.force = calculerForce();
+        this.setCouleur(Color.LIGHT_GRAY);
+        this.setStrokeCouleur(Color.LIGHT_GRAY);
+        this.setTransparence(0.15f);
+
+        // la ligne qui constitue le ressort
+        this.ligne = new Ligne(positionSurHayon, positionSurMur);
+
+        // Le corps du ressort à gaz
+        this.corpsRessort = new RectangleCoinRond(ligne.getLongueur().diff(RAYON_TIGE.multiplier(2)),LARGEUR_CORPS, ligne.getCentre(), RAYON_TIGE);
+
+        // Les points d'attache (têtes du ressort)
+        this.pointHayon = new Ellipse(RAYON_TIGE, RAYON_TIGE, positionSurHayon);
+        this.pointMur = new Ellipse(RAYON_TIGE,RAYON_TIGE, positionSurMur);
+        this.setPolygone(new Polygone(corpsRessort.getListePoints()));
+
     }
 
     public Ressorts(RoulotteController parent) {
@@ -30,10 +58,104 @@ public class Ressorts extends Composante{
         this.poidsHayon = 50;
         this.setType(TypeComposante.RESSORTS);
         this.longueurIdealExtension = getLongueurHayon().multiplier(0.6);
-        this.force = calculerForce();
         calculerDistancePositionsDuPointDeRotation();
         calculerPositionSurHayon();
         calculerPositionSurMur();
+        this.force = calculerForce();
+        this.setCouleur(Color.LIGHT_GRAY);
+        this.setStrokeCouleur(Color.LIGHT_GRAY);
+        this.setTransparence(0.50f);
+
+        // la ligne qui constitue le ressort
+        this.ligne = new Ligne(positionSurHayon, positionSurMur);
+
+        // Le corps du ressort à gaz
+        this.corpsRessort = new RectangleCoinRond(ligne.getLongueur().diff(RAYON_TIGE.multiplier(2)),LARGEUR_CORPS, ligne.getCentre(), RAYON_TIGE);
+
+        // Les points d'attache (têtes du ressort)
+        this.pointHayon = new Ellipse(RAYON_TIGE, RAYON_TIGE, positionSurHayon);
+        this.pointMur = new Ellipse(RAYON_TIGE,RAYON_TIGE, positionSurMur);
+
+        this.setPolygone(new Polygone(corpsRessort.getListePoints()));
+    }
+
+    @Override
+    public void afficher(Graphics2D g2d) {
+        if (estVisible()){
+            afficherLigne(g2d, ligne);
+            afficherCorpsRessort(g2d,corpsRessort);
+            afficherPointRessort(g2d, pointHayon);
+            afficherPointRessort(g2d, pointMur);
+        }
+    }
+
+    private void afficherCorpsRessort(Graphics2D g2d, RectangleCoinRond corpsRessort) {
+        Path2D path = new Path2D.Double();
+        LinkedList<PointPouce> pointsRectangle = corpsRessort.getListePoints();
+        double[] point;
+        for (int i = 0; i < pointsRectangle.size(); i++){
+            point = parent.getPositionEcran(pointsRectangle.get(i));
+            if(i == 0) {
+                path.moveTo(point[0], point[1]);
+            }
+            else{
+                path.lineTo(point[0] ,point[1]);
+            }
+        }
+        path.closePath();
+        Area areaRectangle = new Area(path);
+        Composite compositeInitial = g2d.getComposite();
+        g2d.setComposite(definirComposite(getTransparence()));
+        g2d.setPaint(getCouleur());
+        g2d.fill(areaRectangle);
+        g2d.setComposite(compositeInitial);
+        g2d.setColor(getStrokeCouleur());
+        //g2d.setStroke(getStroke());
+        g2d.draw(areaRectangle);
+    }
+
+    private void afficherLigne(Graphics2D g2d, Ligne ligne) {
+        Path2D path = new Path2D.Double();
+        LinkedList<PointPouce> pointsLigne = ligne.getListePoints();
+        double[] point;
+        for (int i = 0; i < pointsLigne.size(); i++){
+            point = parent.getPositionEcran(pointsLigne.get(i));
+            if(i == 0) {
+                path.moveTo(point[0], point[1]);
+            }
+            else{
+                path.lineTo(point[0] ,point[1]);
+            }
+        }
+        path.closePath();
+        g2d.setColor(Color.BLACK);
+        //g2d.setStroke(getStroke());
+        g2d.draw(path);
+    }
+
+    private void afficherPointRessort(Graphics2D g2d, Ellipse pointAttache){
+        Path2D path = new Path2D.Double();
+        LinkedList<PointPouce> pointsEllipse = pointAttache.getListePoints();
+        double[] point;
+        for (int i = 0; i < pointsEllipse.size(); i++){
+            point = parent.getPositionEcran(pointsEllipse.get(i));
+            if(i == 0) {
+                path.moveTo(point[0], point[1]);
+            }
+            else{
+                path.lineTo(point[0] ,point[1]);
+            }
+        }
+        path.closePath();
+        Area areaEllipse = new Area(path);
+        Composite compositeInitial = g2d.getComposite();
+        g2d.setComposite(definirComposite(getTransparence()));
+        g2d.setPaint(getCouleur());
+        g2d.fill(areaEllipse);
+        g2d.setComposite(compositeInitial);
+        g2d.setColor(getStrokeCouleur());
+        //g2d.setStroke(getStroke());
+        g2d.draw(areaEllipse);
     }
 
     @Override
@@ -43,11 +165,6 @@ public class Ressorts extends Composante{
 
 
     @Override
-    public int[] getValeurs() {
-        return new int[0];
-    }
-
-    @Override
     public void translate(PointPouce delta) {
 
     }
@@ -55,16 +172,6 @@ public class Ressorts extends Composante{
     @Override
     public void snapToGrid(PointPouce pointGrille) {
 
-    }
-
-    @Override
-    public String[] getNomsAttributs() {
-        return new String[0];
-    }
-
-    @Override
-    public boolean getMode() {
-        return false;
     }
 
     public Pouce getLongueurExactExtension() {
@@ -209,4 +316,21 @@ public class Ressorts extends Composante{
         }
         DistancePointHayonDuPointDeRotation = strokeLength.multiplier(0.85);
     }
+
+    @Override
+    public int[] getValeurs() {
+        return new int[]{poidsHayon, (int) force, longueurIdealExtension.toInt()};
+    }
+
+    @Override
+    public String[] getNomsAttributs() {
+        return new String[]{"Poids (hayon)", "Force", "Longueur"};
+    }
+
+    @Override
+    public boolean[] getModes(){
+        return new boolean[]{};
+    }
+
+
 }

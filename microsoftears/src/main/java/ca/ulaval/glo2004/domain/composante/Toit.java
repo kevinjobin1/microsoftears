@@ -166,7 +166,7 @@ public class Toit extends Composante implements Cloneable {
         }
 
     @Override
-    public boolean getMode() {
-        return false;
+    public boolean[] getModes(){
+        return new boolean[]{};
     }
 }

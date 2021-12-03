@@ -6,5 +6,5 @@ public interface IComposante {
     public TypeComposante getType();
     public String[] getNomsAttributs();
     public boolean estVisible();
-    public boolean getMode();
+    public boolean[] getModes();
 }
