@@ -43,18 +43,6 @@ public class OuvertureLaterale extends Composante{
         this.setType(TypeComposante.OUVERTURE_LATERALE);
     }
 
-    @Override
-    public void afficher(Graphics2D g2d){
-        if (estVisible()){
-            Area area = getArea();
-            Composite compositeInitial = g2d.getComposite();
-            g2d.setComposite(definirComposite(getTransparence()));
-            g2d.setPaint(getCouleur());
-            g2d.fill(area);
-            g2d.setComposite(compositeInitial);
-        }
-    }
-
     public Pouce gethauteur() {
         return hauteur;
     }

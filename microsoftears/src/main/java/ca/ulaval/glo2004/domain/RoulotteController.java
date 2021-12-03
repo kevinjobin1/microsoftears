@@ -16,6 +16,7 @@ public class RoulotteController implements Serializable{
     private ArrayList<OuvertureLaterale> listeOuverturesLaterales;
     private ArrayList<AideDesign> listeAidesDesign;
     private boolean afficherGrille;
+    private boolean afficherLabel;
     private Composante composanteChoisie;
     private Color couleurChoisie;
     private RoulotteController undoController = null;
@@ -37,6 +38,7 @@ public class RoulotteController implements Serializable{
         this.scale = 1;
         this.positionSouris = new Point();
         this.afficherGrille = true;
+        this.afficherLabel = true;
         this.couleurChoisie = new Color(0, 217, 217); // couleur par défaut
         calculerDisposition();
         this.grille = new Grille(this, 6,false, afficherGrille, new Dimension());
@@ -58,7 +60,7 @@ public class RoulotteController implements Serializable{
         return redoController;
     }
 
-    public boolean isAfficherGrille() {
+    public boolean afficherGrille() {
         return afficherGrille;
     }
 
@@ -400,15 +402,22 @@ public class RoulotteController implements Serializable{
 
     public void setPositionSouris(Point mousePoint) {
         PointPouce positionSouris = getPositionPlan(mousePoint);
-        int indexRessorts = getIndexComposante(TypeComposante.RESSORTS);
-        Ressorts ressorts = (Ressorts) listeComposantes.get(indexRessorts);
-        if (ressorts.getPolygone().contient(positionSouris)){
-            ressorts.setAfficherPosition(true);
+        int indexComposante = -1;
+        if (!listeComposantes.isEmpty()) {
+            for (int i=0; i < listeComposantes.size(); i++) {
+                Composante composante = listeComposantes.get(i);
+                composante.setAfficherPosition(false);
+
+                if (composante.getPolygone().contient(positionSouris) && composante.estVisible()){
+                    indexComposante = i;
+                }
+            }
+            if (indexComposante != -1){
+                System.out.println(listeComposantes.get(indexComposante));
+                listeComposantes.get(indexComposante).setAfficherPosition(true);
+            }
         }
-        else{
-            ressorts.setAfficherPosition(false);
-        }
-        this.positionSouris = new Point2D.Double( mousePoint.getX(),mousePoint.getY());
+        this.positionSouris = new Point2D.Double(mousePoint.getX(),mousePoint.getY());
         
     }
 
@@ -641,5 +650,13 @@ public class RoulotteController implements Serializable{
 
     public void setEstImperial(boolean estImperial) {
         this.estImperial = estImperial;
+    }
+
+    public boolean afficherLabel() {
+        return afficherLabel;
+    }
+
+    public void setAfficherLabel(boolean afficherLabel) {
+        this.afficherLabel = afficherLabel;
     }
 }
