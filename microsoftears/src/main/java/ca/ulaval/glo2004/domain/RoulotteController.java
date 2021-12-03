@@ -17,6 +17,8 @@ public class RoulotteController implements Serializable{
     private boolean afficherGrille;
     private Composante composanteChoisie;
     private Color couleurChoisie;
+    private ArrayList<RoulotteController> undoList = new ArrayList<>();
+    private ArrayList<RoulotteController> redoList = new ArrayList<>();
 
     // controle de l'affichage
     private static final int PIXEL_RATIO = 7;
@@ -24,6 +26,24 @@ public class RoulotteController implements Serializable{
     private Point positionSouris;
     private double scale;
 
+    /**
+     * Controlleur pour faire une deep copy
+     * @param roulotte
+     */
+    public RoulotteController(RoulotteController roulotte) {
+        this.listeComposantes = new ArrayList<>(roulotte.getListeComposantes());
+        this.listeOuverturesLaterales = new ArrayList<>(roulotte.getListeOuverturesLaterales());
+        this.listeAidesDesign = new ArrayList<>(roulotte.getListeAidesDesign());
+        this.delta = roulotte.getDelta();
+        this.scale = roulotte.getScale();
+        this.positionSouris = roulotte.getPositionSouris();
+        this.afficherGrille = roulotte.isAfficherGrille();
+        this.couleurChoisie = roulotte.getCouleurChoisie();
+        calculerDisposition();
+        this.grille = roulotte.getGrille();
+        this.undoList = new ArrayList<>(roulotte.getUndoList());
+        this.redoList = new ArrayList<>(roulotte.getRedoList());
+    }
 
     public RoulotteController() {
         this.listeComposantes = new ArrayList<>();
@@ -36,6 +56,18 @@ public class RoulotteController implements Serializable{
         this.couleurChoisie = new Color(0, 217, 217); // couleur par défaut
         calculerDisposition();
         this.grille = new Grille(this, 6,false, afficherGrille, new Dimension());
+    }
+
+    public ArrayList<RoulotteController> getUndoList() {
+        return undoList;
+    }
+
+    public ArrayList<RoulotteController> getRedoList() {
+        return redoList;
+    }
+
+    public boolean isAfficherGrille() {
+        return afficherGrille;
     }
 
     protected void invaliderDisposition(){
@@ -77,6 +109,7 @@ public class RoulotteController implements Serializable{
     }
 
     public void updateComposante(int[] valeurs, TypeComposante type){
+        undoList.add(this);
        switch(type){
            case MUR_PROFILE:
                // Changement aux dimensions du mur brute, on doit recréé

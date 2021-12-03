@@ -10,6 +10,7 @@ import ca.ulaval.glo2004.gui.panels.PanelConception;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 public class FenetrePrincipale extends JFrame {
     // Composantes graphiques du Frame
@@ -18,6 +19,7 @@ public class FenetrePrincipale extends JFrame {
     protected PanelConception panelConception;
     protected BarreMenu barreMenu;
     public BarreOnglet barreOnglets;
+
 
     // Éléments rattachés non-graphiques
     public RoulotteController controller;
