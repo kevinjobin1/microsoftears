@@ -6,6 +6,7 @@ import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Pouce;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 import java.io.*;
 import java.util.ArrayList;
 
@@ -15,15 +16,17 @@ public class RoulotteController implements Serializable{
     private ArrayList<OuvertureLaterale> listeOuverturesLaterales;
     private ArrayList<AideDesign> listeAidesDesign;
     private boolean afficherGrille;
+    private boolean afficherLabel;
     private Composante composanteChoisie;
     private Color couleurChoisie;
     private RoulotteController undoController = null;
     private RoulotteController redoController = null;
+    private boolean estImperial = true;
 
     // controle de l'affichage
     private static final int PIXEL_RATIO = 7;
     private int[] delta;
-    private Point positionSouris;
+    private Point2D positionSouris;
     private double scale;
 
 
@@ -35,6 +38,7 @@ public class RoulotteController implements Serializable{
         this.scale = 1;
         this.positionSouris = new Point();
         this.afficherGrille = true;
+        this.afficherLabel = true;
         this.couleurChoisie = new Color(0, 217, 217); // couleur par défaut
         calculerDisposition();
         this.grille = new Grille(this, 6,false, afficherGrille, new Dimension());
@@ -56,7 +60,7 @@ public class RoulotteController implements Serializable{
         return redoController;
     }
 
-    public boolean isAfficherGrille() {
+    public boolean afficherGrille() {
         return afficherGrille;
     }
 
@@ -346,7 +350,7 @@ public class RoulotteController implements Serializable{
 
     }
 
-    public PointPouce getPositionPlan(Point mousePoint) {
+    public PointPouce getPositionPlan(Point2D mousePoint) {
 
         Pouce x = xVersReel(mousePoint.getX()),
                 y = yVersReel(mousePoint.getY());
@@ -396,8 +400,24 @@ public class RoulotteController implements Serializable{
 
     /** Setter pour la position de la souris */
 
-    public void setPositionSouris(int x, int y) {
-        this.positionSouris = new Point(x,y);
+    public void setPositionSouris(Point mousePoint) {
+        PointPouce positionSouris = getPositionPlan(mousePoint);
+        int indexComposante = -1;
+        if (!listeComposantes.isEmpty()) {
+            for (int i=0; i < listeComposantes.size(); i++) {
+                Composante composante = listeComposantes.get(i);
+                composante.setAfficherPosition(false);
+
+                if (composante.getPolygone().contient(positionSouris) && composante.estVisible()){
+                    indexComposante = i;
+                }
+            }
+            if (indexComposante != -1){
+                System.out.println(listeComposantes.get(indexComposante));
+                listeComposantes.get(indexComposante).setAfficherPosition(true);
+            }
+        }
+        this.positionSouris = new Point2D.Double(mousePoint.getX(),mousePoint.getY());
         
     }
 
@@ -450,7 +470,8 @@ public class RoulotteController implements Serializable{
             plusProcheVoisin = grille.pointLePlusProche(mousePoint);
         }
         if(composanteChoisie != null){
-            if (composanteChoisie.getType() == TypeComposante.MUR_PROFILE) {
+            if (composanteChoisie.getType() == TypeComposante.MUR_PROFILE ||
+                    composanteChoisie.getType() == TypeComposante.MUR_BRUTE) {
                 for (int i = 0; i < listeComposantes.size(); i++){
                     if (plusProcheVoisin != null){
                         listeComposantes.get(i).snapToGrid(getPositionPlan(plusProcheVoisin));
@@ -458,8 +479,8 @@ public class RoulotteController implements Serializable{
                  else {listeComposantes.get(i).translate(getPositionPlan(mousePoint));}
                 }
             }
-            else if(composanteChoisie.getType() == TypeComposante.MUR_BRUTE){
-                for (int i = 0; i < listeComposantes.size(); i++){
+            else if(composanteChoisie.getType() == TypeComposante.POUTRE_ARRIERE){
+                for (int i = 8; i < 10; i++){
                     if (plusProcheVoisin != null){
                         listeComposantes.get(i).snapToGrid(getPositionPlan(plusProcheVoisin));
                     }
@@ -474,7 +495,7 @@ public class RoulotteController implements Serializable{
         else {
             setTranslate((int) mousePoint.getX(), (int) mousePoint.getY());
         }
-        setPositionSouris((int) mousePoint.getX(), (int) mousePoint.getY());
+        setPositionSouris(mousePoint);
     }
 
     public int getIndexComposante(TypeComposante type){
@@ -589,7 +610,7 @@ public class RoulotteController implements Serializable{
         this.listeAidesDesign = listeAidesDesign;
     }
 
-    public Point getPositionSouris() {
+    public Point2D getPositionSouris() {
         return positionSouris;
     }
 
@@ -622,5 +643,21 @@ public class RoulotteController implements Serializable{
     public void setAffichageContreplaque(boolean afficheContreplaqueExterieur) {
         int indexProfil = getIndexComposante(TypeComposante.MUR_PROFILE);
         ((MurProfile) (listeComposantes.get(indexProfil))).setModeContreplaque(afficheContreplaqueExterieur);
+    }
+
+    public boolean estImperial() {
+        return estImperial;
+    }
+
+    public void setEstImperial(boolean estImperial) {
+        this.estImperial = estImperial;
+    }
+
+    public boolean afficherLabel() {
+        return afficherLabel;
+    }
+
+    public void setAfficherLabel(boolean afficherLabel) {
+        this.afficherLabel = afficherLabel;
     }
 }

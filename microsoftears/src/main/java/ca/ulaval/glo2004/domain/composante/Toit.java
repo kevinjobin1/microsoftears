@@ -31,18 +31,6 @@ public class Toit extends Composante implements Cloneable {
         this.setPolygone(getPolygone());
     }
 
-    @Override
-    public void afficher(Graphics2D g2d){
-        if (estVisible()){
-            Area area = getArea();
-            Composite compositeInitial = g2d.getComposite();
-            g2d.setComposite(definirComposite(getTransparence()));
-            g2d.setPaint(getCouleur());
-            g2d.fill(area);
-            g2d.setComposite(compositeInitial);
-        }
-    }
-
     public Pouce getEpaisseur() {
         return epaisseur;
     }

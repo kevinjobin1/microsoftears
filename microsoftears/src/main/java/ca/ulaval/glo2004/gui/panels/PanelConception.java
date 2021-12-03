@@ -96,6 +96,7 @@ public class PanelConception extends JPanel
             }
         });
 
+
     }
 
     private void panneauAffichageMouseDragged(MouseEvent e) {
@@ -113,7 +114,7 @@ public class PanelConception extends JPanel
     }
 
     private void panneauAffichageMouseMoved(MouseEvent e) {
-        this.parent.controller.setPositionSouris(e.getX(), e.getY());
+        this.parent.controller.setPositionSouris(e.getPoint());
         this.panneauAffichage.repaint();
 /*        this.parent.controller.setDimension(panneauAffichage.getSize());
         String position = "Position (" + e.getX() + "," + e.getY() + ") ";
@@ -125,7 +126,7 @@ public class PanelConception extends JPanel
     }
 
     private void panneauAffichageMouseWheelMoved(MouseWheelEvent e) {
-        this.parent.controller.setPositionSouris(e.getX(), e.getY());
+        this.parent.controller.setPositionSouris(e.getPoint());
         this.parent.controller.setScale(e.getWheelRotation());
         this.panneauAffichage.repaint();
        /* this.parent.controller.setDimension(panneauAffichage.getSize());
@@ -135,6 +136,7 @@ public class PanelConception extends JPanel
         String dimensionAfficheur = " Dimension Afficheur (" + panneauAffichage.getWidth() + "," + panneauAffichage.getHeight() + ")";
         this.parent.infoLabel.setText(position + centre + dimensionPlan + dimensionAfficheur);*/
     }
+
 
 
 }

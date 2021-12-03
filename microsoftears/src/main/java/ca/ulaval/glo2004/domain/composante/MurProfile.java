@@ -62,6 +62,12 @@ public class MurProfile extends Composante{
     @Override
     public void afficher(Graphics2D g2d){
         if (estVisible()){
+            if(parent.afficherLabel()){
+            if (getAfficherPosition()) {
+                g2d.setColor(Color.BLACK);
+                g2d.drawString(this.toString(), (float) parent.getPositionSouris().getX() + 30, (float) parent.getPositionSouris().getY());
+            }}
+
             Area area = getArea(); // on va l'aire totale du profile
 
             // Portion contreplaqué extérieur

@@ -32,7 +32,11 @@ public class PointPouce  implements Serializable {
 
     @Override
     public String toString() {
-        return "PointPouce[x=" + x.toString() + ", y=" + y.toString() + "]";
+        return "(" + x.toString() + ", " + y.toString()+ ")";
+    }
+
+    public String toStringMM(){
+        return "(" + (int) x.getMilimetres() + " mm, " + (int) y.getMilimetres()+ "mm )";
     }
 
     public Pouce getX() {

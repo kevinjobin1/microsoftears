@@ -25,6 +25,7 @@ public abstract class Composante implements IComposante, Serializable {
     private Color strokeCouleur;
     private boolean estVisible;
     private boolean estChoisie;
+    private boolean afficherPosition;
 
     public Composante(RoulotteController parent) {
         this.parent = parent;
@@ -35,6 +36,7 @@ public abstract class Composante implements IComposante, Serializable {
         this.strokeCouleurInitiale = new Color(75,75,75);
         this.strokeCouleur = new Color(75,75,75);
         this.estVisible = true;
+        this.afficherPosition = false;
     }
 
     public Path2D getPath(){
@@ -65,6 +67,12 @@ public abstract class Composante implements IComposante, Serializable {
 
     public void afficher(Graphics2D g2d){
         if (estVisible){
+            if (parent.afficherLabel()){
+            if (getAfficherPosition()) {
+                g2d.setColor(Color.DARK_GRAY);
+                g2d.drawString(this.toString(), (float) parent.getPositionSouris().getX() + 30, (float) parent.getPositionSouris().getY() - 30);
+            }}
+
             Area area = getArea();
             Composite compositeInitial = g2d.getComposite();
             g2d.setComposite(definirComposite(getTransparence()));
@@ -199,5 +207,13 @@ public abstract class Composante implements IComposante, Serializable {
             resetTransparence();
         }
         this.estChoisie = estChoisie;
+    }
+
+    public boolean getAfficherPosition() {
+        return afficherPosition;
+    }
+
+    public void setAfficherPosition(boolean afficherPosition) {
+        this.afficherPosition = afficherPosition;
     }
 }

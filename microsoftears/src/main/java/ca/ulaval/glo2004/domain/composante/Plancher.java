@@ -83,6 +83,12 @@ public class Plancher extends Composante {
     @Override
     public void afficher(Graphics2D g2d) {
         if (estVisible()){
+            if(parent.afficherLabel()){
+            if (getAfficherPosition()) {
+                g2d.setColor(Color.DARK_GRAY);
+                g2d.drawString(this.toString(), (float) parent.getPositionSouris().getX() + 30, (float) parent.getPositionSouris().getY() - 30);
+            }}
+
             Composite compositeInitial = g2d.getComposite();
             g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.6f));
             BufferedImage roue = toBufferedImage(new ImageIcon("trailer_wheel.png").getImage());

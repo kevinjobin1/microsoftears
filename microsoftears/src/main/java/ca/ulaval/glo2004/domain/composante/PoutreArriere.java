@@ -79,18 +79,6 @@ public class PoutreArriere extends Composante{
         this.setPolygone(rectangle.getPolygone());
     }
 
-    @Override
-    public void afficher(Graphics2D g2d){
-        if (estVisible()){
-            Area area = getArea();
-            Composite compositeInitial = g2d.getComposite();
-            g2d.setComposite(definirComposite(getTransparence()));
-            g2d.setPaint(getCouleur());
-            g2d.fill(area);
-            g2d.setComposite(compositeInitial);
-        }
-    }
-
     public boolean verificationLongueur(Pouce valeur){
         MurBrute mur = (MurBrute) parent.getListeComposantes().get(0);
         return valeur.st(mur.getLongueur().diviser(2)) && valeur.gt(new Pouce(0,0,1));

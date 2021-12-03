@@ -23,7 +23,7 @@ public class BarreBoutons extends JPanel {
             deleteButton,
             exportButton,
             grilleButton;
-    private JCheckBox afficherGrilleCheckBox,
+    private JCheckBox afficherGrilleCheckBox, afficherLabelCheckBox,
                         estMagnetiqueCheckBox;
     private JLabel labelPouce, labelNum, labelDenum, labelMM;
     private JSpinner longueurLigneGrilleSpinner,
@@ -51,8 +51,10 @@ public class BarreBoutons extends JPanel {
         exportButton = creerBouton(BootstrapIcons.ARROW_BAR_RIGHT, 30, Color.WHITE);
 
         // ======= CheckBox ======== //
+        afficherLabelCheckBox = new JCheckBox("Afficher description", true);
         afficherGrilleCheckBox = new JCheckBox(" Afficher grille", true);
         estMagnetiqueCheckBox = new JCheckBox(" Magnétique", false);
+        this.add(afficherLabelCheckBox);
         this.add(afficherGrilleCheckBox);
         this.add(estMagnetiqueCheckBox);
         this.value = parent.controller.getEchelleGrille().toInt();
@@ -116,6 +118,12 @@ public class BarreBoutons extends JPanel {
             }
         });
 
+        // ==== Afficher/masquer les labels des noms de composantes  =======
+        afficherLabelCheckBox.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                afficherLabelCheckBoxActionPerformed(e);
+            }
+        });
         // ==== Afficher/masquer grille  =======
         afficherGrilleCheckBox.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -130,6 +138,8 @@ public class BarreBoutons extends JPanel {
             }
         });
     }
+
+
 
     private void logoButtonActionPerformed(ActionEvent e) {
         JDialog d = new JDialog(parent, "À propos");
@@ -204,6 +214,14 @@ public class BarreBoutons extends JPanel {
         bouton.setBorder(null);
         this.add(bouton);
         return bouton;
+    }
+
+    private void afficherLabelCheckBoxActionPerformed(ActionEvent e) {
+        if (e.getSource() instanceof JCheckBox) {
+            JCheckBox checkBox = (JCheckBox) e.getSource();
+            parent.controller.setAfficherLabel(checkBox.isSelected());
+            parent.repaint();
+        }
     }
 
     private void afficherGrilleCheckBoxActionPerformed(ActionEvent e) {
