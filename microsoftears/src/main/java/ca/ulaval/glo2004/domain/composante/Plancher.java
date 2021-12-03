@@ -85,7 +85,7 @@ public class Plancher extends Composante {
         if (estVisible()){
             if(parent.afficherLabel()){
             if (getAfficherPosition()) {
-                g2d.setColor(Color.BLACK);
+                g2d.setColor(Color.DARK_GRAY);
                 g2d.drawString(this.toString(), (float) parent.getPositionSouris().getX() + 30, (float) parent.getPositionSouris().getY() - 30);
             }}
 
