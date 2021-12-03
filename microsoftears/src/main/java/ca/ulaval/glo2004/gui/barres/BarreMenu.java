@@ -26,7 +26,8 @@ public class BarreMenu extends JMenuBar
             affichageMenu,
             aideMenu,
             selectionSubMenu,
-            ajouterSubMenu;
+            ajouterSubMenu,
+            contreplaqueSubMenu;
 
     public JMenuItem nouveauMenuItem,
             ouvrirMenuItem,
@@ -43,6 +44,7 @@ public class BarreMenu extends JMenuBar
             exportMenuItem;
 
     public ButtonGroup selectionButtonGroup;
+    public ButtonGroup selectionContreplaque;
 
     public BarreMenu(FenetrePrincipale parent)
     {
@@ -61,9 +63,12 @@ public class BarreMenu extends JMenuBar
         affichageMenu = creerMenu("Affichage","Affichage");
         selectionSubMenu = new JMenu("Sélectionner...");
         ajouterSubMenu = new JMenu("Ajouter");
+        contreplaqueSubMenu = new JMenu("Affichage des contreplaqués");
 
         // Groupe qui contient les différentes composantes à sélectionner
         selectionButtonGroup = new ButtonGroup();
+
+        selectionContreplaque = new ButtonGroup();
 
         // Menu Fichier
         initialiserMenuFichier();
@@ -207,6 +212,17 @@ public class BarreMenu extends JMenuBar
         affichageMenu.add(reduireMenuItem);
         affichageMenu.add(separator);
 
+        JRadioButtonMenuItem contreplaqueExterieur = new JRadioButtonMenuItem("Contreplaqué exterieur");
+        JRadioButtonMenuItem contreplaqueInterieur = new JRadioButtonMenuItem("Contreplaqué interieur");
+
+        ButtonGroup selectionContreplaque = new ButtonGroup();
+        selectionContreplaque.add(contreplaqueExterieur);
+        selectionContreplaque.add(contreplaqueInterieur);
+
+        contreplaqueSubMenu.add(contreplaqueExterieur);
+        contreplaqueSubMenu.add(contreplaqueInterieur);
+
+        affichageMenu.add(contreplaqueSubMenu);
 
         if (!parent.controller.getListeComposantes().isEmpty()){
             creerCheckBoxMenuItem("Afficher/masquer tout", true);
