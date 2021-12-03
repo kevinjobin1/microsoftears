@@ -352,21 +352,19 @@ public class BarreMenu extends JMenuBar
 
     protected void undoActionPerformed(ActionEvent e) {
         // TODO: à tester
-        if(!parent.controller.getUndoList().isEmpty()) {
-            RoulotteController roulotte = parent.controller.getUndoList().get(parent.controller.getUndoList().size() - 2);
-            parent.controller.getRedoList().add(parent.controller.getUndoList().get(parent.controller.getUndoList().size() - 1));
-            parent.controller.getUndoList().remove(parent.controller.getUndoList().size() - 1);
-            parent.controller = roulotte;
+        if(parent.controller.getUndoController() != null) {
+            RoulotteController controller = parent.controller;
+            parent.controller = parent.controller.getUndoController();
+            parent.controller.setRedoController(controller.deepCopy());
         }
     }
 
     protected void redoActionPerformed(ActionEvent e) {
         // TODO: à tester
-        if(!parent.controller.getRedoList().isEmpty()) {
-            RoulotteController roulotte = parent.controller.getRedoList().get(parent.controller.getRedoList().size() - 1);
-            parent.controller.getUndoList().add(parent.controller.getRedoList().get(parent.controller.getRedoList().size() - 1));
-            parent.controller.getRedoList().remove(parent.controller.getRedoList().size() - 1);
-            parent.controller = roulotte;
+        if(parent.controller.getUndoController() != null) {
+            RoulotteController controller = parent.controller;
+            parent.controller = parent.controller.getRedoController();
+            parent.controller.setUndoController(controller.deepCopy());
         }
     }
 

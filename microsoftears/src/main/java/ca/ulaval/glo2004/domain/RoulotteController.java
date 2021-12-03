@@ -6,7 +6,7 @@ import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Pouce;
 
 import java.awt.*;
-import java.io.Serializable;
+import java.io.*;
 import java.util.ArrayList;
 
 public class RoulotteController implements Serializable{
@@ -17,8 +17,8 @@ public class RoulotteController implements Serializable{
     private boolean afficherGrille;
     private Composante composanteChoisie;
     private Color couleurChoisie;
-    private ArrayList<RoulotteController> undoList = new ArrayList<>();
-    private ArrayList<RoulotteController> redoList = new ArrayList<>();
+    private RoulotteController undoController = null;
+    private RoulotteController redoController = null;
 
     // controle de l'affichage
     private static final int PIXEL_RATIO = 7;
@@ -26,24 +26,6 @@ public class RoulotteController implements Serializable{
     private Point positionSouris;
     private double scale;
 
-    /**
-     * Controlleur pour faire une deep copy
-     * @param roulotte
-     */
-    public RoulotteController(RoulotteController roulotte) {
-        this.listeComposantes = new ArrayList<>(roulotte.getListeComposantes());
-        this.listeOuverturesLaterales = new ArrayList<>(roulotte.getListeOuverturesLaterales());
-        this.listeAidesDesign = new ArrayList<>(roulotte.getListeAidesDesign());
-        this.delta = roulotte.getDelta();
-        this.scale = roulotte.getScale();
-        this.positionSouris = roulotte.getPositionSouris();
-        this.afficherGrille = roulotte.isAfficherGrille();
-        this.couleurChoisie = roulotte.getCouleurChoisie();
-        calculerDisposition();
-        this.grille = roulotte.getGrille();
-        this.undoList = new ArrayList<>(roulotte.getUndoList());
-        this.redoList = new ArrayList<>(roulotte.getRedoList());
-    }
 
     public RoulotteController() {
         this.listeComposantes = new ArrayList<>();
@@ -58,12 +40,20 @@ public class RoulotteController implements Serializable{
         this.grille = new Grille(this, 6,false, afficherGrille, new Dimension());
     }
 
-    public ArrayList<RoulotteController> getUndoList() {
-        return undoList;
+    public RoulotteController getUndoController() {
+        return undoController;
     }
 
-    public ArrayList<RoulotteController> getRedoList() {
-        return redoList;
+    public void setUndoController(RoulotteController undoController) {
+        this.undoController = undoController;
+    }
+
+    public void setRedoController(RoulotteController redoController) {
+        this.redoController = redoController;
+    }
+
+    public RoulotteController getRedoController() {
+        return redoController;
     }
 
     public boolean isAfficherGrille() {
@@ -73,6 +63,7 @@ public class RoulotteController implements Serializable{
     protected void invaliderDisposition(){
         // TODO
     }
+
 
     protected void calculerDisposition(){
         // TODO
@@ -108,8 +99,35 @@ public class RoulotteController implements Serializable{
         //listeAidesDesign.add(aideDesign);
     }
 
+    public RoulotteController deepCopy(){
+        RoulotteController copy = null;
+        ObjectOutputStream oos = null;
+        ObjectInputStream ois = null;
+        try
+        {
+            ByteArrayOutputStream bos =
+                    new ByteArrayOutputStream(); // A
+            oos = new ObjectOutputStream(bos); // B
+            // serialize and pass the object
+            oos.writeObject(this);   // C
+            oos.flush();               // D
+            ByteArrayInputStream bin =
+                    new ByteArrayInputStream(bos.toByteArray()); // E
+            ois = new ObjectInputStream(bin);                  // F
+            // return the new object
+            copy = (RoulotteController) ois.readObject(); // G
+            oos.close();
+            ois.close();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return copy;
+    }
+
     public void updateComposante(int[] valeurs, TypeComposante type){
-        undoList.add(this);
+       undoController = this.deepCopy();
        switch(type){
            case MUR_PROFILE:
                // Changement aux dimensions du mur brute, on doit recréé

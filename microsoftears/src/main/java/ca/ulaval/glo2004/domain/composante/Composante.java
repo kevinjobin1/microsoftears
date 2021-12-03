@@ -26,7 +26,6 @@ public abstract class Composante implements IComposante, Serializable {
     private boolean estVisible;
     private boolean estChoisie;
 
-
     public Composante(RoulotteController parent) {
         this.parent = parent;
         this.transparenceInitiale = 0.75f;

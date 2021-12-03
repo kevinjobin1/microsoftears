@@ -10,7 +10,7 @@ import java.awt.*;
 import java.awt.geom.Area;
 import java.util.LinkedList;
 
-public class Toit extends Composante{
+public class Toit extends Composante implements Cloneable {
     private Pouce epaisseur;
 
     public Toit(RoulotteController parent, Pouce epaisseur) {
