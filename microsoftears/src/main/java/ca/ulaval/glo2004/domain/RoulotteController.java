@@ -470,7 +470,8 @@ public class RoulotteController implements Serializable{
             plusProcheVoisin = grille.pointLePlusProche(mousePoint);
         }
         if(composanteChoisie != null){
-            if (composanteChoisie.getType() == TypeComposante.MUR_PROFILE) {
+            if (composanteChoisie.getType() == TypeComposante.MUR_PROFILE ||
+                    composanteChoisie.getType() == TypeComposante.MUR_BRUTE) {
                 for (int i = 0; i < listeComposantes.size(); i++){
                     if (plusProcheVoisin != null){
                         listeComposantes.get(i).snapToGrid(getPositionPlan(plusProcheVoisin));
@@ -478,8 +479,8 @@ public class RoulotteController implements Serializable{
                  else {listeComposantes.get(i).translate(getPositionPlan(mousePoint));}
                 }
             }
-            else if(composanteChoisie.getType() == TypeComposante.MUR_BRUTE){
-                for (int i = 0; i < listeComposantes.size(); i++){
+            else if(composanteChoisie.getType() == TypeComposante.POUTRE_ARRIERE){
+                for (int i = 8; i < 10; i++){
                     if (plusProcheVoisin != null){
                         listeComposantes.get(i).snapToGrid(getPositionPlan(plusProcheVoisin));
                     }
