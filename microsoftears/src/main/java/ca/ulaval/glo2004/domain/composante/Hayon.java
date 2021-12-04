@@ -110,34 +110,6 @@ public class Hayon extends Composante {
         return pointFinHayon;
     }
 
-    public boolean verificationEpaisseur(Pouce valeur){
-        MurBrute mur = (MurBrute) parent.getListeComposantes().get(0);
-        PoutreArriere poutre = (PoutreArriere) parent.getListeComposantes().get(7);
-        return valeur.st(mur.getCentre().getX().diff(mur.getLongueur().diviser(2)).
-                diff(poutre.getCentre().getX().diff(poutre.getLongueur().diviser(2))).diff(epaisseurTraitScie).diff(distancePoutre))
-                && valeur.gt(new Pouce(0,0,1));
-    }
-
-    public boolean verificationDistancePoutre(Pouce valeur){
-        MurBrute mur = (MurBrute) parent.getListeComposantes().get(0);
-        PoutreArriere poutre = (PoutreArriere) parent.getListeComposantes().get(7);
-        return valeur.st(poutre.getCentre().getX().diff(poutre.getLongueur().diviser(2)).
-                diff(mur.getCentre().getX().diff(mur.getLongueur().diviser(2))).
-                diff(epaisseur).diff(epaisseurTraitScie)) && valeur.gt(new Pouce(0,0,1));
-    }
-
-    public boolean verificationDistancePlancher(Pouce valeur){
-        Plancher plancher = (Plancher) parent.getListeComposantes().get(6);
-        return valeur.st(plancher.getMargeArriere()) && valeur.gt(new Pouce(0,0,1));
-    }
-
-    public boolean verificationEpaisseurTraitScie(Pouce valeur){
-        return valeur.st(new Pouce(1,0,1)) && valeur.gt(new Pouce(0,0,1));
-    }
-
-    public boolean verificationRayonArcCercle(Pouce valeur){
-        return valeur.st(epaisseur.add(new Pouce(1,0,1))) && valeur.gt(epaisseur.diff(new Pouce(1,0,1)));
-    }
 
     @Override
     public Polygone getPolygone(){
@@ -357,9 +329,57 @@ public class Hayon extends Composante {
         return new boolean[]{};
     }
 
+    public boolean verificationEpaisseur(Pouce valeur){
+        MurBrute mur = (MurBrute) parent.getListeComposantes().get(0);
+        PoutreArriere poutre = (PoutreArriere) parent.getListeComposantes().get(7);
+        return valeur.st(mur.getCentre().getX().diff(mur.getLongueur().diviser(2)).
+                diff(poutre.getCentre().getX().diff(poutre.getLongueur().diviser(2))).diff(epaisseurTraitScie).diff(distancePoutre))
+                && valeur.gt(new Pouce(0,0,1));
+    }
+
+    public boolean verificationDistancePoutre(Pouce valeur){
+        MurBrute mur = (MurBrute) parent.getListeComposantes().get(0);
+        PoutreArriere poutre = (PoutreArriere) parent.getListeComposantes().get(7);
+        return valeur.st(poutre.getCentre().getX().diff(poutre.getLongueur().diviser(2)).
+                diff(mur.getCentre().getX().diff(mur.getLongueur().diviser(2))).
+                diff(epaisseur).diff(epaisseurTraitScie)) && valeur.gt(new Pouce(0,0,1));
+    }
+
+    public boolean verificationDistancePlancher(Pouce valeur){
+        Plancher plancher = (Plancher) parent.getListeComposantes().get(6);
+        return valeur.st(plancher.getMargeArriere()) && valeur.gt(new Pouce(0,0,1));
+    }
+
+    public boolean verificationEpaisseurTraitScie(Pouce valeur){
+        return valeur.st(new Pouce(1,0,1)) && valeur.gt(new Pouce(0,0,1));
+    }
+
+    public boolean verificationRayonArcCercle(Pouce valeur){
+        return valeur.st(epaisseur.add(new Pouce(1,0,1))) && valeur.gt(epaisseur.diff(new Pouce(1,0,1)));
+    }
+
     @Override
     public Pouce[] getLimit() {
-        return new Pouce[0];
+        MurBrute mur = (MurBrute) parent.getListeComposantes().get(0);
+        PoutreArriere poutre = (PoutreArriere) parent.getListeComposantes().get(7);
+        Plancher plancher = (Plancher) parent.getListeComposantes().get(6);
+
+        Pouce maxEpaisseur = mur.getCentre().getX().diff(mur.getLongueur().diviser(2)).
+                diff(poutre.getCentre().getX().diff(poutre.getLongueur().diviser(2))).diff(epaisseurTraitScie).diff(distancePoutre);
+        Pouce minEpaisseur = new Pouce(0,1,64);
+        Pouce maxDistancePoutre = poutre.getCentre().getX().diff(poutre.getLongueur().diviser(2)).
+                diff(mur.getCentre().getX().diff(mur.getLongueur().diviser(2))).
+                diff(epaisseur).diff(epaisseurTraitScie);
+        Pouce minDistancePoutre = new Pouce(0,1,64);
+        Pouce maxDistancePlancher = plancher.getMargeArriere();
+        Pouce minDistancePlancher = new Pouce(0,1,64);
+        Pouce maxEpaisseurTraitScie = new Pouce(1,0,1);
+        Pouce minEpaisseurTraitScie = new Pouce(0,1,64);
+        Pouce maxRayonArcCercle = epaisseur.add(new Pouce(1,0,1));
+        Pouce minRayonArcCercle = new Pouce(0,1,64);
+
+        return new Pouce[]{maxEpaisseur,minEpaisseur,maxDistancePoutre,minDistancePoutre,maxDistancePlancher,
+                minDistancePlancher,maxEpaisseurTraitScie,minEpaisseurTraitScie,maxRayonArcCercle,minRayonArcCercle};
     }
 
     public LinkedList<PointPouce> getPointsInterieurHayon() {
