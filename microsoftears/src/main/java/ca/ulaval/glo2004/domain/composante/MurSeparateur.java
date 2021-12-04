@@ -44,6 +44,24 @@ public class MurSeparateur extends Composante{
         this.setVisible(true);
     }
 
+    public boolean verificationEpaisseur(Pouce valeur){
+        return valeur.ste(new Pouce(10,0,1)) &&
+                valeur.gte(new Pouce(0,0,1));
+    }
+
+    public boolean verificationHauteur(Pouce valeur){
+        MurBrute mur = (MurBrute) parent.getListeComposantes().get(0);
+        return valeur.ste(mur.getLargeur()) && valeur.gte(new Pouce(0,0,1));
+    }
+
+    public boolean verificationDistancePoutreArriere(Pouce valeur){
+        MurBrute mur = (MurBrute) parent.getListeComposantes().get(0);
+        PoutreArriere poutre = (PoutreArriere) parent.getListeComposantes().get(7);
+        return valeur.st(mur.getCentre().getX().add(mur.getLongueur().diviser(2)).
+                diff(poutre.getCentre().getX().add(poutre.getLongueur().diviser(2)))) &&
+                valeur.gte(new Pouce(0,0,1));
+    }
+
     public Pouce getEpaisseur() {
         return epaisseur;
     }

@@ -9,7 +9,6 @@ import ca.ulaval.glo2004.utilitaires.Pouce;
 public class ContreplaqueInterieur extends Composante{
     private Pouce epaisseur;
 
-    //todo pas necessaire pour le livrable 3
     public ContreplaqueInterieur(RoulotteController parent, Pouce epaisseur) {
         super(parent);
         this.epaisseur = epaisseur;
@@ -25,7 +24,7 @@ public class ContreplaqueInterieur extends Composante{
     }
 
     public Polygone getPolygone(){
-        // TODO:
+        //
         /*LinkedList<PointPouce> contreplaqueExterieur = parent.getContreplaqueExterieur().getPolygone().getListePoints();
         LinkedList<PointPouce> plancher = parent.getPlancher().getPolygone().getListePoints();
         LinkedList<PointPouce> toit = parent.getToit().getPolygone().getListePoints();

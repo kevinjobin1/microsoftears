@@ -59,6 +59,26 @@ public class MurProfile extends Composante{
         this.setPolygone(copie.getPolygone());
     }
 
+    public boolean verificationXEllipse0and3(Pouce valeur){
+        MurBrute mur = (MurBrute) parent.getListeComposantes().get(0);
+        return valeur.gt(mur.getCentre().getX()) && valeur.ste(mur.getCentre().getX().add(mur.getLongueur().diviser(2)));
+    }
+
+    public boolean verificationXEllipse1and2(Pouce valeur){
+        MurBrute mur = (MurBrute) parent.getListeComposantes().get(0);
+        return valeur.st(mur.getCentre().getX()) && valeur.gte(mur.getCentre().getX().diff(mur.getLongueur().diviser(2)));
+    }
+
+    public boolean verificationYEllipse0and1(Pouce valeur){
+        MurBrute mur = (MurBrute) parent.getListeComposantes().get(0);
+        return valeur.st(mur.getCentre().getY()) && valeur.gte(mur.getCentre().getY().diff(mur.getLargeur().diviser(2)));
+    }
+
+    public boolean verificationYEllipse2and3(Pouce valeur){
+        MurBrute mur = (MurBrute) parent.getListeComposantes().get(0);
+        return valeur.gt(mur.getCentre().getY()) && valeur.ste(mur.getCentre().getY().add(mur.getLargeur().diviser(2)));
+    }
+
     @Override
     public void afficher(Graphics2D g2d){
         if (estVisible()){

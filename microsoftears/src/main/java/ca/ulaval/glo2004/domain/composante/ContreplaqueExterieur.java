@@ -12,7 +12,6 @@ import java.util.LinkedList;
 public class ContreplaqueExterieur extends Composante {
     private Pouce epaisseur;
 
-    //todo pas necessaire pour le livrable 3
     public ContreplaqueExterieur(Pouce epaisseur, RoulotteController parent) {
         super(parent);
         this.epaisseur = epaisseur;
