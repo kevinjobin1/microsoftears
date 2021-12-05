@@ -31,6 +31,11 @@ public class Toit extends Composante implements Cloneable {
         this.setPolygone(getPolygone());
     }
 
+    public boolean verificationEpaisseur(Pouce valeur){
+        return valeur.ste(new Pouce(10,0,1)) &&
+                valeur.gt(new Pouce(0,0,1));
+    }
+
     public Pouce getEpaisseur() {
         return epaisseur;
     }

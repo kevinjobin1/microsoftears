@@ -43,6 +43,28 @@ public class OuvertureLaterale extends Composante{
         this.setType(TypeComposante.OUVERTURE_LATERALE);
     }
 
+    public boolean verificationHauteur(Pouce valeur){
+        MurBrute mur = (MurBrute) parent.getListeComposantes().get(0);
+        return valeur.st(mur.getLargeur()) && valeur.gt(new Pouce(0,0,1));
+    }
+
+    public boolean verificationLargeur(Pouce valeur){
+        MurBrute mur = (MurBrute) parent.getListeComposantes().get(0);
+        return valeur.st(mur.getLongueur()) && valeur.gt(new Pouce(0,0,1));
+    }
+
+    public boolean verificationCentreX(Pouce valeur){
+        MurBrute mur = (MurBrute) parent.getListeComposantes().get(0);
+        return valeur.gt(mur.getCentre().getX().diff(mur.getLongueur().diviser(2))) &&
+                valeur.st(mur.getCentre().getX().add(mur.getLongueur().diviser(2)));
+    }
+
+    public boolean verificationCentreY(Pouce valeur){
+        MurBrute mur = (MurBrute) parent.getListeComposantes().get(0);
+        return valeur.gt(mur.getCentre().getY().diff(mur.getLargeur().diviser(2))) &&
+                valeur.st(mur.getCentre().getY().add(mur.getLargeur().diviser(2)));
+    }
+
     public Pouce gethauteur() {
         return hauteur;
     }
