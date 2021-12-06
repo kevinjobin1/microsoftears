@@ -79,6 +79,8 @@ public class MurProfile extends Composante{
         return valeur.gt(mur.getCentre().getY()) && valeur.ste(mur.getCentre().getY().add(mur.getLargeur().diviser(2)));
     }
 
+
+
     @Override
     public void afficher(Graphics2D g2d){
         if (estVisible()){
@@ -95,7 +97,7 @@ public class MurProfile extends Composante{
                 // on retranche tous les ouvertures latérales
                 for(OuvertureLaterale ouverture : parent.getListeOuverturesLaterales()){
                     Area areaOuverture = ouverture.getArea();
-                    area.subtract(areaOuverture);
+                    //area.subtract(areaOuverture);
                 }
             }
 

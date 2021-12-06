@@ -7,6 +7,9 @@ import ca.ulaval.glo2004.utilitaires.Pouce;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class PanelInfoAideAuDesign extends PanelComposante {
     private JSpinner largeurSpinner,
@@ -25,6 +28,7 @@ public class PanelInfoAideAuDesign extends PanelComposante {
             centreYSpinner1,
             centreYSpinner2,
             centreYSpinner3;
+    private JButton addButton;
 
     public PanelInfoAideAuDesign(BarreOnglet parent, IComposante composante) {
         super(parent, composante);
@@ -201,6 +205,13 @@ public class PanelInfoAideAuDesign extends PanelComposante {
                 }
             });
         }
+        addButton = creerButton( " + ", 1, 10);
+
+        addButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                creerAideActionPerformed(e);
+            }
+        });
 
     }
     private void largeurSpinner1ChangeListener(ChangeEvent e) {
@@ -346,5 +357,21 @@ public class PanelInfoAideAuDesign extends PanelComposante {
         valeurs[10] = pouces.getNumerateur();
         valeurs[11] = pouces.getDenominateur();
         updateComposante();
+    }
+    private JButton creerButton(String string, int x, int y){
+        GridBagConstraints c = new GridBagConstraints();
+        JButton bouton = new JButton(string);
+        c.gridx = x;
+        c.gridy= y;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        this.add(bouton, c);
+        return bouton;
+    }
+
+    public void creerAideActionPerformed(ActionEvent e){
+        JButton button = (JButton) e.getSource();
+        parent.parent.controller.addAideDesign();
     }
 }

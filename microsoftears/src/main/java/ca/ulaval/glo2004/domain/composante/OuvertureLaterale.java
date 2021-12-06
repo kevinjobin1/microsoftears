@@ -43,6 +43,24 @@ public class OuvertureLaterale extends Composante{
         this.setType(TypeComposante.OUVERTURE_LATERALE);
     }
 
+    @Override
+    public void afficher(Graphics2D g2d) {
+        if(this.estVisible()){
+            if(parent.afficherLabel()){
+                if (getAfficherPosition()) {
+                    g2d.drawString(this.toString(), (float) parent.getPositionSouris().getX() + 30, (float) parent.getPositionSouris().getY() - 30);
+                }
+            }
+            Composite compositeInitial = g2d.getComposite();
+            g2d.setComposite(compositeInitial);
+            Area area = getArea();
+            g2d.setComposite(definirComposite(getTransparence()));
+            g2d.fill(area);
+            g2d.setComposite(compositeInitial);
+        }
+    }
+
+
     public boolean verificationHauteur(Pouce valeur){
         MurBrute mur = (MurBrute) parent.getListeComposantes().get(0);
         return valeur.st(mur.getLargeur()) && valeur.gt(new Pouce(0,0,1));
@@ -65,11 +83,11 @@ public class OuvertureLaterale extends Composante{
                 valeur.st(mur.getCentre().getY().add(mur.getLargeur().diviser(2)));
     }
 
-    public Pouce gethauteur() {
+    public Pouce getHauteur() {
         return hauteur;
     }
 
-    public void sethauteur(Pouce hauteur) {
+    public void setHauteur(Pouce hauteur) {
         this.hauteur = hauteur;
     }
 

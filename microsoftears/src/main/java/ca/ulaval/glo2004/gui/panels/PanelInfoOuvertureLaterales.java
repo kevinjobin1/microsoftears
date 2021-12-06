@@ -3,10 +3,14 @@ package ca.ulaval.glo2004.gui.panels;
 import ca.ulaval.glo2004.domain.IComposante;
 import ca.ulaval.glo2004.gui.barres.BarreOnglet;
 import ca.ulaval.glo2004.utilitaires.Pouce;
+import ca.ulaval.glo2004.domain.RoulotteController;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class PanelInfoOuvertureLaterales extends PanelComposante {
 
@@ -30,6 +34,7 @@ public class PanelInfoOuvertureLaterales extends PanelComposante {
             centreXSpinner,
             centreYSpinner,
             rayonSpinner;
+    private JButton addButton;
 
     public PanelInfoOuvertureLaterales(BarreOnglet parent, IComposante composante) {
         super(parent, composante);
@@ -242,6 +247,14 @@ public class PanelInfoOuvertureLaterales extends PanelComposante {
                 }
             });
         }
+
+        addButton = creerButton( " + ", 1, 12);
+
+        addButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                creerOuvertureActionPerformed(e);
+            }
+        });
     }
 
     private void hauteurSpinner1ChangeListener(ChangeEvent e) {
@@ -437,5 +450,22 @@ public class PanelInfoOuvertureLaterales extends PanelComposante {
         valeurs[13] = pouces.getNumerateur();
         valeurs[14] = pouces.getDenominateur();
         updateComposante();
+    }
+
+    private JButton creerButton(String string, int x, int y){
+        GridBagConstraints c = new GridBagConstraints();
+        JButton bouton = new JButton(string);
+        c.gridx = x;
+        c.gridy= y;
+        c.gridwidth = 1;
+        c.weightx = 0.5;
+        c.insets = new Insets(10,5,10, 5);
+        this.add(bouton, c);
+        return bouton;
+    }
+
+    public void creerOuvertureActionPerformed(ActionEvent e){
+        JButton button = (JButton) e.getSource();
+        parent.parent.controller.addOuvertureLateral();
     }
 }

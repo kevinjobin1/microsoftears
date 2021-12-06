@@ -4,11 +4,7 @@ import ca.ulaval.glo2004.domain.RoulotteController;
 import ca.ulaval.glo2004.domain.TypeComposante;
 import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Pouce;
-import ca.ulaval.glo2004.utilitaires.Rectangle;
 import ca.ulaval.glo2004.utilitaires.RectangleCoinRond;
-
-import java.awt.*;
-
 
 public class AideDesign extends Composante{
 

@@ -100,9 +100,21 @@ public class RoulotteController implements Serializable{
         listeOuverturesLaterales.add(ouverture);
         AideDesign aideDesign = new AideDesign(this);
         listeComposantes.add(aideDesign);
-        //listeAidesDesign.add(aideDesign);
+        listeAidesDesign.add(aideDesign);
         Ressorts ressorts = new Ressorts(this);
         listeComposantes.add(ressorts);
+    }
+
+    public void addOuvertureLateral(){
+        OuvertureLaterale ouvertureLaterale = new OuvertureLaterale(this);
+        listeComposantes.add(ouvertureLaterale);
+        listeOuverturesLaterales.add(ouvertureLaterale);
+    }
+
+    public void addAideDesign(){
+        AideDesign aideDesign = new AideDesign(this);
+        listeComposantes.add(aideDesign);
+        listeAidesDesign.add(aideDesign);
     }
 
     public RoulotteController deepCopy(){
