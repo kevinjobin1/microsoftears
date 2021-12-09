@@ -3,6 +3,7 @@ package ca.ulaval.glo2004.gui.panels;
 import ca.ulaval.glo2004.domain.IComposante;
 import ca.ulaval.glo2004.gui.barres.BarreOnglet;
 import ca.ulaval.glo2004.utilitaires.Pouce;
+import ca.ulaval.glo2004.utilitaires.Verification;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -252,31 +253,36 @@ public class PanelInfoHayon extends PanelComposante{
     }
 
     private void epaisseurSpinner1ChangeListener(ChangeEvent e) {
-        int value = (int) ((JSpinner) e.getSource()).getValue();;
-        this.valeurs[0] =  value;
-        updateComposante();
+        int value = (int) ((JSpinner) e.getSource()).getValue();
+        if(Verification.verificationEpaisseurHayon(new Pouce(value,valeurs[1], valeurs[2]))) {
+            this.valeurs[0] = value;
+            updateComposante();
+        }
     }
     private void epaisseurSpinner2ChangeListener(ChangeEvent e) {
         int value = (int) ((JSpinner) e.getSource()).getValue();
-        if (value < this.valeurs[2]){
-            this.valeurs[1] =  value;
+        if(Verification.verificationEpaisseurHayon(new Pouce(valeurs[0],value, valeurs[2]))) {
+            if (value < this.valeurs[2]){
+                this.valeurs[1] =  value;
+            }
+            else if (value >= this.valeurs[2]){
+                this.epaisseurSpinner1.setValue((int) epaisseurSpinner1.getValue() + 1);
+                this.epaisseurSpinner2.setValue(0);
+                this.valeurs[1] = 0;
+            }
+            updateComposante();
         }
-        else if (value >= this.valeurs[2]){
-            this.epaisseurSpinner1.setValue((int) epaisseurSpinner1.getValue() + 1);
-            this.epaisseurSpinner2.setValue(0);
-            this.valeurs[1] = 0;
-        }
-        updateComposante();
     }
     private void epaisseurSpinner3ChangeListener(ChangeEvent e) {
         int value = (int) ((JSpinner) e.getSource()).getValue();
-        if (value > this.valeurs[1]){ // 4/4
-            this.valeurs[2] =  value;
+        if(Verification.verificationEpaisseurHayon(new Pouce(valeurs[0],valeurs[1], value))) {
+            if (value > this.valeurs[1]) { // 4/4
+                this.valeurs[2] = value;
+            } else if (value <= this.valeurs[1]) {
+                this.epaisseurSpinner3.setValue(this.valeurs[2]);
+            }
+            updateComposante();
         }
-        else if (value <= this.valeurs[1]){
-            this.epaisseurSpinner3.setValue(this.valeurs[2]);
-        }
-        updateComposante();
     }
 
     private void poutreSpinner1ChangeListener(ChangeEvent e) {
