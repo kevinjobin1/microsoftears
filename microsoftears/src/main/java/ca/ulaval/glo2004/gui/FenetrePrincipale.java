@@ -16,7 +16,7 @@ public class FenetrePrincipale extends JFrame {
     // Composantes graphiques du Frame
     private JPanel mainPanel, bottomPanel;
     protected BarreBoutons barreBoutons;
-    protected PanelConception panelConception;
+    public PanelConception panelConception;
     protected BarreMenu barreMenu;
     public BarreOnglet barreOnglets;
 
@@ -93,15 +93,16 @@ public class FenetrePrincipale extends JFrame {
                 case TOIT:
                     this.barreOnglets.setSelectedIndex(9);
                     break;
-                case OUVERTURE_LATERALE:
+                case RESSORTS:
                     this.barreOnglets.setSelectedIndex(10);
                     break;
-                case AIDE_DESIGN:
+                case OUVERTURE_LATERALE:
                     this.barreOnglets.setSelectedIndex(11);
                     break;
-                case RESSORTS:
+                case AIDE_DESIGN:
                     this.barreOnglets.setSelectedIndex(12);
                     break;
+
             }
         }
 
