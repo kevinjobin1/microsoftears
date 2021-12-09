@@ -19,6 +19,7 @@ import java.awt.event.ActionListener;
 public class BarreOnglet extends JTabbedPane {
 
     public FenetrePrincipale parent;
+    public PanelInfoAideAuDesign panelInfoAideAuDesign;
 
     public BarreOnglet(FenetrePrincipale parent)
     {
@@ -152,6 +153,8 @@ public class BarreOnglet extends JTabbedPane {
 
     }
 
+    //private PanelComposante panelInfoAideAuDesign(BarreOnglet barreOnglet, IComposante composante) {}
+
     private JPanel creerPanelMesure(){
 
         // Notre panel d'options
@@ -213,6 +216,7 @@ public class BarreOnglet extends JTabbedPane {
     public boolean estImperial(){
         return parent.estImperial();
     }
+
 
 }
 

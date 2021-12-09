@@ -122,6 +122,41 @@ public class BarreOutils extends JToolBar {
             }
         }));
 
+        popup.add(new JMenuItem(new AbstractAction("Aide au design 2", icone) {
+            public void actionPerformed(ActionEvent e) {
+                parent.setActionChoisie(FenetrePrincipale.TypeAction.AJOUT);
+                parent.controller.addAideDesign2();
+                parent.setActionChoisie(FenetrePrincipale.TypeAction.SELECTION);
+                parent.updateBarres();
+            }
+        }));
+
+        /*popup.add(new JMenuItem(new AbstractAction("Aide au design 3", icone) {
+            public void actionPerformed(ActionEvent e) {
+                parent.setActionChoisie(FenetrePrincipale.TypeAction.AJOUT);
+                parent.controller.addAideDesign3();
+                parent.setActionChoisie(FenetrePrincipale.TypeAction.SELECTION);
+                parent.updateBarres();
+            }
+        }));
+
+        popup.add(new JMenuItem(new AbstractAction("Aide au design 4", icone) {
+            public void actionPerformed(ActionEvent e) {
+                parent.setActionChoisie(FenetrePrincipale.TypeAction.AJOUT);
+                parent.controller.addAideDesign4();
+                parent.setActionChoisie(FenetrePrincipale.TypeAction.SELECTION);
+                parent.updateBarres();
+            }
+        }));
+        popup.add(new JMenuItem(new AbstractAction("Aide au design 5", icone) {
+            public void actionPerformed(ActionEvent e) {
+                parent.setActionChoisie(FenetrePrincipale.TypeAction.AJOUT);
+                parent.controller.addAideDesign5();
+                parent.setActionChoisie(FenetrePrincipale.TypeAction.SELECTION);
+                parent.updateBarres();
+            }
+        }));*/
+
         popup.add(new JMenuItem(new AbstractAction("Ouvertures Latérales", icone) {
             public void actionPerformed(ActionEvent e) {
                 parent.setActionChoisie(FenetrePrincipale.TypeAction.AJOUT);
