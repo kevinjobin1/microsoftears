@@ -121,36 +121,26 @@ public class RoulotteController implements Serializable{
         listeAidesDesign.add(aideDesign);
     }
 
-    public void addHayon(){
-        Hayon hayon = new Hayon(this);
-        listeComposantes.add(hayon);
+    public void addAideDesign2(){
+        AideDesign2 aideDesign2 = new AideDesign2(this);
+        listeComposantes.add(aideDesign2);
     }
 
-    public void addPlancher(){
-        Plancher plancher = new Plancher(this);
-        listeComposantes.add(plancher);
+    /*public void addAideDesign3(){
+        AideDesign3 aideDesign3 = new AideDesign2(this);
+        listeComposantes.add(aideDesign3);
     }
 
-    public void addPoutre(){
-        PoutreArriere poutre = new PoutreArriere(this);
-        listeComposantes.add(poutre);
+    public void addAideDesign4(){
+        AideDesign4 aideDesign4 = new AideDesign2(this);
+        listeComposantes.add(aideDesign4);
     }
 
-    public void addMurSeparateur(){
-        MurSeparateur murSeparateur = new MurSeparateur(this);
-        listeComposantes.add(murSeparateur);
-    }
 
-    public void addToit(){
-        Toit toit = new Toit(this);
-        listeComposantes.add(toit);
-    }
-
-    public void addRessort(){
-        Ressorts ressorts = new Ressorts(this);
-        listeComposantes.add(ressorts);
-    }
-
+    public void addAideDesign5(){
+        AideDesign5 aideDesign5 = new AideDesign2(this);
+        listeComposantes.add(aideDesign5);
+    }*/
 
 
 
@@ -441,14 +431,14 @@ public class RoulotteController implements Serializable{
                break;
 
            case AIDE_DESIGN_2:
-               AideDesign aideDesign2 = new AideDesign(this,
+               AideDesign2 aideDesign2 = new AideDesign2(this,
                        new Pouce(valeurs[0], valeurs[1], valeurs[2]),
                        new Pouce(valeurs[3], valeurs[4], valeurs[5]),
                        new PointPouce(
                                new Pouce(valeurs[6], valeurs[7], valeurs[8]),
                                new Pouce(valeurs[9], valeurs[10], valeurs[11])));
                listeComposantes.set(14, aideDesign2);
-               listeAidesDesign.set(1, aideDesign2);
+               //listeAidesDesign.set(1, aideDesign2);
                break;
 
            case AIDE_DESIGN_3:

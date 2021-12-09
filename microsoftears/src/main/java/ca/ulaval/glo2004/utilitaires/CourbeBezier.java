@@ -5,6 +5,8 @@ import ca.ulaval.glo2004.domain.composante.PointControle;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 
 import static ca.ulaval.glo2004.utilitaires.PointPouce.toPointPouce;
@@ -66,6 +68,99 @@ public class CourbeBezier extends Forme {
         return new PointPouce(new Pouce(pointADecaler.getX().toDouble() + (signe * deltaX)),
                 new Pouce(pointADecaler.getY().toDouble() + (signe * deltaY)));
 
+    }
+    @Override
+    public Rectangle getBounds() {
+        // (x0,y0) point de départ; (x1,y1),(x2,y2) points contrôles; (x3,y3) point de fin.
+        double x0=pointsControle.get(0).getX().toDouble(),
+                y0=pointsControle.get(0).getY().toDouble(),
+                x1=pointsControle.get(1).getX().toDouble(),
+                y1=pointsControle.get(1).getY().toDouble(),
+                x2=pointsControle.get(2).getX().toDouble(),
+                y2=pointsControle.get(2).getY().toDouble(),
+                x3=pointsControle.get(3).getX().toDouble(),
+                y3=pointsControle.get(3).getY().toDouble();
+
+        ArrayList<Double> tValues = new ArrayList<>(),
+                xValues = new ArrayList<>(),
+                yValues = new ArrayList<>();
+
+       double a, b, c, t, t1, t2, b2ac, sqrtb2ac;
+        for (int i = 0; i < 2; ++i) {
+            if (i == 0) {
+                b = 6 * x0 - 12 * x1 + 6 * x2;
+                a = -3 * x0 + 9 * x1 - 9 * x2 + 3 * x3;
+                c = 3 * x1 - 3 * x0;
+            } else {
+                b = 6 * y0 - 12 * y1 + 6 * y2;
+                a = -3 * y0 + 9 * y1 - 9 * y2 + 3 * y3;
+                c = 3 * y1 - 3 * y0;
+            }
+            if (Math.abs(a) < 1e-12) {
+                if (Math.abs(b) < 1e-12) {
+                    continue;
+                }
+                t = -c / b;
+                if (0 < t && t < 1) {
+                   tValues.add(t);
+                }
+                continue;
+            }
+            b2ac = b * b - 4 * c * a;
+            if (b2ac < 0) {
+                if (Math.abs(b2ac) < 1e-12) {
+                    t = -b / (2 * a);
+                    if (0 < t && t < 1) {
+                        tValues.add(t);
+                    }
+                }
+                continue;
+            }
+            sqrtb2ac = Math.sqrt(b2ac);
+            t1 = (-b + sqrtb2ac) / (2 * a);
+            if (0 < t1 && t1 < 1) {
+                tValues.add(t1);
+            }
+            t2 = (-b - sqrtb2ac) / (2 * a);
+            if (0 < t2 && t2 < 1) {
+                tValues.add(t2);
+            }
+        }
+
+        int j = tValues.size();
+        double mt;
+        while (j >= 0) {
+            t = tValues.get(j);
+            mt = 1 - t;
+            xValues.set(j, (mt * mt * mt * x0) + (3 * mt * mt * t * x1) + (3 * mt * t * t * x2) + (t * t * t * x3));
+            yValues.set(j, (mt * mt * mt * y0) + (3 * mt * mt * t * y1) + (3 * mt * t * t * y2) + (t * t * t * y3));
+        j--;
+        }
+
+        xValues.add(x0);
+        xValues.add(x3);
+        yValues.add(y0);
+        yValues.add(y3);
+
+        double xMax = Double.MIN_VALUE;
+        double xMin = Double.MAX_VALUE;
+        for (double element : xValues) {
+            xMax = Math.max(xMax, element);
+            xMin = Math.min(xMin, element);
+        }
+
+        double yMax = Double.MIN_VALUE;
+        double yMin = Double.MAX_VALUE;
+        for (double element : yValues) {
+            yMax = Math.max(yMax, element);
+            yMin = Math.min(yMin, element);
+        }
+
+        Pouce longueur = new Pouce(xMax - xMin);
+        Pouce hauteur = new Pouce(yMax - yMin);
+        PointPouce centre = new PointPouce(longueur.diviser(2), hauteur.diviser(2));
+
+        return new Rectangle(longueur, hauteur, centre);
     }
 
     public void calculerBezierCubique(LinkedList<PointPouce> pointsCourbe, Point2D p0, Point2D p1, Point2D p2, Point2D p3) {

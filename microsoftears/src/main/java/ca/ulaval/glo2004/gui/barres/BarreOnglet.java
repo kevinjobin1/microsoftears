@@ -19,6 +19,7 @@ import java.awt.event.ActionListener;
 public class BarreOnglet extends JTabbedPane {
 
     public FenetrePrincipale parent;
+    public PanelInfoAideAuDesign panelInfoAideAuDesign;
 
     public BarreOnglet(FenetrePrincipale parent)
     {
@@ -110,6 +111,9 @@ public class BarreOnglet extends JTabbedPane {
             if (composante.toString().equals("Ouverture latérale")) {
                 contour = new PanelInfoOuvertureLaterales(this, composante);
             }
+       if (composante.toString().equals("Ouverture latérale 2")) {
+           contour = new PanelInfoOuvertureLaterales(this, composante);
+       }
             if (composante.toString().equals("Toit")) {
                 contour = new PanelInfoToit(this, composante);
             }
@@ -119,6 +123,18 @@ public class BarreOnglet extends JTabbedPane {
             if (composante.toString().equals("Aide au design")) {
                 contour = new PanelInfoAideAuDesign(this, composante);
             }
+       if (composante.toString().equals("Aide au design 2")) {
+           contour = new PanelInfoAideAuDesign(this, composante);
+       }
+       if (composante.toString().equals("Aide au design 3")) {
+           contour = new PanelInfoAideAuDesign(this, composante);
+       }
+       if (composante.toString().equals("Aide au design 4")) {
+           contour = new PanelInfoAideAuDesign(this, composante);
+       }
+       if (composante.toString().equals("Aide au design 5")) {
+           contour = new PanelInfoAideAuDesign(this, composante);
+       }
             if (composante.toString().equals("Ressorts")){
                 contour = new PanelInfoRessorts(this, composante);
             }
@@ -136,6 +152,8 @@ public class BarreOnglet extends JTabbedPane {
        return tabPanel;
 
     }
+
+    //private PanelComposante panelInfoAideAuDesign(BarreOnglet barreOnglet, IComposante composante) {}
 
     private JPanel creerPanelMesure(){
 
@@ -198,6 +216,7 @@ public class BarreOnglet extends JTabbedPane {
     public boolean estImperial(){
         return parent.estImperial();
     }
+
 
 }
 

@@ -122,6 +122,41 @@ public class BarreOutils extends JToolBar {
             }
         }));
 
+        popup.add(new JMenuItem(new AbstractAction("Aide au design 2", icone) {
+            public void actionPerformed(ActionEvent e) {
+                parent.setActionChoisie(FenetrePrincipale.TypeAction.AJOUT);
+                parent.controller.addAideDesign2();
+                parent.setActionChoisie(FenetrePrincipale.TypeAction.SELECTION);
+                parent.updateBarres();
+            }
+        }));
+
+        /*popup.add(new JMenuItem(new AbstractAction("Aide au design 3", icone) {
+            public void actionPerformed(ActionEvent e) {
+                parent.setActionChoisie(FenetrePrincipale.TypeAction.AJOUT);
+                parent.controller.addAideDesign3();
+                parent.setActionChoisie(FenetrePrincipale.TypeAction.SELECTION);
+                parent.updateBarres();
+            }
+        }));
+
+        popup.add(new JMenuItem(new AbstractAction("Aide au design 4", icone) {
+            public void actionPerformed(ActionEvent e) {
+                parent.setActionChoisie(FenetrePrincipale.TypeAction.AJOUT);
+                parent.controller.addAideDesign4();
+                parent.setActionChoisie(FenetrePrincipale.TypeAction.SELECTION);
+                parent.updateBarres();
+            }
+        }));
+        popup.add(new JMenuItem(new AbstractAction("Aide au design 5", icone) {
+            public void actionPerformed(ActionEvent e) {
+                parent.setActionChoisie(FenetrePrincipale.TypeAction.AJOUT);
+                parent.controller.addAideDesign5();
+                parent.setActionChoisie(FenetrePrincipale.TypeAction.SELECTION);
+                parent.updateBarres();
+            }
+        }));*/
+
         popup.add(new JMenuItem(new AbstractAction("Ouvertures Latérales", icone) {
             public void actionPerformed(ActionEvent e) {
                 parent.setActionChoisie(FenetrePrincipale.TypeAction.AJOUT);
@@ -130,60 +165,6 @@ public class BarreOutils extends JToolBar {
                 parent.updateBarres();
             }
         }));
-
-        popup.add(new JMenuItem((new AbstractAction("Toit", icone) {
-            public void actionPerformed(ActionEvent e) {
-                parent.setActionChoisie(FenetrePrincipale.TypeAction.AJOUT);
-                parent.controller.addToit();
-                parent.setActionChoisie(FenetrePrincipale.TypeAction.SELECTION);
-                parent.updateBarres();
-            }
-        })));
-
-        popup.add(new JMenuItem((new AbstractAction("Hayon", icone) {
-            public void actionPerformed(ActionEvent e) {
-                parent.setActionChoisie(FenetrePrincipale.TypeAction.AJOUT);
-                parent.controller.addHayon();
-                parent.setActionChoisie(FenetrePrincipale.TypeAction.SELECTION);
-                parent.updateBarres();
-            }
-        })));
-
-        popup.add(new JMenuItem((new AbstractAction("Ressort", icone) {
-            public void actionPerformed(ActionEvent e) {
-                parent.setActionChoisie(FenetrePrincipale.TypeAction.AJOUT);
-                parent.controller.addRessort();
-                parent.setActionChoisie(FenetrePrincipale.TypeAction.SELECTION);
-                parent.updateBarres();
-            }
-        })));
-
-        popup.add(new JMenuItem((new AbstractAction("Mur séparateur", icone) {
-            public void actionPerformed(ActionEvent e) {
-                parent.setActionChoisie(FenetrePrincipale.TypeAction.AJOUT);
-                parent.controller.addMurSeparateur();
-                parent.setActionChoisie(FenetrePrincipale.TypeAction.SELECTION);
-                parent.updateBarres();
-            }
-        })));
-
-        popup.add(new JMenuItem((new AbstractAction("Plancher", icone) {
-            public void actionPerformed(ActionEvent e) {
-                parent.setActionChoisie(FenetrePrincipale.TypeAction.AJOUT);
-                parent.controller.addPlancher();
-                parent.setActionChoisie(FenetrePrincipale.TypeAction.SELECTION);
-                parent.updateBarres();
-            }
-        })));
-
-        popup.add(new JMenuItem((new AbstractAction("Poutre", icone) {
-            public void actionPerformed(ActionEvent e) {
-                parent.setActionChoisie(FenetrePrincipale.TypeAction.AJOUT);
-                parent.controller.addPoutre();
-                parent.setActionChoisie(FenetrePrincipale.TypeAction.SELECTION);
-                parent.updateBarres();
-            }
-        })));
 
         return popup;
     }

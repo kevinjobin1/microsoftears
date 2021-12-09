@@ -285,6 +285,8 @@ public class MurProfile extends Composante{
 
     private LinkedList<PointPouce> listePointsModeBezier() {
         profilBezier.updatePointsControles();
+        List<PointPouce> pointsMur = parent.getListeComposantes().get(0).getPolygone().getListePoints();
+        LinkedList<PointPouce> pointsBezier = profilBezier.getPolygone().getListePoints();
         return profilBezier.getPolygone().getListePoints();
     }
 
