@@ -5,10 +5,14 @@ import ca.ulaval.glo2004.gui.FenetrePrincipale;
 import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Pouce;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.geom.Point2D;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class RoulotteController implements Serializable{
     private Grille grille;
@@ -116,6 +120,55 @@ public class RoulotteController implements Serializable{
         listeComposantes.add(aideDesign);
         listeAidesDesign.add(aideDesign);
     }
+
+    public void addHayon(){
+        Hayon hayon = new Hayon(this);
+        listeComposantes.add(hayon);
+    }
+
+    public void addPlancher(){
+        Plancher plancher = new Plancher(this);
+        listeComposantes.add(plancher);
+    }
+
+    public void addPoutre(){
+        PoutreArriere poutre = new PoutreArriere(this);
+        listeComposantes.add(poutre);
+    }
+
+    public void addMurSeparateur(){
+        MurSeparateur murSeparateur = new MurSeparateur(this);
+        listeComposantes.add(murSeparateur);
+    }
+
+    public void addToit(){
+        Toit toit = new Toit(this);
+        listeComposantes.add(toit);
+    }
+
+    public void addRessort(){
+        Ressorts ressorts = new Ressorts(this);
+        listeComposantes.add(ressorts);
+    }
+
+
+    /**
+     * TODO : - apres avoir trouver une facon de differencier les ouvertures laterales
+     *        - utilise pour enlever les ouvertures laterales
+     */
+    public void removeOuvertureLateral(){
+        //if (getComposanteChoisie().equals(OuvertureLaterale)) {
+            //listeComposantes.remove()
+        //}
+    }
+
+    /**
+     * TODO: - trouver comment differencier aide design
+     *       - utilise pour enlever les aides au design
+     */
+    public void removeAideDesign(){}
+
+
 
     public RoulotteController deepCopy(){
         RoulotteController copy = null;
@@ -310,6 +363,11 @@ public class RoulotteController implements Serializable{
                listeComposantes.set(10, toit);
                break;
 
+           case RESSORTS:
+               Ressorts ressorts = new Ressorts(this,valeurs[0]);
+               listeComposantes.set(11,ressorts);
+               break;
+
            case OUVERTURE_LATERALE:
                OuvertureLaterale ouvertureLaterale = new OuvertureLaterale( this,
                        new Pouce(valeurs[0], valeurs[1], valeurs[2]),
@@ -318,7 +376,7 @@ public class RoulotteController implements Serializable{
                                new Pouce(valeurs[6], valeurs[7], valeurs[8]),
                                new Pouce(valeurs[9], valeurs[10], valeurs[11])),
                        new Pouce(valeurs[12], valeurs[13], valeurs[14]));
-               listeComposantes.set(11, ouvertureLaterale);
+               listeComposantes.set(12, ouvertureLaterale);
                listeOuverturesLaterales.set(0, ouvertureLaterale);
                break;
 
@@ -329,13 +387,8 @@ public class RoulotteController implements Serializable{
                        new PointPouce(
                                new Pouce(valeurs[6], valeurs[7], valeurs[8]),
                                new Pouce(valeurs[9], valeurs[10], valeurs[11])));
-               listeComposantes.set(12, aideDesign);
+               listeComposantes.set(13, aideDesign);
                listeAidesDesign.set(0, aideDesign);
-               break;
-
-           case RESSORTS:
-               Ressorts ressorts = new Ressorts(this,valeurs[0]);
-               listeComposantes.set(13,ressorts);
                break;
        }
     }
@@ -556,12 +609,13 @@ public class RoulotteController implements Serializable{
               return 9;
           case TOIT:
               return 10;
-          case OUVERTURE_LATERALE:
-              return 11;
-          case AIDE_DESIGN:
-              return 12;
           case RESSORTS:
+              return 11;
+          case OUVERTURE_LATERALE:
+              return 12;
+          case AIDE_DESIGN:
               return 13;
+
       }
       // si aucune composante n'est trouvée, retourne -1
       return -1;

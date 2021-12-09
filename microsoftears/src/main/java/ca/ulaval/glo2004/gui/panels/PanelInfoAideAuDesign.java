@@ -214,6 +214,7 @@ public class PanelInfoAideAuDesign extends PanelComposante {
         });
 
     }
+
     private void largeurSpinner1ChangeListener(ChangeEvent e) {
         int value = (int) ((JSpinner) e.getSource()).getValue();;
         this.valeurs[3] =  value;
@@ -358,6 +359,7 @@ public class PanelInfoAideAuDesign extends PanelComposante {
         valeurs[11] = pouces.getDenominateur();
         updateComposante();
     }
+
     private JButton creerButton(String string, int x, int y){
         GridBagConstraints c = new GridBagConstraints();
         JButton bouton = new JButton(string);
