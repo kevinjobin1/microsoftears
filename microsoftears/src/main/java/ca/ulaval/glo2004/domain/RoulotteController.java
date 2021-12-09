@@ -152,21 +152,56 @@ public class RoulotteController implements Serializable{
     }
 
 
+
+
     /**
      * TODO : - apres avoir trouver une facon de differencier les ouvertures laterales
      *        - utilise pour enlever les ouvertures laterales
      */
     public void removeOuvertureLateral(){
-        //if (getComposanteChoisie().equals(OuvertureLaterale)) {
-            //listeComposantes.remove()
-        //}
+        int indexOuvertureLateral = getIndexComposante(TypeComposante.OUVERTURE_LATERALE);
+        if (indexOuvertureLateral == 12){
+            listeOuverturesLaterales.remove(0);
+            listeComposantes.remove(12);
+        }
+        int indexOuvertureLateral2 = getIndexComposante(TypeComposante.OUVERTURE_LATERALE_2);
+        if(indexOuvertureLateral2 == 18 ){
+            listeComposantes.remove(18);
+            listeOuverturesLaterales.remove(1);
+        }
     }
 
     /**
      * TODO: - trouver comment differencier aide design
      *       - utilise pour enlever les aides au design
      */
-    public void removeAideDesign(){}
+    public void removeAideDesign(){
+        int indexAD = getIndexComposante(TypeComposante.AIDE_DESIGN);
+        if (indexAD== 13){
+            listeOuverturesLaterales.remove(0);
+            listeComposantes.remove(13);
+        }
+        int indexAD2 = getIndexComposante(TypeComposante.AIDE_DESIGN_2);
+        if (indexAD2 == 14){
+            listeOuverturesLaterales.remove(1);
+            listeComposantes.remove(14);
+        }
+        int indexAD3 = getIndexComposante(TypeComposante.AIDE_DESIGN_3);
+        if (indexAD3 == 15){
+            listeOuverturesLaterales.remove(2);
+            listeComposantes.remove(15);
+        }
+        int indexAD4 = getIndexComposante(TypeComposante.AIDE_DESIGN_4);
+        if (indexAD4 == 16){
+            listeOuverturesLaterales.remove(3);
+            listeComposantes.remove(16);
+        }
+        int indexAD5 = getIndexComposante(TypeComposante.AIDE_DESIGN_4);
+        if (indexAD5 == 17){
+            listeOuverturesLaterales.remove(4);
+            listeComposantes.remove(17);
+        }
+    }
 
 
 
