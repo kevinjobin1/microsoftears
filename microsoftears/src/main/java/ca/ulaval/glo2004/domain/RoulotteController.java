@@ -117,6 +117,55 @@ public class RoulotteController implements Serializable{
         listeAidesDesign.add(aideDesign);
     }
 
+    public void addHayon(){
+        Hayon hayon = new Hayon(this);
+        listeComposantes.add(hayon);
+    }
+
+    public void addPlancher(){
+        Plancher plancher = new Plancher(this);
+        listeComposantes.add(plancher);
+    }
+
+    public void addPoutre(){
+        PoutreArriere poutre = new PoutreArriere(this);
+        listeComposantes.add(poutre);
+    }
+
+    public void addMurSeparateur(){
+        MurSeparateur murSeparateur = new MurSeparateur(this);
+        listeComposantes.add(murSeparateur);
+    }
+
+    public void addToit(){
+        Toit toit = new Toit(this);
+        listeComposantes.add(toit);
+    }
+
+    public void addRessort(){
+        Ressorts ressorts = new Ressorts(this);
+        listeComposantes.add(ressorts);
+    }
+
+
+    /**
+     * TODO : - apres avoir trouver une facon de differencier les ouvertures laterales
+     *        - utilise pour enlever les ouvertures laterales
+     */
+    public void removeOuvertureLateral(){
+        //if (getComposanteChoisie().equals(OuvertureLaterale)) {
+            //listeComposantes.remove()
+        //}
+    }
+
+    /**
+     * TODO: - trouver comment differencier aide design
+     *       - utilise pour enlever les aides au design
+     */
+    public void removeAideDesign(){}
+
+
+
     public RoulotteController deepCopy(){
         RoulotteController copy = null;
         ObjectOutputStream oos = null;
