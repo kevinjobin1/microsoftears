@@ -6,7 +6,7 @@ import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Pouce;
 import ca.ulaval.glo2004.utilitaires.RectangleCoinRond;
 
-public class AideDesign extends Composante{
+public class AideDesign2 extends Composante{
 
     private Pouce longueur;
     private Pouce largeur;
@@ -14,17 +14,17 @@ public class AideDesign extends Composante{
     private RectangleCoinRond rectangle;
 
 
-    public AideDesign(RoulotteController parent, Pouce longueur, Pouce largeur, PointPouce centre) {
+    public AideDesign2(RoulotteController parent, Pouce longueur, Pouce largeur, PointPouce centre) {
         super(parent);
         this.longueur = longueur;
         this.largeur = largeur;
         this.centre = centre;
         this.rectangle = new RectangleCoinRond(longueur,largeur, centre, new Pouce(4.75));
-        this.setType(TypeComposante.AIDE_DESIGN);
+        this.setType(TypeComposante.AIDE_DESIGN_2);
         this.setPolygone(rectangle.getPolygone());
     }
 
-    public AideDesign(RoulotteController parent) {
+    public AideDesign2(RoulotteController parent) {
         super(parent);
         this.longueur = new Pouce(10,0,1);
         this.largeur = new Pouce(10,0,1);
@@ -33,11 +33,9 @@ public class AideDesign extends Composante{
         this.centre = new PointPouce(centreX, centreY);
         //this.centre = parent.getListeComposantes().get(0).getCentre();
         this.rectangle = new RectangleCoinRond(longueur, largeur, centre, new Pouce(4.75));
-        this.setType(TypeComposante.AIDE_DESIGN);
+        this.setType(TypeComposante.AIDE_DESIGN_2);
         this.setPolygone(rectangle.getPolygone());
     }
-
-    //private void initialiserAideDesign(){}
 
     public Pouce getLongueur() {
         return longueur;
@@ -47,24 +45,30 @@ public class AideDesign extends Composante{
         this.longueur = longueur;
     }
 
-    public Pouce getLargeur() {
-        return largeur;
-    }
-
-    public void setLargeur(Pouce largeur) {
-        this.largeur = largeur;
-    }
-
     public PointPouce getCentre() {
         return centre;
     }
 
     @Override
+    public String[] getNomsAttributs() {
+        return new String[]{"Longueur", "Largeur", "CentreX", "CentreY"};
+    }
+
+    @Override
+    public boolean[] getModes() {
+        return new boolean[]{};
+    }
+
+    public void setCentre() {
+       this.centre = centre;
+    }
+
+    @Override
     public int[] getValeurs() {
-        return new int[]{longueur.getPouces(), longueur.getNumerateur(), longueur.getDenominateur(),
-                largeur.getPouces(), largeur.getNumerateur(), largeur.getDenominateur(),
-                centre.getX().getPouces(), centre.getX().getNumerateur(), centre.getX().getDenominateur(),
-                centre.getY().getPouces(), centre.getY().getNumerateur(), centre.getY().getDenominateur()};
+       return new int[]{longueur.getPouces(), longueur.getNumerateur(), longueur.getDenominateur(),
+               largeur.getPouces(), largeur.getNumerateur(), largeur.getDenominateur(),
+               centre.getX().getPouces(), centre.getX().getNumerateur(), centre.getX().getDenominateur(),
+               centre.getY().getPouces(), centre.getY().getNumerateur(), centre.getY().getDenominateur()};
     }
 
     @Override
@@ -82,19 +86,5 @@ public class AideDesign extends Composante{
         this.centre = pointGrille;
         this.rectangle = new RectangleCoinRond(this.longueur,this.largeur, this.centre, new Pouce(4.75));
         this.setPolygone(rectangle.getPolygone());
-    }
-
-    @Override
-    public String[] getNomsAttributs() {
-        return new String[]{"Longueur", "Largeur", "CentreX", "CentreY"};
-    }
-
-    @Override
-    public boolean[] getModes(){
-        return new boolean[]{};
-    }
-
-    public void setCentre(PointPouce centre) {
-        this.centre = centre;
     }
 }

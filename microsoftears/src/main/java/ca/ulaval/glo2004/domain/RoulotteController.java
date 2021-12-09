@@ -121,7 +121,8 @@ public class RoulotteController implements Serializable{
         listeAidesDesign.add(aideDesign);
     }
 
-    public void addHayon(){
+
+    /*public void addHayon(){
         Hayon hayon = new Hayon(this);
         listeComposantes.add(hayon);
     }
@@ -149,7 +150,7 @@ public class RoulotteController implements Serializable{
     public void addRessort(){
         Ressorts ressorts = new Ressorts(this);
         listeComposantes.add(ressorts);
-    }
+    }*/
 
 
 

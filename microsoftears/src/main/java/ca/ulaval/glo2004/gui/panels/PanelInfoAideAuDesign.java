@@ -288,6 +288,7 @@ public class PanelInfoAideAuDesign extends PanelComposante {
         }
         updateComposante();
     }
+
     private void centreXSpinner3ChangeListener(ChangeEvent e) {
         int value = (int) ((JSpinner) e.getSource()).getValue();
         if (value > this.valeurs[7]){ // 4/4
@@ -304,6 +305,7 @@ public class PanelInfoAideAuDesign extends PanelComposante {
         this.valeurs[9] =  value;
         updateComposante();
     }
+
     private void centreYSpinner2ChangeListener(ChangeEvent e) {
         int value = (int) ((JSpinner) e.getSource()).getValue();
         if (value < this.valeurs[11]){
