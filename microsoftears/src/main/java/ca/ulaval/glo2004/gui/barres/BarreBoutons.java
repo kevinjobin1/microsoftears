@@ -1,6 +1,7 @@
 package ca.ulaval.glo2004.gui.barres;
 
 import ca.ulaval.glo2004.gui.FenetrePrincipale;
+import ca.ulaval.glo2004.gui.actions.ExporterProjet;
 import ca.ulaval.glo2004.utilitaires.Pouce;
 import org.kordamp.ikonli.bootstrapicons.BootstrapIcons;
 import org.kordamp.ikonli.swing.FontIcon;
@@ -112,11 +113,7 @@ public class BarreBoutons extends JPanel {
         });
 
         // ==== Bouton exporter un projet  =======
-        exportButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                exportButtonActionPerformed(e);
-            }
-        });
+        exportButton.addActionListener(new ExporterProjet(parent));
 
         // ==== Afficher/masquer les labels des noms de composantes  =======
         afficherLabelCheckBox.addActionListener(new ActionListener() {

@@ -5,10 +5,14 @@ import ca.ulaval.glo2004.gui.FenetrePrincipale;
 import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Pouce;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.geom.Point2D;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class RoulotteController implements Serializable{
     private Grille grille;
@@ -99,10 +103,10 @@ public class RoulotteController implements Serializable{
         listeComposantes.add(ressorts);
         OuvertureLaterale ouverture = new OuvertureLaterale(this);
         listeComposantes.add(ouverture);
-        listeOuverturesLaterales.add(ouverture);
+        //listeOuverturesLaterales.add(ouverture);
         AideDesign aideDesign = new AideDesign(this);
         listeComposantes.add(aideDesign);
-        listeAidesDesign.add(aideDesign);
+        //listeAidesDesign.add(aideDesign);
     }
 
     public void addOuvertureLateral(){
@@ -359,6 +363,11 @@ public class RoulotteController implements Serializable{
                listeComposantes.set(10, toit);
                break;
 
+           case RESSORTS:
+               Ressorts ressorts = new Ressorts(this,valeurs[0]);
+               listeComposantes.set(11,ressorts);
+               break;
+
            case OUVERTURE_LATERALE:
                OuvertureLaterale ouvertureLaterale = new OuvertureLaterale( this,
                        new Pouce(valeurs[0], valeurs[1], valeurs[2]),
@@ -367,7 +376,7 @@ public class RoulotteController implements Serializable{
                                new Pouce(valeurs[6], valeurs[7], valeurs[8]),
                                new Pouce(valeurs[9], valeurs[10], valeurs[11])),
                        new Pouce(valeurs[12], valeurs[13], valeurs[14]));
-               listeComposantes.set(11, ouvertureLaterale);
+               listeComposantes.set(12, ouvertureLaterale);
                listeOuverturesLaterales.set(0, ouvertureLaterale);
                break;
 
@@ -378,13 +387,8 @@ public class RoulotteController implements Serializable{
                        new PointPouce(
                                new Pouce(valeurs[6], valeurs[7], valeurs[8]),
                                new Pouce(valeurs[9], valeurs[10], valeurs[11])));
-               listeComposantes.set(12, aideDesign);
+               listeComposantes.set(13, aideDesign);
                listeAidesDesign.set(0, aideDesign);
-               break;
-
-           case RESSORTS:
-               Ressorts ressorts = new Ressorts(this,valeurs[0]);
-               listeComposantes.set(13,ressorts);
                break;
        }
     }
@@ -605,12 +609,13 @@ public class RoulotteController implements Serializable{
               return 9;
           case TOIT:
               return 10;
-          case OUVERTURE_LATERALE:
-              return 11;
-          case AIDE_DESIGN:
-              return 12;
           case RESSORTS:
+              return 11;
+          case OUVERTURE_LATERALE:
+              return 12;
+          case AIDE_DESIGN:
               return 13;
+
       }
       // si aucune composante n'est trouvée, retourne -1
       return -1;

@@ -8,7 +8,8 @@ public class Pouce implements Serializable
     private int numerateur;
     private int denominateur;
     private double milimetres;
-    private final double MM_PAR_POUCE = 25.4;
+    public static final double MM_PAR_POUCE = 25.4;
+    public static final double KG_TO_LBS = 2.20462;
     private static final int PRECISION_POUCE = 64;
 
     /**

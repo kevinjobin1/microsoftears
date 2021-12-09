@@ -80,7 +80,6 @@ public class RectangleCoinRond extends Forme {
 
 
         if (angle != 0){
-            System.out.println("Angle != 0");
             PointPouce point;
             double x,y,nouveauX, nouveauY;
             double decalageX = getCentre().getX().toDouble();
@@ -88,14 +87,12 @@ public class RectangleCoinRond extends Forme {
 
             for (int i = 0; i < listePoints.size(); i++){
                 point = listePoints.get(i);
-                System.out.println("Ancien point: " + point);
                 // position en x,y devient (𝑥cos𝜃−𝑦sin𝜃 ,𝑥sin𝜃+𝑦cos𝜃) ou l'angle est en Rad
                 // et le point doit être centré à l'origine
                 x = point.getX().toDouble() - decalageX;
                 y = point.getY().toDouble() - decalageY;
                 nouveauX = x * Math.cos(angle) - y * -Math.sin(angle);
                 nouveauY = x * -Math.sin(angle) - y * Math.cos(angle);
-                System.out.println("Ancien point: " + "(" + new Pouce(nouveauX + decalageX) + "," + new Pouce(nouveauY + decalageY) + ")");
                 listePoints.set(i, new PointPouce(new Pouce(nouveauX + decalageX), new Pouce(nouveauY +decalageY)));
             }
         }

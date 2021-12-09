@@ -19,21 +19,8 @@ public class MurBrute extends Composante{
 
     public MurBrute(RoulotteController parent, Pouce longueur, Pouce largeur, PointPouce centre) {
         super(parent);
-        if (verificationLargeur(largeur)){
-            this.largeur = largeur;
-        }
-        else{
-            System.out.println("ERREUR LARGEUR MUR BRUTE");
-            this.largeur = longueur;
-        }
-        if (verificationLongueur(longueur)){
+        this.largeur = largeur;
         this.longueur = longueur;
-        }
-        else {
-            System.out.println("ERREUR LONGUEUR MUR BRUTE");
-            this.longueur = longueur;
-        }
-
         this.centre = centre;
         this.rectangle = new Rectangle(this.longueur,this.largeur,this.centre);
         this.setCouleurInitiale(new Color(200,200,200));
@@ -59,14 +46,6 @@ public class MurBrute extends Composante{
     @Override
     public PointPouce getCentre() {
         return this.centre;
-    }
-
-    public boolean verificationLongueur(Pouce valeur){
-        return valeur.ste(new Pouce(96,0,1)) && valeur.gt(new Pouce(0,0,1));
-    }
-
-    public boolean verificationLargeur(Pouce valeur){
-        return valeur.ste(new Pouce(48,0,1)) && valeur.gt(new Pouce(0,0,1));
     }
 
     public Pouce getLongueur() {
@@ -123,15 +102,6 @@ public class MurBrute extends Composante{
     @Override
     public boolean[] getModes(){
         return new boolean[]{};
-    }
-
-    @Override
-    public Pouce[] getLimit() {
-        Pouce maxLongueur = new Pouce(96,0,1);
-        Pouce minLongueur = new Pouce(0,1,64);
-        Pouce maxLargeur = new Pouce(48,0,1);
-        Pouce minLargeur = new Pouce(0,1,64);
-        return new Pouce[] {maxLongueur, minLongueur, maxLargeur, minLargeur};
     }
 
     public void setCentre(PointPouce centre) {

@@ -94,5 +94,8 @@ public class RoulotteAfficheur
         g2d.drawImage(image, posX, posY, largeur, hauteur, null);
     }
 
+
+    public void creerPlans(Graphics2D g2d) {
+    }
 }
 

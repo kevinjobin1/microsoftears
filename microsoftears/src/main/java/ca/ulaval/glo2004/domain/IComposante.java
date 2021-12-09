@@ -9,5 +9,4 @@ public interface IComposante {
     public String[] getNomsAttributs();
     public boolean estVisible();
     public boolean[] getModes();
-    public Pouce[] getLimit();
 }

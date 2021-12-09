@@ -2,21 +2,29 @@ package ca.ulaval.glo2004.gui.afficheur;
 
 import ca.ulaval.glo2004.domain.drawing.RoulotteAfficheur;
 import ca.ulaval.glo2004.gui.FenetrePrincipale;
-import ca.ulaval.glo2004.gui.FenetrePrincipale;
-import ca.ulaval.glo2004.utilitaires.PointPouce;
+import org.w3c.dom.DOMImplementation;
+import org.w3c.dom.Document;
 
 import java.awt.*;
-import java.awt.event.*;
-import java.awt.geom.AffineTransform;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class PanneauAffichage extends JPanel implements Serializable {
 
     protected final FenetrePrincipale parent;
+    protected RoulotteAfficheur afficheurRoulotte;
 
     public PanneauAffichage(FenetrePrincipale parent) {
         this.parent = parent;
+        this.afficheurRoulotte = new RoulotteAfficheur(parent.controller, this.getSize());
         setVisible(true);
         this.setBackground(Color.DARK_GRAY);
     }
@@ -26,7 +34,7 @@ public class PanneauAffichage extends JPanel implements Serializable {
     {
         if (parent != null){
             super.paintComponent(g);
-            RoulotteAfficheur afficheurRoulotte = new RoulotteAfficheur(parent.controller, this.getSize());
+            afficheurRoulotte = new RoulotteAfficheur(parent.controller, this.getSize());
             Graphics2D g2d = (Graphics2D) g;
             afficheurRoulotte.afficher(g2d);
             this.setAntiAlias(g2d, true);
@@ -47,6 +55,21 @@ public class PanneauAffichage extends JPanel implements Serializable {
             // On applique le render à notre objet Graphics2d
             renderHints.put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
             g2d.setRenderingHints(renderHints);
+    }
+
+    public void exporter(String nomFichier) {
+        BufferedImage image = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
+        afficheurRoulotte = new RoulotteAfficheur(parent.controller, this.getSize());
+        Graphics2D g2d = image.createGraphics();
+        afficheurRoulotte.afficher(g2d);
+        this.setAntiAlias(g2d, true);
+        g2d.dispose();
+        File outputfile = new File(nomFichier);
+        try {
+            ImageIO.write(image, "jpg", outputfile);
+        } catch (IOException ex) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

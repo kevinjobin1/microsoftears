@@ -9,8 +9,11 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 
+import static ca.ulaval.glo2004.utilitaires.Pouce.KG_TO_LBS;
+import static ca.ulaval.glo2004.utilitaires.Pouce.MM_PAR_POUCE;
+
 public class PanelInfoRessorts extends PanelComposante{
-    private JSpinner poidsHayonSpinner;
+    private JSpinner poidsHayonSpinner, poidsKgHayonSpinner;
     private JTextField
             forceTextField,
             longueurExactExtensionTextField;
@@ -25,25 +28,57 @@ public class PanelInfoRessorts extends PanelComposante{
             creerLabelAttributMM(attributs[i] + " : ", i);
         }
 
-        this.poidsHayonSpinner = creerSpinnerPoids(valeurs[0], 0);
-        forceTextField = creerTextFieldReadOnly(1, valeurs[1], " lbs ");
-        longueurExactExtensionTextField = creerTextFieldReadOnly(2, valeurs[2], " \" ");
-        poidsHayonSpinner.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                poidsHayonSpinnerChangeListener(e);
-            }
-        });
+        if (parent.estImperial()){
+        this.poidsHayonSpinner = creerSpinnerPoids(valeurs[0], 0, " lbs ");
+        this.forceTextField = creerTextFieldReadOnly(1, valeurs[1], " lbs ");
+        this.longueurExactExtensionTextField = creerTextFieldReadOnly(2, valeurs[2], " \" ");
+            poidsHayonSpinner.addChangeListener(new ChangeListener() {
+                @Override
+                public void stateChanged(ChangeEvent e) {
+                    poidsHayonSpinnerChangeListener(e);
+                }
+            });
+        }
+        else{
+            double poidsKg = valeurs[0]/KG_TO_LBS;
+            double forceKg = valeurs[1]/KG_TO_LBS;
+            double longueurMM = valeurs[2] * MM_PAR_POUCE;
+        this.poidsKgHayonSpinner = creerSpinnerPoids((int) poidsKg, 0, " kg ");
+        this.forceTextField = creerTextFieldReadOnly(1, (int) forceKg, " kg ");
+        this.longueurExactExtensionTextField = creerTextFieldReadOnly(2, (int) longueurMM, " mm ");
+            poidsKgHayonSpinner.addChangeListener(new ChangeListener() {
+                @Override
+                public void stateChanged(ChangeEvent e) {
+                    poidsKgHayonSpinnerChangeListener(e);
+                }
+            });
+
+        }
+
+
+    }
+
+    private void poidsKgHayonSpinnerChangeListener(ChangeEvent e) {
+        System.out.println("EVENT KG");
+
+        JSpinner spinner = (JSpinner) e.getSource();
+        int valeur = (int) spinner.getValue();
+        valeurs[0] = (int) (valeur * KG_TO_LBS);
+
+        updateComposante();
     }
 
     private void poidsHayonSpinnerChangeListener(ChangeEvent e) {
+        System.out.println("EVENT LBS");
+
         JSpinner spinner = (JSpinner) e.getSource();
         int valeur = (int) spinner.getValue();
+
         valeurs[0] = valeur;
         updateComposante();
     }
 
-    private JSpinner creerSpinnerPoids(int value, int posY){
+    private JSpinner creerSpinnerPoids(int value, int posY, String symbole){
         GridBagConstraints c = new GridBagConstraints();
         JSpinner spinner;
         spinner = new JSpinner(new SpinnerNumberModel(value,0,10000,1));
@@ -53,7 +88,7 @@ public class PanelInfoRessorts extends PanelComposante{
         c.weightx = 0.5;
         c.insets = new Insets(10,5,10, 5);
         this.add(spinner, c);
-        creerLabelSymbole(" lbs ", 2, posY);
+        creerLabelSymbole(symbole, 2, posY);
         return spinner;
     }
 
