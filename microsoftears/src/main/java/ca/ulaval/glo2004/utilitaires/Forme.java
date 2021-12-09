@@ -4,9 +4,10 @@ import java.awt.geom.Point2D;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 public abstract class Forme implements Serializable {
-    protected static int NOMBRE_POINTS = 300;
+    protected static int NOMBRE_POINTS = 600;
     protected static double FACTEUR_DEGREE = 90 / Math.PI;
     private Pouce longueur;
     private Pouce hauteur;
@@ -56,7 +57,11 @@ public abstract class Forme implements Serializable {
         return new Polygone(getListePoints());
     }
 
-    protected Point2D[] calculerCoinsArrondis(Point2D coin, Point2D p1, Point2D p2, double rayon)
+    public Rectangle getBounds(){
+        return new Rectangle(longueur, hauteur, centre);
+    }
+
+    public static Point2D[] calculerCoinsArrondis(Point2D coin, Point2D p1, Point2D p2, double rayon)
     {
         //Vecteur 1
         double dx1 = coin.getX() - p1.getX();
@@ -122,7 +127,7 @@ public abstract class Forme implements Serializable {
 
     }
 
-    private Point2D[] calculerPointsArc(double angleArc, Point2D pointCercle, double rayon, double angleDebut){
+    private static Point2D[] calculerPointsArc(double angleArc, Point2D pointCercle, double rayon, double angleDebut){
         // Un point par degré, au besoin ajuster le FACTEUR_DEGREE
         int nbPoints = (int) Math.abs(angleArc * FACTEUR_DEGREE);
         double sign = Math.signum(angleArc); // 1.0 si > 0 , 0.0 = 0, -1.0 < 0;
@@ -147,13 +152,13 @@ public abstract class Forme implements Serializable {
         return points;
     }
 
-    private double getLongueurSegment(double dx, double dy)
+    private static double getLongueurSegment(double dx, double dy)
     {
         return Math.sqrt(dx * dx + dy * dy);
     }
 
-    private Point2D getPointProportion(Point2D point, double segment,
-                                       double longueur, double dx, double dy)
+    private static Point2D getPointProportion(Point2D point, double segment,
+                                              double longueur, double dx, double dy)
     {
         double facteur = segment / longueur;
 
@@ -161,79 +166,152 @@ public abstract class Forme implements Serializable {
                 (point.getY() - dy * facteur));
     }
 
-    public static ArrayList<PointPouce> getPointsIntersection(Rectangle rectangle, Ellipse ellipse, int quadrant){
+    public static void addPointsIntersection(LinkedList<PointPouce> pIntersection, Rectangle rectangle, Ellipse ellipse, int quadrant){
         LinkedList<PointPouce> pointsRectangle = rectangle.getListePoints();
         LinkedList<PointPouce> pointsEllipse = ellipse.getListePoints();
-        ArrayList<PointPouce> pIntersection = new ArrayList<>();
         PointPouce coin;
         PointPouce centreEllipse = ellipse.getCentre();
         System.out.println("Centre ellipse: " + centreEllipse.getX() + "," + centreEllipse.getY());
-        Pouce precision = new Pouce(0,1,32);
+        Pouce precision = new Pouce(0,1,16);
         PointPouce point;
+        PointPouce p1 = null, p2 = null;
+        int p1index =-1, p2index =-1;
 
         if (quadrant == 1) {
             coin = pointsRectangle.get(0);
+            System.out.println(coin);
             for (int i = 0; i < NOMBRE_POINTS/4; i++) {
                 point = pointsEllipse.get(i);
                 if (point.getY().ste(coin.getY().add(precision)) &&
-                        point.getY().gte(coin.getY().diff(precision))){
-                    pIntersection.add(new PointPouce(point.getX(), coin.getY()));
+                        point.getY().gte(coin.getY().diff(precision)) && point.getX().ste(coin.getX())){
+                    p2 = new PointPouce(point.getX(), coin.getY());
+                    p2index = i;
+                    System.out.println("p2 : " + p2);
+
                 }
                 if (point.getX().ste(coin.getX().add(precision)) &&
-                        point.getX().gte(coin.getX().diff(precision))){
-                    pIntersection.add(new PointPouce(coin.getX(), point.getY()));
+                        point.getX().gte(coin.getX().diff(precision)) && point.getY().gte(coin.getY())){
+                    p1 = new PointPouce(coin.getX(), point.getY());
+                    p1index = i;
+                    System.out.println("p1 : " + p1);
+
                 }
             }
+
+            if (p1index != -1 && p2index != -1){
+                pIntersection.add(p1);
+                ajouterPointsArcEllipse(pIntersection,ellipse, p1index, p2index);
+                pIntersection.add(p2);
+            }
+            else {
+                pIntersection.add(coin);
+            }
+
         }
 
         else if (quadrant == 2) {
             coin = pointsRectangle.get(1);
+            System.out.println(coin);
             for (int i = NOMBRE_POINTS/4; i < NOMBRE_POINTS/2; i++) {
                 point = pointsEllipse.get(i);
                 if (point.getY().ste(coin.getY().add(precision)) &&
-                        point.getY().gte(coin.getY().diff(precision))){
-                    pIntersection.add(new PointPouce(point.getX(), coin.getY()));
+                        point.getY().gte(coin.getY().diff(precision)) && point.getX().gte(coin.getX())){
+                    p1 = new PointPouce(point.getX(), coin.getY());
+                    p1index = i;
+                    System.out.println("p1 : " + p1);
                 }
                 if (point.getX().ste(coin.getX().add(precision)) &&
-                        point.getX().gte(coin.getX().diff(precision))){
-                    pIntersection.add(new PointPouce(coin.getX(), point.getY()));
+                        point.getX().gte(coin.getX().diff(precision)) && point.getY().gte(coin.getY())) {
+                    p2 = new PointPouce(coin.getX(), point.getY());
+                    p2index = i;
+                    System.out.println("p2 : " + p2);
                 }
+            }
+
+            if (p1index != -1 && p2index != -1){
+                pIntersection.add(p1);
+                ajouterPointsArcEllipse(pIntersection,ellipse, p1index, p2index);
+                pIntersection.add(p2);
+            }
+            else {
+                pIntersection.add(coin);
             }
 
         }
 
         else if (quadrant == 3) {
             coin = pointsRectangle.get(2);
+            System.out.println(coin);
             for (int i = NOMBRE_POINTS/2; i < (3 * NOMBRE_POINTS)/4; i++) {
                 point = pointsEllipse.get(i);
                 if (point.getY().ste(coin.getY().add(precision)) &&
-                        point.getY().gte(coin.getY().diff(precision))){
-                    pIntersection.add(new PointPouce(point.getX(), coin.getY()));
+                        point.getY().gte(coin.getY().diff(precision)) && point.getX().gte(coin.getX())){
+                    p2 = new PointPouce(point.getX(), coin.getY());
+                    p2index = i;
+                    System.out.println("p2 : " + p2);
                 }
                 if (point.getX().ste(coin.getX().add(precision)) &&
-                        point.getX().gte(coin.getX().diff(precision))){
-                    pIntersection.add(new PointPouce(coin.getX(), point.getY()));
+                        point.getX().gte(coin.getX().diff(precision)) && point.getY().ste(coin.getY())){
+                    p1 = new PointPouce(coin.getX(), point.getY());
+                    p1index = i;
+                    System.out.println("p1 : " + p1);
                 }
+            }
+
+            if (p1index != -1 && p2index != -1){
+                pIntersection.add(p1);
+                ajouterPointsArcEllipse(pIntersection,ellipse, p1index, p2index);
+                pIntersection.add(p2);
+            }
+            else {
+                pIntersection.add(coin);
             }
         }
 
         else if (quadrant == 4) {
             coin = pointsRectangle.get(3);
+            System.out.println(coin);
             for (int i = (3 * NOMBRE_POINTS)/4; i < NOMBRE_POINTS; i++) {
                 point = pointsEllipse.get(i);
                 if (point.getY().ste(coin.getY().add(precision)) &&
                         point.getY().gte(coin.getY().diff(precision))
                         && point.getX().gte(centreEllipse.getX())){
-                    pIntersection.add(new PointPouce(point.getX(), coin.getY()));
+                    p1 = new PointPouce(point.getX(), coin.getY());
+                    p1index = i;
+                    System.out.println("p1 : " + p1);
                 }
                 if (point.getX().ste(coin.getX().add(precision)) &&
                         point.getX().gte(coin.getX().diff(precision))
                         && point.getY().gte(centreEllipse.getY())){
-                    pIntersection.add(new PointPouce(coin.getX(), point.getY()));
+                    p2 = new PointPouce(coin.getX(), point.getY());
+                    p2index = i;
+                    System.out.println("p2 : " + p2);
                 }
             }
-        }
 
-        return pIntersection;
+            if (p1index != -1 && p2index != -1){
+                pIntersection.add(p1);
+                ajouterPointsArcEllipse(pIntersection,ellipse, p1index, p2index);
+                pIntersection.add(p2);
+            }
+            else {
+                pIntersection.add(coin);
+            }
+        }
     }
+
+    public static void ajouterPointsArcEllipse(LinkedList<PointPouce> points, Ellipse ellipse, int indexP1, int indexP2){
+        LinkedList<PointPouce> listePointsEllipse = ellipse.getListePoints();
+        List listePointsTrouves;
+        if (indexP1 <= indexP2){
+            listePointsTrouves = listePointsEllipse.subList(indexP1, indexP2);
+        }
+        else {
+            listePointsTrouves = listePointsEllipse.subList(indexP2, indexP1);
+        }
+        for (int i = 0; i < listePointsTrouves.size(); i++){
+            points.add((PointPouce) listePointsTrouves.get(i));
+        }
+    }
+
 }

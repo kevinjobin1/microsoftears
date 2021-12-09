@@ -2,10 +2,7 @@ package ca.ulaval.glo2004.domain.composante;
 
 import ca.ulaval.glo2004.domain.RoulotteController;
 import ca.ulaval.glo2004.domain.TypeComposante;
-import ca.ulaval.glo2004.utilitaires.Forme;
-import ca.ulaval.glo2004.utilitaires.PointPouce;
-import ca.ulaval.glo2004.utilitaires.Polygone;
-import ca.ulaval.glo2004.utilitaires.Pouce;
+import ca.ulaval.glo2004.utilitaires.*;
 import ca.ulaval.glo2004.utilitaires.Rectangle;
 
 import java.awt.*;
@@ -14,6 +11,8 @@ import java.awt.geom.Path2D;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+
+import static ca.ulaval.glo2004.utilitaires.Forme.addPointsIntersection;
 
 public class MurProfile extends Composante{
 
@@ -44,6 +43,19 @@ public class MurProfile extends Composante{
         this.setType(TypeComposante.MUR_PROFILE);
         this.setPolygone(getPolygone());
     }
+    public MurProfile(RoulotteController parent, boolean mode) {
+        super(parent);
+        this.mode = mode; // ellipses par défaut
+        this.modeContreplaque = true; // on affiche le contreplaqué extérieur par défaut
+        this.profilEllipses = new ProfilEllipse[4];
+        this.initialiserEllipses();
+        this.profilBezier = new ProfilBezier(parent);
+        this.setCouleurInitiale(new Color(100,100,100));
+        this.setCouleur(getCouleurInitiale());
+        this.setType(TypeComposante.MUR_PROFILE);
+        this.setPolygone(getPolygone());
+    }
+
 
     /** Constructeur copie */
     public MurProfile(MurProfile copie, PointPouce decalage, boolean modeProfil, boolean afficheContreplaque){
@@ -77,7 +89,7 @@ public class MurProfile extends Composante{
                 // on retranche tous les ouvertures latérales
                 for(OuvertureLaterale ouverture : parent.getListeOuverturesLaterales()){
                     Area areaOuverture = ouverture.getArea();
-                    //area.subtract(areaOuverture);
+                    area.subtract(areaOuverture);
                 }
             }
 

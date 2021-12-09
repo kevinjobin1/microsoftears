@@ -11,6 +11,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Area;
 import java.awt.image.BufferedImage;
+import java.util.LinkedList;
 
 import static ca.ulaval.glo2004.utilitaires.ImageDesign.toBufferedImage;
 
@@ -112,9 +113,27 @@ public class Plancher extends Composante {
 
     @Override
     public PointPouce getCentre(){
+        MurProfile profil = (MurProfile) parent.getListeComposantes().get(1);
+        if (profil.getMode()){
         MurBrute mur = (MurBrute) parent.getListeComposantes().get(0);
         Pouce x = mur.getCentre().getX().add(mur.getLongueur().diviser(2)).diff(margeAvant).diff(getLongueur().diviser(2));
         Pouce y = mur.getLargeur().diviser(2).add(mur.getCentre().getY()).diff(this.epaisseur.diviser(2));
+        return new PointPouce(x,y);
+        }
+        else {
+            return calculerPositionBezier(profil);
+        }
+    }
+
+    private PointPouce calculerPositionBezier(MurProfile profil){
+        LinkedList<PointPouce> pointsProfil = profil.getProfilBezier().getPolygone().getListePoints();
+        PointPouce p0 = pointsProfil.getFirst();
+        PointPouce p3 = pointsProfil.getLast();
+        Pouce longueur = (p3.getX().diff(p0.getX()));
+        PointPouce centreProfil = new PointPouce(p0.getX().add(longueur.diviser(2)), p0.getY());
+
+        Pouce x = centreProfil.getX().add(longueur.diviser(2)).diff(margeAvant).diff(getLongueur().diviser(2));
+        Pouce y = centreProfil.getY().diff(this.epaisseur.diviser(2));
         return new PointPouce(x,y);
     }
 

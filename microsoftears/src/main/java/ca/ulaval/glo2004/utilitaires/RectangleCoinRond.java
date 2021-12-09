@@ -7,10 +7,18 @@ import java.util.LinkedList;
 public class RectangleCoinRond extends Forme {
 
     private Pouce rayonCourbure;
+    private double angle = 0; // en rad
 
     public RectangleCoinRond(Pouce hauteur, Pouce longueur, PointPouce centre, Pouce rayonCourbure) {
         super(longueur, hauteur, centre);
         this.rayonCourbure = rayonCourbure;
+
+    }
+
+    public RectangleCoinRond(Pouce hauteur, Pouce longueur, PointPouce centre, Pouce rayonCourbure, double angle) {
+        super(longueur, hauteur, centre);
+        this.rayonCourbure = rayonCourbure;
+        this.angle = angle;
 
     }
 
@@ -69,6 +77,28 @@ public class RectangleCoinRond extends Forme {
             listePoints.add(new PointPouce(points[i]));
         }
         listePoints.add(new PointPouce(p2));
+
+
+        if (angle != 0){
+            System.out.println("Angle != 0");
+            PointPouce point;
+            double x,y,nouveauX, nouveauY;
+            double decalageX = getCentre().getX().toDouble();
+            double decalageY = getCentre().getY().toDouble();
+
+            for (int i = 0; i < listePoints.size(); i++){
+                point = listePoints.get(i);
+                System.out.println("Ancien point: " + point);
+                // position en x,y devient (𝑥cos𝜃−𝑦sin𝜃 ,𝑥sin𝜃+𝑦cos𝜃) ou l'angle est en Rad
+                // et le point doit être centré à l'origine
+                x = point.getX().toDouble() - decalageX;
+                y = point.getY().toDouble() - decalageY;
+                nouveauX = x * Math.cos(angle) - y * -Math.sin(angle);
+                nouveauY = x * -Math.sin(angle) - y * Math.cos(angle);
+                System.out.println("Ancien point: " + "(" + new Pouce(nouveauX + decalageX) + "," + new Pouce(nouveauY + decalageY) + ")");
+                listePoints.set(i, new PointPouce(new Pouce(nouveauX + decalageX), new Pouce(nouveauY +decalageY)));
+            }
+        }
 
         return listePoints;
     }

@@ -41,7 +41,6 @@ public class PointControle extends Composante{
             Area area = getArea();
             Composite compositeInitial = g2d.getComposite();
             g2d.setComposite(definirComposite(getTransparence()));
-            // TODO: changer la couleur des ellipses (*optionnel)
             g2d.setPaint(this.getCouleur());
             g2d.fill(area);
             g2d.setComposite(compositeInitial);
@@ -73,6 +72,7 @@ public class PointControle extends Composante{
         this.centre = new PointPouce(differenceX, differenceY);
         this.ellipse = new Ellipse(this.longueur,this.hauteur,this.centre);
         this.setPolygone(ellipse.getPolygone());
+
     }
 
     @Override

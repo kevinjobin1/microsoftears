@@ -11,7 +11,6 @@ import java.awt.*;
 
 public class PanelInfoRessorts extends PanelComposante{
     private JSpinner poidsHayonSpinner;
-    //todo: implementer les textFields
     private JTextField
             forceTextField,
             longueurExactExtensionTextField;

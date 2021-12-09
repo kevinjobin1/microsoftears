@@ -30,6 +30,11 @@ public class PointPouce  implements Serializable {
         y = new Pouce(p.getY());
     }
 
+    public PointPouce(double _x, double _y){
+        x = new Pouce(_x);
+        y = new Pouce(_y);
+    }
+
     @Override
     public String toString() {
         return "(" + x.toString() + ", " + y.toString()+ ")";
@@ -194,5 +199,8 @@ public class PointPouce  implements Serializable {
         return this.diff(new Pouce(diffX), new Pouce(diffY));
     }
 
+    public static PointPouce toPointPouce(Point2D p){
+        return new PointPouce(new Pouce(p.getX()), new Pouce(p.getY()));
+    }
 }
 
