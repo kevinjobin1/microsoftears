@@ -390,6 +390,62 @@ public class RoulotteController implements Serializable{
                listeComposantes.set(13, aideDesign);
                listeAidesDesign.set(0, aideDesign);
                break;
+
+           case AIDE_DESIGN_2:
+               AideDesign aideDesign2 = new AideDesign(this,
+                       new Pouce(valeurs[0], valeurs[1], valeurs[2]),
+                       new Pouce(valeurs[3], valeurs[4], valeurs[5]),
+                       new PointPouce(
+                               new Pouce(valeurs[6], valeurs[7], valeurs[8]),
+                               new Pouce(valeurs[9], valeurs[10], valeurs[11])));
+               listeComposantes.set(14, aideDesign2);
+               listeAidesDesign.set(1, aideDesign2);
+               break;
+
+           case AIDE_DESIGN_3:
+               AideDesign aideDesign3 = new AideDesign(this,
+                       new Pouce(valeurs[0], valeurs[1], valeurs[2]),
+                       new Pouce(valeurs[3], valeurs[4], valeurs[5]),
+                       new PointPouce(
+                               new Pouce(valeurs[6], valeurs[7], valeurs[8]),
+                               new Pouce(valeurs[9], valeurs[10], valeurs[11])));
+               listeComposantes.set(15, aideDesign3);
+               listeAidesDesign.set(2, aideDesign3);
+               break;
+
+           case AIDE_DESIGN_4:
+               AideDesign aideDesign4 = new AideDesign(this,
+                       new Pouce(valeurs[0], valeurs[1], valeurs[2]),
+                       new Pouce(valeurs[3], valeurs[4], valeurs[5]),
+                       new PointPouce(
+                               new Pouce(valeurs[6], valeurs[7], valeurs[8]),
+                               new Pouce(valeurs[9], valeurs[10], valeurs[11])));
+               listeComposantes.set(16, aideDesign4);
+               listeAidesDesign.set(3, aideDesign4);
+               break;
+
+           case AIDE_DESIGN_5:
+               AideDesign aideDesign5 = new AideDesign(this,
+                       new Pouce(valeurs[0], valeurs[1], valeurs[2]),
+                       new Pouce(valeurs[3], valeurs[4], valeurs[5]),
+                       new PointPouce(
+                               new Pouce(valeurs[6], valeurs[7], valeurs[8]),
+                               new Pouce(valeurs[9], valeurs[10], valeurs[11])));
+               listeComposantes.set(17, aideDesign5);
+               listeAidesDesign.set(4, aideDesign5);
+               break;
+
+           case OUVERTURE_LATERALE_2:
+               OuvertureLaterale ouvertureLaterale2 = new OuvertureLaterale( this,
+                       new Pouce(valeurs[0], valeurs[1], valeurs[2]),
+                       new Pouce(valeurs[3], valeurs[4], valeurs[5]),
+                       new PointPouce(
+                               new Pouce(valeurs[6], valeurs[7], valeurs[8]),
+                               new Pouce(valeurs[9], valeurs[10], valeurs[11])),
+                       new Pouce(valeurs[12], valeurs[13], valeurs[14]));
+               listeComposantes.set(18, ouvertureLaterale2);
+               listeOuverturesLaterales.set(1, ouvertureLaterale2);
+               break;
        }
     }
 
@@ -428,20 +484,15 @@ public class RoulotteController implements Serializable{
     }
 
     /** Converti les coordonnées réelles --> coordonnées dans l'écran */
-    public double xVersEcran(Pouce x)
-    {
+    public double xVersEcran(Pouce x){
         return (x.toPixel(this.getPixelsToInchesRatio()) - delta[0]) * this.getScale();
     }
-
-    public double yVersEcran(Pouce y)
-    {
+    public double yVersEcran(Pouce y){
         return (y.toPixel(this.getPixelsToInchesRatio()) - delta[1]) * this.getScale();
     }
 
     /** Converti les coordonnées de l'écran --> coordonnées réelles */
-
-    public Pouce xVersReel(double x)
-    {
+    public Pouce xVersReel(double x){
         // On veut la coordonnée sans le zoom
         x /= this.getScale();
         // On recentre le point par rapport au décalage
@@ -452,8 +503,7 @@ public class RoulotteController implements Serializable{
         return new Pouce(x);
     }
 
-    public Pouce yVersReel(double y)
-    {
+    public Pouce yVersReel(double y){
         // On veut la coordonnée sans le zoom
         y /= this.getScale();
         // On recentre le point par rapport au décalage
@@ -465,7 +515,6 @@ public class RoulotteController implements Serializable{
     }
 
     /** Setter pour la position de la souris */
-
     public void setPositionSouris(Point mousePoint) {
         PointPouce positionSouris = getPositionPlan(mousePoint);
         int indexComposante = -1;
@@ -615,6 +664,16 @@ public class RoulotteController implements Serializable{
               return 12;
           case AIDE_DESIGN:
               return 13;
+          case AIDE_DESIGN_2:
+              return 14;
+          case AIDE_DESIGN_3:
+              return 15;
+          case AIDE_DESIGN_4:
+              return 16;
+          case AIDE_DESIGN_5:
+              return 17;
+          case OUVERTURE_LATERALE_2:
+              return 18;
 
       }
       // si aucune composante n'est trouvée, retourne -1

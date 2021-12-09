@@ -13,12 +13,16 @@ public class AideDesign extends Composante{
     private PointPouce centre;
     private RectangleCoinRond rectangle;
 
+    private AideDesign[] aideDesigns;
+
     public AideDesign(RoulotteController parent, Pouce longueur, Pouce largeur, PointPouce centre) {
         super(parent);
         this.longueur = longueur;
         this.largeur = largeur;
         this.centre = centre;
         this.rectangle = new RectangleCoinRond(longueur,largeur, centre, new Pouce(4.75));
+        this.aideDesigns = new AideDesign[5];
+        this.initialiserAideDesign();
         this.setType(TypeComposante.AIDE_DESIGN);
         this.setPolygone(rectangle.getPolygone());
     }
@@ -32,9 +36,13 @@ public class AideDesign extends Composante{
         this.centre = new PointPouce(centreX, centreY);
         //this.centre = parent.getListeComposantes().get(0).getCentre();
         this.rectangle = new RectangleCoinRond(longueur, largeur, centre, new Pouce(4.75));
+        this.aideDesigns = new AideDesign[5];
+        this.initialiserAideDesign();
         this.setType(TypeComposante.AIDE_DESIGN);
         this.setPolygone(rectangle.getPolygone());
     }
+
+    private void initialiserAideDesign(){}
 
     public Pouce getLongueur() {
         return longueur;

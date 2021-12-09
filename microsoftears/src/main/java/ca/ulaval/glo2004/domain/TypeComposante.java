@@ -37,9 +37,34 @@ public enum TypeComposante {
             return "Aide au design";
         }
     },
+    AIDE_DESIGN_2{
+        public String toString(){
+            return "Aide au design 2";
+        }
+    },
+    AIDE_DESIGN_3{
+        public String toString(){
+            return "Aide au design 3";
+        }
+    },
+    AIDE_DESIGN_4{
+        public String toString(){
+            return "Aide au design 4";
+        }
+    },
+    AIDE_DESIGN_5{
+        public String toString(){
+            return "Aide au design 5";
+        }
+    },
     OUVERTURE_LATERALE{
         public String toString(){
             return "Ouverture latérale";
+        }
+    },
+    OUVERTURE_LATERALE_2{
+        public String toString(){
+            return "Ouverture latérale 2";
         }
     },
     PROFIL_BEZIER{
