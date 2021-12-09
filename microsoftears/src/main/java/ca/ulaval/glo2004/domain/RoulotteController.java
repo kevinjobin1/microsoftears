@@ -330,7 +330,7 @@ public class RoulotteController implements Serializable{
                                new Pouce(valeurs[6], valeurs[7], valeurs[8]),
                                new Pouce(valeurs[9], valeurs[10], valeurs[11])));
                listeComposantes.set(12, aideDesign);
-               //listeAidesDesign.set(0, aideDesign);
+               listeAidesDesign.set(0, aideDesign);
                break;
 
            case RESSORTS:

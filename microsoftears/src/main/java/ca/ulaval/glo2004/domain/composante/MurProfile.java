@@ -109,7 +109,7 @@ public class MurProfile extends Composante{
                 // on retranche tous les ouvertures latérales
                 for(OuvertureLaterale ouverture : parent.getListeOuverturesLaterales()){
                     Area areaOuverture = ouverture.getArea();
-                    //area.subtract(areaOuverture);
+                    area.subtract(areaOuverture);
                 }
             }
 
