@@ -178,27 +178,27 @@ public class RoulotteController implements Serializable{
     public void removeAideDesign(){
         int indexAD = getIndexComposante(TypeComposante.AIDE_DESIGN);
         if (indexAD== 13){
-            listeOuverturesLaterales.remove(0);
+            listeAidesDesign.remove(0);
             listeComposantes.remove(13);
         }
         int indexAD2 = getIndexComposante(TypeComposante.AIDE_DESIGN_2);
         if (indexAD2 == 14){
-            listeOuverturesLaterales.remove(1);
+            listeAidesDesign.remove(1);
             listeComposantes.remove(14);
         }
         int indexAD3 = getIndexComposante(TypeComposante.AIDE_DESIGN_3);
         if (indexAD3 == 15){
-            listeOuverturesLaterales.remove(2);
+            listeAidesDesign.remove(2);
             listeComposantes.remove(15);
         }
         int indexAD4 = getIndexComposante(TypeComposante.AIDE_DESIGN_4);
         if (indexAD4 == 16){
-            listeOuverturesLaterales.remove(3);
+            listeAidesDesign.remove(3);
             listeComposantes.remove(16);
         }
         int indexAD5 = getIndexComposante(TypeComposante.AIDE_DESIGN_4);
         if (indexAD5 == 17){
-            listeOuverturesLaterales.remove(4);
+            listeAidesDesign.remove(4);
             listeComposantes.remove(17);
         }
     }

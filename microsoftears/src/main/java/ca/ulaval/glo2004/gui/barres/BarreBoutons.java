@@ -241,6 +241,7 @@ public class BarreBoutons extends JPanel {
     }
 
     private void deleteButtonActionPerformed(ActionEvent e) {
+
     }
 
     private void saveButtonActionPerformed(ActionEvent e) {
