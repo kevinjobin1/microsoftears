@@ -103,10 +103,10 @@ public class RoulotteController implements Serializable{
         listeComposantes.add(ressorts);
         OuvertureLaterale ouverture = new OuvertureLaterale(this);
         listeComposantes.add(ouverture);
-        //listeOuverturesLaterales.add(ouverture);
+        listeOuverturesLaterales.add(ouverture);
         AideDesign aideDesign = new AideDesign(this);
         listeComposantes.add(aideDesign);
-        //listeAidesDesign.add(aideDesign);
+        listeAidesDesign.add(aideDesign);
     }
 
     public void addOuvertureLateral(){
