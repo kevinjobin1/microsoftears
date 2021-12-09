@@ -87,6 +87,10 @@ public class ProfilEllipse extends Composante{
         return centre;
     }
 
+    public Ellipse getEllipse() {
+        return ellipse;
+    }
+
     @Override
     public int[] getValeurs() {
         return new int[]{

@@ -1,5 +1,8 @@
 package ca.ulaval.glo2004.utilitaires;
 
+import java.awt.*;
+import java.awt.geom.Point2D;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Ellipse extends Forme {
@@ -13,9 +16,9 @@ public class Ellipse extends Forme {
         LinkedList<PointPouce> listePoints = new LinkedList<>();
         for(int i = 0; i < NOMBRE_POINTS; i++) {
             // x = centreX + ((longueur/2) * cos(angle))
-            Pouce x = getLongueur().diviser(2).multiplier(Math.cos(Math.toRadians(i*360/NOMBRE_POINTS))).add(getCentre().getX());
+            Pouce x = (getLongueur().diviser(2).multiplier(Math.cos(Math.toRadians(((double)i/NOMBRE_POINTS) * 360d)))).add(getCentre().getX());
             // y = centreY + ((hauteur/2) * -sin(angle)) --> parce que les y sont inversés
-            Pouce y = getHauteur().diviser(2).multiplier(-Math.sin(Math.toRadians(i*360/NOMBRE_POINTS))).add(getCentre().getY());
+            Pouce y = (getHauteur().diviser(2).multiplier(-Math.sin(Math.toRadians(((double)i/NOMBRE_POINTS) * 360d)))).add(getCentre().getY());
             listePoints.add(new PointPouce(x, y));
         }
         return listePoints;

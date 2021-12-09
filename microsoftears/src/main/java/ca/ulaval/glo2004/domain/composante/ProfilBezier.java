@@ -31,11 +31,12 @@ public class ProfilBezier extends Composante {
         this.pointsControle.add(new PointControle(parent,
                 new Pouce(3,0,1),
                 new Pouce(3,0,1),
-                points.get(1).diff(3,15), TypeComposante.POINT_CONTROLE_2));
+                points.get(1), TypeComposante.POINT_CONTROLE_2));
         this.pointsControle.add(new PointControle(parent,
                 new Pouce(3,0,1),
                 new Pouce(3,0,1),
-                points.get(2).diff(0,15).add(3,0), TypeComposante.POINT_CONTROLE_3));
+                points.get(2).diff(new Pouce(), new Pouce(30)).add(new Pouce(3), new Pouce()),
+                TypeComposante.POINT_CONTROLE_3));
         this.pointsControle.add(new PointControle(parent,
                 new Pouce(3,0,1),
                 new Pouce(3,0,1),
@@ -60,6 +61,13 @@ public class ProfilBezier extends Composante {
         this.setPolygone(bezier.getPolygone());
     }
 
+    public CourbeBezier getBezier(){
+        return this.bezier;
+    }
+
+    public Pouce getLongueur(){
+        return (pointsControle.get(3).getCentre().getX()).diff(pointsControle.get(0).getCentre().getX());
+    }
 
     public ArrayList<PointControle> getPointsControle() {
         return pointsControle;

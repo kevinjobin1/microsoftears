@@ -5,10 +5,12 @@ import ca.ulaval.glo2004.domain.TypeComposante;
 import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Polygone;
 import ca.ulaval.glo2004.utilitaires.Pouce;
+import ca.ulaval.glo2004.utilitaires.CourbeBezier.*;
 
 import java.awt.*;
-import java.awt.geom.Area;
 import java.util.LinkedList;
+
+import static ca.ulaval.glo2004.utilitaires.CourbeBezier.getPointDecaleBezier;
 
 public class Toit extends Composante implements Cloneable {
     private Pouce epaisseur;
@@ -50,8 +52,9 @@ public class Toit extends Composante implements Cloneable {
         Plancher plancher = (Plancher) (parent.getListeComposantes().get(6));
         MurBrute murBrute = (MurBrute) parent.getListeComposantes().get(0);
         MurProfile murProfile = (MurProfile) parent.getListeComposantes().get(1);
-        MurSeparateur murSeparateur = (MurSeparateur) parent.getListeComposantes().get(9); 
+        MurSeparateur murSeparateur = (MurSeparateur) parent.getListeComposantes().get(9);
 
+        if (murProfile.getMode()){
         Pouce xFin = murSeparateur.getCentre().getX().add(murSeparateur.getEpaisseur().diviser(2));
         Pouce yDepart = murBrute.getCentre().getY().add(murBrute.getLargeur().diviser(2)).
                 diff(plancher.getEpaisseur());
@@ -130,6 +133,102 @@ public class Toit extends Composante implements Cloneable {
             }
         }
         return new Polygone(pointsProfil);
+        }
+        else {
+            return new Polygone(calculerPositionBezier(murBrute, murProfile, plancher, murSeparateur));
+        }
+    }
+
+    private LinkedList<PointPouce> calculerPositionBezier(MurBrute mur, MurProfile profil,
+                                                          Plancher plancher, MurSeparateur murSeparateur){
+
+        // notre liste de points de la courbe et notre liste vide
+        LinkedList<PointPouce> pointsToit = new LinkedList<>();
+        LinkedList<PointPouce> profilPoints = profil.getPolygone().getListePoints();
+
+        // déclarations de variables
+        PointPouce p1,p2,p, premierPointCourbe, dernierPointCourbe, coinDebutToit, coinFinToit;
+        Pouce x,y;
+        int indexPremierPoint = 0;
+        int indexDernierPoint = 0;
+        double x1,x2,y1,y2, angle, deltaX, deltaY;
+
+        // On cherche les quatres coins de notre polygone du toit
+        // On connait déjà les coins sur la courbe qui sont en bas et en haut de notre courbe
+
+        // La position en x du coin supérieur  qui est aussi le x de notre p2 (l'autre coin supérieur)
+        x = murSeparateur.getCentre().getX().add(murSeparateur.getEpaisseur().diviser(2));
+        // la position en y de notre coin inférieur est aussi le y de notre p3 (l'autre coin inférieur)
+        y = plancher.getCentre().getY().diff(plancher.getEpaisseur().diviser(2));
+
+        // On part de la fin de la courbe (à gauche) et on trouve notre segment de courbe correspondant au toit
+        for(int i = profilPoints.size() - 1; i > 0; i--){
+            if (profilPoints.get(i).getY().gte(y) && profilPoints.get(i).getX().gte(x)){
+                indexPremierPoint = i;
+            }
+            if(profilPoints.get(i).getX().gte(x) && profilPoints.get(i).getY().ste(y)){
+                indexDernierPoint = i;
+            }
+        }
+        indexPremierPoint -= 1;
+        premierPointCourbe = profilPoints.get(indexPremierPoint);
+        pointsToit.add(premierPointCourbe);
+
+        for(int i = indexPremierPoint -1; i > indexDernierPoint; i--){
+            pointsToit.add(profilPoints.get(i));
+        }
+
+        dernierPointCourbe = profilPoints.get(indexDernierPoint);
+        pointsToit.add(dernierPointCourbe);
+
+        coinFinToit = dernierPointCourbe.add(new Pouce(), epaisseur);
+        pointsToit.add(coinFinToit);
+
+        for(int i = indexDernierPoint + 1; i < indexPremierPoint; i++){
+            p = profilPoints.get(i);
+            p1 = profilPoints.get(i - 1);
+            p2 = profilPoints.get(i + 1);
+            y1 = p1.getY().toDouble();
+            y2 = p2.getY().toDouble();
+            x1 = p1.getX().toDouble();
+            x2 = p2.getX().toDouble();
+            angle = Math.acos((y1-y2)/(Math.sqrt((Math.pow((x1-x2),2) + Math.pow((y1-y2),2)))));
+            angle -= Math.PI/2; // on retranche 90 degrés (pi/2)
+
+            // deltaX = sin(angle) * epaisseur et deltaY = cos(angle) * epaisseur
+            deltaX = Math.sin(angle) * epaisseur.toDouble();
+            deltaY = Math.cos(angle) * epaisseur.toDouble();
+            pointsToit.add(new PointPouce(new Pouce(p.getX().toDouble() - deltaX),
+                    new Pouce(p.getY().toDouble() + deltaY)));
+        }
+
+        // calcul de la tangente à ce point en utilisant une approximation par les deux points voisins
+        p1 = profilPoints.get(indexPremierPoint - 1);
+        p2 = profilPoints.get(indexPremierPoint + 1);
+
+
+        y1 = p1.getY().toDouble();
+        y2 = p2.getY().toDouble();
+        x1 = p1.getX().toDouble();
+        x2 = p2.getX().toDouble();
+        angle = Math.acos((y1-y2)/(Math.sqrt((Math.pow((x1-x2),2) + Math.pow((y1-y2),2)))));
+        angle -= Math.PI/2; // on retranche 90 degrés (pi/2)
+
+        // deltaX = sin(angle) * epaisseur et deltaY = cos(angle) * epaisseur
+        deltaX = Math.sin(angle) * epaisseur.toDouble();
+        coinDebutToit = new PointPouce(new Pouce(premierPointCourbe.getX().toDouble() - deltaX),
+               premierPointCourbe.getY());
+        pointsToit.add(coinDebutToit);
+
+        /*LinkedList<PointPouce> listeTemp = new LinkedList<>(); // sert a contenir nos points décalés
+        for(int i = pointsToit.size() - 2; i > 0; i--){
+            listeTemp.add(getPointDecaleBezier(pointsToit, i, epaisseur, -1));
+        }
+        for(PointPouce p : listeTemp){
+            pointsToit.add(p);
+        }*/
+
+        return pointsToit;
     }
 
     @Override

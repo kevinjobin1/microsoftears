@@ -7,17 +7,21 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import static ca.ulaval.glo2004.utilitaires.PointPouce.toPointPouce;
+
 public class CourbeBezier extends Forme {
 
     private ArrayList<PointPouce> pointsControle;
+    private double k = 0.0025; // nbPoints = 1/k x 2 côtés + 2 points début/fin (ex: si k = 0.001 alors nb=2002)
+    private double longueurCourbe;
 
     public CourbeBezier(ArrayList<PointPouce> pointsControles) {
         // TODO : changer la longueur, hauteur et centre
-        super(  new Pouce(0,0,1),
-                new Pouce(0,0,1),
+        super(new Pouce(0, 0, 1),
+                new Pouce(0, 0, 1),
                 new PointPouce(
-                        new Pouce(0,0,1),
-                        new Pouce(0,0,1)
+                        new Pouce(0, 0, 1),
+                        new Pouce(0, 0, 1)
                 ));
         this.pointsControle = pointsControles;
     }
@@ -37,8 +41,48 @@ public class CourbeBezier extends Forme {
         Point2D p1 = pointsControle.get(1).toPoint2D();
         Point2D p2 = pointsControle.get(2).toPoint2D();
         Point2D p3 = pointsControle.get(3).toPoint2D();
-        calculerBezier(listePoints, p0, p1, p2, p3, 0, 0);
+        calculerBezierCubique(listePoints, p0, p1, p2, p3);
         return listePoints;
+    }
+    
+    public static PointPouce getPointDecaleBezier(LinkedList<PointPouce> listePoints, int indexDuPoint, Pouce decalage, int signe){
+        PointPouce pointADecaler = listePoints.get(indexDuPoint), p1,p2;
+        double x1, y1,x2, y2, angle, deltaX, deltaY;
+
+        // calcul de la tangente à ce point en utilisant une approximation par les deux points voisins
+        p1 = listePoints.get(indexDuPoint - 1);
+        p2 = listePoints.get(indexDuPoint + 1);
+
+        y1 = p1.getY().toDouble();
+        y2 = p2.getY().toDouble();
+        x1 = p1.getX().toDouble();
+        x2 = p2.getX().toDouble();
+        angle = Math.acos((y1-y2)/(Math.sqrt((Math.pow((x1-x2),2) + Math.pow((y1-y2),2)))));
+
+        // deltaX = sin(angle) * epaisseur et deltaY = cos(angle) * epaisseur
+        deltaX = Math.cos(angle) * decalage.toDouble();
+        deltaY = Math.sin(angle) * decalage.toDouble();
+
+        return new PointPouce(new Pouce(pointADecaler.getX().toDouble() + (signe * deltaX)),
+                new Pouce(pointADecaler.getY().toDouble() + (signe * deltaY)));
+
+    }
+
+    public void calculerBezierCubique(LinkedList<PointPouce> pointsCourbe, Point2D p0, Point2D p1, Point2D p2, Point2D p3) {
+        double x1, x2, y1, y2, t;
+        x1 = p0.getX();
+        y1 = p0.getY();
+        // premier point
+        pointsCourbe.add(new PointPouce(x1, y1));
+
+        // boucle selon les polynomiaux de Bernstein
+        for (t = k; t <= 1 + k; t += k) {
+            x2 = Math.pow((1 - t), 3) * p0.getX() + 3 * Math.pow((1 - t), 2) * t * p1.getX() + 3 * (1 - t) * Math.pow(t, 2) * p2.getX() + Math.pow(t, 3) * p3.getX();
+            y2 = Math.pow((1 - t), 3) * p0.getY() + 3 * Math.pow((1 - t), 2) * t * p1.getY() + 3 * (1 - t) * Math.pow(t, 2) * p2.getY() + Math.pow(t, 3) * p3.getY();
+            pointsCourbe.add(new PointPouce(x2, y2));
+            x1 = x2;
+            y1 = y2;
+        }
     }
 
 
@@ -186,7 +230,7 @@ public class CourbeBezier extends Forme {
      * @return le point milieu du rectangle
      */
 
-    public static Point2D midPoint( Rectangle2D r) {
+    public static Point2D pointMilieu( Rectangle2D r) {
         return center(r);
     }
 
@@ -326,8 +370,6 @@ public class CourbeBezier extends Forme {
         return new Point2D.Double(r.getCenterX(), r.getCenterY());
     }
 
-    public static PointPouce toPointPouce(Point2D p){
-        return new PointPouce(new Pouce(p.getX()), new Pouce(p.getY()));
-    }
+
 
 }

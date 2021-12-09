@@ -43,8 +43,15 @@ public class Ressorts extends Composante{
         // la ligne qui constitue le ressort
         this.ligne = new Ligne(positionSurHayon, positionSurMur);
 
+        // angle de la ligne
+        double y1 = positionSurMur.getY().toDouble();
+        double y2 = positionSurHayon.getY().toDouble();
+        double x1 = positionSurMur.getX().toDouble();
+        double x2 = positionSurHayon.getX().toDouble();
+        double angle = Math.acos((y1-y2)/(Math.sqrt((Math.pow((x1-x2),2) + Math.pow((y1-y2),2)))));
+
         // Le corps du ressort à gaz
-        this.corpsRessort = new RectangleCoinRond(ligne.getLongueur().diff(RAYON_TIGE.multiplier(2)),LARGEUR_CORPS, ligne.getCentre(), RAYON_TIGE);
+        this.corpsRessort = new RectangleCoinRond(ligne.getLongueur().diff(RAYON_TIGE.multiplier(2)),LARGEUR_CORPS, ligne.getCentre(), RAYON_TIGE, angle);
 
         // Les points d'attache (têtes du ressort)
         this.pointHayon = new Ellipse(RAYON_TIGE, RAYON_TIGE, positionSurHayon);
@@ -69,8 +76,15 @@ public class Ressorts extends Composante{
         // la ligne qui constitue le ressort
         this.ligne = new Ligne(positionSurHayon, positionSurMur);
 
+        // angle de la ligne
+        double y1 = positionSurMur.getY().toDouble();
+        double y2 = positionSurHayon.getY().toDouble();
+        double x1 = positionSurMur.getX().toDouble();
+        double x2 = positionSurHayon.getX().toDouble();
+        double angle = Math.acos((y1-y2)/(Math.sqrt((Math.pow((x1-x2),2) + Math.pow((y1-y2),2)))));
+
         // Le corps du ressort à gaz
-        this.corpsRessort = new RectangleCoinRond(ligne.getLongueur().diff(RAYON_TIGE.multiplier(2)),LARGEUR_CORPS, ligne.getCentre(), RAYON_TIGE);
+        this.corpsRessort = new RectangleCoinRond(ligne.getLongueur().diff(RAYON_TIGE.multiplier(2)),LARGEUR_CORPS, ligne.getCentre(), RAYON_TIGE, angle);
 
         // Les points d'attache (têtes du ressort)
         this.pointHayon = new Ellipse(RAYON_TIGE, RAYON_TIGE, positionSurHayon);
@@ -183,8 +197,15 @@ public class Ressorts extends Composante{
         // la ligne qui constitue le ressort
         this.ligne = new Ligne(positionSurHayon, positionSurMur);
 
+        // angle de la ligne
+        double y1 = positionSurMur.getY().toDouble();
+        double y2 = positionSurHayon.getY().toDouble();
+        double x1 = positionSurMur.getX().toDouble();
+        double x2 = positionSurHayon.getX().toDouble();
+        double angle = Math.acos((y1-y2)/(Math.sqrt((Math.pow((x1-x2),2) + Math.pow((y1-y2),2)))));
+
         // Le corps du ressort à gaz
-        this.corpsRessort = new RectangleCoinRond(ligne.getLongueur().diff(RAYON_TIGE.multiplier(2)),LARGEUR_CORPS, ligne.getCentre(), RAYON_TIGE);
+        this.corpsRessort = new RectangleCoinRond(ligne.getLongueur().diff(RAYON_TIGE.multiplier(2)),LARGEUR_CORPS, ligne.getCentre(), RAYON_TIGE, angle);
 
         // Les points d'attache (têtes du ressort)
         this.pointHayon = new Ellipse(RAYON_TIGE, RAYON_TIGE, positionSurHayon);
