@@ -21,18 +21,8 @@ public class ProfilEllipse extends Composante{
 
     public ProfilEllipse(RoulotteController parent, Pouce longueur, Pouce hauteur, PointPouce centre, TypeComposante type) {
         super(parent);
-        if (verificationLongueur(longueur)){
-        this.longueur = longueur;}
-        else {
-            System.out.println("ERREUR LONGUEUR ELLIPSE");
-            this.longueur = longueur;
-        }
-        if (verificationHauteur(hauteur)){
-            this.hauteur = hauteur;}
-        else {
-            System.out.println("ERREUR HAUTEUR ELLIPSE");
-            this.hauteur = hauteur;
-        }
+        this.longueur = longueur;
+        this.hauteur = hauteur;
         this.centre = centre;
         this.ellipse = new Ellipse(this.longueur,this.hauteur,this.centre);
         this.setCouleur(getCouleurInitiale());
@@ -57,15 +47,7 @@ public class ProfilEllipse extends Composante{
         }
     }
 
-    public boolean verificationLongueur(Pouce valeur){
-        MurBrute mur = (MurBrute) parent.getListeComposantes().get(0);
-        return valeur.st(mur.getLongueur()) && valeur.gt(new Pouce(0,0,1));
-    }
 
-    public boolean verificationHauteur(Pouce valeur){
-        MurBrute mur = (MurBrute) parent.getListeComposantes().get(0);
-        return valeur.st(mur.getLargeur()) && valeur.gt(new Pouce(0,0,1));
-    }
 
     public Pouce getLongueur() {
         return longueur;
@@ -121,11 +103,6 @@ public class ProfilEllipse extends Composante{
     @Override
     public boolean[] getModes(){
         return new boolean[]{};
-    }
-
-    @Override
-    public Pouce[] getLimit() {
-        return new Pouce[0];
     }
 
     public void setCentre(PointPouce centre) {

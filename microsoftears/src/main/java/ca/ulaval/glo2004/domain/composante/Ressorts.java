@@ -221,7 +221,7 @@ public class Ressorts extends Composante{
                 hayon.getPointFinHayon().getY().toDouble();
         return new Pouce(Math.sqrt(Math.pow(x,2)+Math.pow(y,2)));
     }
-    //todo: à tester
+
     public double calculerForce(){
         double deadWeightNewton = ((double) poidsHayon) * 4.4482216;
         double centerOfGravityLengthMM = getLongueurHayon().toDouble() * (25.4/2);
@@ -352,11 +352,5 @@ public class Ressorts extends Composante{
     public boolean[] getModes(){
         return new boolean[]{};
     }
-
-    @Override
-    public Pouce[] getLimit() {
-        return new Pouce[0];
-    }
-
 
 }

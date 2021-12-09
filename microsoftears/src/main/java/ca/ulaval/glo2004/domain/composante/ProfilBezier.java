@@ -90,9 +90,4 @@ public class ProfilBezier extends Composante {
         return new boolean[]{};
     }
 
-    @Override
-    public Pouce[] getLimit() {
-        return new Pouce[0];
-    }
-
 }

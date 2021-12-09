@@ -79,19 +79,7 @@ public class PoutreArriere extends Composante{
         this.setPolygone(rectangle.getPolygone());
     }
 
-    public boolean verificationLongueur(Pouce valeur){
-        MurBrute mur = (MurBrute) parent.getListeComposantes().get(0);
-        return valeur.st(mur.getLongueur().diviser(2)) && valeur.gt(new Pouce(0,0,1));
-    }
-    public boolean verificationHauteur(Pouce valeur){
-        MurBrute mur = (MurBrute) parent.getListeComposantes().get(0);
-        return valeur.st(mur.getLargeur().diviser(2)) && valeur.gt(new Pouce(0,0,1));
-    }
-    public boolean verificationCentreX(Pouce valeur){
-        MurBrute mur = (MurBrute) parent.getListeComposantes().get(0);
-        return valeur.gt(mur.getCentre().getX().diff(mur.getLongueur().diviser(2)).add(longueur.diviser(2)))
-                && valeur.st(mur.getCentre().getX().add(mur.getLongueur().diviser(2)).diff(longueur.diviser(2)));
-    }
+
 
     public Pouce getLongueur() {
         return longueur;
@@ -160,11 +148,6 @@ public class PoutreArriere extends Composante{
     @Override
     public boolean[] getModes(){
         return new boolean[]{};
-    }
-
-    @Override
-    public Pouce[] getLimit() {
-        return new Pouce[0];
     }
 
     public void setCentre(PointPouce centre) {

@@ -57,29 +57,6 @@ public class Plancher extends Composante {
 
     }
 
-    public boolean verificationEpaisseur(Pouce valeur){
-        MurBrute mur = (MurBrute) parent.getListeComposantes().get(0);
-        return valeur.st(mur.getCentre().getY()) && valeur.gt(new Pouce(0,0,1));
-    }
-
-    public boolean verificationMargeAvant(Pouce valeur){
-        MurBrute mur = (MurBrute) parent.getListeComposantes().get(0);
-        MurProfile profil = (MurProfile) parent.getListeComposantes().get(1);
-        return valeur.st(mur.getLongueur().diviser(2)) &&
-                valeur.gt(profil.getProfilEllipses()[3].getLongueur().diviser(2).
-                        diff(profil.getProfilEllipses()[3].getCentre().getX().
-                                diff(mur.getPolygone().getListePoints().get(3).getX())));
-    }
-
-    public boolean verificationMargeArriere(Pouce valeur){
-        MurBrute mur = (MurBrute) parent.getListeComposantes().get(0);
-        MurProfile profil = (MurProfile) parent.getListeComposantes().get(1);
-        return valeur.st(mur.getLongueur().diviser(2)) &&
-                valeur.gt(profil.getProfilEllipses()[2].getLongueur().diviser(2).
-                        diff(mur.getPolygone().getListePoints().get(2).getX().
-                                diff(profil.getProfilEllipses()[2].getCentre().getX())));
-    }
-
     @Override
     public void afficher(Graphics2D g2d) {
         if (estVisible()){
@@ -167,11 +144,6 @@ public class Plancher extends Composante {
     @Override
     public boolean[] getModes(){
         return new boolean[]{};
-    }
-
-    @Override
-    public Pouce[] getLimit() {
-        return new Pouce[0];
     }
 
     private Pouce getLongueur(){
