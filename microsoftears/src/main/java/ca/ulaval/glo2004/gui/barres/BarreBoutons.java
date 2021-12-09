@@ -1,5 +1,6 @@
 package ca.ulaval.glo2004.gui.barres;
 
+import ca.ulaval.glo2004.domain.RoulotteController;
 import ca.ulaval.glo2004.gui.FenetrePrincipale;
 import ca.ulaval.glo2004.utilitaires.Pouce;
 import org.kordamp.ikonli.bootstrapicons.BootstrapIcons;
@@ -11,6 +12,7 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.*;
 
 public class BarreBoutons extends JPanel {
     private final FenetrePrincipale parent;
@@ -245,15 +247,59 @@ public class BarreBoutons extends JPanel {
     }
 
     private void saveButtonActionPerformed(ActionEvent e) {
+        JFileChooser chooser = new JFileChooser();
+        int valeur = chooser.showOpenDialog(null);
+        if(valeur == JFileChooser.APPROVE_OPTION){
+            File selectedFile = chooser.getSelectedFile();
+            try {
+                FileOutputStream fos = new FileOutputStream(selectedFile.getAbsolutePath());
+                ObjectOutputStream oos = new ObjectOutputStream(fos);
+                oos.writeObject(parent.controller);
+                oos.close();
+                fos.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 
     private void redoButtonActionPerformed(ActionEvent e) {
+        if(parent.controller.getUndoController() != null) {
+            RoulotteController controller = parent.controller;
+            parent.controller = parent.controller.getRedoController();
+            parent.controller.setUndoController(controller.deepCopy());
+        }
     }
 
     private void undoButtonActionPerformed(ActionEvent e) {
+        if(parent.controller.getUndoController() != null) {
+            RoulotteController controller = parent.controller;
+            parent.controller = parent.controller.getUndoController();
+            parent.controller.setRedoController(controller.deepCopy());
+        }
     }
 
     private void chargerButtonActionPerformed(ActionEvent e) {
+        RoulotteController roulotte;
+        JFileChooser chooser = new JFileChooser();
+        int valeur = chooser.showOpenDialog(null);
+        if(valeur == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = chooser.getSelectedFile();
+            try {
+                FileInputStream fileIn = new FileInputStream(selectedFile.getAbsolutePath());
+                ObjectInputStream in = new ObjectInputStream(fileIn);
+                roulotte = (RoulotteController) in.readObject();
+                parent.controller = roulotte;
+                in.close();
+                fileIn.close();
+            } catch (IOException i) {
+                i.printStackTrace();
+            } catch (ClassNotFoundException c) {
+                System.out.println("RoulotteController class not found");
+                c.printStackTrace();
+            }
+            parent.repaint();
+        }
     }
 
     private void nouveauButtonActionPerformed(ActionEvent e) {
