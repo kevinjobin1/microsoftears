@@ -110,6 +110,9 @@ public class BarreOnglet extends JTabbedPane {
             if (composante.toString().equals("Ouverture latérale")) {
                 contour = new PanelInfoOuvertureLaterales(this, composante);
             }
+       if (composante.toString().equals("Ouverture latérale 2")) {
+           contour = new PanelInfoOuvertureLaterales(this, composante);
+       }
             if (composante.toString().equals("Toit")) {
                 contour = new PanelInfoToit(this, composante);
             }
@@ -119,6 +122,18 @@ public class BarreOnglet extends JTabbedPane {
             if (composante.toString().equals("Aide au design")) {
                 contour = new PanelInfoAideAuDesign(this, composante);
             }
+       if (composante.toString().equals("Aide au design 2")) {
+           contour = new PanelInfoAideAuDesign(this, composante);
+       }
+       if (composante.toString().equals("Aide au design 3")) {
+           contour = new PanelInfoAideAuDesign(this, composante);
+       }
+       if (composante.toString().equals("Aide au design 4")) {
+           contour = new PanelInfoAideAuDesign(this, composante);
+       }
+       if (composante.toString().equals("Aide au design 5")) {
+           contour = new PanelInfoAideAuDesign(this, composante);
+       }
             if (composante.toString().equals("Ressorts")){
                 contour = new PanelInfoRessorts(this, composante);
             }

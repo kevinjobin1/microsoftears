@@ -18,12 +18,10 @@ import java.io.*;
 public class BarreBoutons extends JPanel {
     private final FenetrePrincipale parent;
     private JButton logoButton,
-            nouveauButton,
             chargerButton,
             undoButton,
             redoButton,
             saveButton,
-            deleteButton,
             exportButton,
             grilleButton;
     private JCheckBox afficherGrilleCheckBox, afficherLabelCheckBox,
@@ -45,12 +43,10 @@ public class BarreBoutons extends JPanel {
     private void initialiser() {
         // ======= Boutons ======== //
         logoButton = creerBoutonLogo();
-        nouveauButton = creerBouton(BootstrapIcons.FILE_EARMARK_PLUS_FILL, 30, Color.WHITE);
+        saveButton = creerBouton(BootstrapIcons.SAVE, 30, Color.WHITE);
         chargerButton = creerBouton(BootstrapIcons.FOLDER2_OPEN, 30, Color.WHITE);
         undoButton = creerBouton(BootstrapIcons.ARROW_LEFT, 30, Color.WHITE);
         redoButton = creerBouton(BootstrapIcons.ARROW_RIGHT, 30, Color.WHITE);
-        saveButton = creerBouton(BootstrapIcons.SAVE, 30, Color.WHITE);
-        deleteButton = creerBouton(BootstrapIcons.TRASH_FILL, 30, Color.WHITE);
         exportButton = creerBouton(BootstrapIcons.ARROW_BAR_RIGHT, 30, Color.WHITE);
 
         // ======= CheckBox ======== //
@@ -72,10 +68,10 @@ public class BarreBoutons extends JPanel {
             }
         });
 
-        // ==== Bouton nouveau projet =======
-        nouveauButton.addActionListener(new ActionListener() {
+        // ==== Bouton enregistrer un projet =======
+        saveButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                nouveauButtonActionPerformed(e);
+                saveButtonActionPerformed(e);
             }
         });
 
@@ -97,20 +93,6 @@ public class BarreBoutons extends JPanel {
         redoButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 redoButtonActionPerformed(e);
-            }
-        });
-
-        // ==== Bouton enregistrer un projet =======
-        saveButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                saveButtonActionPerformed(e);
-            }
-        });
-
-        // ==== Bouton supprimer un projet  =======
-        deleteButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                deleteButtonActionPerformed(e);
             }
         });
 
@@ -137,8 +119,6 @@ public class BarreBoutons extends JPanel {
             }
         });
     }
-
-
 
     private void logoButtonActionPerformed(ActionEvent e) {
         JDialog d = new JDialog(parent, "À propos");
@@ -240,9 +220,6 @@ public class BarreBoutons extends JPanel {
     private void exportButtonActionPerformed(ActionEvent e) {
     }
 
-    private void deleteButtonActionPerformed(ActionEvent e) {
-
-    }
 
     private void saveButtonActionPerformed(ActionEvent e) {
         JFileChooser chooser = new JFileChooser();
@@ -298,10 +275,6 @@ public class BarreBoutons extends JPanel {
             }
             parent.repaint();
         }
-    }
-
-    private void nouveauButtonActionPerformed(ActionEvent e) {
-
     }
 
     protected void creerSpinnerPouces(Pouce valeur){

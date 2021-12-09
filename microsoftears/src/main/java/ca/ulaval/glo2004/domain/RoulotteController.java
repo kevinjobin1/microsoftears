@@ -382,6 +382,8 @@ public class RoulotteController implements Serializable{
                        new Pouce(valeurs[9], valeurs[10], valeurs[11]),
                        new Pouce(valeurs[12], valeurs[13], valeurs[14]));
                listeComposantes.set(8, hayon);
+               Ressorts ressorts = new Ressorts(this,valeurs[0]);
+               listeComposantes.set(11,ressorts);
                break;
 
            case MUR_SEPARATEUR:
@@ -399,7 +401,7 @@ public class RoulotteController implements Serializable{
                break;
 
            case RESSORTS:
-               Ressorts ressorts = new Ressorts(this,valeurs[0]);
+               ressorts = new Ressorts(this,valeurs[0]);
                listeComposantes.set(11,ressorts);
                break;
 

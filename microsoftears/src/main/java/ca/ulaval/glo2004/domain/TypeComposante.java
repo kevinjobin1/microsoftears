@@ -32,6 +32,7 @@ public enum TypeComposante {
             return "Mur brute";
         }
     },
+
     AIDE_DESIGN{
         public String toString(){
             return "Aide au design";

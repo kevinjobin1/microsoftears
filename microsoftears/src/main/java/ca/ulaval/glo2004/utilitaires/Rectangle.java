@@ -79,5 +79,15 @@ public class Rectangle extends Forme{
         super(longueur, hauteur, centre);
     }
 
+    public PointPouce getMax(){
+        return new PointPouce(new Pouce(getCentre().getX().add(getLongueur().diviser(2))),
+                new Pouce(getCentre().getY().add(getHauteur().diviser(2))));
+    }
+
+    public PointPouce getMin(){
+        return new PointPouce(new Pouce(getCentre().getX().diff(getLongueur().diviser(2))),
+                new Pouce(getCentre().getY().diff(getHauteur().diviser(2))));
+    }
+
 
 }
