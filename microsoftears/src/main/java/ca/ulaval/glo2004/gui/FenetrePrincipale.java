@@ -102,6 +102,21 @@ public class FenetrePrincipale extends JFrame {
                 case AIDE_DESIGN:
                     this.barreOnglets.setSelectedIndex(12);
                     break;
+                case AIDE_DESIGN_2:
+                    this.barreOnglets.setSelectedIndex(13);
+                    break;
+                /*case AIDE_DESIGN_3:
+                    this.barreOnglets.setSelectedIndex(14);
+                    break;
+                case AIDE_DESIGN_4:
+                    this.barreOnglets.setSelectedIndex(15);
+                    break;
+                case AIDE_DESIGN_5:
+                    this.barreOnglets.setSelectedIndex(16);
+                    break;
+                case OUVERTURE_LATERALE_2:
+                    this.barreOnglets.setSelectedIndex(17);
+                    break;*/
 
             }
         }
