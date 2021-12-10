@@ -234,6 +234,13 @@ public class RoulotteController implements Serializable{
                if (listeComposantes.size() > 8) {
                    listeComposantes.set(8, new Hayon((Hayon) listeComposantes.get(8)));
                }
+               Ressorts ressortsInvalide = (Ressorts) listeComposantes.get(11);
+               listeComposantes.set(11,new Ressorts(this,ressortsInvalide.getPoidsHayon()));
+               ressortsInvalide = (Ressorts) listeComposantes.get(11);
+               listeComposantes.set(11,new Ressorts(this,ressortsInvalide.getPoidsHayon()));
+               //MurSeparateur murSeparateurInvalide = (MurSeparateur) listeComposantes.get(9);
+               //listeComposantes.set(9,new MurSeparateur(this,murSeparateurInvalide.getEpaisseur(),
+               //        murSeparateurInvalide.getHauteur(),murSeparateurInvalide.getDistancePoutreArriere()));
                break;
            case PROFIL_ELLIPSE_1:
                ProfilEllipse ellipse = new ProfilEllipse(this,
@@ -256,7 +263,10 @@ public class RoulotteController implements Serializable{
                        , type);
                ((MurProfile) listeComposantes.get(1)).getProfilEllipses()[1] = ellipse;
                listeComposantes.set(3, ellipse);
+               PoutreArriere poutreInvalide = (PoutreArriere) listeComposantes.get(7);
+               listeComposantes.set(7, new PoutreArriere(this,poutreInvalide.getLongueur(),poutreInvalide.getHauteur(),poutreInvalide.getCentre().getX()));
                break;
+
            case PROFIL_ELLIPSE_3:
                ellipse = new ProfilEllipse(this,
                        new Pouce(valeurs[3], valeurs[4], valeurs[5]),
@@ -341,6 +351,8 @@ public class RoulotteController implements Serializable{
                        new Pouce(valeurs[0], valeurs[1], valeurs[2]),
                        new Pouce(valeurs[6], valeurs[7], valeurs[8]));
                listeComposantes.set(7, poutre);
+               ressortsInvalide = (Ressorts) listeComposantes.get(11);
+               listeComposantes.set(11,new Ressorts(this,ressortsInvalide.getPoidsHayon()));
                break;
            case HAYON:
                Hayon hayon = new Hayon(this,
@@ -350,8 +362,8 @@ public class RoulotteController implements Serializable{
                        new Pouce(valeurs[9], valeurs[10], valeurs[11]),
                        new Pouce(valeurs[12], valeurs[13], valeurs[14]));
                listeComposantes.set(8, hayon);
-               Ressorts ressorts = new Ressorts(this,valeurs[0]);
-               listeComposantes.set(11,ressorts);
+               ressortsInvalide = (Ressorts) listeComposantes.get(11);
+               listeComposantes.set(11,new Ressorts(this,ressortsInvalide.getPoidsHayon()));
                break;
 
            case MUR_SEPARATEUR:
@@ -369,7 +381,7 @@ public class RoulotteController implements Serializable{
                break;
 
            case RESSORTS:
-               ressorts = new Ressorts(this,valeurs[0]);
+               Ressorts ressorts = new Ressorts(this,valeurs[0]);
                listeComposantes.set(11,ressorts);
                break;
 
@@ -586,13 +598,22 @@ public class RoulotteController implements Serializable{
             plusProcheVoisin = grille.pointLePlusProche(mousePoint);
         }
         if(composanteChoisie != null){
+            if(composanteChoisie.getType() == TypeComposante.PROFIL_ELLIPSE_2){
+                Ressorts ressortsInvalide = (Ressorts) listeComposantes.get(11);
+                listeComposantes.set(11,new Ressorts(this,ressortsInvalide.getPoidsHayon()));
+                PoutreArriere poutreInvalide = (PoutreArriere) listeComposantes.get(7);
+                listeComposantes.set(7, new PoutreArriere(this,poutreInvalide.getLongueur(),
+                        poutreInvalide.getHauteur(),poutreInvalide.getCentre().getX()));
+            }
             if (composanteChoisie.getType() == TypeComposante.MUR_PROFILE ||
                     composanteChoisie.getType() == TypeComposante.MUR_BRUTE) {
                 for (int i = 0; i < listeComposantes.size(); i++){
                     if (plusProcheVoisin != null){
                         listeComposantes.get(i).snapToGrid(getPositionPlan(plusProcheVoisin));
                     }
-                 else {listeComposantes.get(i).translate(getPositionPlan(mousePoint));}
+                    else {
+                        listeComposantes.get(i).translate(getPositionPlan(mousePoint));
+                    }
                 }
             }
             else if(composanteChoisie.getType() == TypeComposante.POINT_CONTROLE_1 ||
@@ -611,7 +632,9 @@ public class RoulotteController implements Serializable{
                     if (plusProcheVoisin != null){
                         listeComposantes.get(i).snapToGrid(getPositionPlan(plusProcheVoisin));
                     }
-                    else{listeComposantes.get(i).translate(getPositionPlan(mousePoint));}
+                    else{
+                        listeComposantes.get(i).translate(getPositionPlan(mousePoint));
+                    }
                 }
             }
 

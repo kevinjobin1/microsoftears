@@ -5,13 +5,8 @@ import ca.ulaval.glo2004.domain.composante.*;
 
 public class Verification {
 
-    public static boolean verificationEpaisseurHayon(Pouce valeur, RoulotteController parent){
-        MurBrute mur = (MurBrute) parent.getListeComposantes().get(0);
-        PoutreArriere poutre = (PoutreArriere) parent.getListeComposantes().get(7);
-        Hayon hayon = (Hayon) parent.getListeComposantes().get(8);
-        return valeur.st(mur.getCentre().getX().diff(mur.getLongueur().diviser(2)).
-                diff(poutre.getCentre().getX().diff(poutre.getLongueur().diviser(2))).
-                diff(hayon.getEpaisseurTraitScie()).diff(hayon.getDistancePoutre()))
+    public static boolean verificationEpaisseurHayon(Pouce valeur){
+        return valeur.ste(new Pouce(10,0,1))
                 && valeur.gt(new Pouce(0,0,1));
     }
 
