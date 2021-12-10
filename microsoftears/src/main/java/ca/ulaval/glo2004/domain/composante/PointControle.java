@@ -66,12 +66,25 @@ public class PointControle extends Composante{
 
     @Override
     public void translate(PointPouce delta) {
-        PointPouce pSouris = parent.getPositionPlan(parent.getPositionSouris());
-        Pouce differenceX = centre.getX().add(delta.getX().diff(pSouris.getX()));
-        Pouce differenceY = centre.getY().add(delta.getY().diff(pSouris.getY()));
-        this.centre = new PointPouce(differenceX, differenceY);
-        this.ellipse = new Ellipse(this.longueur,this.hauteur,this.centre);
-        this.setPolygone(ellipse.getPolygone());
+        // On drag seulement les points de contrôles, pas les points de départ et de fin de la courbe
+        if (getType() == TypeComposante.POINT_CONTROLE_2 || getType() == TypeComposante.POINT_CONTROLE_3) {
+            PointPouce pSouris = parent.getPositionPlan(parent.getPositionSouris());
+            Pouce differenceX = centre.getX().add(delta.getX().diff(pSouris.getX()));
+            Pouce differenceY = centre.getY().add(delta.getY().diff(pSouris.getY()));
+            this.centre = new PointPouce(differenceX, differenceY);
+            this.ellipse = new Ellipse(this.longueur, this.hauteur, this.centre);
+            this.setPolygone(ellipse.getPolygone());
+       }
+        else if (getType() == TypeComposante.POINT_CONTROLE_1){
+            this.centre = parent.getListeComposantes().get(0).getPolygone().getListePoints().get(2);
+            this.ellipse = new Ellipse(this.longueur, this.hauteur, this.centre);
+            this.setPolygone(ellipse.getPolygone());
+        }
+        else {
+            this.centre = parent.getListeComposantes().get(0).getPolygone().getListePoints().get(3);
+            this.ellipse = new Ellipse(this.longueur, this.hauteur, this.centre);
+            this.setPolygone(ellipse.getPolygone());
+        }
 
     }
 

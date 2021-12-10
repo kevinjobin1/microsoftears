@@ -107,4 +107,8 @@ public class MurBrute extends Composante{
     public void setCentre(PointPouce centre) {
         this.centre = centre;
     }
+
+    public void setRectangle(Rectangle rectangle) {
+        this.rectangle = rectangle;
+    }
 }

@@ -93,7 +93,7 @@ public abstract class PanelComposante extends JPanel {
         JSpinner spinner;
         String symbole;
         if (posX == 0){
-           spinner = new JSpinner(new SpinnerNumberModel(valeur.getPouces(),0,144,1));
+           spinner = new JSpinner(new SpinnerNumberModel(valeur.getPouces(),0,244,1));
             symbole = " - ";
         }
         else if (posX == 2){

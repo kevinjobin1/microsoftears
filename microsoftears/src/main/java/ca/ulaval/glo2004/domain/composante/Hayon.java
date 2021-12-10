@@ -380,32 +380,42 @@ public class Hayon extends Composante {
         }
         pointsHayon.add(pointFlechissement);
 
-        // On décale la courbe de bézier pour ainsi en formé une nouvelle qui est exactement décalé de l'épaisseur voulue
-        ArrayList<PointPouce> pointsControlesDecales = new ArrayList<>();
-        pointsControlesDecales.add(profil.getProfilBezier().getPointsControle().get(0).getCentre().add(epaisseur, new Pouce()));
-        pointsControlesDecales.add(profil.getProfilBezier().getPointsControle().get(1).getCentre().add(epaisseur, epaisseur));
-        pointsControlesDecales.add(profil.getProfilBezier().getPointsControle().get(2).getCentre().add(epaisseur, epaisseur));
-        pointsControlesDecales.add(profil.getProfilBezier().getPointsControle().get(3).getCentre().add(epaisseur, new Pouce()));
-        CourbeBezier courbeDecale = new CourbeBezier(pointsControlesDecales);
-        LinkedList<PointPouce> pointCourbeDecale = courbeDecale.getPolygone().getListePoints();
-
         deltaY = epaisseur.toDouble() * Math.tan(Math.PI/4);
         PointPouce pointCoinBas = pointsHayon.getFirst().add(epaisseur, new Pouce()).diff(new Pouce(), new Pouce(deltaY));
         Pouce y = pointFlechissement.getY();
         x = pointFlechissement.getX();
-        for(int i = pointCourbeDecale.size() - 1 ; i >= 0; i--){
-            if(pointCourbeDecale.get(i).getY().gte(y) &&
-            pointCourbeDecale.get(i).getX().ste(x) && pointCourbeDecale.get(i).getY().ste(pointCoinBas.getY())){
-                pointsHayon.add(pointCourbeDecale.get(i));
 
+        int indexPremierPoint = 0;
+        PointPouce p;
+        PointPouce pDecale;
+        int dernierIndexCourant = pointsHayon.size() -1; // utile pour pointsInterieurHayon
+
+        for(int i = indexCentreArc - 1; i > indexPremierPoint; i--){
+            System.out.println(i);
+            p = profilPoints.get(i);
+            p1 = profilPoints.get(i - 1);
+            p2 = profilPoints.get(i + 1);
+            y1 = p1.getY().toDouble();
+            y2 = p2.getY().toDouble();
+            x1 = p1.getX().toDouble();
+            x2 = p2.getX().toDouble();
+            angle = Math.acos((y1-y2)/(Math.sqrt((Math.pow((x1-x2),2) + Math.pow((y1-y2),2)))));
+            angle = Math.PI/2 - angle;
+            // deltaX = sin(angle) * epaisseur et deltaY = cos(angle) * epaisseur
+            deltaX = Math.sin(angle) * epaisseur.toDouble();
+            deltaY = Math.cos(angle) * epaisseur.toDouble();
+            pDecale = new PointPouce(new Pouce(p.getX().toDouble() + deltaX),
+                    new Pouce(p.getY().toDouble() + deltaY));
+
+            // On ne veut pas les points passé le coin inférieur qui tourne à 90 degrés
+            if (pDecale.getY().ste(pointCoinBas.getY())){
+                pointsHayon.add(pDecale);
             }
         }
-        for(int i = 0; i < pointCourbeDecale.size(); i++){
-            if(pointCourbeDecale.get(i).getY().gte(y) &&
-                    pointCourbeDecale.get(i).getX().ste(x) && pointCourbeDecale.get(i).getY().ste(pointCoinBas.getY())){
-                pointsInterieurHayon.add(pointCourbeDecale.get(i));
 
-            }
+        // Il faut ajouter les pointsInterieurHayon dans le sens inverse du bas vers le haut
+        for(int i = pointsHayon.size() -1; i >= dernierIndexCourant; i--){
+            pointsInterieurHayon.add(pointsHayon.get(i));
         }
 
         // coin haut côté plancher

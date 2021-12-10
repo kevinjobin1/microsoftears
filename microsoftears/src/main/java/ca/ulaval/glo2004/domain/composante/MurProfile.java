@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-import static ca.ulaval.glo2004.utilitaires.Forme.addPointsIntersection;
+import static ca.ulaval.glo2004.utilitaires.Forme.*;
 
 public class MurProfile extends Composante{
 
@@ -285,9 +285,33 @@ public class MurProfile extends Composante{
 
     private LinkedList<PointPouce> listePointsModeBezier() {
         profilBezier.updatePointsControles();
-        List<PointPouce> pointsMur = parent.getListeComposantes().get(0).getPolygone().getListePoints();
+        LinkedList<PointPouce> pointsMur = parent.getListeComposantes().get(0).getPolygone().getListePoints();
         LinkedList<PointPouce> pointsBezier = profilBezier.getPolygone().getListePoints();
-        return profilBezier.getPolygone().getListePoints();
+        LinkedList<PointPouce> pointsModeBezier = new LinkedList<>();
+
+        // On veut que tous nos points soient à l'intérieur du Mur Brute, on coupe si un point
+        // dépasse les valeurs maximales, pour le bas on sait que les points sont toujours
+        // sur les coins du murBrute
+        Pouce xMax = pointsMur.get(0).getX();
+        Pouce yMin = pointsMur.get(0).getY();
+        Pouce xMin = pointsMur.get(1).getX();
+        PointPouce point;
+
+        for(int i = 0; i < pointsBezier.size(); i++){
+            point = pointsBezier.get(i);
+            if (point.getY().st(yMin)){
+                point.setY(yMin);
+            }
+            if (point.getX().st(xMin)){
+                point.setX(xMin);
+            }
+            if (point.getX().gt(xMax)){
+                point.setX(xMax);
+            }
+            pointsModeBezier.add(point);
+        }
+
+        return pointsModeBezier;
     }
 
 

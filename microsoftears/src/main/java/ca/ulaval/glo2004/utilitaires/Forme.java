@@ -314,21 +314,4 @@ public abstract class Forme implements Serializable {
         }
     }
 
-    public static boolean rectanglesOverlap(Rectangle r1, Rectangle r2){
-        // rectangles définis par leur coin max,max et min,min (diagonale)
-        double x1=r1.getMin().getX().toDouble(),
-                y1=r1.getMin().getY().toDouble(),
-                x2=r1.getMax().getX().toDouble(),
-                y2=r1.getMax().getY().toDouble(),
-                x3=r2.getMin().getX().toDouble(),
-                y3=r2.getMin().getY().toDouble(),
-                x4=r2.getMax().getX().toDouble(),
-                y4=r2.getMax().getY().toDouble();
-
-        // si une de ses conditions retourne vrai, alors ils overlap, sinon non
-        return (x3 > x2 || y3 > y2 || x1 > x4 || y1 > y4 ) ? false : true;
-
-
-    }
-
 }

@@ -19,30 +19,37 @@ public class ProfilBezier extends Composante {
         super(parent);
         // Points de contrôles initiaux
         this.pointsControle = new ArrayList<>();
-        ArrayList<PointPouce> points = new ArrayList<>();
-        points.add(parent.getListeComposantes().get(0).getPolygone().getListePoints().get(2));
-        points.add(parent.getListeComposantes().get(0).getPolygone().getListePoints().get(1));
-        points.add(parent.getListeComposantes().get(0).getPolygone().getListePoints().get(0));
-        points.add(parent.getListeComposantes().get(0).getPolygone().getListePoints().get(3));
+
+        // point de départ
         this.pointsControle.add(new PointControle(parent,
                 new Pouce(3,0,1),
                 new Pouce(3,0,1),
-                points.get(0), TypeComposante.POINT_CONTROLE_1));
+                parent.getListeComposantes().get(0).getPolygone().getListePoints().get(2), TypeComposante.POINT_CONTROLE_1));
+        // point controle 1
         this.pointsControle.add(new PointControle(parent,
                 new Pouce(3,0,1),
                 new Pouce(3,0,1),
-                points.get(1), TypeComposante.POINT_CONTROLE_2));
+                parent.getListeComposantes().get(0).getPolygone().getListePoints().get(1), TypeComposante.POINT_CONTROLE_2));
+        // point controle 2
         this.pointsControle.add(new PointControle(parent,
                 new Pouce(3,0,1),
                 new Pouce(3,0,1),
-                points.get(2).diff(new Pouce(), new Pouce(30)).add(new Pouce(3), new Pouce()),
+                parent.getListeComposantes().get(0).getPolygone().getListePoints().get(0).diff(new Pouce(), new Pouce(30)).add(new Pouce(3), new Pouce()),
                 TypeComposante.POINT_CONTROLE_3));
+        // point de fin
         this.pointsControle.add(new PointControle(parent,
                 new Pouce(3,0,1),
                 new Pouce(3,0,1),
-                points.get(3),
+                parent.getListeComposantes().get(0).getPolygone().getListePoints().get(3),
                 TypeComposante.POINT_CONTROLE_4));
-        this.bezier = new CourbeBezier(points);
+
+
+       ArrayList<PointPouce> pointsCourbeBezier = new ArrayList<>();
+        for (int i = 0; i <4; i++){
+            pointsCourbeBezier.add(pointsControle.get(i).getCentre());
+        }
+
+        this.bezier = new CourbeBezier(pointsCourbeBezier);
         this.setPolygone(bezier.getPolygone());
         this.setType(TypeComposante.PROFIL_BEZIER);
     }

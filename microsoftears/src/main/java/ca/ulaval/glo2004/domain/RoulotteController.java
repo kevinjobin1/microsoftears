@@ -30,7 +30,7 @@ public class RoulotteController implements Serializable{
     private boolean estImperial = true;
 
     // controle de l'affichage
-    private static final int PIXEL_RATIO = 7;
+    private static final int PIXEL_RATIO = 6;
     private int[] delta;
     private Point2D positionSouris;
     private double scale;
@@ -606,7 +606,9 @@ public class RoulotteController implements Serializable{
                         poutreInvalide.getHauteur(),poutreInvalide.getCentre().getX()));
             }
             if (composanteChoisie.getType() == TypeComposante.MUR_PROFILE ||
-                    composanteChoisie.getType() == TypeComposante.MUR_BRUTE) {
+                    composanteChoisie.getType() == TypeComposante.MUR_BRUTE ||
+                    composanteChoisie.getType() == TypeComposante.POINT_CONTROLE_1 ||
+                    composanteChoisie.getType() == TypeComposante.POINT_CONTROLE_4 ) {
                 for (int i = 0; i < listeComposantes.size(); i++){
                     if (plusProcheVoisin != null){
                         listeComposantes.get(i).snapToGrid(getPositionPlan(plusProcheVoisin));
@@ -616,10 +618,8 @@ public class RoulotteController implements Serializable{
                     }
                 }
             }
-            else if(composanteChoisie.getType() == TypeComposante.POINT_CONTROLE_1 ||
-                    composanteChoisie.getType() == TypeComposante.POINT_CONTROLE_2 ||
-                    composanteChoisie.getType() == TypeComposante.POINT_CONTROLE_3 ||
-                    composanteChoisie.getType() == TypeComposante.POINT_CONTROLE_4){
+            else if(composanteChoisie.getType() == TypeComposante.POINT_CONTROLE_2 ||
+                    composanteChoisie.getType() == TypeComposante.POINT_CONTROLE_3){
                 for (int i = 6; i <= 11; i++){
                     if (plusProcheVoisin != null){
                         listeComposantes.get(i).snapToGrid(getPositionPlan(plusProcheVoisin));
