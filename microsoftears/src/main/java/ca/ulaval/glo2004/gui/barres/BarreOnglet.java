@@ -153,7 +153,6 @@ public class BarreOnglet extends JTabbedPane {
 
     }
 
-    //private PanelComposante panelInfoAideAuDesign(BarreOnglet barreOnglet, IComposante composante) {}
 
     private JPanel creerPanelMesure(){
 

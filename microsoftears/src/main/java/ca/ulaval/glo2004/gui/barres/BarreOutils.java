@@ -131,7 +131,7 @@ public class BarreOutils extends JToolBar {
             }
         }));
 
-        /*popup.add(new JMenuItem(new AbstractAction("Aide au design 3", icone) {
+        popup.add(new JMenuItem(new AbstractAction("Aide au design 3", icone) {
             public void actionPerformed(ActionEvent e) {
                 parent.setActionChoisie(FenetrePrincipale.TypeAction.AJOUT);
                 parent.controller.addAideDesign3();
@@ -140,7 +140,7 @@ public class BarreOutils extends JToolBar {
             }
         }));
 
-        popup.add(new JMenuItem(new AbstractAction("Aide au design 4", icone) {
+        /*popup.add(new JMenuItem(new AbstractAction("Aide au design 4", icone) {
             public void actionPerformed(ActionEvent e) {
                 parent.setActionChoisie(FenetrePrincipale.TypeAction.AJOUT);
                 parent.controller.addAideDesign4();

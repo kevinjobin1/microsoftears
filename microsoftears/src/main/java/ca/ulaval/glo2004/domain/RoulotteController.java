@@ -11,6 +11,7 @@ import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,6 +20,7 @@ public class RoulotteController implements Serializable{
     private ArrayList<Composante> listeComposantes;
     private ArrayList<OuvertureLaterale> listeOuverturesLaterales;
     private ArrayList<AideDesign> listeAidesDesign;
+    private List<TypeComposante> typeComposantes;
     private boolean afficherGrille;
     private boolean afficherLabel;
     private Composante composanteChoisie;
@@ -126,19 +128,19 @@ public class RoulotteController implements Serializable{
         listeComposantes.add(aideDesign2);
     }
 
-    /*public void addAideDesign3(){
-        AideDesign3 aideDesign3 = new AideDesign2(this);
+    public void addAideDesign3(){
+        AideDesign3 aideDesign3 = new AideDesign3(this);
         listeComposantes.add(aideDesign3);
     }
 
-    public void addAideDesign4(){
-        AideDesign4 aideDesign4 = new AideDesign2(this);
+    /*public void addAideDesign4(){
+        AideDesign4 aideDesign4 = new AideDesign4(this);
         listeComposantes.add(aideDesign4);
     }
 
 
     public void addAideDesign5(){
-        AideDesign5 aideDesign5 = new AideDesign2(this);
+        AideDesign5 aideDesign5 = new AideDesign5(this);
         listeComposantes.add(aideDesign5);
     }*/
 
@@ -166,31 +168,7 @@ public class RoulotteController implements Serializable{
      *       - utilise pour enlever les aides au design
      */
     public void removeAideDesign(){
-        int indexAD = getIndexComposante(TypeComposante.AIDE_DESIGN);
-        if (indexAD== 13){
-            listeAidesDesign.remove(0);
-            listeComposantes.remove(13);
-        }
-        int indexAD2 = getIndexComposante(TypeComposante.AIDE_DESIGN_2);
-        if (indexAD2 == 14){
-            listeAidesDesign.remove(1);
-            listeComposantes.remove(14);
-        }
-        int indexAD3 = getIndexComposante(TypeComposante.AIDE_DESIGN_3);
-        if (indexAD3 == 15){
-            listeAidesDesign.remove(2);
-            listeComposantes.remove(15);
-        }
-        int indexAD4 = getIndexComposante(TypeComposante.AIDE_DESIGN_4);
-        if (indexAD4 == 16){
-            listeAidesDesign.remove(3);
-            listeComposantes.remove(16);
-        }
-        int indexAD5 = getIndexComposante(TypeComposante.AIDE_DESIGN_4);
-        if (indexAD5 == 17){
-            listeAidesDesign.remove(4);
-            listeComposantes.remove(17);
-        }
+        typeComposantes.remove(TypeComposante.AIDE_DESIGN);
     }
 
 
@@ -426,18 +404,16 @@ public class RoulotteController implements Serializable{
                                new Pouce(valeurs[6], valeurs[7], valeurs[8]),
                                new Pouce(valeurs[9], valeurs[10], valeurs[11])));
                listeComposantes.set(14, aideDesign2);
-               //listeAidesDesign.set(1, aideDesign2);
                break;
 
            case AIDE_DESIGN_3:
-               AideDesign aideDesign3 = new AideDesign(this,
+               AideDesign3 aideDesign3 = new AideDesign3(this,
                        new Pouce(valeurs[0], valeurs[1], valeurs[2]),
                        new Pouce(valeurs[3], valeurs[4], valeurs[5]),
                        new PointPouce(
                                new Pouce(valeurs[6], valeurs[7], valeurs[8]),
                                new Pouce(valeurs[9], valeurs[10], valeurs[11])));
                listeComposantes.set(15, aideDesign3);
-               listeAidesDesign.set(2, aideDesign3);
                break;
 
            case AIDE_DESIGN_4:
@@ -448,7 +424,6 @@ public class RoulotteController implements Serializable{
                                new Pouce(valeurs[6], valeurs[7], valeurs[8]),
                                new Pouce(valeurs[9], valeurs[10], valeurs[11])));
                listeComposantes.set(16, aideDesign4);
-               listeAidesDesign.set(3, aideDesign4);
                break;
 
            case AIDE_DESIGN_5:
@@ -459,7 +434,6 @@ public class RoulotteController implements Serializable{
                                new Pouce(valeurs[6], valeurs[7], valeurs[8]),
                                new Pouce(valeurs[9], valeurs[10], valeurs[11])));
                listeComposantes.set(17, aideDesign5);
-               listeAidesDesign.set(4, aideDesign5);
                break;
 
            case OUVERTURE_LATERALE_2:

@@ -37,7 +37,6 @@ public class AideDesign extends Composante{
         this.setPolygone(rectangle.getPolygone());
     }
 
-    //private void initialiserAideDesign(){}
 
     public Pouce getLongueur() {
         return longueur;
