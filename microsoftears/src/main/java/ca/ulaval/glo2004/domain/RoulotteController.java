@@ -203,7 +203,7 @@ public class RoulotteController implements Serializable{
     }
 
     public void updateComposante(int[] valeurs, TypeComposante type){
-       //undoController = this.deepCopy();
+       undoController = this.deepCopy();
        switch(type){
            case MUR_PROFILE:
                // On mets a jour le Mur Brute
