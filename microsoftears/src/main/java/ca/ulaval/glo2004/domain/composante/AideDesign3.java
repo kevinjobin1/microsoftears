@@ -9,7 +9,7 @@ import ca.ulaval.glo2004.utilitaires.RectangleCoinRond;
 public class AideDesign3 extends Composante{
 
     private Pouce longueur;
-    private Pouce largeur;
+    private final Pouce largeur;
     private PointPouce centre;
     private RectangleCoinRond rectangle;
 
@@ -55,8 +55,8 @@ public class AideDesign3 extends Composante{
     }
 
     @Override
-    public boolean[] getModes() {
-        return new boolean[]{};
+    public Object[] getModes() {
+        return new Object[]{};
     }
 
 

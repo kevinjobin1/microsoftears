@@ -14,20 +14,20 @@ import static ca.ulaval.glo2004.utilitaires.Forme.addPointsIntersection;
 
 public class TestForme extends TestCase {
 
-private Rectangle rectangle0 = new Rectangle(new Pouce(2,0,1), new Pouce(4,0,1),
+private final Rectangle rectangle0 = new Rectangle(new Pouce(2,0,1), new Pouce(4,0,1),
         new PointPouce(new Pouce(5,0,1), new Pouce(5,2,4)));
 
-private Ellipse ellipse0 = new Ellipse(new Pouce(1,0,1),new Pouce(1,0,1),
+private final Ellipse ellipse0 = new Ellipse(new Pouce(1,0,1),new Pouce(1,0,1),
         new PointPouce(new Pouce(2,0,1), new Pouce(2,0,1)));
 
-    private Rectangle rectangle1 = new Rectangle(new Pouce(96,0,1),
+    private final Rectangle rectangle1 = new Rectangle(new Pouce(96,0,1),
             new Pouce(48,0,1),
             new PointPouce(
                     new Pouce(65,0,1),
                     new Pouce(50,0,1))
     );
 
-    private Ellipse ellipse1 = new Ellipse(
+    private final Ellipse ellipse1 = new Ellipse(
             new Pouce(40,0,1),
             new Pouce(30,0,1),
             new PointPouce(
@@ -35,7 +35,7 @@ private Ellipse ellipse0 = new Ellipse(new Pouce(1,0,1),new Pouce(1,0,1),
                     new Pouce(39,0,1))
     );
 
-    private Ellipse ellipse2 = new Ellipse(
+    private final Ellipse ellipse2 = new Ellipse(
             new Pouce(40,0,1),
             new Pouce(30,0,1),
             new PointPouce(
@@ -43,7 +43,7 @@ private Ellipse ellipse0 = new Ellipse(new Pouce(1,0,1),new Pouce(1,0,1),
                     new Pouce(39,0,1))
     );
 
-    private Ellipse ellipse3 = new Ellipse(
+    private final Ellipse ellipse3 = new Ellipse(
             new Pouce(40,0,1),
             new Pouce(30,0,1),
             new PointPouce(
@@ -51,7 +51,7 @@ private Ellipse ellipse0 = new Ellipse(new Pouce(1,0,1),new Pouce(1,0,1),
                     new Pouce(61,0,1))
     );
 
-    private Ellipse ellipse4 = new Ellipse(
+    private final Ellipse ellipse4 = new Ellipse(
             new Pouce(40,0,1),
             new Pouce(30,0,1),
             new PointPouce(

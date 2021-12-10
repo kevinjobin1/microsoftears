@@ -12,8 +12,6 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-import static ca.ulaval.glo2004.utilitaires.Forme.*;
-
 public class MurProfile extends Composante{
 
     /**
@@ -29,12 +27,12 @@ public class MurProfile extends Composante{
      * false: Bézier
      */
     private boolean mode; // true -> profil ellipse, false -> bézier
-    private boolean modeContreplaque; // true -> si extérieur, false -> intérieur
+    private ModeContreplaque modeContreplaque; // true -> si extérieur, false -> intérieur
 
     public MurProfile(RoulotteController parent) {
         super(parent);
         this.mode = true; // ellipses par défaut
-        this.modeContreplaque = true; // on affiche le contreplaqué extérieur par défaut
+        this.modeContreplaque = ModeContreplaque.COMPLET; // on affiche le profile au complet par défaut
         this.profilEllipses = new ProfilEllipse[4];
         this.initialiserEllipses();
         this.profilBezier = new ProfilBezier(parent);
@@ -46,7 +44,7 @@ public class MurProfile extends Composante{
     public MurProfile(RoulotteController parent, boolean mode) {
         super(parent);
         this.mode = mode; // ellipses par défaut
-        this.modeContreplaque = true; // on affiche le contreplaqué extérieur par défaut
+        this.modeContreplaque = ModeContreplaque.COMPLET; // on affiche le contreplaqué extérieur par défaut
         this.profilEllipses = new ProfilEllipse[4];
         this.initialiserEllipses();
         this.profilBezier = new ProfilBezier(parent);
@@ -58,13 +56,14 @@ public class MurProfile extends Composante{
 
 
     /** Constructeur copie */
-    public MurProfile(MurProfile copie, PointPouce decalage, boolean modeProfil, boolean afficheContreplaque){
+    public MurProfile(MurProfile copie, PointPouce decalage, boolean modeProfil, ModeContreplaque afficheContreplaque){
         super(copie.getParent());
         this.mode = modeProfil;
         this.modeContreplaque = afficheContreplaque;
         this.profilEllipses = copie.getProfilEllipses();
         updateProfilEllipses(decalage);
         this.profilBezier = copie.getProfilBezier();
+        profilBezier.updatePointsControles();
         this.setCouleurInitiale(copie.getCouleurInitiale());
         this.setCouleur(copie.getCouleur());
         this.setType(copie.getType());
@@ -83,80 +82,79 @@ public class MurProfile extends Composante{
             }}
 
             Area area = getArea(); // on va l'aire totale du profile
-
-            // Portion contreplaqué extérieur
-            if (!parent.getListeOuverturesLaterales().isEmpty()){
-                // on retranche tous les ouvertures latérales
-                for(OuvertureLaterale ouverture : parent.getListeOuverturesLaterales()){
-                    Area areaOuverture = ouverture.getArea();
-                    area.subtract(areaOuverture);
+            if(getModeContreplaque() != ModeContreplaque.COMPLET) {
+                // Portion contreplaqué extérieur
+                if (!parent.getListeOuverturesLaterales().isEmpty()) {
+                    // on retranche tous les ouvertures latérales
+                    for (OuvertureLaterale ouverture : parent.getListeOuverturesLaterales()) {
+                        Area areaOuverture = ouverture.getArea();
+                        area.subtract(areaOuverture);
+                    }
                 }
-            }
 
-            int indexHayon = parent.getIndexComposante(TypeComposante.HAYON);
-            Hayon hayon = ((Hayon) (parent.getListeComposantes().get(indexHayon)));
-            if (indexHayon != -1){
-                Area areaHayon = hayon.getArea();
-                area.subtract(areaHayon);
-            }
-
-            int indexPlancher = parent.getIndexComposante(TypeComposante.PLANCHER);
-            Plancher plancher = ((Plancher) (parent.getListeComposantes().get(indexPlancher)));
-
-            // Portion a retiré
-            Pouce epaisseurHayon = hayon.getEpaisseur();
-            Pouce distancePlancher = hayon.getDistancePlancher();
-            Pouce centreXPlancher = plancher.getCentre().getX();
-            Pouce centreYPlancher = plancher.getCentre().getY();
-            Pouce epaisseurPlancher = plancher.getEpaisseur();
-            Pouce largeurPlancher = plancher.getRectangle().getLongueur();
-            Pouce centreXPortionARetirer = centreXPlancher.diff(largeurPlancher.diviser(2)).diff(distancePlancher.diviser(2));
-            Pouce centreYPortionARetirer = centreYPlancher.add(epaisseurPlancher.diviser(2)).diff(epaisseurHayon.diviser(2));
-            PointPouce centrePortionARetirer = new PointPouce(centreXPortionARetirer, centreYPortionARetirer); // TODO: à faire, calculer le centre du rectangle
-            Rectangle portionARetirer = new Rectangle(distancePlancher, epaisseurHayon, centrePortionARetirer);
-
-            Path2D path = new Path2D.Double();
-            LinkedList<PointPouce> polygoneList = portionARetirer.getPolygone().getListePoints();
-            double[] point;
-            for (int i = 0; i < polygoneList.size(); i++){
-                point = parent.getPositionEcran(polygoneList.get(i));
-                if(i == 0) {
-                    path.moveTo(point[0], point[1]);
+                int indexHayon = parent.getIndexComposante(TypeComposante.HAYON);
+                Hayon hayon = ((Hayon) (parent.getListeComposantes().get(indexHayon)));
+                if (indexHayon != -1) {
+                    Area areaHayon = hayon.getArea();
+                    area.subtract(areaHayon);
                 }
-                else{
-                    path.lineTo(point[0] ,point[1]);
+
+                int indexPlancher = parent.getIndexComposante(TypeComposante.PLANCHER);
+                Plancher plancher = ((Plancher) (parent.getListeComposantes().get(indexPlancher)));
+
+                // Portion a retiré
+                Pouce epaisseurHayon = hayon.getEpaisseur();
+                Pouce distancePlancher = hayon.getDistancePlancher();
+                Pouce centreXPlancher = plancher.getCentre().getX();
+                Pouce centreYPlancher = plancher.getCentre().getY();
+                Pouce epaisseurPlancher = plancher.getEpaisseur();
+                Pouce largeurPlancher = plancher.getRectangle().getLongueur();
+                Pouce centreXPortionARetirer = centreXPlancher.diff(largeurPlancher.diviser(2)).diff(distancePlancher.diviser(2));
+                Pouce centreYPortionARetirer = centreYPlancher.add(epaisseurPlancher.diviser(2)).diff(epaisseurHayon.diviser(2));
+                PointPouce centrePortionARetirer = new PointPouce(centreXPortionARetirer, centreYPortionARetirer); // TODO: à faire, calculer le centre du rectangle
+                Rectangle portionARetirer = new Rectangle(distancePlancher, epaisseurHayon, centrePortionARetirer);
+
+                Path2D path = new Path2D.Double();
+                LinkedList<PointPouce> polygoneList = portionARetirer.getPolygone().getListePoints();
+                double[] point;
+                for (int i = 0; i < polygoneList.size(); i++) {
+                    point = parent.getPositionEcran(polygoneList.get(i));
+                    if (i == 0) {
+                        path.moveTo(point[0], point[1]);
+                    } else {
+                        path.lineTo(point[0], point[1]);
+                    }
                 }
-            }
-            path.closePath();
+                path.closePath();
 
-            Area areaPortionARetirer = new Area(path);
-            area.subtract(areaPortionARetirer);
+                Area areaPortionARetirer = new Area(path);
+                area.subtract(areaPortionARetirer);
 
-            if(!modeContreplaque){
-            // Portion contreplaqué intérieur
-            if (indexPlancher != -1){
-                Area areaPlancher = plancher.getArea();
-                area.subtract(areaPlancher);
-            }
+                if (getModeContreplaque() != ModeContreplaque.EXTERIEUR) {
+                    // Portion contreplaqué intérieur
+                    if (indexPlancher != -1) {
+                        Area areaPlancher = plancher.getArea();
+                        area.subtract(areaPlancher);
+                    }
 
-            int indexMurSeparateur = parent.getIndexComposante(TypeComposante.MUR_SEPARATEUR);
-            if (indexMurSeparateur != -1){
-               Area areaMurSeparateur = parent.getListeComposantes().get(indexMurSeparateur).getArea();
-               area.subtract(areaMurSeparateur);
-            }
-            int indexToit = parent.getIndexComposante(TypeComposante.TOIT);
-            if (indexToit != -1) {
-                Area areaToit = parent.getListeComposantes().get(indexToit).getArea();
-                area.subtract(areaToit);
-            }
-                int indexPoutre = parent.getIndexComposante(TypeComposante.POUTRE_ARRIERE);
-                if (indexPoutre != -1) {
-                    Area areaPoutre = parent.getListeComposantes().get(indexPoutre).getArea();
-                    area.subtract(areaPoutre);
+                    int indexMurSeparateur = parent.getIndexComposante(TypeComposante.MUR_SEPARATEUR);
+                    if (indexMurSeparateur != -1) {
+                        Area areaMurSeparateur = parent.getListeComposantes().get(indexMurSeparateur).getArea();
+                        area.subtract(areaMurSeparateur);
+                    }
+                    int indexToit = parent.getIndexComposante(TypeComposante.TOIT);
+                    if (indexToit != -1) {
+                        Area areaToit = parent.getListeComposantes().get(indexToit).getArea();
+                        area.subtract(areaToit);
+                    }
+                    int indexPoutre = parent.getIndexComposante(TypeComposante.POUTRE_ARRIERE);
+                    if (indexPoutre != -1) {
+                        Area areaPoutre = parent.getListeComposantes().get(indexPoutre).getArea();
+                        area.subtract(areaPoutre);
+                    }
                 }
+                // Sinon, on skip direct ici
             }
-            // Sinon, on skip direct ici
-
             Composite compositeInitial = g2d.getComposite();
             g2d.setComposite(definirComposite(getTransparence()));
             g2d.setPaint(getCouleur());
@@ -297,15 +295,15 @@ public class MurProfile extends Composante{
         Pouce xMin = pointsMur.get(1).getX();
         PointPouce point;
 
-        for(int i = 0; i < pointsBezier.size(); i++){
-            point = pointsBezier.get(i);
-            if (point.getY().st(yMin)){
+        for (PointPouce pointPouce : pointsBezier) {
+            point = pointPouce;
+            if (point.getY().st(yMin)) {
                 point.setY(yMin);
             }
-            if (point.getX().st(xMin)){
+            if (point.getX().st(xMin)) {
                 point.setX(xMin);
             }
-            if (point.getX().gt(xMax)){
+            if (point.getX().gt(xMax)) {
                 point.setX(xMax);
             }
             pointsModeBezier.add(point);
@@ -477,26 +475,26 @@ public class MurProfile extends Composante{
     }
 
     @Override
-    public boolean[] getModes(){
-        return new boolean[]{mode, modeContreplaque};
+    public Object[] getModes(){
+        return new Object[]{mode, modeContreplaque};
     }
 
-    public boolean getModeContreplaque() {
+    public ModeContreplaque getModeContreplaque() {
         return modeContreplaque;
     }
 
     public void setModeContreplaque(String modeContreplaque) {
         switch(modeContreplaque){
             case "Profil complet":
-                this.modeContreplaque = true;
+                this.modeContreplaque = ModeContreplaque.COMPLET;
                 break;
 
             case "Contreplaqué intérieur":
-                this.modeContreplaque = true;
+                this.modeContreplaque = ModeContreplaque.INTERIEUR;
                 break;
 
             case "Contreplaqué extérieur":
-                this.modeContreplaque = false;
+                this.modeContreplaque = ModeContreplaque.EXTERIEUR;
                 break;
         }
 

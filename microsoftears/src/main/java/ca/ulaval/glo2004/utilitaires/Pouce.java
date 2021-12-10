@@ -184,7 +184,7 @@ public class Pouce implements Serializable
         double num = ((double)numerateur/denominateur + pouces) * PRECISION_POUCE/mesure;
         int entier = (int) (num / PRECISION_POUCE);
         num -= PRECISION_POUCE*entier;
-        int[] fraction = this.simplifierFraction((int)Math.round(num),PRECISION_POUCE);
+        int[] fraction = simplifierFraction((int)Math.round(num),PRECISION_POUCE);
         return new Pouce(entier, fraction[0], fraction[1]);
     }
 
@@ -197,7 +197,7 @@ public class Pouce implements Serializable
             double num = ((double)numerateur/denominateur + pouces) * PRECISION_POUCE * mesure;
             int entier = (int) (num / PRECISION_POUCE);
             num -= entier * PRECISION_POUCE;
-            int[] fraction = this.simplifierFraction((int) Math.round(num), PRECISION_POUCE);
+            int[] fraction = simplifierFraction((int) Math.round(num), PRECISION_POUCE);
         return new Pouce(entier, fraction[0], fraction[1]);
     }
 
@@ -247,12 +247,8 @@ public class Pouce implements Serializable
      * @return (boolean) true si la mesure est plus grande, false sinon
      */
     public boolean gt(double mesure){
-        boolean resultat = false;
 
-        if (this.toDouble() > mesure) {
-            resultat = true;
-        }
-        return resultat;
+        return this.toDouble() > mesure;
     }
     /**
      *  Implémentation de l'opérateur >= (plus grand ou égal)
@@ -260,12 +256,8 @@ public class Pouce implements Serializable
      * @return (boolean) true si la mesure est plus grande ou égale, false sinon
      */
     public  boolean gte(double mesure){
-        boolean resultat = false;
 
-        if (this.toDouble() >= mesure) {
-            resultat = true;
-        }
-        return resultat;
+        return this.toDouble() >= mesure;
     }
     /**
      *  Implémentation de l'opérateur < (plus petit que)
@@ -273,12 +265,8 @@ public class Pouce implements Serializable
      * @return (boolean) true si la mesure est plus petite, false sinon
      */
     public  boolean st(double mesure){
-        boolean resultat = false;
 
-        if (this.toDouble() < mesure) {
-            resultat = true;
-        }
-        return resultat;
+        return this.toDouble() < mesure;
     }
 
     /**
@@ -287,12 +275,8 @@ public class Pouce implements Serializable
      * @return (boolean) true si la mesure est plus petite ou égale, false sinon
      */
     public  boolean ste(double mesure){
-        boolean resultat = false;
 
-        if (this.toDouble() <= mesure) {
-            resultat = true;
-        }
-        return resultat;
+        return this.toDouble() <= mesure;
     }
 
     /**
@@ -312,9 +296,8 @@ public class Pouce implements Serializable
         double num = getNumerateur();
         double denom = getDenominateur();
         double pouces = getPouces();
-        double mesureEnDouble = pouces + (num/denom);
 
-        return mesureEnDouble;
+        return pouces + (num/denom);
     }
 
     /** Calcul du plus grand dénominateur commun (pgdc)

@@ -37,7 +37,7 @@ public class PanneauAffichage extends JPanel implements Serializable {
             afficheurRoulotte = new RoulotteAfficheur(parent.controller, this.getSize());
             Graphics2D g2d = (Graphics2D) g;
             afficheurRoulotte.afficher(g2d);
-            this.setAntiAlias(g2d, true);
+            setAntiAlias(g2d, true);
     }
     }
 
@@ -62,7 +62,7 @@ public class PanneauAffichage extends JPanel implements Serializable {
         afficheurRoulotte = new RoulotteAfficheur(parent.controller, this.getSize());
         Graphics2D g2d = image.createGraphics();
         afficheurRoulotte.afficher(g2d);
-        this.setAntiAlias(g2d, true);
+        setAntiAlias(g2d, true);
         g2d.dispose();
         File outputfile = new File(nomFichier);
         try {

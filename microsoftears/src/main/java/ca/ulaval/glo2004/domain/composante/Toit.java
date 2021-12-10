@@ -5,12 +5,9 @@ import ca.ulaval.glo2004.domain.TypeComposante;
 import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.Polygone;
 import ca.ulaval.glo2004.utilitaires.Pouce;
-import ca.ulaval.glo2004.utilitaires.CourbeBezier.*;
 
 import java.awt.*;
 import java.util.LinkedList;
-
-import static ca.ulaval.glo2004.utilitaires.CourbeBezier.getPointDecaleBezier;
 
 public class Toit extends Composante implements Cloneable {
     private Pouce epaisseur;
@@ -253,8 +250,8 @@ public class Toit extends Composante implements Cloneable {
         }
 
     @Override
-    public boolean[] getModes(){
-        return new boolean[]{};
+    public Object[] getModes(){
+        return new Object[]{};
     }
 
 }

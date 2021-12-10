@@ -216,7 +216,7 @@ public class PanelInfoAideAuDesign extends PanelComposante {
     }
 
     private void largeurSpinner1ChangeListener(ChangeEvent e) {
-        int value = (int) ((JSpinner) e.getSource()).getValue();;
+        int value = (int) ((JSpinner) e.getSource()).getValue();
         this.valeurs[3] =  value;
         updateComposante();
     }
@@ -225,7 +225,7 @@ public class PanelInfoAideAuDesign extends PanelComposante {
         if (value < this.valeurs[5]){
             this.valeurs[4] =  value;
         }
-        else if (value >= this.valeurs[5]){
+        else {
             this.largeurSpinner1.setValue((int) largeurSpinner1.getValue() + 1);
             this.largeurSpinner2.setValue(0);
             this.valeurs[4] = 0;
@@ -237,14 +237,14 @@ public class PanelInfoAideAuDesign extends PanelComposante {
         if (value > this.valeurs[4]){ // 4/4
             this.valeurs[5] =  value;
         }
-        else if (value <= this.valeurs[4]){
+        else {
             this.largeurSpinner3.setValue(this.valeurs[5]);
         }
         updateComposante();
     }
 
     private void longueurSpinner1ChangeListener(ChangeEvent e) {
-        int value = (int) ((JSpinner) e.getSource()).getValue();;
+        int value = (int) ((JSpinner) e.getSource()).getValue();
         this.valeurs[0] =  value;
         updateComposante();
     }
@@ -253,7 +253,7 @@ public class PanelInfoAideAuDesign extends PanelComposante {
         if (value < this.valeurs[2]){
             this.valeurs[1] =  value;
         }
-        else if (value >= this.valeurs[2]){
+        else {
             this.longueurSpinner1.setValue((int) longueurSpinner1.getValue() + 1);
             this.longueurSpinner2.setValue(0);
             this.valeurs[1] = 0;
@@ -265,14 +265,14 @@ public class PanelInfoAideAuDesign extends PanelComposante {
         if (value > this.valeurs[1]){ // 4/4
             this.valeurs[2] =  value;
         }
-        else if (value <= this.valeurs[1]){
+        else {
             this.longueurSpinner3.setValue(this.valeurs[2]);
         }
         updateComposante();
     }
 
     private void centreXSpinner1ChangeListener(ChangeEvent e) {
-        int value = (int) ((JSpinner) e.getSource()).getValue();;
+        int value = (int) ((JSpinner) e.getSource()).getValue();
         this.valeurs[6] =  value;
         updateComposante();
     }
@@ -281,7 +281,7 @@ public class PanelInfoAideAuDesign extends PanelComposante {
         if (value < this.valeurs[8]){
             this.valeurs[7] =  value;
         }
-        else if (value >= this.valeurs[8]){
+        else {
             this.centreXSpinner1.setValue((int) centreXSpinner1.getValue() + 1);
             this.centreXSpinner2.setValue(0);
             this.valeurs[7] = 0;
@@ -294,14 +294,14 @@ public class PanelInfoAideAuDesign extends PanelComposante {
         if (value > this.valeurs[7]){ // 4/4
             this.valeurs[8] =  value;
         }
-        else if (value <= this.valeurs[7]){
+        else {
             this.centreXSpinner3.setValue(this.valeurs[8]);
         }
         updateComposante();
     }
 
     private void centreYSpinner1ChangeListener(ChangeEvent e) {
-        int value = (int) ((JSpinner) e.getSource()).getValue();;
+        int value = (int) ((JSpinner) e.getSource()).getValue();
         this.valeurs[9] =  value;
         updateComposante();
     }
@@ -311,7 +311,7 @@ public class PanelInfoAideAuDesign extends PanelComposante {
         if (value < this.valeurs[11]){
             this.valeurs[10] =  value;
         }
-        else if (value >= this.valeurs[11]){
+        else {
             this.centreYSpinner1.setValue((int) centreYSpinner1.getValue() + 1);
             this.centreYSpinner2.setValue(0);
             this.valeurs[10] = 0;
@@ -323,7 +323,7 @@ public class PanelInfoAideAuDesign extends PanelComposante {
         if (value > this.valeurs[10]){ // 4/4
             this.valeurs[11] =  value;
         }
-        else if (value <= this.valeurs[10]){
+        else {
             this.centreYSpinner3.setValue(this.valeurs[11]);
         }
         updateComposante();

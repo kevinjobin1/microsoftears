@@ -37,7 +37,7 @@ public class Plancher extends Composante {
         super(parent);
         this.epaisseur = new Pouce(1,1,4);
         this.margeAvant = new Pouce(5,0,1);
-        this.margeArriere = new Pouce(5,0,1);;
+        this.margeArriere = new Pouce(5,0,1);
         this.rectangle = new Rectangle(this.getLongueur(), this.epaisseur, this.getCentre());
         this.setCouleurInitiale(new Color(250,220,20));
         this.setCouleur(getCouleurInitiale());
@@ -161,8 +161,8 @@ public class Plancher extends Composante {
     }
 
     @Override
-    public boolean[] getModes(){
-        return new boolean[]{};
+    public Object[] getModes(){
+        return new Object[]{};
     }
 
     private Pouce getLongueur(){

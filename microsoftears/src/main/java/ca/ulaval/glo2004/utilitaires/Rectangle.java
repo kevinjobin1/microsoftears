@@ -71,23 +71,41 @@ public class Rectangle extends Forme{
         super(longueur, hauteur, centre);
         this.angle = angle;
     }
-    public Rectangle(Pouce longueur, Pouce hauteur) {
-        super(longueur, hauteur, new PointPouce(longueur.diviser(2), hauteur.diviser(2)));
-    }
-
-    public Rectangle(Pouce longueur, Pouce hauteur, PointPouce centre, Ellipse[] ellipses){
-        super(longueur, hauteur, centre);
-    }
 
     public PointPouce getMax(){
-        return new PointPouce(new Pouce(getCentre().getX().add(getLongueur().diviser(2))),
-                new Pouce(getCentre().getY().add(getHauteur().diviser(2))));
+        return this.getPolygone().getListePoints().get(3);
     }
 
     public PointPouce getMin(){
-        return new PointPouce(new Pouce(getCentre().getX().diff(getLongueur().diviser(2))),
-                new Pouce(getCentre().getY().diff(getHauteur().diviser(2))));
+        return this.getPolygone().getListePoints().get(1);
     }
+    
+    public PointPouce getCoinPlusPres(PointPouce point){
+        int indexCoin;
+        // à gauche
+        if(point.getX().ste(getCentre().getX())){
+            // en haut
+            if(point.getY().ste(getCentre().getY())){
+               indexCoin = 1;
+            }
+            // en bas
+            else {
+                indexCoin = 2;
+            }
+        }
+        // à droite
+        else {
+            // en haut
+            if(point.getY().ste(getCentre().getY())){
+                indexCoin = 0;
+            }
+            // en bas
+            else {
+                indexCoin = 3;
+            }
+        }
+    return this.getPolygone().getListePoints().get(indexCoin);
 
+    }
 
 }

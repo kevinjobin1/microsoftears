@@ -8,15 +8,13 @@ import ca.ulaval.glo2004.utilitaires.Pouce;
 
 import java.awt.*;
 import java.awt.geom.Area;
-import java.awt.geom.GeneralPath;
-import java.util.LinkedList;
 
 public class PointControle extends Composante{
 
     private Ellipse ellipse;
     private PointPouce centre;
-    private Pouce longueur;
-    private Pouce hauteur;
+    private final Pouce longueur;
+    private final Pouce hauteur;
 
 
     public PointControle(RoulotteController parent, Pouce longueur, Pouce hauteur, PointPouce centre, TypeComposante type) {
@@ -52,6 +50,14 @@ public class PointControle extends Composante{
 
     @Override
     public PointPouce getCentre() {
+        // On s'assure que le centre est à jour
+        if (getType() == TypeComposante.POINT_CONTROLE_1)
+        {
+            setCentre(parent.getListeComposantes().get(0).getPolygone().getListePoints().get(2));
+        }
+        else if(getType() == TypeComposante.POINT_CONTROLE_4){
+            setCentre(parent.getListeComposantes().get(0).getPolygone().getListePoints().get(3));
+        }
         return this.centre;
     }
 
@@ -76,16 +82,15 @@ public class PointControle extends Composante{
             this.setPolygone(ellipse.getPolygone());
        }
         else if (getType() == TypeComposante.POINT_CONTROLE_1){
-            this.centre = parent.getListeComposantes().get(0).getPolygone().getListePoints().get(2);
+           this.centre =  parent.getListeComposantes().get(0).getPolygone().getListePoints().get(2);
             this.ellipse = new Ellipse(this.longueur, this.hauteur, this.centre);
             this.setPolygone(ellipse.getPolygone());
         }
-        else {
+        else if (getType() == TypeComposante.POINT_CONTROLE_4){
             this.centre = parent.getListeComposantes().get(0).getPolygone().getListePoints().get(3);
             this.ellipse = new Ellipse(this.longueur, this.hauteur, this.centre);
             this.setPolygone(ellipse.getPolygone());
         }
-
     }
 
     @Override
@@ -101,8 +106,8 @@ public class PointControle extends Composante{
     }
 
     @Override
-    public boolean[] getModes(){
-        return new boolean[]{};
+    public Object[] getModes(){
+        return new Object[]{};
     }
 
 }

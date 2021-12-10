@@ -76,14 +76,10 @@ public class PointPouce  implements Serializable {
      * @return true (boolean) si le point appartient à PR, false sinon */
     static boolean appartientSegment(PointPouce p, PointPouce q, PointPouce r)
     {
-        if (q.getX().ste(Pouce.max(p.getX(), r.getX())) &&
+        return q.getX().ste(Pouce.max(p.getX(), r.getX())) &&
                 q.getX().gte(Pouce.min(p.getX(), r.getX())) &&
                 q.getY().ste(Pouce.max(p.getY(), r.getY())) &&
-                q.getY().gte(Pouce.min(p.getY(), r.getY())))
-        {
-            return true;
-        }
-        return false;
+                q.getY().gte(Pouce.min(p.getY(), r.getY()));
     }
     /**
      * Fonction qui trouve l'orientation du triplet ordonné de points (p,q,r) en pouces (")
@@ -162,13 +158,9 @@ public class PointPouce  implements Serializable {
 
         // p2, q2 and q1 are collinear and
         // q1 lies on segment p2q2
-        if (o4 == 0 && appartientSegment(p2, q1, q2))
-        {
-            return true;
-        }
+        return o4 == 0 && appartientSegment(p2, q1, q2);
 
         // Doesn't fall in any of the above cases
-        return false;
     }
 
     public Point2D toPoint2D(){
@@ -176,7 +168,7 @@ public class PointPouce  implements Serializable {
     }
 
     public boolean equals(PointPouce point){
-        return getX().equals(point.getX()) && getY().equals(point.getY()) ? true : false;
+        return getX().equals(point.getX()) && getY().equals(point.getY());
     }
 
     public PointPouce translate(Pouce deltaX, Pouce deltaY){

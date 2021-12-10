@@ -265,7 +265,7 @@ public class PanelInfoHayon extends PanelComposante{
             if (value < this.valeurs[2]){
                 this.valeurs[1] =  value;
             }
-            else if (value >= this.valeurs[2]){
+            else {
                 this.epaisseurSpinner1.setValue((int) epaisseurSpinner1.getValue() + 1);
                 this.epaisseurSpinner2.setValue(0);
                 this.valeurs[1] = 0;
@@ -278,7 +278,7 @@ public class PanelInfoHayon extends PanelComposante{
         if(Verification.verificationEpaisseurHayon(new Pouce(valeurs[0],valeurs[1], value))) {
             if (value > this.valeurs[1]) { // 4/4
                 this.valeurs[2] = value;
-            } else if (value <= this.valeurs[1]) {
+            } else {
                 this.epaisseurSpinner3.setValue(this.valeurs[2]);
             }
             updateComposante();
@@ -286,7 +286,7 @@ public class PanelInfoHayon extends PanelComposante{
     }
 
     private void poutreSpinner1ChangeListener(ChangeEvent e) {
-        int value = (int) ((JSpinner) e.getSource()).getValue();;
+        int value = (int) ((JSpinner) e.getSource()).getValue();
         this.valeurs[3] =  value;
         updateComposante();
     }
@@ -295,7 +295,7 @@ public class PanelInfoHayon extends PanelComposante{
         if (value < this.valeurs[5]){
             this.valeurs[4] =  value;
         }
-        else if (value >= this.valeurs[5]){
+        else {
             this.poutreSpinner1.setValue((int) poutreSpinner1.getValue() + 1);
             this.poutreSpinner2.setValue(0);
             this.valeurs[4] = 0;
@@ -307,14 +307,14 @@ public class PanelInfoHayon extends PanelComposante{
         if (value > this.valeurs[4]){ // 4/4
             this.valeurs[5] =  value;
         }
-        else if (value <= this.valeurs[4]){
+        else {
             this.poutreSpinner3.setValue(this.valeurs[5]);
         }
         updateComposante();
     }
 
     private void plancherSpinner1ChangeListener(ChangeEvent e) {
-        int value = (int) ((JSpinner) e.getSource()).getValue();;
+        int value = (int) ((JSpinner) e.getSource()).getValue();
         this.valeurs[6] =  value;
         updateComposante();
     }
@@ -323,7 +323,7 @@ public class PanelInfoHayon extends PanelComposante{
         if (value < this.valeurs[8]){
             this.valeurs[7] =  value;
         }
-        else if (value >= this.valeurs[8]){
+        else {
             this.plancherSpinner1.setValue((int) plancherSpinner1.getValue() + 1);
             this.plancherSpinner2.setValue(0);
             this.valeurs[7] = 0;
@@ -335,14 +335,14 @@ public class PanelInfoHayon extends PanelComposante{
         if (value > this.valeurs[7]){ // 4/4
             this.valeurs[8] =  value;
         }
-        else if (value <= this.valeurs[7]){
+        else {
             this.plancherSpinner3.setValue(this.valeurs[8]);
         }
         updateComposante();
     }
 
     private void scieSpinner1ChangeListener(ChangeEvent e) {
-        int value = (int) ((JSpinner) e.getSource()).getValue();;
+        int value = (int) ((JSpinner) e.getSource()).getValue();
         this.valeurs[9] =  value;
         updateComposante();
     }
@@ -351,7 +351,7 @@ public class PanelInfoHayon extends PanelComposante{
         if (value < this.valeurs[11]){
             this.valeurs[10] =  value;
         }
-        else if (value >= this.valeurs[11]){
+        else {
             this.scieSpinner1.setValue((int) scieSpinner1.getValue() + 1);
             this.scieSpinner2.setValue(0);
             this.valeurs[10] = 0;
@@ -363,14 +363,14 @@ public class PanelInfoHayon extends PanelComposante{
         if (value > this.valeurs[10]){ // 4/4
             this.valeurs[11] =  value;
         }
-        else if (value <= this.valeurs[10]){
+        else {
             this.scieSpinner3.setValue(this.valeurs[11]);
         }
         updateComposante();
     }
 
     private void rayonSpinner1ChangeListener(ChangeEvent e) {
-        int value = (int) ((JSpinner) e.getSource()).getValue();;
+        int value = (int) ((JSpinner) e.getSource()).getValue();
         this.valeurs[12] =  value;
         updateComposante();
     }
@@ -379,7 +379,7 @@ public class PanelInfoHayon extends PanelComposante{
         if (value < this.valeurs[14]){
             this.valeurs[13] =  value;
         }
-        else if (value >= this.valeurs[14]){
+        else {
             this.rayonSpinner1.setValue((int) rayonSpinner1.getValue() + 1);
             this.rayonSpinner2.setValue(0);
             this.valeurs[13] = 0;
@@ -391,7 +391,7 @@ public class PanelInfoHayon extends PanelComposante{
         if (value > this.valeurs[13]){ // 4/4
             this.valeurs[14] =  value;
         }
-        else if (value <= this.valeurs[13]){
+        else {
             this.rayonSpinner3.setValue(this.valeurs[14]);
         }
         updateComposante();

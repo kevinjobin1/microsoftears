@@ -170,7 +170,7 @@ public class PanelInfoPoutre extends PanelComposante {
     }
 
     private void hauteurSpinner1ChangeListener(ChangeEvent e) {
-        int value = (int) ((JSpinner) e.getSource()).getValue();;
+        int value = (int) ((JSpinner) e.getSource()).getValue();
         this.valeurs[0] =  value;
         updateComposante();
     }
@@ -198,7 +198,7 @@ public class PanelInfoPoutre extends PanelComposante {
     }
 
     private void longueurSpinner1ChangeListener(ChangeEvent e) {
-        int value = (int) ((JSpinner) e.getSource()).getValue();;
+        int value = (int) ((JSpinner) e.getSource()).getValue();
         this.valeurs[3] =  value;
         updateComposante();
     }
@@ -226,7 +226,7 @@ public class PanelInfoPoutre extends PanelComposante {
     }
 
     private void centreXSpinner1ChangeListener(ChangeEvent e) {
-        int value = (int) ((JSpinner) e.getSource()).getValue();;
+        int value = (int) ((JSpinner) e.getSource()).getValue();
         this.valeurs[6] =  value;
         updateComposante();
     }

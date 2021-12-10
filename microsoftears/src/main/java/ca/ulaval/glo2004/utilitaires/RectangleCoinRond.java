@@ -6,7 +6,7 @@ import java.util.LinkedList;
 
 public class RectangleCoinRond extends Forme {
 
-    private Pouce rayonCourbure;
+    private final Pouce rayonCourbure;
     private double angle = 0; // en rad
 
     public RectangleCoinRond(Pouce hauteur, Pouce longueur, PointPouce centre, Pouce rayonCourbure) {

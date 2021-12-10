@@ -44,6 +44,18 @@ public class MurSeparateur extends Composante{
         this.setVisible(true);
     }
 
+    public MurSeparateur(MurSeparateur copie) {
+        super(copie.parent);
+        this.epaisseur = copie.epaisseur;
+        this.hauteur = copie.hauteur;
+        this.distancePoutreArriere = copie.distancePoutreArriere;
+        this.rectangle = copie.rectangle;
+        this.setCouleurInitiale(copie.getCouleurInitiale());
+        this.setCouleur(getCouleurInitiale());
+        this.setPolygone(copie.getPolygone());
+        this.setType(TypeComposante.MUR_SEPARATEUR);
+        this.setVisible(copie.estVisible());
+    }
 
 
     public Pouce getEpaisseur() {
@@ -104,7 +116,7 @@ public class MurSeparateur extends Composante{
     }
 
     @Override
-    public boolean[] getModes() {
-        return new boolean[]{};
+    public Object[] getModes() {
+        return new Object[]{};
     }
 }

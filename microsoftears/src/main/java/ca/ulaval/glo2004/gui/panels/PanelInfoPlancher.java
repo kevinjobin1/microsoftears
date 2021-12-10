@@ -169,7 +169,6 @@ public class PanelInfoPlancher extends PanelComposante {
 
     private void epaisseurSpinner1ChangeListener(ChangeEvent e) {
         int value = (int) ((JSpinner) e.getSource()).getValue();
-        ;
         this.valeurs[0] = value;
         updateComposante();
     }
@@ -198,7 +197,6 @@ public class PanelInfoPlancher extends PanelComposante {
 
     private void margeAvantSpinner1ChangeListener(ChangeEvent e) {
         int value = (int) ((JSpinner) e.getSource()).getValue();
-        ;
         this.valeurs[3] = value;
         updateComposante();
     }
@@ -227,7 +225,6 @@ public class PanelInfoPlancher extends PanelComposante {
 
     private void margeArriereSpinner1ChangeListener(ChangeEvent e) {
         int value = (int) ((JSpinner) e.getSource()).getValue();
-        ;
         this.valeurs[6] = value;
         updateComposante();
     }

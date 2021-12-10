@@ -13,7 +13,7 @@ public class OuvertureLaterale extends Composante{
     private Pouce hauteur;
     private Pouce largeur;
     private PointPouce centre;
-    private Pouce rayon;
+    private final Pouce rayon;
     private RectangleCoinRond rectangle;
 
     public OuvertureLaterale(RoulotteController parent, Pouce hauteur, Pouce largeur, PointPouce centre, Pouce rayonCourbure) {
@@ -39,6 +39,19 @@ public class OuvertureLaterale extends Composante{
         this.rectangle = new RectangleCoinRond(hauteur, largeur, centre, rayon);
         this.setTransparenceInitiale(0.1f);
         this.setTransparence(0.1f);
+        this.setPolygone(rectangle.getPolygone());
+        this.setType(TypeComposante.OUVERTURE_LATERALE);
+    }
+
+    public OuvertureLaterale(OuvertureLaterale copie) {
+        super(copie.parent);
+        this.hauteur = copie.hauteur;
+        this.largeur = copie.largeur;
+        this.centre = copie.centre;
+        this.rayon = copie.rayon;
+        this.rectangle = copie.rectangle;
+        this.setTransparenceInitiale(copie.getTransparenceInitiale());
+        this.setTransparence(copie.getTransparence());
         this.setPolygone(rectangle.getPolygone());
         this.setType(TypeComposante.OUVERTURE_LATERALE);
     }
@@ -113,8 +126,8 @@ public class OuvertureLaterale extends Composante{
     }
 
     @Override
-    public boolean[] getModes(){
-        return new boolean[]{};
+    public Object[] getModes(){
+        return new Object[]{};
     }
 
     public void setCentre(PointPouce centre) {

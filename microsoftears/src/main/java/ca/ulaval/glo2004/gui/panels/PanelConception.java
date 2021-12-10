@@ -122,7 +122,6 @@ public class PanelConception extends JPanel
         String dimensionPlan = " Dimension Plan (" + (int) parent.controller.largeurPlan + "," + (int) parent.controller.hauteurPlan + ")";
         String dimensionAfficheur = " Dimension Afficheur (" + panneauAffichage.getWidth() + "," + panneauAffichage.getHeight() + ")";
         this.parent.infoLabel.setText(position + centre + dimensionPlan + dimensionAfficheur);*/
-        ;
     }
 
     private void panneauAffichageMouseWheelMoved(MouseWheelEvent e) {

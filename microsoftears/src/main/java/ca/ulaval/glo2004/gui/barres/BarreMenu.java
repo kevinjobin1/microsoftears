@@ -14,6 +14,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class BarreMenu extends JMenuBar
 {
@@ -253,7 +254,7 @@ public class BarreMenu extends JMenuBar
 
                 affichageMenu.add(contreplaqueSubMenu);
 
-                if (composante.getModes()[0]){
+                if ((boolean) composante.getModes()[0]){
                     creerCheckBoxMenuItem("Afficher/masquer ellipses", composante.estVisible());
                 }
                 else {
@@ -440,7 +441,7 @@ public class BarreMenu extends JMenuBar
                 // si la composante n'est pas affichée, on la réaffiche
                 // on va appeler une fonction du controleur qui invalide l'affichage
                 // et qui repaint les composantes
-                if (composante == "Afficher/masquer tout"){
+                if (Objects.equals(composante, "Afficher/masquer tout")){
                     for (int i = 0 ; i <  affichageMenu.getItemCount(); i++) {
                         Object item = affichageMenu.getItem(i);
                         if (item instanceof JCheckBoxMenuItem) {
@@ -448,29 +449,29 @@ public class BarreMenu extends JMenuBar
                         }
                     }
                 }
-                else if (composante == "Afficher/masquer ellipses"){
+                else if (Objects.equals(composante, "Afficher/masquer ellipses")){
                     for (int i = 0 ; i <  affichageMenu.getItemCount(); i++) {
                         Object item = affichageMenu.getItem(i);
                         if (item instanceof JCheckBoxMenuItem) {
                             JCheckBoxMenuItem checkBox = (JCheckBoxMenuItem) item;
-                            if (checkBox.getText() == "Ellipse 1" ||
-                                    checkBox.getText() == "Ellipse 2" ||
-                                    checkBox.getText() == "Ellipse 3" ||
-                                    checkBox.getText() == "Ellipse 4"){
+                            if (Objects.equals(checkBox.getText(), "Ellipse 1") ||
+                                    Objects.equals(checkBox.getText(), "Ellipse 2") ||
+                                    Objects.equals(checkBox.getText(), "Ellipse 3") ||
+                                    Objects.equals(checkBox.getText(), "Ellipse 4")){
                                 checkBox.setState(estAffiche);
                             }
                         }
                     }
                 }
-                else if (composante == "Afficher/masquer points de contrôles"){
+                else if (Objects.equals(composante, "Afficher/masquer points de contrôles")){
                     for (int i = 0 ; i <  affichageMenu.getItemCount(); i++) {
                         Object item = affichageMenu.getItem(i);
                         if (item instanceof JCheckBoxMenuItem) {
                             JCheckBoxMenuItem checkBox = (JCheckBoxMenuItem) item;
-                            if (checkBox.getText() == "Point de contrôle 1" ||
-                                    checkBox.getText() == "Point de contrôle 2" ||
-                                    checkBox.getText() == "Point de contrôle 3" ||
-                                    checkBox.getText() == "Point de contrôle 4"){
+                            if (Objects.equals(checkBox.getText(), "Point de contrôle 1") ||
+                                    Objects.equals(checkBox.getText(), "Point de contrôle 2") ||
+                                    Objects.equals(checkBox.getText(), "Point de contrôle 3") ||
+                                    Objects.equals(checkBox.getText(), "Point de contrôle 4")){
                                 checkBox.setState(estAffiche);
                             }
                         }
@@ -483,7 +484,7 @@ public class BarreMenu extends JMenuBar
                 // sinon, on la fait disparaitre
                 // on va appeler une fonction du controleur qui invalide l'affichage
                 // et qui repaint les composantes
-                if (composante == "Afficher/masquer tout"){
+                if (Objects.equals(composante, "Afficher/masquer tout")){
                     for (int i = 0 ; i <  affichageMenu.getItemCount(); i++) {
                         Object item = affichageMenu.getItem(i);
                         if (item instanceof JCheckBoxMenuItem) {
@@ -491,29 +492,29 @@ public class BarreMenu extends JMenuBar
                         }
                     }
                 }
-                else if (composante == "Afficher/masquer ellipses"){
+                else if (Objects.equals(composante, "Afficher/masquer ellipses")){
                     for (int i = 0 ; i <  affichageMenu.getItemCount(); i++) {
                         Object item = affichageMenu.getItem(i);
                         if (item instanceof JCheckBoxMenuItem) {
                             JCheckBoxMenuItem checkBox = (JCheckBoxMenuItem) item;
-                            if (checkBox.getText() == "Ellipse 1" ||
-                                    checkBox.getText() == "Ellipse 2" ||
-                                    checkBox.getText() == "Ellipse 3" ||
-                                    checkBox.getText() == "Ellipse 4"){
+                            if (Objects.equals(checkBox.getText(), "Ellipse 1") ||
+                                    Objects.equals(checkBox.getText(), "Ellipse 2") ||
+                                    Objects.equals(checkBox.getText(), "Ellipse 3") ||
+                                    Objects.equals(checkBox.getText(), "Ellipse 4")){
                                 checkBox.setState(estAffiche);
                             }
                         }
                     }
                 }
-                else if (composante == "Afficher/masquer points de contrôles"){
+                else if (Objects.equals(composante, "Afficher/masquer points de contrôles")){
                     for (int i = 0 ; i <  affichageMenu.getItemCount(); i++) {
                         Object item = affichageMenu.getItem(i);
                         if (item instanceof JCheckBoxMenuItem) {
                             JCheckBoxMenuItem checkBox = (JCheckBoxMenuItem) item;
-                            if (checkBox.getText() == "Point de contrôle 1" ||
-                                    checkBox.getText() == "Point de contrôle 2" ||
-                                    checkBox.getText() == "Point de contrôle 3" ||
-                                    checkBox.getText() == "Point de contrôle 4"){
+                            if (Objects.equals(checkBox.getText(), "Point de contrôle 1") ||
+                                    Objects.equals(checkBox.getText(), "Point de contrôle 2") ||
+                                    Objects.equals(checkBox.getText(), "Point de contrôle 3") ||
+                                    Objects.equals(checkBox.getText(), "Point de contrôle 4")){
                                 checkBox.setState(estAffiche);
                             }
                         }

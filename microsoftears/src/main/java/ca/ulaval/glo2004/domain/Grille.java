@@ -16,7 +16,7 @@ public class Grille implements Serializable{
     private Set<Point> points;
     private int echelle;
     private boolean estMagnetique;
-    private boolean estAffiche;
+    private final boolean estAffiche;
     private Dimension dimensions;
 
     public Grille(RoulotteController parent, int echelle, boolean estMagnetique, boolean estAffiche, Dimension dimensions) {

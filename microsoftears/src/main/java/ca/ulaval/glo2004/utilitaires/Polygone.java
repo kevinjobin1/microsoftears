@@ -9,8 +9,8 @@ public class Polygone implements Serializable {
 
     private LinkedList<PointPouce> listePoints;
     private Rectangle2D rectangleLimite;
-    private double[] xPoints;
-    private double[] yPoints;
+    private final double[] xPoints;
+    private final double[] yPoints;
 
     public Polygone(LinkedList<PointPouce> listePoints) {
         super();

@@ -209,7 +209,7 @@ public class PanelInfoEllipse extends PanelComposante  {
     }
 
     private void hauteurSpinner1ChangeListener(ChangeEvent e) {
-        int value = (int) ((JSpinner) e.getSource()).getValue();;
+        int value = (int) ((JSpinner) e.getSource()).getValue();
         this.valeurs[0] =  value;
         updateComposante();
     }
@@ -237,7 +237,7 @@ public class PanelInfoEllipse extends PanelComposante  {
     }
 
     private void longueurSpinner1ChangeListener(ChangeEvent e) {
-        int value = (int) ((JSpinner) e.getSource()).getValue();;
+        int value = (int) ((JSpinner) e.getSource()).getValue();
         this.valeurs[3] =  value;
         updateComposante();
     }
@@ -293,7 +293,7 @@ public class PanelInfoEllipse extends PanelComposante  {
     }
 
     private void centreYSpinner1ChangeListener(ChangeEvent e) {
-        int value = (int) ((JSpinner) e.getSource()).getValue();;
+        int value = (int) ((JSpinner) e.getSource()).getValue();
         this.valeurs[9] =  value;
         updateComposante();
     }

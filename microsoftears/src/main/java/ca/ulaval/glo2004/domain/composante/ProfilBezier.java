@@ -4,7 +4,6 @@ import ca.ulaval.glo2004.domain.RoulotteController;
 import ca.ulaval.glo2004.domain.TypeComposante;
 import ca.ulaval.glo2004.utilitaires.PointPouce;
 import ca.ulaval.glo2004.utilitaires.CourbeBezier;
-import ca.ulaval.glo2004.utilitaires.Polygone;
 import ca.ulaval.glo2004.utilitaires.Pouce;
 
 import java.util.ArrayList;
@@ -13,7 +12,7 @@ import java.util.ArrayList;
 public class ProfilBezier extends Composante {
 
     private CourbeBezier bezier;
-    private ArrayList<PointControle> pointsControle;
+    private final ArrayList<PointControle> pointsControle;
 
     public ProfilBezier(RoulotteController parent) {
         super(parent);
@@ -101,8 +100,8 @@ public class ProfilBezier extends Composante {
     }
 
     @Override
-    public boolean[] getModes(){
-        return new boolean[]{};
+    public Object[] getModes(){
+        return new Object[]{};
     }
 
 }

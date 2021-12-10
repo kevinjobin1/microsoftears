@@ -7,7 +7,6 @@ import ca.ulaval.glo2004.utilitaires.Pouce;
 import ca.ulaval.glo2004.utilitaires.Rectangle;
 
 import java.awt.*;
-import java.awt.geom.Area;
 import java.util.LinkedList;
 
 public class PoutreArriere extends Composante{
@@ -129,8 +128,7 @@ public class PoutreArriere extends Composante{
 
     @Override
     public void translate(PointPouce delta) {
-        PointPouce pSouris = parent.getPositionPlan(parent.getPositionSouris());
-        this.centreX = centreX.add(delta.getX().diff(pSouris.getX()));
+        this.centreX = centreX.add(delta.getX());
         boolean modeEllipse = ((MurProfile) (parent.getListeComposantes().get(1))).getMode();
         System.out.println(modeEllipse);
         // Mode ellipse
@@ -181,8 +179,8 @@ public class PoutreArriere extends Composante{
     }
 
     @Override
-    public boolean[] getModes(){
-        return new boolean[]{};
+    public Object[] getModes(){
+        return new Object[]{};
     }
 
     public void setCentre(PointPouce centre) {
@@ -234,9 +232,15 @@ public class PoutreArriere extends Composante{
                     index = i;
                 }
             }
-            PointPouce pointCourbe = murProfilePoints.get(index);
-            PointPouce p1 = murProfilePoints.get(index);
-            PointPouce p2 = murProfilePoints.get(index + 1);
+            PointPouce p1,p2, pointCourbe = murProfilePoints.get(index);
+            if (index + 1 != murProfilePoints.size()){
+            p1 = murProfilePoints.get(index);
+            p2 = murProfilePoints.get(index + 1);
+            }
+            else {
+                p1 = murProfilePoints.get(index - 1);
+                p2 = murProfilePoints.get(index);
+            }
 
             double y1 = p1.getY().toDouble();
             double y2 = p2.getY().toDouble();

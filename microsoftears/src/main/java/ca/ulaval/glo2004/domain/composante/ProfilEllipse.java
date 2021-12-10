@@ -9,8 +9,6 @@ import ca.ulaval.glo2004.utilitaires.Pouce;
 import java.awt.*;
 import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
-import java.awt.geom.GeneralPath;
-import java.util.LinkedList;
 
 
 public class ProfilEllipse extends Composante{
@@ -84,9 +82,9 @@ public class ProfilEllipse extends Composante{
 
     @Override
     public void translate(PointPouce delta) {
-        PointPouce pSouris = parent.getPositionPlan(parent.getPositionSouris());
-        Pouce differenceX = centre.getX().add(delta.getX().diff(pSouris.getX()));
-        Pouce differenceY = centre.getY().add(delta.getY().diff(pSouris.getY()));
+
+        Pouce differenceX = centre.getX().add(delta.getX());
+        Pouce differenceY = centre.getY().add(delta.getY());
         this.centre = new PointPouce(differenceX, differenceY);
         this.ellipse = new Ellipse(this.longueur,this.hauteur,this.centre);
         this.setPolygone(ellipse.getPolygone());
@@ -105,8 +103,8 @@ public class ProfilEllipse extends Composante{
     }
 
     @Override
-    public boolean[] getModes(){
-        return new boolean[]{};
+    public Object[] getModes(){
+        return new Object[]{};
     }
 
     public void setCentre(PointPouce centre) {

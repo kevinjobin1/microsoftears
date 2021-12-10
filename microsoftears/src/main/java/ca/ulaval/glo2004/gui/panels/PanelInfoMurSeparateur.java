@@ -201,7 +201,7 @@ public class PanelInfoMurSeparateur extends PanelComposante{
         if (value > this.valeurs[7]){ // 4/4
             this.valeurs[8] =  value;
         }
-        else if (value <= this.valeurs[7]){
+        else {
             this.distancePoutreArriereSpinner3.setValue(this.valeurs[8]);
         }
         updateComposante();
@@ -212,7 +212,7 @@ public class PanelInfoMurSeparateur extends PanelComposante{
         if (value < this.valeurs[8]){
             this.valeurs[7] =  value;
         }
-        else if (value >= this.valeurs[8]){
+        else {
             this.distancePoutreArriereSpinner1.setValue((int) distancePoutreArriereSpinner1.getValue() + 1);
             this.distancePoutreArriereSpinner2.setValue(0);
             this.valeurs[7] = 0;
@@ -221,7 +221,7 @@ public class PanelInfoMurSeparateur extends PanelComposante{
     }
 
     private void distancePoutreArriereSpinner1ChangeListener(ChangeEvent e) {
-        int value = (int) ((JSpinner) e.getSource()).getValue();;
+        int value = (int) ((JSpinner) e.getSource()).getValue();
         this.valeurs[6] =  value;
         updateComposante();
     }
@@ -231,7 +231,7 @@ public class PanelInfoMurSeparateur extends PanelComposante{
         if (value > this.valeurs[4]){ // 4/4
             this.valeurs[5] =  value;
         }
-        else if (value <= this.valeurs[4]){
+        else {
             this.epaisseurSpinner3.setValue(this.valeurs[5]);
         }
         updateComposante();
@@ -242,7 +242,7 @@ public class PanelInfoMurSeparateur extends PanelComposante{
         if (value < this.valeurs[5]){
             this.valeurs[4] =  value;
         }
-        else if (value >= this.valeurs[5]){
+        else {
             this.epaisseurSpinner1.setValue((int) epaisseurSpinner1.getValue() + 1);
             this.epaisseurSpinner2.setValue(0);
             this.valeurs[4] = 0;
@@ -251,7 +251,7 @@ public class PanelInfoMurSeparateur extends PanelComposante{
     }
 
     private void epaisseurSpinner1ChangeListener(ChangeEvent e) {
-        int value = (int) ((JSpinner) e.getSource()).getValue();;
+        int value = (int) ((JSpinner) e.getSource()).getValue();
         this.valeurs[3] =  value;
         updateComposante();
     }
@@ -261,7 +261,7 @@ public class PanelInfoMurSeparateur extends PanelComposante{
         if (value > this.valeurs[1]){ // 4/4
             this.valeurs[2] =  value;
         }
-        else if (value <= this.valeurs[1]){
+        else {
             this.hauteurSpinner3.setValue(this.valeurs[2]);
         }
         updateComposante();
@@ -272,7 +272,7 @@ public class PanelInfoMurSeparateur extends PanelComposante{
         if (value < this.valeurs[2]){
             this.valeurs[1] =  value;
         }
-        else if (value >= this.valeurs[2]){
+        else {
             this.hauteurSpinner1.setValue((int) hauteurSpinner1.getValue() + 1);
             this.hauteurSpinner2.setValue(0);
             this.valeurs[1] = 0;
@@ -281,7 +281,7 @@ public class PanelInfoMurSeparateur extends PanelComposante{
     }
 
     private void hauteurSpinner1ChangeListener(ChangeEvent e) {
-        int value = (int) ((JSpinner) e.getSource()).getValue();;
+        int value = (int) ((JSpinner) e.getSource()).getValue();
         this.valeurs[0] =  value;
         updateComposante();
     }

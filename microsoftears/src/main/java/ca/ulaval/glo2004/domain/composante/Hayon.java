@@ -7,7 +7,6 @@ import ca.ulaval.glo2004.utilitaires.Rectangle;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;

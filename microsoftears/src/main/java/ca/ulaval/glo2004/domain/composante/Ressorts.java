@@ -3,7 +3,6 @@ package ca.ulaval.glo2004.domain.composante;
 import ca.ulaval.glo2004.domain.RoulotteController;
 import ca.ulaval.glo2004.domain.TypeComposante;
 import ca.ulaval.glo2004.utilitaires.*;
-import ca.ulaval.glo2004.utilitaires.Rectangle;
 
 import java.awt.*;
 import java.awt.geom.Area;
@@ -92,6 +91,41 @@ public class Ressorts extends Composante{
 
         this.setPolygone(new Polygone(corpsRessort.getListePoints()));
     }
+
+    public Ressorts(Ressorts copie) {
+        super(copie.parent);
+        this.poidsHayon = copie.poidsHayon;
+        this.setType(TypeComposante.RESSORTS);
+        this.longueurIdealExtension = getLongueurHayon().multiplier(0.6);
+        calculerDistancePositionsDuPointDeRotation();
+        calculerPositionSurHayon();
+        calculerPositionSurMur();
+        this.force = calculerForce();
+        this.setCouleur(Color.LIGHT_GRAY);
+        this.setStrokeCouleur(Color.LIGHT_GRAY);
+        this.setTransparence(0.15f);
+
+        // la ligne qui constitue le ressort
+        this.ligne = new Ligne(positionSurHayon, positionSurMur);
+
+        // angle de la ligne
+        double y1 = positionSurMur.getY().toDouble();
+        double y2 = positionSurHayon.getY().toDouble();
+        double x1 = positionSurMur.getX().toDouble();
+        double x2 = positionSurHayon.getX().toDouble();
+        double angle = Math.acos((y1-y2)/(Math.sqrt((Math.pow((x1-x2),2) + Math.pow((y1-y2),2)))));
+
+        // Le corps du ressort à gaz
+        this.corpsRessort = new RectangleCoinRond(ligne.getLongueur().diff(RAYON_TIGE.multiplier(2)),LARGEUR_CORPS, ligne.getCentre(), RAYON_TIGE, angle);
+
+        // Les points d'attache (têtes du ressort)
+        this.pointHayon = new Ellipse(RAYON_TIGE, RAYON_TIGE, positionSurHayon);
+        this.pointMur = new Ellipse(RAYON_TIGE,RAYON_TIGE, positionSurMur);
+        this.setPolygone(new Polygone(corpsRessort.getListePoints()));
+
+    }
+
+
 
     @Override
     public void afficher(Graphics2D g2d) {
@@ -215,7 +249,7 @@ public class Ressorts extends Composante{
 
     @Override
     public void snapToGrid(PointPouce pointGrille) {
-        translate(pointGrille);
+        //translate(pointGrille);
     }
 
     public Pouce getLongueurExactExtension() {
@@ -370,8 +404,8 @@ public class Ressorts extends Composante{
     }
 
     @Override
-    public boolean[] getModes(){
-        return new boolean[]{};
+    public Object[] getModes(){
+        return new Object[]{};
     }
 
 }

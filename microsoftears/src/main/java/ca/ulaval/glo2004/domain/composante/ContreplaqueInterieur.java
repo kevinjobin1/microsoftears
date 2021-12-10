@@ -62,8 +62,8 @@ public class ContreplaqueInterieur extends Composante{
     }
 
     @Override
-    public boolean[] getModes(){
-        return new boolean[]{};
+    public Object[] getModes(){
+        return new Object[]{};
     }
 
 }

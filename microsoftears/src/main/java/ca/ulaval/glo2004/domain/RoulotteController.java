@@ -17,11 +17,11 @@ import java.util.logging.Logger;
 
 public class RoulotteController implements Serializable{
     private Grille grille;
-    private ArrayList<Composante> listeComposantes;
+    private final ArrayList<Composante> listeComposantes;
     private ArrayList<OuvertureLaterale> listeOuverturesLaterales;
     private ArrayList<AideDesign> listeAidesDesign;
     private List<TypeComposante> typeComposantes;
-    private boolean afficherGrille;
+    private final boolean afficherGrille;
     private boolean afficherLabel;
     private Composante composanteChoisie;
     private Color couleurChoisie;
@@ -31,7 +31,7 @@ public class RoulotteController implements Serializable{
 
     // controle de l'affichage
     private static final int PIXEL_RATIO = 6;
-    private int[] delta;
+    private final int[] delta;
     private Point2D positionSouris;
     private double scale;
 
@@ -198,11 +198,10 @@ public class RoulotteController implements Serializable{
     }
 
     public void updateComposante(int[] valeurs, TypeComposante type){
-       undoController = this.deepCopy();
+       //undoController = this.deepCopy();
        switch(type){
            case MUR_PROFILE:
-               // Changement aux dimensions du mur brute, on doit recréé
-               // le panneau brute, le profile, le plancher,
+               // On mets a jour le Mur Brute
                MurBrute mur = new MurBrute(this,
                        new Pouce(valeurs[3], valeurs[4], valeurs[5]),
                        new Pouce(valeurs[0], valeurs[1], valeurs[2]),
@@ -211,36 +210,36 @@ public class RoulotteController implements Serializable{
                                new Pouce(valeurs[9], valeurs[10], valeurs[11])));
                MurBrute ancienMur = (MurBrute) listeComposantes.get(0);
                listeComposantes.set(0, mur);
-               boolean modeProfil = valeurs[12] == 1? true: false;
+
+               // On mets à jour le profil
+               boolean modeProfil = valeurs[12] == 1;
                MurProfile profile = new MurProfile(((MurProfile) listeComposantes.get(1)), new PointPouce(mur.getCentre().getX().diff(ancienMur.getCentre().getX()),
-                       mur.getCentre().getY().diff(ancienMur.getCentre().getY())), modeProfil, true);
+                       mur.getCentre().getY().diff(ancienMur.getCentre().getY())), modeProfil, MurProfile.ModeContreplaque.COMPLET);
                listeComposantes.set(1, profile);
 
-               for(int i = 2, j = 0; i < 6; i++, j++){
-                   if (profile.getMode()){
+               if (modeProfil){
+               // On mets à jour les ellipses
+                 for(int i = 2, j = 0; i < 6; i++, j++){
                    listeComposantes.set(i, profile.getProfilEllipses()[j]);
-                   }
-                   else {
+                    }
+               }
+               // On mets à jour les points de contrôles
+               else {
+                   for(int i = 2, j = 0; i < 6; i++, j++){
                        listeComposantes.set(i, profile.getProfilBezier().getPointsControle().get(j));
+                       profile.getProfilBezier().updatePointsControles();
                    }
-               }
-               if (listeComposantes.size() > 6){
-                   listeComposantes.set(6, new Plancher((Plancher) listeComposantes.get(6)));
-               }
-               if (listeComposantes.size() > 7) {
-                   listeComposantes.set(7, new PoutreArriere((PoutreArriere) listeComposantes.get(7)));
                }
 
-               if (listeComposantes.size() > 8) {
-                   listeComposantes.set(8, new Hayon((Hayon) listeComposantes.get(8)));
-               }
-               Ressorts ressortsInvalide = (Ressorts) listeComposantes.get(11);
-               listeComposantes.set(11,new Ressorts(this,ressortsInvalide.getPoidsHayon()));
-               ressortsInvalide = (Ressorts) listeComposantes.get(11);
-               listeComposantes.set(11,new Ressorts(this,ressortsInvalide.getPoidsHayon()));
-               //MurSeparateur murSeparateurInvalide = (MurSeparateur) listeComposantes.get(9);
-               //listeComposantes.set(9,new MurSeparateur(this,murSeparateurInvalide.getEpaisseur(),
-               //        murSeparateurInvalide.getHauteur(),murSeparateurInvalide.getDistancePoutreArriere()));
+               listeComposantes.set(6, new Plancher((Plancher) listeComposantes.get(6)));
+               listeComposantes.set(7, new PoutreArriere((PoutreArriere) listeComposantes.get(7)));
+               listeComposantes.set(8, new Hayon((Hayon) listeComposantes.get(8)));
+               listeComposantes.set(9,new MurSeparateur((MurSeparateur) listeComposantes.get(9)));
+               listeComposantes.set(10, new PoutreArriere((PoutreArriere) listeComposantes.get(10)));
+               listeComposantes.set(11,new Ressorts((Ressorts) listeComposantes.get(11)));
+               listeComposantes.set(12, new OuvertureLaterale((OuvertureLaterale) listeComposantes.get(12)));
+               listeComposantes.set(13, new AideDesign((AideDesign) listeComposantes.get(13)));
+
                break;
            case PROFIL_ELLIPSE_1:
                ProfilEllipse ellipse = new ProfilEllipse(this,
@@ -263,8 +262,7 @@ public class RoulotteController implements Serializable{
                        , type);
                ((MurProfile) listeComposantes.get(1)).getProfilEllipses()[1] = ellipse;
                listeComposantes.set(3, ellipse);
-               PoutreArriere poutreInvalide = (PoutreArriere) listeComposantes.get(7);
-               listeComposantes.set(7, new PoutreArriere(this,poutreInvalide.getLongueur(),poutreInvalide.getHauteur(),poutreInvalide.getCentre().getX()));
+               listeComposantes.set(7, new PoutreArriere((PoutreArriere) listeComposantes.get(7)));
                break;
 
            case PROFIL_ELLIPSE_3:
@@ -313,6 +311,7 @@ public class RoulotteController implements Serializable{
                ((MurProfile) listeComposantes.get(1)).getProfilBezier().getPointsControle().set(1, pointControle);
                ((MurProfile) listeComposantes.get(1)).getProfilBezier().updatePointsControles();
                listeComposantes.set(3, pointControle);
+               listeComposantes.set(7, new PoutreArriere((PoutreArriere) listeComposantes.get(7)));
                break;
            case POINT_CONTROLE_3:
                pointControle = new PointControle(this,
@@ -325,6 +324,7 @@ public class RoulotteController implements Serializable{
                ((MurProfile) listeComposantes.get(1)).getProfilBezier().getPointsControle().set(2, pointControle);
                ((MurProfile) listeComposantes.get(1)).getProfilBezier().updatePointsControles();
                listeComposantes.set(4, pointControle);
+               listeComposantes.set(7, new PoutreArriere((PoutreArriere) listeComposantes.get(7)));
                break;
            case POINT_CONTROLE_4:
                pointControle = new PointControle(this,
@@ -351,8 +351,7 @@ public class RoulotteController implements Serializable{
                        new Pouce(valeurs[0], valeurs[1], valeurs[2]),
                        new Pouce(valeurs[6], valeurs[7], valeurs[8]));
                listeComposantes.set(7, poutre);
-               ressortsInvalide = (Ressorts) listeComposantes.get(11);
-               listeComposantes.set(11,new Ressorts(this,ressortsInvalide.getPoidsHayon()));
+               listeComposantes.set(11,new Ressorts((Ressorts) listeComposantes.get(11)));
                break;
            case HAYON:
                Hayon hayon = new Hayon(this,
@@ -362,8 +361,7 @@ public class RoulotteController implements Serializable{
                        new Pouce(valeurs[9], valeurs[10], valeurs[11]),
                        new Pouce(valeurs[12], valeurs[13], valeurs[14]));
                listeComposantes.set(8, hayon);
-               ressortsInvalide = (Ressorts) listeComposantes.get(11);
-               listeComposantes.set(11,new Ressorts(this,ressortsInvalide.getPoidsHayon()));
+               listeComposantes.set(11,new Ressorts((Ressorts) listeComposantes.get(11)));
                break;
 
            case MUR_SEPARATEUR:
@@ -593,74 +591,47 @@ public class RoulotteController implements Serializable{
 
 
     public void dragSurPlan(Point mousePoint){
+        PointPouce positionDrag = getPositionPlan(mousePoint);
+        PointPouce positionSouris = getPositionPlan(getPositionSouris());
         Point plusProcheVoisin = null;
+
+        // Si la grille est magnétique, alors on déplace au plus proche voisin son centre
         if (grille != null && grille.estMagnetique()){
             plusProcheVoisin = grille.pointLePlusProche(mousePoint);
         }
 
+        // Si une composante est sélectionnée, alors on la drag et on drag les autres composantes rattachées
+        if(composanteChoisie != null && plusProcheVoisin == null){
 
-        if(composanteChoisie != null){
-            if (composanteChoisie.getType() == TypeComposante.MUR_BRUTE) {
-                for (int i = 0; i < listeComposantes.size(); i++){
-                    if (plusProcheVoisin != null){
-                        listeComposantes.get(i).snapToGrid(getPositionPlan(plusProcheVoisin));
-                    }
-                    else {
-                        listeComposantes.get(i).translate(getPositionPlan(mousePoint));
-                    }
+            // On drag la composante en appelant sa fonction translate
+            PointPouce deplacement = new PointPouce(positionDrag.getX().diff(positionSouris.getX()),
+                    positionDrag.getY().diff(positionSouris.getY()));
+            composanteChoisie.translate(deplacement);
+
+            // cas particulier si c'est le mur brute alors on déplace les points de contrôles aussi
+            if (composanteChoisie.getType() == TypeComposante.MUR_BRUTE){
+                for (int i = 2; i < listeComposantes.size(); i++){
+                    listeComposantes.get(i).translate(deplacement);
                 }
             }
 
-            else if(composanteChoisie.getType() == TypeComposante.PROFIL_ELLIPSE_2){
-                Ressorts ressortsInvalide = (Ressorts) listeComposantes.get(11);
-                listeComposantes.set(11,new Ressorts(this,ressortsInvalide.getPoidsHayon()));
-                PoutreArriere poutreInvalide = (PoutreArriere) listeComposantes.get(7);
-                listeComposantes.set(7, new PoutreArriere(this,poutreInvalide.getLongueur(),
-                        poutreInvalide.getHauteur(),poutreInvalide.getCentre().getX()));
-            }
-
-            else if(composanteChoisie.getType() == TypeComposante.POINT_CONTROLE_2 ||
-                    composanteChoisie.getType() == TypeComposante.POINT_CONTROLE_3){
-                for (int i = 6; i <= 11; i++){
-                    if (plusProcheVoisin != null){
-
-                        listeComposantes.get(i).snapToGrid(getPositionPlan(plusProcheVoisin));
-                    }
-                    else{
-                        listeComposantes.get(i).translate(getPositionPlan(mousePoint));
-                    }
-                }
-                if (plusProcheVoisin != null){
-                composanteChoisie.snapToGrid(getPositionPlan(plusProcheVoisin));}
-                else{
-                composanteChoisie.translate(getPositionPlan(mousePoint));
-                }
-
-            }
-            else if(composanteChoisie.getType() == TypeComposante.POUTRE_ARRIERE){
-                for (int i = 8; i <= 11; i++){
-                    if (plusProcheVoisin != null){
-                        listeComposantes.get(i).snapToGrid(getPositionPlan(plusProcheVoisin));
-                    }
-                    else{
-                        listeComposantes.get(i).translate(getPositionPlan(mousePoint));
-                    }
-                }
-            }
-
-            else {
-                if (plusProcheVoisin != null){
-                composanteChoisie.snapToGrid(getPositionPlan(plusProcheVoisin));
-            }
-            else
-                {
-                composanteChoisie.translate(getPositionPlan(mousePoint));
-                }
-            }
+            // On s'assure que les autres composantes sont conformes
+            updateComposante(composanteChoisie.getValeurs(), composanteChoisie.getType());
         }
-        else {
+
+       // Même drag, mais en mode magnétique
+        else if (composanteChoisie != null & plusProcheVoisin != null) {
+
+            composanteChoisie.snapToGrid(getPositionPlan(plusProcheVoisin));
+            updateComposante(composanteChoisie.getValeurs(), composanteChoisie.getType());
+        }
+
+        // Sinon, aucune composante n'a été sélectionnée alors on drag le plan
+        else{
             setTranslate((int) mousePoint.getX(), (int) mousePoint.getY());
         }
+
+        // Finalement, on mets à jour la position de la souris
         setPositionSouris(mousePoint);
     }
 
@@ -750,7 +721,7 @@ public class RoulotteController implements Serializable{
     }
 
     public int getPixelsToInchesRatio() {
-        return this.PIXEL_RATIO;
+        return PIXEL_RATIO;
     }
 
 

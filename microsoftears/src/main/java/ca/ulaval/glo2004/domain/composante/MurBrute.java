@@ -7,8 +7,6 @@ import ca.ulaval.glo2004.utilitaires.Pouce;
 import ca.ulaval.glo2004.utilitaires.Rectangle;
 
 import java.awt.*;
-import java.awt.geom.GeneralPath;
-import java.util.LinkedList;
 
 public class MurBrute extends Composante{
 
@@ -89,9 +87,16 @@ public class MurBrute extends Composante{
 
     @Override
     public void snapToGrid(PointPouce pointGrille){
-        this.centre = pointGrille;
-        this.rectangle = new Rectangle(this.longueur, this.longueur, this.centre);
+        PointPouce coin = this.rectangle.getCoinPlusPres(pointGrille);
+        Pouce differenceX = centre.getX().add(pointGrille.getX().diff(coin.getX()));
+        Pouce differenceY = centre.getY().add(pointGrille.getY().diff(coin.getY()));
+        PointPouce delta = new PointPouce(differenceX, differenceY);
+        this.centre = delta;
+        this.rectangle = new Rectangle(this.longueur, this.largeur, this.centre);
         this.setPolygone(rectangle.getPolygone());
+        for (int i = 2; i < parent.getListeComposantes().size(); i++){
+            parent.getListeComposantes().get(i).translate(delta);
+        }
     }
 
     @Override
@@ -100,8 +105,8 @@ public class MurBrute extends Composante{
     }
 
     @Override
-    public boolean[] getModes(){
-        return new boolean[]{};
+    public Object[] getModes(){
+        return new Object[]{};
     }
 
     public void setCentre(PointPouce centre) {

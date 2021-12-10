@@ -37,6 +37,16 @@ public class AideDesign extends Composante{
         this.setPolygone(rectangle.getPolygone());
     }
 
+    public AideDesign(AideDesign copie) {
+        super(copie.parent);
+        this.longueur = copie.longueur;
+        this.largeur = copie.largeur;
+        this.centre = copie.centre;
+        this.rectangle = copie.rectangle;
+        this.setType(TypeComposante.AIDE_DESIGN);
+        this.setPolygone(rectangle.getPolygone());
+    }
+
 
     public Pouce getLongueur() {
         return longueur;
@@ -89,8 +99,8 @@ public class AideDesign extends Composante{
     }
 
     @Override
-    public boolean[] getModes(){
-        return new boolean[]{};
+    public Object[] getModes(){
+        return new Object[]{};
     }
 
     public void setCentre(PointPouce centre) {
