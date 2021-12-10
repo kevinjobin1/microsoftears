@@ -150,6 +150,24 @@ public class RoulotteController implements Serializable{
     }*/
 
 
+
+    /**
+     * TODO : - apres avoir trouver une facon de differencier les ouvertures laterales
+     *        - utilise pour enlever les ouvertures laterales
+     */
+    public void removeOuvertureLateral(){
+        int indexOuvertureLateral = getIndexComposante(TypeComposante.OUVERTURE_LATERALE);
+        if (indexOuvertureLateral == 12){
+            listeOuverturesLaterales.remove(0);
+            listeComposantes.remove(12);
+        }
+        int indexOuvertureLateral2 = getIndexComposante(TypeComposante.OUVERTURE_LATERALE_2);
+        if(indexOuvertureLateral2 == 18 ){
+            listeComposantes.remove(18);
+            listeOuverturesLaterales.remove(1);
+        }
+    }
+
     /**
      * TODO: - trouver comment differencier aide design
      *       - utilise pour enlever les aides au design
@@ -434,7 +452,7 @@ public class RoulotteController implements Serializable{
                break;
 
            case OUVERTURE_LATERALE_2:
-               OuvertureLaterale2 ouvertureLaterale2 = new OuvertureLaterale2( this,
+               OuvertureLaterale ouvertureLaterale2 = new OuvertureLaterale( this,
                        new Pouce(valeurs[0], valeurs[1], valeurs[2]),
                        new Pouce(valeurs[3], valeurs[4], valeurs[5]),
                        new PointPouce(
@@ -442,6 +460,7 @@ public class RoulotteController implements Serializable{
                                new Pouce(valeurs[9], valeurs[10], valeurs[11])),
                        new Pouce(valeurs[12], valeurs[13], valeurs[14]));
                listeComposantes.set(18, ouvertureLaterale2);
+               listeOuverturesLaterales.set(1, ouvertureLaterale2);
                break;
        }
     }
@@ -578,7 +597,6 @@ public class RoulotteController implements Serializable{
 
     public void dragSurPlan(Point mousePoint){
         PointPouce positionDrag = getPositionPlan(mousePoint);
-        PointPouce positionSouris = getPositionPlan(getPositionSouris());
         Point plusProcheVoisin = null;
 
         // Si la grille est magnétique, alors on déplace au plus proche voisin son centre
@@ -590,14 +608,12 @@ public class RoulotteController implements Serializable{
         if(composanteChoisie != null && plusProcheVoisin == null){
 
             // On drag la composante en appelant sa fonction translate
-            PointPouce deplacement = new PointPouce(positionDrag.getX().diff(positionSouris.getX()),
-                    positionDrag.getY().diff(positionSouris.getY()));
-            composanteChoisie.translate(deplacement);
+            composanteChoisie.translate(positionDrag);
 
             // cas particulier si c'est le mur brute alors on déplace les points de contrôles aussi
             if (composanteChoisie.getType() == TypeComposante.MUR_BRUTE){
                 for (int i = 2; i < listeComposantes.size(); i++){
-                    listeComposantes.get(i).translate(deplacement);
+                    listeComposantes.get(i).translate(positionDrag);
                 }
             }
 
@@ -802,11 +818,11 @@ public class RoulotteController implements Serializable{
                     composanteChoisie.getType() == TypeComposante.AIDE_DESIGN_4 ||
                     composanteChoisie.getType() == TypeComposante.OUVERTURE_LATERALE ||
                     composanteChoisie.getType() == TypeComposante.OUVERTURE_LATERALE_2){
-                listeComposantes.remove(composanteChoisie);
             }
             else {
 
             }
         }
     }
+
 }

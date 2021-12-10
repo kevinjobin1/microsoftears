@@ -84,8 +84,8 @@ public class OuvertureLaterale2 extends Composante{
     }
 
     @Override
-    public boolean[] getModes() {
-        return new boolean[]{};
+    public Object[] getModes() {
+        return new Object[]{};
     }
 
 
