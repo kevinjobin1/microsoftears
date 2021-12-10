@@ -174,6 +174,16 @@ public class BarreOutils extends JToolBar {
             }
         }));
 
+        popup.add(new JMenuItem(new AbstractAction("Ouvertures Latérales 2", icone) {
+            public void actionPerformed(ActionEvent e) {
+                parent.setActionChoisie(FenetrePrincipale.TypeAction.AJOUT);
+                parent.controller.addOuvertureLateral2();
+                parent.setActionChoisie(FenetrePrincipale.TypeAction.SELECTION);
+                parent.updateBarres();
+            }
+        }));
+
+
         return popup;
     }
 

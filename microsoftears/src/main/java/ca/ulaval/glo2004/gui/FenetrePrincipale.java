@@ -108,7 +108,7 @@ public class FenetrePrincipale extends JFrame {
                 case AIDE_DESIGN_3:
                     this.barreOnglets.setSelectedIndex(14);
                     break;
-                /*case AIDE_DESIGN_4:
+                case AIDE_DESIGN_4:
                     this.barreOnglets.setSelectedIndex(15);
                     break;
                 case AIDE_DESIGN_5:
@@ -116,7 +116,7 @@ public class FenetrePrincipale extends JFrame {
                     break;
                 case OUVERTURE_LATERALE_2:
                     this.barreOnglets.setSelectedIndex(17);
-                    break;*/
+                    break;
 
             }
         }

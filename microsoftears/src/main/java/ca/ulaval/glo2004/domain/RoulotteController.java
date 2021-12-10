@@ -117,6 +117,11 @@ public class RoulotteController implements Serializable{
         listeOuverturesLaterales.add(ouvertureLaterale);
     }
 
+    public void addOuvertureLateral2(){
+        OuvertureLaterale2 ouvertureLaterale2 = new OuvertureLaterale2(this);
+        listeComposantes.add(ouvertureLaterale2);
+    }
+
     public void addAideDesign(){
         AideDesign aideDesign = new AideDesign(this);
         listeComposantes.add(aideDesign);
@@ -144,24 +149,6 @@ public class RoulotteController implements Serializable{
         listeComposantes.add(aideDesign5);
     }*/
 
-
-
-    /**
-     * TODO : - apres avoir trouver une facon de differencier les ouvertures laterales
-     *        - utilise pour enlever les ouvertures laterales
-     */
-    public void removeOuvertureLateral(){
-        int indexOuvertureLateral = getIndexComposante(TypeComposante.OUVERTURE_LATERALE);
-        if (indexOuvertureLateral == 12){
-            listeOuverturesLaterales.remove(0);
-            listeComposantes.remove(12);
-        }
-        int indexOuvertureLateral2 = getIndexComposante(TypeComposante.OUVERTURE_LATERALE_2);
-        if(indexOuvertureLateral2 == 18 ){
-            listeComposantes.remove(18);
-            listeOuverturesLaterales.remove(1);
-        }
-    }
 
     /**
      * TODO: - trouver comment differencier aide design
@@ -449,7 +436,7 @@ public class RoulotteController implements Serializable{
                break;
 
            case OUVERTURE_LATERALE_2:
-               OuvertureLaterale ouvertureLaterale2 = new OuvertureLaterale( this,
+               OuvertureLaterale2 ouvertureLaterale2 = new OuvertureLaterale2( this,
                        new Pouce(valeurs[0], valeurs[1], valeurs[2]),
                        new Pouce(valeurs[3], valeurs[4], valeurs[5]),
                        new PointPouce(
@@ -457,7 +444,6 @@ public class RoulotteController implements Serializable{
                                new Pouce(valeurs[9], valeurs[10], valeurs[11])),
                        new Pouce(valeurs[12], valeurs[13], valeurs[14]));
                listeComposantes.set(18, ouvertureLaterale2);
-               listeOuverturesLaterales.set(1, ouvertureLaterale2);
                break;
        }
     }
@@ -845,6 +831,7 @@ public class RoulotteController implements Serializable{
                     composanteChoisie.getType() == TypeComposante.AIDE_DESIGN_4 ||
                     composanteChoisie.getType() == TypeComposante.OUVERTURE_LATERALE ||
                     composanteChoisie.getType() == TypeComposante.OUVERTURE_LATERALE_2){
+                listeComposantes.remove(composanteChoisie);
             }
             else {
 
