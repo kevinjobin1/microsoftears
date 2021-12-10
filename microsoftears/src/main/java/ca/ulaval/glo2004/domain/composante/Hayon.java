@@ -183,9 +183,8 @@ public class Hayon extends Composante {
                 murBrute.getCentre().getY().add(murBrute.getLargeur().diviser(2))));
 
         LinkedList<PointPouce> pointsHayon = new LinkedList<>();
-        LinkedList<PointPouce> retour = new LinkedList<>();
 
-        int indiceDepart = 0;
+            int indiceDepart = 0;
         int indiceDepartCercle = 0;
         int indiceFin = 0;
         double pente;
@@ -272,7 +271,7 @@ public class Hayon extends Composante {
         double angle;
 
         for (int i = (Forme.getNombrePoint()/2); i >= -(Forme.getNombrePoint()/4); i--) {
-            angle = Math.toRadians(360 * i / Forme.getNombrePoint());
+            angle = Math.toRadians((360 * i) / Forme.getNombrePoint());
             Pouce xCercle = rayonArcCercle.multiplier(Math.cos(angle)).add(pointCercle.getX());
             Pouce yCercle = rayonArcCercle.multiplier(Math.sin(angle)).add(pointCercle.getY());
             if(yCercle.gte(yFinArcCercle) && xCercle.gte(xDebutCercle)) {
@@ -280,7 +279,7 @@ public class Hayon extends Composante {
             }
         }
 
-        retour.addAll(pointsProfil.subList(indiceDepart,indiceFin));
+        LinkedList<PointPouce> retour = new LinkedList<>(pointsProfil.subList(indiceDepart, indiceFin));
         if(pointArcCercle != null) {
             retour.remove(pointArcCercle);
         }
@@ -322,12 +321,17 @@ public class Hayon extends Composante {
                 indexDernierPoint = i;
             }
         }
-        PointPouce dernierPointCourbe = profilPoints.get(indexDernierPoint);
+        PointPouce p1, p2, dernierPointCourbe = profilPoints.get(indexDernierPoint);
         this.pointRotation = dernierPointCourbe;
 
         // calcul de la tangente à ce point en utilisant une approximation par les deux points voisins
-        PointPouce p1 = profilPoints.get(indexDernierPoint - 1);
-        PointPouce p2 = profilPoints.get(indexDernierPoint + 1);
+        if(indexDernierPoint == 0){
+            p1 = profilPoints.get(indexDernierPoint);
+            p2 = profilPoints.get(indexDernierPoint + 1);}
+        else {
+            p1 = profilPoints.get(indexDernierPoint - 1);
+            p2 = profilPoints.get(indexDernierPoint + 1);
+        }
 
         double y1 = p1.getY().toDouble();
         double y2 = p2.getY().toDouble();
@@ -354,8 +358,10 @@ public class Hayon extends Composante {
 
         PointPouce pointCentreArc = profilPoints.get(indexCentreArc);
         // calcul de la tangente à ce point en utilisant une approximation par les deux points voisins
+        if (indexCentreArc != -1){
         p1 = profilPoints.get(indexCentreArc - 1);
         p2 = profilPoints.get(indexCentreArc + 1);
+        }
 
         y1 = p1.getY().toDouble();
         y2 = p2.getY().toDouble();
@@ -463,8 +469,8 @@ public class Hayon extends Composante {
     }
 
     @Override
-    public boolean[] getModes(){
-        return new boolean[]{};
+    public Object[] getModes(){
+        return new Object[]{};
     }
 
 

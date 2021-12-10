@@ -352,7 +352,7 @@ public class CourbeBezier extends Forme {
      */
 
     public static int interpolation(int a, int b, double t) {
-        return (int) interpolation((double) a, (double) b, t);
+        return (int) interpolation(a, (double) b, t);
     }
 
     /**

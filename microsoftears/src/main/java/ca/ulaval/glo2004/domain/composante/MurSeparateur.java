@@ -7,7 +7,6 @@ import ca.ulaval.glo2004.utilitaires.Pouce;
 import ca.ulaval.glo2004.utilitaires.Rectangle;
 
 import java.awt.*;
-import java.awt.geom.Area;
 
 public class MurSeparateur extends Composante{
 
