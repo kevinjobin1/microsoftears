@@ -485,7 +485,40 @@ public class MurProfile extends Composante{
         return modeContreplaque;
     }
 
-    public void setModeContreplaque(boolean modeContreplaque) {
-        this.modeContreplaque = modeContreplaque;
+    public void setModeContreplaque(String modeContreplaque) {
+        switch(modeContreplaque){
+            case "Profil complet":
+                this.modeContreplaque = true;
+                break;
+
+            case "Contreplaqué intérieur":
+                this.modeContreplaque = true;
+                break;
+
+            case "Contreplaqué extérieur":
+                this.modeContreplaque = false;
+                break;
+        }
+
     }
+
+    public enum ModeContreplaque {
+            COMPLET {
+                public String toString(){
+                    return "Profil complet";
+                }
+            },
+            INTERIEUR {
+                public String toString(){
+                    return "Contreplaqué intérieur";
+                }
+            },
+            EXTERIEUR {
+                public String toString(){
+                    return "Contreplaqué extérieur";
+                }
+            }
+    }
+
+
 }

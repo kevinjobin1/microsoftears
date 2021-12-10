@@ -104,6 +104,14 @@ public class BarreOutils extends JToolBar {
                 parent.setCursor(toolkit.createCustomCursor(image , new Point(e.getX(),
                         e.getY()), "Remplir"));
         }});
+
+
+        removeComposanteButton.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                parent.controller.removeComposante();
+            }
+        });
+
     }
 
     private JPopupMenu creerAjoutComposantePopup() {

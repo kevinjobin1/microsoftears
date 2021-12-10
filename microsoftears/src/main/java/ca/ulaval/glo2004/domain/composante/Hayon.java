@@ -15,7 +15,6 @@ import java.util.List;
 import static ca.ulaval.glo2004.utilitaires.Forme.calculerCoinsArrondis;
 
 public class Hayon extends Composante {
-
     private Pouce epaisseur;
     private Pouce distancePoutre;
     private Pouce distancePlancher;
@@ -37,7 +36,6 @@ public class Hayon extends Composante {
         this.setType(TypeComposante.HAYON);
         this.setPolygone(getPolygone());
     }
-
 
     public Hayon(RoulotteController parent) {
         super(parent);

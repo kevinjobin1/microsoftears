@@ -597,18 +597,10 @@ public class RoulotteController implements Serializable{
         if (grille != null && grille.estMagnetique()){
             plusProcheVoisin = grille.pointLePlusProche(mousePoint);
         }
+
+
         if(composanteChoisie != null){
-            if(composanteChoisie.getType() == TypeComposante.PROFIL_ELLIPSE_2){
-                Ressorts ressortsInvalide = (Ressorts) listeComposantes.get(11);
-                listeComposantes.set(11,new Ressorts(this,ressortsInvalide.getPoidsHayon()));
-                PoutreArriere poutreInvalide = (PoutreArriere) listeComposantes.get(7);
-                listeComposantes.set(7, new PoutreArriere(this,poutreInvalide.getLongueur(),
-                        poutreInvalide.getHauteur(),poutreInvalide.getCentre().getX()));
-            }
-            if (composanteChoisie.getType() == TypeComposante.MUR_PROFILE ||
-                    composanteChoisie.getType() == TypeComposante.MUR_BRUTE ||
-                    composanteChoisie.getType() == TypeComposante.POINT_CONTROLE_1 ||
-                    composanteChoisie.getType() == TypeComposante.POINT_CONTROLE_4 ) {
+            if (composanteChoisie.getType() == TypeComposante.MUR_BRUTE) {
                 for (int i = 0; i < listeComposantes.size(); i++){
                     if (plusProcheVoisin != null){
                         listeComposantes.get(i).snapToGrid(getPositionPlan(plusProcheVoisin));
@@ -618,14 +610,32 @@ public class RoulotteController implements Serializable{
                     }
                 }
             }
+
+            else if(composanteChoisie.getType() == TypeComposante.PROFIL_ELLIPSE_2){
+                Ressorts ressortsInvalide = (Ressorts) listeComposantes.get(11);
+                listeComposantes.set(11,new Ressorts(this,ressortsInvalide.getPoidsHayon()));
+                PoutreArriere poutreInvalide = (PoutreArriere) listeComposantes.get(7);
+                listeComposantes.set(7, new PoutreArriere(this,poutreInvalide.getLongueur(),
+                        poutreInvalide.getHauteur(),poutreInvalide.getCentre().getX()));
+            }
+
             else if(composanteChoisie.getType() == TypeComposante.POINT_CONTROLE_2 ||
                     composanteChoisie.getType() == TypeComposante.POINT_CONTROLE_3){
                 for (int i = 6; i <= 11; i++){
                     if (plusProcheVoisin != null){
+
                         listeComposantes.get(i).snapToGrid(getPositionPlan(plusProcheVoisin));
                     }
-                    else{listeComposantes.get(i).translate(getPositionPlan(mousePoint));}
+                    else{
+                        listeComposantes.get(i).translate(getPositionPlan(mousePoint));
+                    }
                 }
+                if (plusProcheVoisin != null){
+                composanteChoisie.snapToGrid(getPositionPlan(plusProcheVoisin));}
+                else{
+                composanteChoisie.translate(getPositionPlan(mousePoint));
+                }
+
             }
             else if(composanteChoisie.getType() == TypeComposante.POUTRE_ARRIERE){
                 for (int i = 8; i <= 11; i++){
@@ -638,11 +648,15 @@ public class RoulotteController implements Serializable{
                 }
             }
 
-
-            if (plusProcheVoisin != null){
+            else {
+                if (plusProcheVoisin != null){
                 composanteChoisie.snapToGrid(getPositionPlan(plusProcheVoisin));
             }
-            else{composanteChoisie.translate(getPositionPlan(mousePoint));}
+            else
+                {
+                composanteChoisie.translate(getPositionPlan(mousePoint));
+                }
+            }
         }
         else {
             setTranslate((int) mousePoint.getX(), (int) mousePoint.getY());
@@ -698,7 +712,6 @@ public class RoulotteController implements Serializable{
               return 17;
           case OUVERTURE_LATERALE_2:
               return 18;
-
       }
       // si aucune composante n'est trouvée, retourne -1
       return -1;
@@ -781,7 +794,6 @@ public class RoulotteController implements Serializable{
         return delta;
     }
 
-
     public Grille getGrille(){
         return this.grille;
     }
@@ -803,9 +815,9 @@ public class RoulotteController implements Serializable{
         this.couleurChoisie = couleur;
     }
 
-    public void setAffichageContreplaque(boolean afficheContreplaqueExterieur) {
+    public void setAffichageContreplaque(String nomComposante) {
         int indexProfil = getIndexComposante(TypeComposante.MUR_PROFILE);
-        ((MurProfile) (listeComposantes.get(indexProfil))).setModeContreplaque(afficheContreplaqueExterieur);
+        ((MurProfile) (listeComposantes.get(indexProfil))).setModeContreplaque(nomComposante);
     }
 
     public boolean estImperial() {
@@ -822,5 +834,21 @@ public class RoulotteController implements Serializable{
 
     public void setAfficherLabel(boolean afficherLabel) {
         this.afficherLabel = afficherLabel;
+    }
+
+    public void removeComposante() {
+        // si une composante est sélectionnée, alors on la retire seulement si c'est aide au design/ouvertures
+        if (composanteChoisie != null){
+            if (composanteChoisie.getType() == TypeComposante.AIDE_DESIGN ||
+                    composanteChoisie.getType() == TypeComposante.AIDE_DESIGN_2 ||
+                    composanteChoisie.getType() == TypeComposante.AIDE_DESIGN_3 ||
+                    composanteChoisie.getType() == TypeComposante.AIDE_DESIGN_4 ||
+                    composanteChoisie.getType() == TypeComposante.OUVERTURE_LATERALE ||
+                    composanteChoisie.getType() == TypeComposante.OUVERTURE_LATERALE_2){
+            }
+            else {
+
+            }
+        }
     }
 }

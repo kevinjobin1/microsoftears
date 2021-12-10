@@ -220,9 +220,16 @@ public class BarreMenu extends JMenuBar
             creerCheckBoxMenuItem(composante.toString(), composante.estVisible());
 
             if ((composante.getType() == TypeComposante.MUR_PROFILE)){
-                // TODO: ajouter afficher contreplaqué extérieur/intérieur
+                JRadioButtonMenuItem profilComplet = new JRadioButtonMenuItem("Profil complet");
+                profilComplet.setSelected(true);
+                profilComplet.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        showComposanteActionPerformed(e);
+                    }
+                });
+
                 JRadioButtonMenuItem contreplaqueExterieur = new JRadioButtonMenuItem("Contreplaqué extérieur");
-                contreplaqueExterieur.setSelected(true);
+                contreplaqueExterieur.setSelected(false);
                 contreplaqueExterieur.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         showComposanteActionPerformed(e);
@@ -236,9 +243,11 @@ public class BarreMenu extends JMenuBar
                     }
                 });
                 ButtonGroup selectionContreplaque = new ButtonGroup();
+                selectionContreplaque.add(profilComplet);
                 selectionContreplaque.add(contreplaqueExterieur);
                 selectionContreplaque.add(contreplaqueInterieur);
 
+                contreplaqueSubMenu.add(profilComplet);
                 contreplaqueSubMenu.add(contreplaqueExterieur);
                 contreplaqueSubMenu.add(contreplaqueInterieur);
 
@@ -518,13 +527,7 @@ public class BarreMenu extends JMenuBar
         else if (objet instanceof JRadioButtonMenuItem){
             JRadioButtonMenuItem radioButton = (JRadioButtonMenuItem) objet;
             String composante = radioButton.getText();
-            boolean estAffiche = radioButton.isSelected();
-            if (composante == "Contreplaqué extérieur"){
-                parent.controller.setAffichageContreplaque(true);
-            }
-            else {
-                parent.controller.setAffichageContreplaque(false);
-            }
+            parent.controller.setAffichageContreplaque(composante);
         }
     }
 
