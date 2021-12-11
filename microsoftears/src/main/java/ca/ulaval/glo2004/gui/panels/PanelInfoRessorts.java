@@ -59,7 +59,6 @@ public class PanelInfoRessorts extends PanelComposante{
     }
 
     private void poidsKgHayonSpinnerChangeListener(ChangeEvent e) {
-        System.out.println("EVENT KG");
 
         JSpinner spinner = (JSpinner) e.getSource();
         int valeur = (int) spinner.getValue();
@@ -69,7 +68,6 @@ public class PanelInfoRessorts extends PanelComposante{
     }
 
     private void poidsHayonSpinnerChangeListener(ChangeEvent e) {
-        System.out.println("EVENT LBS");
 
         JSpinner spinner = (JSpinner) e.getSource();
         int valeur = (int) spinner.getValue();

@@ -22,6 +22,7 @@ public class ExporterProjet implements ActionListener  {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        System.out.println(e.getSource());
             JFileChooser choix = new JFileChooser();
             FileFilter filtre = new FileNameExtensionFilter("Plans Microsoftears (*.jpg)", "jpeg");
             choix.addChoosableFileFilter(filtre);

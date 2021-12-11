@@ -22,7 +22,6 @@ public class PoutreArriere extends Composante{
         this.hauteur = hauteur;
         this.centreX = centreX;
         boolean modeEllipse = ((MurProfile) (parent.getListeComposantes().get(1))).getMode();
-        System.out.println(modeEllipse);
         // Mode ellipse
         if(modeEllipse){
             Pouce centreY = getCentreY();
@@ -54,7 +53,6 @@ public class PoutreArriere extends Composante{
         centreX = murBrute.getCentre().getX().diff(murBrute.getLongueur().diviser(2)).
                 add(new Pouce(11,0,1));
         boolean modeEllipse = ((MurProfile) (parent.getListeComposantes().get(1))).getMode();
-        System.out.println(modeEllipse);
         // Mode ellipse
         if(modeEllipse) {
             Pouce centreY = getCentreY();
@@ -128,9 +126,8 @@ public class PoutreArriere extends Composante{
 
     @Override
     public void translate(PointPouce delta) {
-        this.centreX = centreX.add(delta.getX());
+        this.centreX = centreX.add(delta.getX().diff(parent.getPositionPlan(parent.getPositionSouris()).getX()));
         boolean modeEllipse = ((MurProfile) (parent.getListeComposantes().get(1))).getMode();
-        System.out.println(modeEllipse);
         // Mode ellipse
         if(modeEllipse) {
             Pouce centreY = getCentreY();
@@ -154,7 +151,7 @@ public class PoutreArriere extends Composante{
     public void snapToGrid(PointPouce pointGrille){
         this.centreX = pointGrille.getX();
         boolean modeEllipse = ((MurProfile) (parent.getListeComposantes().get(1))).getMode();
-        System.out.println(modeEllipse);
+
         // Mode ellipse
         if(modeEllipse) {
             Pouce centreY = getCentreY();

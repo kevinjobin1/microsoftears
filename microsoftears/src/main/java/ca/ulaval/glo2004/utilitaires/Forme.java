@@ -171,29 +171,27 @@ public abstract class Forme implements Serializable {
         LinkedList<PointPouce> pointsEllipse = ellipse.getListePoints();
         PointPouce coin;
         PointPouce centreEllipse = ellipse.getCentre();
-        System.out.println("Centre ellipse: " + centreEllipse.getX() + "," + centreEllipse.getY());
-        Pouce precision = new Pouce(0,1,16);
+      Pouce precision = new Pouce(0,1,16);
         PointPouce point;
         PointPouce p1 = null, p2 = null;
         int p1index =-1, p2index =-1;
 
         if (quadrant == 1) {
             coin = pointsRectangle.get(0);
-            System.out.println(coin);
             for (int i = 0; i < NOMBRE_POINTS/4; i++) {
                 point = pointsEllipse.get(i);
                 if (point.getY().ste(coin.getY().add(precision)) &&
                         point.getY().gte(coin.getY().diff(precision)) && point.getX().ste(coin.getX())){
                     p2 = new PointPouce(point.getX(), coin.getY());
                     p2index = i;
-                    System.out.println("p2 : " + p2);
+
 
                 }
                 if (point.getX().ste(coin.getX().add(precision)) &&
                         point.getX().gte(coin.getX().diff(precision)) && point.getY().gte(coin.getY())){
                     p1 = new PointPouce(coin.getX(), point.getY());
                     p1index = i;
-                    System.out.println("p1 : " + p1);
+
 
                 }
             }
@@ -211,20 +209,20 @@ public abstract class Forme implements Serializable {
 
         else if (quadrant == 2) {
             coin = pointsRectangle.get(1);
-            System.out.println(coin);
+
             for (int i = NOMBRE_POINTS/4; i < NOMBRE_POINTS/2; i++) {
                 point = pointsEllipse.get(i);
                 if (point.getY().ste(coin.getY().add(precision)) &&
                         point.getY().gte(coin.getY().diff(precision)) && point.getX().gte(coin.getX())){
                     p1 = new PointPouce(point.getX(), coin.getY());
                     p1index = i;
-                    System.out.println("p1 : " + p1);
+
                 }
                 if (point.getX().ste(coin.getX().add(precision)) &&
                         point.getX().gte(coin.getX().diff(precision)) && point.getY().gte(coin.getY())) {
                     p2 = new PointPouce(coin.getX(), point.getY());
                     p2index = i;
-                    System.out.println("p2 : " + p2);
+
                 }
             }
 
@@ -241,20 +239,20 @@ public abstract class Forme implements Serializable {
 
         else if (quadrant == 3) {
             coin = pointsRectangle.get(2);
-            System.out.println(coin);
+
             for (int i = NOMBRE_POINTS/2; i < (3 * NOMBRE_POINTS)/4; i++) {
                 point = pointsEllipse.get(i);
                 if (point.getY().ste(coin.getY().add(precision)) &&
                         point.getY().gte(coin.getY().diff(precision)) && point.getX().gte(coin.getX())){
                     p2 = new PointPouce(point.getX(), coin.getY());
                     p2index = i;
-                    System.out.println("p2 : " + p2);
+
                 }
                 if (point.getX().ste(coin.getX().add(precision)) &&
                         point.getX().gte(coin.getX().diff(precision)) && point.getY().ste(coin.getY())){
                     p1 = new PointPouce(coin.getX(), point.getY());
                     p1index = i;
-                    System.out.println("p1 : " + p1);
+
                 }
             }
 
@@ -270,7 +268,7 @@ public abstract class Forme implements Serializable {
 
         else if (quadrant == 4) {
             coin = pointsRectangle.get(3);
-            System.out.println(coin);
+
             for (int i = (3 * NOMBRE_POINTS)/4; i < NOMBRE_POINTS; i++) {
                 point = pointsEllipse.get(i);
                 if (point.getY().ste(coin.getY().add(precision)) &&
@@ -278,14 +276,14 @@ public abstract class Forme implements Serializable {
                         && point.getX().gte(centreEllipse.getX())){
                     p1 = new PointPouce(point.getX(), coin.getY());
                     p1index = i;
-                    System.out.println("p1 : " + p1);
+
                 }
                 if (point.getX().ste(coin.getX().add(precision)) &&
                         point.getX().gte(coin.getX().diff(precision))
                         && point.getY().gte(centreEllipse.getY())){
                     p2 = new PointPouce(coin.getX(), point.getY());
                     p2index = i;
-                    System.out.println("p2 : " + p2);
+
                 }
             }
 

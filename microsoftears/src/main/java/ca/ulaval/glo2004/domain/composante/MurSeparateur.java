@@ -48,10 +48,10 @@ public class MurSeparateur extends Composante{
         this.epaisseur = copie.epaisseur;
         this.hauteur = copie.hauteur;
         this.distancePoutreArriere = copie.distancePoutreArriere;
-        this.rectangle = copie.rectangle;
+        this.rectangle =new Rectangle(this.epaisseur, this.hauteur, this.getCentre());
         this.setCouleurInitiale(copie.getCouleurInitiale());
         this.setCouleur(getCouleurInitiale());
-        this.setPolygone(copie.getPolygone());
+        this.setPolygone(rectangle.getPolygone());
         this.setType(TypeComposante.MUR_SEPARATEUR);
         this.setVisible(copie.estVisible());
     }

@@ -148,12 +148,6 @@ public class Grille implements Serializable{
                 }
             }
 
-         /*   System.out.println("Début points");
-        Iterator<Point> it = points.iterator();
-        while(it.hasNext()){
-            System.out.println(it.next());
-        }
-        System.out.println("Fin points");*/
       return points;
 
     }

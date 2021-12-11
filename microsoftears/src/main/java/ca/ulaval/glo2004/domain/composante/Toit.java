@@ -30,6 +30,15 @@ public class Toit extends Composante implements Cloneable {
         this.setPolygone(getPolygone());
     }
 
+    public Toit(Toit copie) {
+        super(copie.parent);
+        this.epaisseur = copie.epaisseur;
+        this.setCouleurInitiale(copie.getCouleurInitiale());
+        this.setCouleur(copie.getCouleur());
+        this.setType(TypeComposante.TOIT);
+        this.setPolygone(getPolygone());
+    }
+
     public Pouce getEpaisseur() {
         return epaisseur;
     }
@@ -155,6 +164,7 @@ public class Toit extends Composante implements Cloneable {
 
         // On part de la fin de la courbe (à gauche) et on trouve notre segment de courbe correspondant au toit
         for(int i = profilPoints.size() - 1; i > 0; i--){
+            System.out.println(i);
             if (profilPoints.get(i).getY().gte(y) && profilPoints.get(i).getX().gte(x)){
                 indexPremierPoint = i;
             }
@@ -162,6 +172,8 @@ public class Toit extends Composante implements Cloneable {
                 indexDernierPoint = i;
             }
         }
+        System.out.println(indexPremierPoint);
+        System.out.println(indexDernierPoint);
         indexPremierPoint -= 1;
         premierPointCourbe = profilPoints.get(indexPremierPoint);
         pointsToit.add(premierPointCourbe);

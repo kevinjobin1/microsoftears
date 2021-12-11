@@ -176,12 +176,10 @@ public class RoulotteController implements Serializable{
         typeComposantes.remove(TypeComposante.AIDE_DESIGN);
     }
 
-
-
     public RoulotteController deepCopy(){
         RoulotteController copy = null;
-        ObjectOutputStream oos = null;
-        ObjectInputStream ois = null;
+        ObjectOutputStream oos;
+        ObjectInputStream ois;
         try {
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             oos = new ObjectOutputStream(bos);
@@ -203,7 +201,7 @@ public class RoulotteController implements Serializable{
     }
 
     public void updateComposante(int[] valeurs, TypeComposante type){
-       undoController = this.deepCopy();
+        //undoController = this.deepCopy();
        switch(type){
            case MUR_PROFILE:
                // On mets a jour le Mur Brute
@@ -240,7 +238,7 @@ public class RoulotteController implements Serializable{
                listeComposantes.set(7, new PoutreArriere((PoutreArriere) listeComposantes.get(7)));
                listeComposantes.set(8, new Hayon((Hayon) listeComposantes.get(8)));
                listeComposantes.set(9,new MurSeparateur((MurSeparateur) listeComposantes.get(9)));
-               listeComposantes.set(10, new PoutreArriere((PoutreArriere) listeComposantes.get(10)));
+               listeComposantes.set(10, new Toit((Toit) listeComposantes.get(10)));
                listeComposantes.set(11,new Ressorts((Ressorts) listeComposantes.get(11)));
                listeComposantes.set(12, new OuvertureLaterale((OuvertureLaterale) listeComposantes.get(12)));
                listeComposantes.set(13, new AideDesign((AideDesign) listeComposantes.get(13)));
@@ -356,6 +354,9 @@ public class RoulotteController implements Serializable{
                        new Pouce(valeurs[0], valeurs[1], valeurs[2]),
                        new Pouce(valeurs[6], valeurs[7], valeurs[8]));
                listeComposantes.set(7, poutre);
+               listeComposantes.set(8, new Hayon((Hayon) listeComposantes.get(8)));
+               listeComposantes.set(9,new MurSeparateur((MurSeparateur) listeComposantes.get(9)));
+               listeComposantes.set(10, new Toit((Toit) listeComposantes.get(10)));
                listeComposantes.set(11,new Ressorts((Ressorts) listeComposantes.get(11)));
                break;
            case HAYON:
@@ -544,7 +545,6 @@ public class RoulotteController implements Serializable{
                 }
             }
             if (indexComposante != -1){
-                System.out.println(listeComposantes.get(indexComposante));
                 listeComposantes.get(indexComposante).setAfficherPosition(true);
             }
         }
@@ -562,7 +562,6 @@ public class RoulotteController implements Serializable{
 
     /** Fonction qui détermine quelle forme a été sélectionnée */
     public void clicSurPlan(Point mousePressedPoint, FenetrePrincipale.TypeAction actionChoisie) {
-
         PointPouce positionClic = getPositionPlan(mousePressedPoint);
         int indexComposante = -1;
 
@@ -608,11 +607,18 @@ public class RoulotteController implements Serializable{
         if(composanteChoisie != null && plusProcheVoisin == null){
 
             // On drag la composante en appelant sa fonction translate
+            System.out.println("translate" + composanteChoisie);
             composanteChoisie.translate(positionDrag);
 
             // cas particulier si c'est le mur brute alors on déplace les points de contrôles aussi
             if (composanteChoisie.getType() == TypeComposante.MUR_BRUTE){
                 for (int i = 2; i < listeComposantes.size(); i++){
+                    listeComposantes.get(i).translate(positionDrag);
+                }
+            }
+
+            else if (composanteChoisie.getType() == TypeComposante.MUR_PROFILE){
+                for (int i = 2; i < 12; i++){
                     listeComposantes.get(i).translate(positionDrag);
                 }
             }
@@ -623,7 +629,6 @@ public class RoulotteController implements Serializable{
 
        // Même drag, mais en mode magnétique
         else if (composanteChoisie != null & plusProcheVoisin != null) {
-
             composanteChoisie.snapToGrid(getPositionPlan(plusProcheVoisin));
             updateComposante(composanteChoisie.getValeurs(), composanteChoisie.getType());
         }

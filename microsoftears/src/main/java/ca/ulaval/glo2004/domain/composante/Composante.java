@@ -9,6 +9,7 @@ import ca.ulaval.glo2004.utilitaires.Polygone;
 import java.awt.*;
 import java.awt.geom.Area;
 import java.awt.geom.Path2D;
+import java.awt.geom.Point2D;
 import java.io.Serializable;
 import java.util.LinkedList;
 
@@ -215,5 +216,28 @@ public abstract class Composante implements IComposante, Serializable {
 
     public void setAfficherPosition(boolean afficherPosition) {
         this.afficherPosition = afficherPosition;
+    }
+
+    public String getSVG(){
+    String svgPath = "<path stroke-width=\"2\" stroke=\"black\" ";
+        
+        // path svg attributs d, une liste de points
+        double[] point;
+        LinkedList<PointPouce> polygoneList = this.getPolygone().getListePoints();
+        for (int i = 0; i < polygoneList.size(); i++){
+            point = parent.getPositionEcran(polygoneList.get(i));
+            if(i == 0) {
+                svgPath += "d=\"M" + Math.round(point[0]) + " " + Math.round(point[1]) + " ";
+            }
+            else if (i == polygoneList.size() -1){
+                svgPath += "L" + Math.round(point[0]) + " " + Math.round(point[1]) + "Z\"/>\";";
+            }
+            else {
+                svgPath += "L" + Math.round(point[0]) + " " + Math.round(point[1]) + " ";
+            }
+        }
+        
+        return svgPath;
+
     }
 }

@@ -43,11 +43,11 @@ public class BarreBoutons extends JPanel {
     private void initialiser() {
         // ======= Boutons ======== //
         logoButton = creerBoutonLogo();
-        saveButton = creerBouton(BootstrapIcons.SAVE, 30, Color.WHITE);
+      /*  saveButton = creerBouton(BootstrapIcons.SAVE, 30, Color.WHITE);
         chargerButton = creerBouton(BootstrapIcons.FOLDER2_OPEN, 30, Color.WHITE);
         undoButton = creerBouton(BootstrapIcons.ARROW_LEFT, 30, Color.WHITE);
         redoButton = creerBouton(BootstrapIcons.ARROW_RIGHT, 30, Color.WHITE);
-        exportButton = creerBouton(BootstrapIcons.ARROW_BAR_RIGHT, 30, Color.WHITE);
+        exportButton = creerBouton(BootstrapIcons.ARROW_BAR_RIGHT, 30, Color.WHITE);*/
 
         // ======= CheckBox ======== //
         afficherLabelCheckBox = new JCheckBox("Afficher description", true);
@@ -61,7 +61,7 @@ public class BarreBoutons extends JPanel {
         creerSpinnerMM(parent.controller.getEchelleGrille().getMilimetres());
         this.update();
 
-        // ==== Bouton À propos (logo) =======
+      /*  // ==== Bouton À propos (logo) =======
        logoButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 logoButtonActionPerformed(e);
@@ -97,7 +97,7 @@ public class BarreBoutons extends JPanel {
         });
 
         // ==== Bouton exporter un projet  =======
-        exportButton.addActionListener(new ExporterProjet(parent));
+        exportButton.addActionListener(new ExporterProjet(parent));*/
 
         // ==== Afficher/masquer les labels des noms de composantes  =======
         afficherLabelCheckBox.addActionListener(new ActionListener() {

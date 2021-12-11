@@ -4,6 +4,7 @@ import ca.ulaval.glo2004.domain.IComposante;
 import ca.ulaval.glo2004.domain.RoulotteController;
 import ca.ulaval.glo2004.domain.TypeComposante;
 import ca.ulaval.glo2004.gui.FenetrePrincipale;
+import ca.ulaval.glo2004.gui.actions.ExporterProjet;
 import com.formdev.flatlaf.icons.*;
 import org.kordamp.ikonli.swing.*;
 import org.kordamp.ikonli.bootstrapicons.*;
@@ -13,7 +14,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Objects;
 
 public class BarreMenu extends JMenuBar
@@ -23,28 +23,26 @@ public class BarreMenu extends JMenuBar
 
     public JMenu fichierMenu,
             editionMenu,
-            outilsMenu,
+            exporterMenu,
             affichageMenu,
             aideMenu,
-            selectionSubMenu,
-            ajouterSubMenu,
+            exporterSubMenu,
+            exporterSelectionSubMenu,
             contreplaqueSubMenu;
 
-    public JMenuItem nouveauMenuItem,
+    public JMenuItem
             ouvrirMenuItem,
-            recentMenuItem,
             sauvegarderMenuItem,
             quitterMenuItem,
             revenirMenuItem,
             retablirMenuItem,
-            supprimerMenuItem,
             agrandirMenuItem,
             reduireMenuItem,
-            optionsMenuItem,
             aboutMenuItem,
-            exportMenuItem;
+            exporterSVGMenuItem,
+            exporterJPEGMenuItem;
 
-    public ButtonGroup selectionButtonGroup;
+    public ButtonGroup exporterButtonGroup;
     public ButtonGroup selectionContreplaque;
 
     public BarreMenu(FenetrePrincipale parent)
@@ -59,15 +57,13 @@ public class BarreMenu extends JMenuBar
         // Créer les différents menus
         fichierMenu = creerMenu("Fichier", "Options du fichier");
         editionMenu = creerMenu("Edition","Édition");
-        outilsMenu = creerMenu("Outils","Outils");
+        exporterMenu = creerMenu("Exporter","Exportation");
         aideMenu = creerMenu("Aide","Aide");
         affichageMenu = creerMenu("Affichage","Affichage");
-        selectionSubMenu = new JMenu("Sélectionner...");
-        ajouterSubMenu = new JMenu("Ajouter");
         contreplaqueSubMenu = new JMenu("Affichage des contreplaqués");
 
         // Groupe qui contient les différentes composantes à sélectionner
-        selectionButtonGroup = new ButtonGroup();
+        exporterButtonGroup = new ButtonGroup();
 
         selectionContreplaque = new ButtonGroup();
 
@@ -81,7 +77,7 @@ public class BarreMenu extends JMenuBar
         initialiserMenuAffichage();
 
         // Menu Outils
-        initialiserMenuOutils();
+        initialiserMenuExporter();
 
         // Menu Aide
         initialiserMenuAide();
@@ -89,15 +85,6 @@ public class BarreMenu extends JMenuBar
     }
 
     private void initialiserMenuFichier(){
-
-        //Création des sous-item dans le Menu Fichier
-        nouveauMenuItem = new JMenuItem("Nouveau...", new FlatFileViewFileIcon());
-        nouveauMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.ALT_MASK));
-        nouveauMenuItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                nouveauProjetActionPerformed(e);
-            }
-        });
 
         ouvrirMenuItem = new JMenuItem("Ouvrir...", new FlatTreeOpenIcon());
         ouvrirMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
@@ -107,24 +94,11 @@ public class BarreMenu extends JMenuBar
             }
         });
 
-        recentMenuItem = new JMenuItem("Récent");
-        recentMenuItem.setMnemonic(KeyEvent.VK_R);
-
         sauvegarderMenuItem = new JMenuItem("Sauvegarder",new FlatFileViewFloppyDriveIcon());
         sauvegarderMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
         sauvegarderMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 sauvegarderProjetActionPerformed(e);
-            }
-        });
-
-        FontIcon icon = FontIcon.of(BootstrapIcons.ARROW_BAR_RIGHT, 15, Color.white);
-
-        exportMenuItem = new JMenuItem("Exporter", icon);
-        exportMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, ActionEvent.CTRL_MASK));
-        exportMenuItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                exporterProjetActionPerformed(e);
             }
         });
 
@@ -136,18 +110,10 @@ public class BarreMenu extends JMenuBar
             }
         });
 
-        JSeparator separator1 = new JSeparator();
-        JSeparator separator2 = new JSeparator();
-
-        separator1.setForeground(new Color(201,199, 205, 150));
-        separator2.setForeground(new Color(201,199, 205, 150));
-
-        fichierMenu.add(nouveauMenuItem);
         fichierMenu.add(ouvrirMenuItem);
-        fichierMenu.add(separator1);
+        fichierMenu.add(new JSeparator());
         fichierMenu.add(sauvegarderMenuItem);
-        fichierMenu.add(exportMenuItem);
-        fichierMenu.add(separator2);
+        fichierMenu.add(new JSeparator());
         fichierMenu.add(quitterMenuItem);
     }
 
@@ -170,21 +136,10 @@ public class BarreMenu extends JMenuBar
             }
         });
 
-
-        supprimerMenuItem = new JMenuItem("Supprimer");
-        supprimerMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, ActionEvent.ALT_MASK));
-        retablirMenuItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                supprimerActionPerformed(e);
-            }
-        });
-
-        JSeparator separator3 = new JSeparator();
-
         editionMenu.add(revenirMenuItem);
+        editionMenu.add(new JSeparator());
         editionMenu.add(retablirMenuItem);
-        editionMenu.add(separator3);
-        editionMenu.add(supprimerMenuItem);
+
     }
 
     private void initialiserMenuAffichage(){
@@ -207,18 +162,17 @@ public class BarreMenu extends JMenuBar
             }
         });
 
-        JSeparator separator = new JSeparator();
-
         affichageMenu.add(agrandirMenuItem);
+        affichageMenu.add(new JSeparator());
         affichageMenu.add(reduireMenuItem);
-        affichageMenu.add(separator);
+        affichageMenu.add(new JSeparator());
 
 
         if (!parent.controller.getListeComposantes().isEmpty()){
-            creerCheckBoxMenuItem("Afficher/masquer tout", true);
+            creerCheckBoxMenuItem("Afficher/masquer tout", true, affichageMenu);
         for (IComposante composante : parent.controller.getListeIComposantes())
         {
-            creerCheckBoxMenuItem(composante.toString(), composante.estVisible());
+            creerCheckBoxMenuItem(composante.toString(), composante.estVisible(), affichageMenu);
 
             if ((composante.getType() == TypeComposante.MUR_PROFILE)){
                 JRadioButtonMenuItem profilComplet = new JRadioButtonMenuItem("Profil complet");
@@ -255,10 +209,10 @@ public class BarreMenu extends JMenuBar
                 affichageMenu.add(contreplaqueSubMenu);
 
                 if ((boolean) composante.getModes()[0]){
-                    creerCheckBoxMenuItem("Afficher/masquer ellipses", composante.estVisible());
+                    creerCheckBoxMenuItem("Afficher/masquer ellipses", composante.estVisible(), affichageMenu);
                 }
                 else {
-                    creerCheckBoxMenuItem("Afficher/masquer points de contrôles", composante.estVisible());
+                    creerCheckBoxMenuItem("Afficher/masquer points de contrôles", composante.estVisible(), affichageMenu);
                 }
 
             }
@@ -268,50 +222,32 @@ public class BarreMenu extends JMenuBar
 
     }
 
-    private void initialiserMenuOutils(){
+    private void initialiserMenuExporter(){
 
-        //Création des sous-item dans le Menu Outils
-        optionsMenuItem = new JMenuItem("Options");
-        optionsMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F1, ActionEvent.CTRL_MASK));
-        optionsMenuItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                optionsActionPerformed(e);
-            }
-        });
+        exporterSubMenu = new JMenu("Exporter les plans");
+        exporterJPEGMenuItem = new JMenuItem("Plans en image (.jpg)");
+        exporterSVGMenuItem = new JMenuItem("Plans en ficher de découpe (.svg)");
+        exporterSubMenu.add(exporterJPEGMenuItem);
+        exporterSubMenu.add(exporterSVGMenuItem);
+        exporterSVGMenuItem.addActionListener(new ExporterProjet(parent));
+        exporterJPEGMenuItem.addActionListener(new ExporterProjet(parent));
 
-        JRadioButtonMenuItem selectMurInt = new JRadioButtonMenuItem("Mur Intérieur");
-        //bselection.addActionListener(new ActionListener() {
-        //            public void actionPerformed(ActionEvent e) {
-        //                murIntActionPerformed(e);
-        //            }
-        //        });
+        JSeparator separator = new JSeparator();
+        exporterSelectionSubMenu = new JMenu("Sélection des plans à exporter...");
+        
+        creerCheckBoxMenuItem("Mur brute", exporterSelectionSubMenu);
+        creerCheckBoxMenuItem("Mur profilé", exporterSelectionSubMenu);
+        creerCheckBoxMenuItem("Contreplaqué intérieur", exporterSelectionSubMenu);
+        creerCheckBoxMenuItem("Contreplaqué extérieur", exporterSelectionSubMenu);
+        creerCheckBoxMenuItem("Plancher", exporterSelectionSubMenu);
+        creerCheckBoxMenuItem("Hayon", exporterSelectionSubMenu);
+        creerCheckBoxMenuItem("Poutre arrière", exporterSelectionSubMenu);
+        creerCheckBoxMenuItem("Toit", exporterSelectionSubMenu);
+        creerCheckBoxMenuItem("Mur séparateur", exporterSelectionSubMenu);
 
-        JRadioButtonMenuItem selectMurExt = new JRadioButtonMenuItem("Mur Extérieur");
-        //bselection.addActionListener(new ActionListener() {
-        //            public void actionPerformed(ActionEvent e) {
-        //                murExtActionPerformed(e);
-        //            }
-        //        });
-
-        JRadioButtonMenuItem selectPlancher = new JRadioButtonMenuItem("Plancher");
-        //bselection.addActionListener(new ActionListener() {
-        //            public void actionPerformed(ActionEvent e) {
-        //                plancherActionPerformed(e);
-        //            }
-        //        });
-
-        ButtonGroup selectionButtonGroup = new ButtonGroup();
-        selectionButtonGroup.add(selectMurInt);
-        selectionButtonGroup.add(selectMurExt);
-        selectionButtonGroup.add(selectPlancher);
-        selectionSubMenu.add(selectMurInt);
-        selectionSubMenu.add(selectMurExt);
-        selectionSubMenu.add(selectPlancher);
-
-
-        outilsMenu.add(ajouterSubMenu);
-        outilsMenu.add(selectionSubMenu);
-        outilsMenu.add(optionsMenuItem);
+        exporterMenu.add(exporterSubMenu);
+        exporterMenu.add(separator);
+        exporterMenu.add(exporterSelectionSubMenu);
     }
 
     private void initialiserMenuAide(){
@@ -331,7 +267,7 @@ public class BarreMenu extends JMenuBar
         return menu;
     }
 
-    private void creerCheckBoxMenuItem(String description, boolean estSelectionne){
+    private void creerCheckBoxMenuItem(String description, boolean estSelectionne, JMenu container){
         JCheckBoxMenuItem checkbox = new JCheckBoxMenuItem(description);
         checkbox.setSelected(estSelectionne);
         checkbox.addActionListener(new ActionListener() {
@@ -339,11 +275,16 @@ public class BarreMenu extends JMenuBar
                 showComposanteActionPerformed(e);
             }
         });
-        affichageMenu.add(checkbox);
+        container.add(checkbox);
     }
 
-    protected void nouveauProjetActionPerformed(ActionEvent e) {
+    private void creerCheckBoxMenuItem(String description, JMenu container){
+        JCheckBoxMenuItem checkbox = new JCheckBoxMenuItem(description);
+        checkbox.setSelected(true);
+        container.add(checkbox);
     }
+
+
 
     protected void sauvegarderProjetActionPerformed(ActionEvent e) {
         JFileChooser chooser = new JFileChooser();
@@ -405,9 +346,6 @@ public class BarreMenu extends JMenuBar
         }
     }
 
-    protected void supprimerActionPerformed(ActionEvent e) {
-        // TODO: à coder
-    }
 
     protected void zoomInActionPerformed(ActionEvent e) {
         parent.controller.setScale(1);
@@ -419,12 +357,31 @@ public class BarreMenu extends JMenuBar
         parent.repaint();
     }
 
-    protected void optionsActionPerformed(ActionEvent e) {
-        // TODO: à coder
-    }
 
     protected void aboutActionPerformed(ActionEvent e) {
-        // TODO: à coder
+        JDialog d = new JDialog(parent, "À propos");
+        d.setLayout(new BoxLayout(d.getContentPane(),BoxLayout.Y_AXIS));
+        // create a label
+        JLabel espace1 = new JLabel("================================================");
+        JLabel espace2 = new JLabel("================================================");
+        JLabel espace3 = new JLabel("================================================");
+        JLabel espace4 = new JLabel("================================================");
+        JLabel label1 = new JLabel("....................//** 2021 Projet Microsoftears **\\\\....................");
+        JLabel label2 = new JLabel("....................//** Conception et code réalisé par **\\\\....................");
+        JLabel label3 = new JLabel("....................//** Kevin Jobin, Lucas Niquet et Lydia Lelièvre **\\\\....................");
+        d.add(espace1);
+        d.add(label1);
+        d.add(espace2);
+        d.add(label2);
+        d.add(espace3);
+        d.add(label3);
+        d.add(espace4);
+
+        // setsize of dialog
+        d.setSize(400, 150);
+
+        // set visibility of dialog
+        d.setVisible(true);
     }
 
     protected void showComposanteActionPerformed(ActionEvent e) {

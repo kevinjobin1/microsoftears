@@ -394,7 +394,6 @@ public class Hayon extends Composante {
         int dernierIndexCourant = pointsHayon.size() -1; // utile pour pointsInterieurHayon
 
         for(int i = indexCentreArc - 1; i > indexPremierPoint; i--){
-            System.out.println(i);
             p = profilPoints.get(i);
             p1 = profilPoints.get(i - 1);
             p2 = profilPoints.get(i + 1);
