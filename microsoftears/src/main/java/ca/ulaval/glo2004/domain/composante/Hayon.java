@@ -292,11 +292,11 @@ public class Hayon extends Composante {
         return new Polygone(retour);
         }
         else {
-            return new Polygone(calculerHayonBezier(murProfile, plancher, poutreArriere));
+            return new Polygone(calculerHayonBezier(murBrute, murProfile, plancher, poutreArriere));
         }
     }
 
-    private LinkedList<PointPouce> calculerHayonBezier(MurProfile profil, Rectangle plancher, PoutreArriere poutre) {
+    private LinkedList<PointPouce> calculerHayonBezier(MurBrute mur, MurProfile profil, Rectangle plancher, PoutreArriere poutre) {
         if (pointsInterieurHayon != null){
             pointsInterieurHayon.clear(); // vider les points qui seraient encore là du profil en mode ellipse
         }
@@ -426,7 +426,7 @@ public class Hayon extends Composante {
 
         // coin bas côté plancher
         pointsHayon.add(new PointPouce(plancher.getCentre().getX().diff(plancher.getLongueur().diviser(2)).diff(distancePlancher),
-                pointsHayon.getFirst().getY()));
+                mur.getPolygone().getListePoints().get(2).getY()));
 
         // point fin du hayon
         this.pointFinHayon = new PointPouce(pointsHayon.getLast().getX(),pointsHayon.getFirst().getY());

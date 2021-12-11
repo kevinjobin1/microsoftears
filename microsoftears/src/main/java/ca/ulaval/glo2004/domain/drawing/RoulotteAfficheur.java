@@ -94,8 +94,21 @@ public class RoulotteAfficheur
         g2d.drawImage(image, posX, posY, largeur, hauteur, null);
     }
 
-
-    public void creerPlans(Graphics2D g2d) {
+    public String getSVG() {
+        String svg = "<svg width=\"" + dimensionEcran.width + "\" height=\"" + dimensionEcran.height +  "\" version=\"1.1\" xmlns = \"http://www.w3.org/2000/svg\" xmlns:xlink = \"http://www.w3.org/1999/xlink\">";
+        ArrayList<Composante> composantes = roulotte.getListeComposantes();
+        Composante composante;
+        if (!composantes.isEmpty()) {
+            for (int i =0; i < composantes.size(); i++){
+                composante = composantes.get(i);
+                System.out.println(composante);
+                if (composante.estVisible()){
+               svg += composantes.get(i).getSVG();
+                }
+            }
+    }
+        svg += "</svg>";
+        return svg;
     }
 }
 

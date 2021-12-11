@@ -81,7 +81,7 @@ public class RoulotteController implements Serializable{
         // plancher(6), poutre(7), hayon(8), murSeparateur(9), toit (10), ressort (11), aide design & ouvertures (11 et +)
         MurBrute murBrute = new MurBrute(this);
         listeComposantes.add(murBrute);
-        MurProfile murProfile = new MurProfile(this, false);
+        MurProfile murProfile = new MurProfile(this, true);
         listeComposantes.add(murProfile);
         if (murProfile.getMode()){
             for (ProfilEllipse ellipse : murProfile.getProfilEllipses()){
@@ -215,7 +215,7 @@ public class RoulotteController implements Serializable{
                listeComposantes.set(0, mur);
 
                // On mets à jour le profil
-               boolean modeProfil = valeurs[12] == 1;
+               boolean modeProfil = valeurs[12] == 1 ? true: false;
                MurProfile profile = new MurProfile(((MurProfile) listeComposantes.get(1)), new PointPouce(mur.getCentre().getX().diff(ancienMur.getCentre().getX()),
                        mur.getCentre().getY().diff(ancienMur.getCentre().getY())), modeProfil, MurProfile.ModeContreplaque.COMPLET);
                listeComposantes.set(1, profile);
@@ -315,6 +315,7 @@ public class RoulotteController implements Serializable{
                ((MurProfile) listeComposantes.get(1)).getProfilBezier().updatePointsControles();
                listeComposantes.set(3, pointControle);
                listeComposantes.set(7, new PoutreArriere((PoutreArriere) listeComposantes.get(7)));
+               listeComposantes.set(11,new Ressorts((Ressorts) listeComposantes.get(11)));
                break;
            case POINT_CONTROLE_3:
                pointControle = new PointControle(this,
@@ -328,6 +329,7 @@ public class RoulotteController implements Serializable{
                ((MurProfile) listeComposantes.get(1)).getProfilBezier().updatePointsControles();
                listeComposantes.set(4, pointControle);
                listeComposantes.set(7, new PoutreArriere((PoutreArriere) listeComposantes.get(7)));
+               listeComposantes.set(11,new Ressorts((Ressorts) listeComposantes.get(11)));
                break;
            case POINT_CONTROLE_4:
                pointControle = new PointControle(this,
@@ -618,7 +620,7 @@ public class RoulotteController implements Serializable{
             }
 
             else if (composanteChoisie.getType() == TypeComposante.MUR_PROFILE){
-                for (int i = 2; i < 12; i++){
+                for (int i = 0; i < listeComposantes.size(); i++){
                     listeComposantes.get(i).translate(positionDrag);
                 }
             }
@@ -647,6 +649,8 @@ public class RoulotteController implements Serializable{
           case MUR_BRUTE:
               return 0;
           case MUR_PROFILE:
+          case CONTREPLAQUE_INTERIEUR:
+          case CONTREPLAQUE_EXTERIEUR:
               return 1;
           case PROFIL_ELLIPSE_1:
               return 2;

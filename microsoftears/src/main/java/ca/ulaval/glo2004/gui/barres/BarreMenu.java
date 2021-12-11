@@ -26,8 +26,6 @@ public class BarreMenu extends JMenuBar
             exporterMenu,
             affichageMenu,
             aideMenu,
-            exporterSubMenu,
-            exporterSelectionSubMenu,
             contreplaqueSubMenu;
 
     public JMenuItem
@@ -223,31 +221,16 @@ public class BarreMenu extends JMenuBar
     }
 
     private void initialiserMenuExporter(){
-
-        exporterSubMenu = new JMenu("Exporter les plans");
-        exporterJPEGMenuItem = new JMenuItem("Plans en image (.jpg)");
-        exporterSVGMenuItem = new JMenuItem("Plans en ficher de découpe (.svg)");
-        exporterSubMenu.add(exporterJPEGMenuItem);
-        exporterSubMenu.add(exporterSVGMenuItem);
-        exporterSVGMenuItem.addActionListener(new ExporterProjet(parent));
-        exporterJPEGMenuItem.addActionListener(new ExporterProjet(parent));
-
-        JSeparator separator = new JSeparator();
-        exporterSelectionSubMenu = new JMenu("Sélection des plans à exporter...");
         
-        creerCheckBoxMenuItem("Mur brute", exporterSelectionSubMenu);
-        creerCheckBoxMenuItem("Mur profilé", exporterSelectionSubMenu);
-        creerCheckBoxMenuItem("Contreplaqué intérieur", exporterSelectionSubMenu);
-        creerCheckBoxMenuItem("Contreplaqué extérieur", exporterSelectionSubMenu);
-        creerCheckBoxMenuItem("Plancher", exporterSelectionSubMenu);
-        creerCheckBoxMenuItem("Hayon", exporterSelectionSubMenu);
-        creerCheckBoxMenuItem("Poutre arrière", exporterSelectionSubMenu);
-        creerCheckBoxMenuItem("Toit", exporterSelectionSubMenu);
-        creerCheckBoxMenuItem("Mur séparateur", exporterSelectionSubMenu);
+        exporterJPEGMenuItem = new JMenuItem("Exporter en image (.jpg)");
+        exporterSVGMenuItem = new JMenuItem("Exporter en ficher de découpe (.svg)");
+        exporterMenu.add(exporterJPEGMenuItem);
+        exporterMenu.add(exporterSVGMenuItem);
+        exporterMenu.add( new JSeparator());
 
-        exporterMenu.add(exporterSubMenu);
-        exporterMenu.add(separator);
-        exporterMenu.add(exporterSelectionSubMenu);
+        exporterSVGMenuItem.addActionListener(new ExporterProjet(parent, ExporterProjet.FormatFichier.SVG));
+        exporterJPEGMenuItem.addActionListener(new ExporterProjet(parent, ExporterProjet.FormatFichier.JPEG));
+
     }
 
     private void initialiserMenuAide(){
@@ -277,13 +260,6 @@ public class BarreMenu extends JMenuBar
         });
         container.add(checkbox);
     }
-
-    private void creerCheckBoxMenuItem(String description, JMenu container){
-        JCheckBoxMenuItem checkbox = new JCheckBoxMenuItem(description);
-        checkbox.setSelected(true);
-        container.add(checkbox);
-    }
-
 
 
     protected void sauvegarderProjetActionPerformed(ActionEvent e) {

@@ -114,15 +114,15 @@ public class Plancher extends Composante {
     @Override
     public PointPouce getCentre(){
         MurProfile profil = (MurProfile) parent.getListeComposantes().get(1);
-        if (profil.getMode()){
+        //if (profil.getMode()){
         MurBrute mur = (MurBrute) parent.getListeComposantes().get(0);
         Pouce x = mur.getCentre().getX().add(mur.getLongueur().diviser(2)).diff(margeAvant).diff(getLongueur().diviser(2));
         Pouce y = mur.getLargeur().diviser(2).add(mur.getCentre().getY()).diff(this.epaisseur.diviser(2));
         return new PointPouce(x,y);
-        }
-        else {
-            return calculerPositionBezier(profil);
-        }
+        //}
+        //else {
+        //    return calculerPositionBezier(profil);
+        //}
     }
 
     private PointPouce calculerPositionBezier(MurProfile profil){

@@ -130,6 +130,5 @@ public enum TypeComposante {
     },
     PLAN{
         public String toString(){return "Plan";}
-    }
-
+    };
 }

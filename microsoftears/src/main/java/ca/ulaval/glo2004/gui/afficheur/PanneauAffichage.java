@@ -2,14 +2,12 @@ package ca.ulaval.glo2004.gui.afficheur;
 
 import ca.ulaval.glo2004.domain.drawing.RoulotteAfficheur;
 import ca.ulaval.glo2004.gui.FenetrePrincipale;
-import org.w3c.dom.DOMImplementation;
-import org.w3c.dom.Document;
+import ca.ulaval.glo2004.gui.actions.ExporterProjet;
 
 import java.awt.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.logging.Level;
@@ -21,6 +19,7 @@ public class PanneauAffichage extends JPanel implements Serializable {
 
     protected final FenetrePrincipale parent;
     protected RoulotteAfficheur afficheurRoulotte;
+    private static final String ENTETE_SVG = "<?xml version = \"1.0\" encoding = \"UTF-8\" standalone = \"no\" ?>\n<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">";
 
     public PanneauAffichage(FenetrePrincipale parent) {
         this.parent = parent;
@@ -57,19 +56,37 @@ public class PanneauAffichage extends JPanel implements Serializable {
             g2d.setRenderingHints(renderHints);
     }
 
-    public void exporter(String nomFichier) {
-        BufferedImage image = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
+    public void exporter(String nomFichier, ExporterProjet.FormatFichier format) {
         afficheurRoulotte = new RoulotteAfficheur(parent.controller, this.getSize());
-        Graphics2D g2d = image.createGraphics();
-        afficheurRoulotte.afficher(g2d);
-        setAntiAlias(g2d, true);
-        g2d.dispose();
-        File outputfile = new File(nomFichier);
-        try {
-            ImageIO.write(image, "jpg", outputfile);
-        } catch (IOException ex) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
-        }
+
+       switch(format){
+           case JPEG:
+               BufferedImage image = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
+               Graphics2D g2d = image.createGraphics();
+               afficheurRoulotte.afficher(g2d);
+               setAntiAlias(g2d, true);
+               g2d.dispose();
+
+               try {
+                   File outputfile = new File(nomFichier);
+                   ImageIO.write(image, "jpg", outputfile);
+               } catch (IOException e) {
+                   Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, e);
+               }
+               break;
+           case SVG:
+
+               try {
+                   FileWriter outputFile = new FileWriter(nomFichier);
+                   outputFile.write(ENTETE_SVG + afficheurRoulotte.getSVG());
+                   outputFile.close();
+               }
+
+               catch (IOException e) {
+                   Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, e);
+               }
+       }
+
     }
 
 }

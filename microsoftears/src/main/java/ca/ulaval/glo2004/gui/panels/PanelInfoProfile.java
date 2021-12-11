@@ -403,6 +403,7 @@ public class PanelInfoProfile extends PanelComposante{
     public void boutonProfilActionPerformed(ActionEvent e) {
         JToggleButton bouton = (JToggleButton) e.getSource();
         valeurs[12] = bouton.getText().equals("Ellipses") ? 1: 0;
+        System.out.println(valeurs[12]);
         updateComposante();
         parent.parent.updateBarres();
     }

@@ -82,9 +82,9 @@ public class ProfilEllipse extends Composante{
 
     @Override
     public void translate(PointPouce delta) {
-
-        Pouce differenceX = centre.getX().add(delta.getX());
-        Pouce differenceY = centre.getY().add(delta.getY());
+        PointPouce pSouris = parent.getPositionPlan(parent.getPositionSouris());
+        Pouce differenceX = centre.getX().add(delta.getX().diff(pSouris.getX()));
+        Pouce differenceY = centre.getY().add(delta.getY().diff(pSouris.getY()));
         this.centre = new PointPouce(differenceX, differenceY);
         this.ellipse = new Ellipse(this.longueur,this.hauteur,this.centre);
         this.setPolygone(ellipse.getPolygone());

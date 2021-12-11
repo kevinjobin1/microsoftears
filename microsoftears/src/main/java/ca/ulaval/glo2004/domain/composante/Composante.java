@@ -219,7 +219,7 @@ public abstract class Composante implements IComposante, Serializable {
     }
 
     public String getSVG(){
-    String svgPath = "<path stroke-width=\"2\" stroke=\"black\" ";
+    String svgPath = "<path fill=\"none\" stroke-width=\"2\" stroke=\"black\" ";
         
         // path svg attributs d, une liste de points
         double[] point;
@@ -230,7 +230,7 @@ public abstract class Composante implements IComposante, Serializable {
                 svgPath += "d=\"M" + Math.round(point[0]) + " " + Math.round(point[1]) + " ";
             }
             else if (i == polygoneList.size() -1){
-                svgPath += "L" + Math.round(point[0]) + " " + Math.round(point[1]) + "Z\"/>\";";
+                svgPath += "L" + Math.round(point[0]) + " " + Math.round(point[1]) + "Z\"/>";
             }
             else {
                 svgPath += "L" + Math.round(point[0]) + " " + Math.round(point[1]) + " ";
