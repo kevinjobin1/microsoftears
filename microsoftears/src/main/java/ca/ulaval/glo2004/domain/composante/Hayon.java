@@ -221,27 +221,29 @@ public class Hayon extends Composante {
                     y = murBrute.getCentre().getY().diff(murBrute.getLargeur().diviser(2)).
                             add(epaisseur).add(epaisseurTraitScie);
                 }
-
-                //exception: retirer les points qui sont plus petit que la courbe
                 boolean pointValide = true;
-                if (!aucunPointAjoute && y.ste(murBrute.getCentre().getY()) &&
-                        pointsHayon.getLast().getY().ste(murBrute.getCentre().getY())) {
-                    if (x.gt(pointsHayon.getLast().getX())) {
+                    //exception: retirer les points qui sont plus petit que la courbe
+                try {
+                    if (!aucunPointAjoute && y.ste(murBrute.getCentre().getY()) &&
+                            pointsHayon.getLast().getY().ste(murBrute.getCentre().getY())) {
+                        if (x.gt(pointsHayon.getLast().getX())) {
                             pointsHayon.removeLast();
+                        }
+                        if (y.st(pointsHayon.getLast().getY())) {
+                            pointValide = false;
+                        }
+                    } else if (!aucunPointAjoute && y.gte(murBrute.getCentre().getY()) &&
+                            pointsHayon.getLast().getY().gte(murBrute.getCentre().getY())) {
+                        if (y.st(pointsHayon.getLast().getY())) {
+                            pointsHayon.removeLast();
+                        }
+                        if (x.st(pointsHayon.getLast().getX())) {
+                            pointValide = false;
+                        }
                     }
-                    if (y.st(pointsHayon.getLast().getY())) {
-                        pointValide = false;
-                    }
-                } else if(!aucunPointAjoute && y.gte(murBrute.getCentre().getY()) &&
-                        pointsHayon.getLast().getY().gte(murBrute.getCentre().getY())) {
-                    if (y.st(pointsHayon.getLast().getY())) {
-                        pointsHayon.removeLast();
-                    }
-                    if (x.st(pointsHayon.getLast().getX())) {
-                        pointValide = false;
-                    }
-                }
+                }catch(Exception e){
 
+                }
                 if((x.ste(xFin) || pointsProfil.get(i).getY().st(yMinFin)) && pointValide) {
                     pointsHayon.add(new PointPouce(x, y));
                     aucunPointAjoute = false;
@@ -279,7 +281,7 @@ public class Hayon extends Composante {
             }
         }
 
-        LinkedList<PointPouce> retour = new LinkedList<>(pointsProfil.subList(indiceDepart, indiceFin));
+        LinkedList<PointPouce> retour = new LinkedList<>(pointsProfil.subList(indiceDepartCercle, indiceFin));
         if(pointArcCercle != null) {
             retour.remove(pointArcCercle);
         }

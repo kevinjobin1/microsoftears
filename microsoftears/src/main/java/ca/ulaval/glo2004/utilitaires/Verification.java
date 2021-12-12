@@ -136,18 +136,19 @@ public class Verification {
     public static boolean verificationCentreXPoutreArriere(Pouce valeur, RoulotteController parent){
         MurBrute mur = (MurBrute) parent.getListeComposantes().get(0);
         PoutreArriere poutre = (PoutreArriere) parent.getListeComposantes().get(7);
-        return valeur.gt(mur.getCentre().getX().diff(mur.getLongueur().diviser(2)).add(poutre.getLongueur().diviser(2)))
+        Hayon hayon = (Hayon) parent.getListeComposantes().get(8);
+        return valeur.gt(mur.getCentre().getX().diff(mur.getLongueur().diviser(2)).add(poutre.getLongueur().diviser(2)).add(hayon.getEpaisseur()))
                 && valeur.st(mur.getCentre().getX().add(mur.getLongueur().diviser(2)).diff(poutre.getLongueur().diviser(2)));
     }
 
     public static boolean verificationLongueurProfilEllipse(Pouce valeur, RoulotteController parent){
         MurBrute mur = (MurBrute) parent.getListeComposantes().get(0);
-        return valeur.st(mur.getLongueur()) && valeur.gt(new Pouce(0,0,1));
+        return valeur.ste(mur.getLongueur()) && valeur.gt(new Pouce(0,0,1));
     }
 
     public static boolean verificationHauteurProfilEllipse(Pouce valeur, RoulotteController parent){
         MurBrute mur = (MurBrute) parent.getListeComposantes().get(0);
-        return valeur.st(mur.getLargeur()) && valeur.gt(new Pouce(0,0,1));
+        return valeur.ste(mur.getLargeur()) && valeur.gt(new Pouce(0,0,1));
     }
 
     public static boolean verificationEpaisseurToit(Pouce valeur){

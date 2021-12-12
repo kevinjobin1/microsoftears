@@ -5,6 +5,7 @@ import ca.ulaval.glo2004.domain.TypeComposante;
 import ca.ulaval.glo2004.domain.composante.Hayon;
 import ca.ulaval.glo2004.gui.barres.BarreOnglet;
 import ca.ulaval.glo2004.utilitaires.Pouce;
+import ca.ulaval.glo2004.utilitaires.Verification;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -240,59 +241,63 @@ public class PanelInfoProfile extends PanelComposante{
 
     private void hauteurSpinner1ChangeListener(ChangeEvent e) {
         int value = (int) ((JSpinner) e.getSource()).getValue();
-        this.valeurs[0] = value;
+            this.valeurs[0] = value;
+            updateComposante();
 
-        updateComposante();
     }
     private void hauteurSpinner2ChangeListener(ChangeEvent e) {
         int value = (int) ((JSpinner) e.getSource()).getValue();
-        if (value < this.valeurs[2]){
-            this.valeurs[1] =  value;
-        }
-        else {
-            this.hauteurSpinner1.setValue((int) hauteurSpinner1.getValue() + 1);
-            this.hauteurSpinner2.setValue(0);
-            this.valeurs[1] = 0;
-        }
-        updateComposante();
+            if (value < this.valeurs[2]) {
+                this.valeurs[1] = value;
+            } else if (value >= this.valeurs[2]) {
+                this.hauteurSpinner1.setValue((int) hauteurSpinner1.getValue() + 1);
+                this.hauteurSpinner2.setValue(0);
+                this.valeurs[1] = 0;
+            }
+            updateComposante();
+
     }
     private void hauteurSpinner3ChangeListener(ChangeEvent e) {
         int value = (int) ((JSpinner) e.getSource()).getValue();
-        if (value > this.valeurs[1]){ // 4/4
-            this.valeurs[2] =  value;
-        }
-        else {
-            this.hauteurSpinner3.setValue(this.valeurs[2]);
-        }
-        updateComposante();
+
+            if (value > this.valeurs[1]) { // 4/4
+                this.valeurs[2] = value;
+            } else if (value <= this.valeurs[1]) {
+                this.hauteurSpinner3.setValue(this.valeurs[2]);
+            }
+            updateComposante();
+
     }
 
     private void longueurSpinner1ChangeListener(ChangeEvent e) {
         int value = (int) ((JSpinner) e.getSource()).getValue();
+
             this.valeurs[3] = value;
             updateComposante();
+
     }
     private void longueurSpinner2ChangeListener(ChangeEvent e) {
         int value = (int) ((JSpinner) e.getSource()).getValue();
-        if (value < this.valeurs[5]){
-            this.valeurs[4] =  value;
-        }
-        else {
-            this.longueurSpinner1.setValue((int) longueurSpinner1.getValue() + 1);
-            this.longueurSpinner2.setValue(0);
-            this.valeurs[4] = 0;
-        }
-        updateComposante();
+            if (value < this.valeurs[5]) {
+                this.valeurs[4] = value;
+            } else if (value >= this.valeurs[5]) {
+                this.longueurSpinner1.setValue((int) longueurSpinner1.getValue() + 1);
+                this.longueurSpinner2.setValue(0);
+                this.valeurs[4] = 0;
+            }
+            updateComposante();
+
     }
     private void longueurSpinner3ChangeListener(ChangeEvent e) {
         int value = (int) ((JSpinner) e.getSource()).getValue();
-        if (value > this.valeurs[4]){ // 4/4
-            this.valeurs[5] =  value;
-        }
-        else {
-            this.longueurSpinner3.setValue(this.valeurs[5]);
-        }
-        updateComposante();
+
+            if (value > this.valeurs[4]) { // 4/4
+                this.valeurs[5] = value;
+            } else if (value <= this.valeurs[4]) {
+                this.longueurSpinner3.setValue(this.valeurs[5]);
+            }
+            updateComposante();
+
     }
 
     private void centreXSpinner1ChangeListener(ChangeEvent e) {

@@ -298,7 +298,7 @@ public class Ressorts extends Composante{
 
     public void calculerPositionSurHayon(){
         Hayon hayon = (Hayon) parent.getListeComposantes().get(8);
-        PointPouce dernierPointHayon = hayon.getPointsInterieurHayon().getFirst();
+        PointPouce dernierPointHayon = hayon.getPointsInterieurHayon().get(0);
         boolean positionSurHayonCalculer = false;
         for (int i =hayon.getPointsInterieurHayon().size()-1; i >= 0; i--) {
             PointPouce point = hayon.getPointsInterieurHayon().get(i);

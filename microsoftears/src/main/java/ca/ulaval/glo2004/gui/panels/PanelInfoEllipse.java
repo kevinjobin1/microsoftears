@@ -4,6 +4,7 @@ package ca.ulaval.glo2004.gui.panels;
 import ca.ulaval.glo2004.domain.IComposante;
 import ca.ulaval.glo2004.gui.barres.BarreOnglet;
 import ca.ulaval.glo2004.utilitaires.Pouce;
+import ca.ulaval.glo2004.utilitaires.Verification;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -210,58 +211,66 @@ public class PanelInfoEllipse extends PanelComposante  {
 
     private void hauteurSpinner1ChangeListener(ChangeEvent e) {
         int value = (int) ((JSpinner) e.getSource()).getValue();
-        this.valeurs[0] =  value;
-        updateComposante();
+        if(Verification.verificationHauteurProfilEllipse(new Pouce(value, valeurs[1], valeurs[2]),parent.parent.controller)) {
+            this.valeurs[0] = value;
+            updateComposante();
+        }
     }
     private void hauteurSpinner2ChangeListener(ChangeEvent e) {
         int value = (int) ((JSpinner) e.getSource()).getValue();
-        if (value < this.valeurs[2]){
-            this.valeurs[1] =  value;
+        if(Verification.verificationHauteurProfilEllipse(new Pouce(valeurs[0], value, valeurs[2]),parent.parent.controller)) {
+            if (value < this.valeurs[2]) {
+                this.valeurs[1] = value;
+            } else if (value >= this.valeurs[2]) {
+                this.hauteurSpinner1.setValue((int) hauteurSpinner1.getValue() + 1);
+                this.hauteurSpinner2.setValue(0);
+                this.valeurs[1] = 0;
+            }
+            updateComposante();
         }
-        else {
-            this.hauteurSpinner1.setValue((int) hauteurSpinner1.getValue() + 1);
-            this.hauteurSpinner2.setValue(0);
-            this.valeurs[1] = 0;
-        }
-        updateComposante();
     }
     private void hauteurSpinner3ChangeListener(ChangeEvent e) {
         int value = (int) ((JSpinner) e.getSource()).getValue();
-        if (value > this.valeurs[1]){ // 4/4
-            this.valeurs[2] =  value;
+        if(Verification.verificationHauteurProfilEllipse(new Pouce(valeurs[0], valeurs[1], value),parent.parent.controller)) {
+            if (value > this.valeurs[1]) { // 4/4
+                this.valeurs[2] = value;
+            } else if (value <= this.valeurs[1]) {
+                this.hauteurSpinner3.setValue(this.valeurs[2]);
+            }
+            updateComposante();
         }
-        else {
-            this.hauteurSpinner3.setValue(this.valeurs[2]);
-        }
-        updateComposante();
     }
 
     private void longueurSpinner1ChangeListener(ChangeEvent e) {
         int value = (int) ((JSpinner) e.getSource()).getValue();
-        this.valeurs[3] =  value;
-        updateComposante();
+        if(Verification.verificationLongueurProfilEllipse(new Pouce(value, valeurs[4], valeurs[5]),parent.parent.controller)) {
+            this.valeurs[3] = value;
+            updateComposante();
+        }
     }
     private void longueurSpinner2ChangeListener(ChangeEvent e) {
         int value = (int) ((JSpinner) e.getSource()).getValue();
-        if (value < this.valeurs[5]){
-            this.valeurs[4] =  value;
+        if(Verification.verificationLongueurProfilEllipse(new Pouce(valeurs[3], value, valeurs[5]),parent.parent.controller)) {
+            if (value < this.valeurs[5]) {
+                this.valeurs[4] = value;
+            } else if (value >= this.valeurs[5]) {
+                this.longueurSpinner1.setValue((int) longueurSpinner1.getValue() + 1);
+                this.longueurSpinner2.setValue(0);
+                this.valeurs[4] = 0;
+            }
+            updateComposante();
         }
-        else {
-            this.longueurSpinner1.setValue((int) longueurSpinner1.getValue() + 1);
-            this.longueurSpinner2.setValue(0);
-            this.valeurs[4] = 0;
-        }
-        updateComposante();
     }
     private void longueurSpinner3ChangeListener(ChangeEvent e) {
         int value = (int) ((JSpinner) e.getSource()).getValue();
-        if (value > this.valeurs[4]){ // 4/4
-            this.valeurs[5] =  value;
+        if(Verification.verificationLongueurProfilEllipse(new Pouce(valeurs[3], valeurs[4], value),parent.parent.controller)) {
+            if (value > this.valeurs[4]) { // 4/4
+                this.valeurs[5] = value;
+            } else if (value <= this.valeurs[4]) {
+                this.longueurSpinner3.setValue(this.valeurs[5]);
+            }
+            updateComposante();
         }
-        else {
-            this.longueurSpinner3.setValue(this.valeurs[5]);
-        }
-        updateComposante();
     }
 
     private void centreXSpinner1ChangeListener(ChangeEvent e) {
