@@ -159,13 +159,13 @@ public class RoulotteController implements Serializable{
     public void removeOuvertureLateral(){
         int indexOuvertureLateral = getIndexComposante(TypeComposante.OUVERTURE_LATERALE);
         if (indexOuvertureLateral == 12){
-            listeOuverturesLaterales.remove(0);
+            //listeOuverturesLaterales.remove(0);
             listeComposantes.remove(12);
         }
         int indexOuvertureLateral2 = getIndexComposante(TypeComposante.OUVERTURE_LATERALE_2);
         if(indexOuvertureLateral2 == 18 ){
             listeComposantes.remove(18);
-            listeOuverturesLaterales.remove(1);
+            //listeOuverturesLaterales.remove(1);
         }
     }
 
@@ -909,6 +909,8 @@ public class RoulotteController implements Serializable{
                     composanteChoisie.getType() == TypeComposante.AIDE_DESIGN_4 ||
                     composanteChoisie.getType() == TypeComposante.OUVERTURE_LATERALE ||
                     composanteChoisie.getType() == TypeComposante.OUVERTURE_LATERALE_2){
+
+                listeComposantes.remove(composanteChoisie);
             }
             else {
 
