@@ -42,7 +42,7 @@ public enum TypeComposante {
         public String toString(){
             return "Roue";
         }
-        public BufferedImage getImage(){ return toBufferedImage(new ImageIcon("car-wheel.png").getImage()); }
+        public BufferedImage getImage(){ return toBufferedImage(new ImageIcon("trailer_wheel.png").getImage()); }
     },
     CADRE {
         public String toString(){
