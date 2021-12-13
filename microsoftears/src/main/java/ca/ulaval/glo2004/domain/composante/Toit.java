@@ -64,15 +64,22 @@ public class Toit extends Composante implements Cloneable {
         boolean yDepartManquant = true;
         boolean xFinManquant = true;
 
+        int j = 0;
         for(int i = 0; i < listePointMur.size(); i++){
             PointPouce point = listePointMur.get(i);
             if(point.getX().gte(xFin) && point.getY().ste(yDepart)) {
                 if(point.getY().gt(murBrute.getCentre().getY())){
-                    pointsProfil.add(0, point);
+                    if(j==0){
+                        pointsProfil.add(j,point);
+                        j++;
+                    }
+                    pointsProfil.add(j, point);
+                    j++;
                 }else {
                     pointsProfil.add(point);
                 }
             }
+
             if(point.getX().equals(xFin) && point.getY().ste(yDepart)){
                 xFinManquant = false;
                 pointsProfil.add(new PointPouce(xFin,point.getY()));
@@ -81,6 +88,7 @@ public class Toit extends Composante implements Cloneable {
                 pointsProfil.add(new PointPouce(xFin,point.getY()));
                 xFinManquant = false;
             }
+
             if(point.getY().equals(yDepart) && point.getX().gte(xFin)){
                 yDepartManquant = false;
                 if(point.getY().gt(murBrute.getCentre().getY())){
@@ -88,17 +96,17 @@ public class Toit extends Composante implements Cloneable {
                 }else {
                     pointsProfil.add(new PointPouce(point.getX(),yDepart));
                 }
-            }else if(point.getY().gt(yDepart) && point.getX().gte(xFin) && yDepartManquant){
-                if(point.getY().gt(murBrute.getCentre().getY())){
-                    pointsProfil.add(0, new PointPouce(point.getX(),yDepart));
-                    pointsProfil.add(0, new PointPouce(point.getX(),yDepart));
-                }else {
-                    pointsProfil.add(new PointPouce(point.getX(),yDepart));
-                    pointsProfil.add(new PointPouce(point.getX(),yDepart));
-                }
-                yDepartManquant = false;
             }
         }
+            if(yDepartManquant){
+                if(pointsProfil.get(0).getY().gt(murBrute.getCentre().getY())){
+                    pointsProfil.add(0, new PointPouce(pointsProfil.get(0).getX(),yDepart));
+                    pointsProfil.add(0, new PointPouce(pointsProfil.get(0).getX(),yDepart));
+                }else {
+                    pointsProfil.add(0,new PointPouce(murBrute.getPolygone().getListePoints().get(3).getX(),yDepart));
+                    pointsProfil.add(0,new PointPouce(murBrute.getPolygone().getListePoints().get(3).getX(),yDepart));
+                }
+            }
         for(int i = pointsProfil.size()-2; i > 0; i--){
             PointPouce point1 = pointsProfil.get(i - 1);
             PointPouce point2 = pointsProfil.get(i + 1);

@@ -694,6 +694,7 @@ public class RoulotteController implements Serializable{
             setTranslate((int) mousePoint.getX(), (int) mousePoint.getY());
         }
 
+
         // Finalement, on mets à jour la position de la souris
         setPositionSouris(mousePoint);
 
