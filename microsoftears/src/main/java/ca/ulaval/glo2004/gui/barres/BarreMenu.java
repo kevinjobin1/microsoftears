@@ -318,7 +318,7 @@ public class BarreMenu extends JMenuBar
     }
 
     protected void redoActionPerformed(ActionEvent e) {
-        if(parent.controller.getUndoController() != null) {
+        if(parent.controller.getRedoController() != null) {
             RoulotteController controller = parent.controller;
             parent.controller = parent.controller.getRedoController();
             parent.controller.setUndoController(controller.deepCopy());
