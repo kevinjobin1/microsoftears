@@ -122,6 +122,7 @@ public class RoulotteController implements Serializable{
     }
 
     public void ajouterComposante(TypeComposante type){
+        undoController = this.deepCopy();
        int index = getIndexComposante(type);
        listeComposantes.get(index).estAjoute(true);
     }
@@ -836,6 +837,7 @@ public class RoulotteController implements Serializable{
     }
 
     public void removeComposante() {
+        undoController = this.deepCopy();
         // si une composante est sélectionnée, alors on la retire seulement si c'est aide au design/ouvertures
         if (composanteChoisie != null){
             if (composanteChoisie.getType() == TypeComposante.ROUE ||
