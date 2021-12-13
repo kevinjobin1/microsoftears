@@ -139,8 +139,8 @@ public enum TypeComposante {
             return "Mur profilé";
         }
     },
-    PLAN{
-        public String toString(){return "Plan";}
+    AIDE_AU_DESIGN{
+        public String toString(){return "Aide au design";}
     };
 
     public BufferedImage getImage() {

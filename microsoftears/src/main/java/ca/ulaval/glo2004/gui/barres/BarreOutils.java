@@ -181,6 +181,14 @@ public class BarreOutils extends JToolBar {
             }
         }));
 
+        popup.add(new JMenuItem(new AbstractAction("Aide au design", icone) {
+            public void actionPerformed(ActionEvent e) {
+                parent.setActionChoisie(FenetrePrincipale.TypeAction.AJOUT);
+                parent.controller.ajouterComposante(TypeComposante.AIDE_AU_DESIGN);
+                parent.setActionChoisie(FenetrePrincipale.TypeAction.SELECTION);
+                parent.updateBarres();
+            }
+        }));
 
         return popup;
     }

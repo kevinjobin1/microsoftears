@@ -101,7 +101,7 @@ public class RoulotteController implements Serializable{
         AideDesign aideDesign = new AideDesign(this, TypeComposante.CADRE);
         listeComposantes.add(aideDesign);
         listeAidesDesign.add(aideDesign);
-         aideDesign = new AideDesign(this, TypeComposante.ROUE);
+        aideDesign = new AideDesign(this, TypeComposante.ROUE);
         listeComposantes.add(aideDesign);
         listeAidesDesign.add(aideDesign);
          aideDesign = new AideDesign(this, TypeComposante.LIT);
@@ -116,6 +116,9 @@ public class RoulotteController implements Serializable{
         ouverture = new OuvertureLaterale(this, TypeComposante.FENETRE);
         listeComposantes.add(ouverture);
         listeOuverturesLaterales.add(ouverture);
+        aideDesign = new AideDesign(this, TypeComposante.AIDE_AU_DESIGN);
+        listeComposantes.add(aideDesign);
+        listeAidesDesign.add(aideDesign);
     }
 
     public void ajouterComposante(TypeComposante type){
@@ -197,7 +200,7 @@ public class RoulotteController implements Serializable{
                 listeComposantes.set(16, new AideDesign((AideDesign) listeComposantes.get(16)));
                 listeComposantes.set(17, new AideDesign((AideDesign) listeComposantes.get(17)));
                 listeComposantes.set(18, new OuvertureLaterale((OuvertureLaterale) listeComposantes.get(18)));
-
+                listeComposantes.set(19, new AideDesign((AideDesign) listeComposantes.get(19)));
                 break;
             case PROFIL_ELLIPSE_1:
                 ProfilEllipse ellipse = new ProfilEllipse(this,
@@ -374,8 +377,8 @@ public class RoulotteController implements Serializable{
                         new PointPouce(
                                 new Pouce(valeurs[6], valeurs[7], valeurs[8]),
                                 new Pouce(valeurs[9], valeurs[10], valeurs[11])), type, true);
-                listeComposantes.set(13, aideDesign);
-                listeAidesDesign.set(0, aideDesign);
+                listeComposantes.set(14, aideDesign);
+                listeAidesDesign.set(1, aideDesign);
                 break;
 
             case CADRE:
@@ -385,7 +388,8 @@ public class RoulotteController implements Serializable{
                         new PointPouce(
                                 new Pouce(valeurs[6], valeurs[7], valeurs[8]),
                                 new Pouce(valeurs[9], valeurs[10], valeurs[11])), type, true);
-                listeComposantes.set(14, aideDesign);
+                listeComposantes.set(13, aideDesign);
+                listeAidesDesign.set(0, aideDesign);
                 break;
 
             case LIT:
@@ -396,6 +400,7 @@ public class RoulotteController implements Serializable{
                                 new Pouce(valeurs[6], valeurs[7], valeurs[8]),
                                 new Pouce(valeurs[9], valeurs[10], valeurs[11])), type, true);
                 listeComposantes.set(15, aideDesign);
+                listeAidesDesign.set(2, aideDesign);
                 break;
 
             case PERSONNE:
@@ -406,6 +411,7 @@ public class RoulotteController implements Serializable{
                                 new Pouce(valeurs[6], valeurs[7], valeurs[8]),
                                 new Pouce(valeurs[9], valeurs[10], valeurs[11])), type, true);
                 listeComposantes.set(16, aideDesign);
+                listeAidesDesign.set(3, aideDesign);
                 break;
 
             case LOGO:
@@ -416,6 +422,18 @@ public class RoulotteController implements Serializable{
                                 new Pouce(valeurs[6], valeurs[7], valeurs[8]),
                                 new Pouce(valeurs[9], valeurs[10], valeurs[11])), type, true);
                 listeComposantes.set(17, aideDesign);
+                listeAidesDesign.set(4, aideDesign);
+                break;
+
+            case AIDE_AU_DESIGN:
+                aideDesign = new AideDesign(this,
+                        new Pouce(valeurs[0], valeurs[1], valeurs[2]),
+                        new Pouce(valeurs[3], valeurs[4], valeurs[5]),
+                        new PointPouce(
+                                new Pouce(valeurs[6], valeurs[7], valeurs[8]),
+                                new Pouce(valeurs[9], valeurs[10], valeurs[11])), type, true);
+                listeComposantes.set(19, aideDesign);
+                listeAidesDesign.set(5, aideDesign);
                 break;
 
             case FENETRE:
@@ -691,6 +709,8 @@ public class RoulotteController implements Serializable{
               return 17;
           case FENETRE:
               return 18;
+          case AIDE_AU_DESIGN:
+              return 19;
       }
       // si aucune composante n'est trouvée, retourne -1
       return -1;
@@ -823,7 +843,8 @@ public class RoulotteController implements Serializable{
                     composanteChoisie.getType() == TypeComposante.LIT ||
                     composanteChoisie.getType() == TypeComposante.PERSONNE ||
                     composanteChoisie.getType() == TypeComposante.PORTE ||
-                    composanteChoisie.getType() == TypeComposante.FENETRE){
+                    composanteChoisie.getType() == TypeComposante.FENETRE ||
+                    composanteChoisie.getType() == TypeComposante.AIDE_AU_DESIGN){
                 listeComposantes.get(composanteChoisie.getIndex()).estAjoute(false);
             }
         }

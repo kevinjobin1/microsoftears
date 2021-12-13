@@ -9,6 +9,7 @@ import ca.ulaval.glo2004.utilitaires.RectangleCoinRond;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.Area;
 import java.awt.image.BufferedImage;
 
 import static ca.ulaval.glo2004.utilitaires.ImageDesign.toBufferedImage;
@@ -101,6 +102,13 @@ public class AideDesign extends Composante{
                 centreY = parent.getListeComposantes().get(0).getCentre().getY().diff(new Pouce(40));
                 this.centre = new PointPouce(centreX, centreY);
                 break;
+            case AIDE_AU_DESIGN:
+                this.longueur = new Pouce(10);
+                this.largeur = new Pouce(20);
+                centreX = parent.getListeComposantes().get(0).getCentre().getX();
+                centreY = parent.getListeComposantes().get(0).getCentre().getY();
+                this.centre = new PointPouce(centreX, centreY);
+                break;
         }
 
         this.rectangle = new Rectangle(longueur, largeur, centre);
@@ -172,12 +180,30 @@ public class AideDesign extends Composante{
     @Override
     public void afficher(Graphics2D g2d) {
         if (estVisible() && estAjoute()){
-        Composite compositeInitial = g2d.getComposite();
-        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, getTransparence()));
-        double[] positionEcran = parent.getPositionEcran(new PointPouce(centre.getX().diff(longueur.diviser(2)),
-                centre.getY().diff(largeur.diviser(2))));
-        g2d.drawImage(getType().getImage(), (int) positionEcran[0], (int) positionEcran[1],(int) (longueur.toPixel(parent.getPixelsToInchesRatio()) * parent.getScale()), (int) (largeur.toPixel(parent.getPixelsToInchesRatio()) * parent.getScale()), null);
-        g2d.setComposite(compositeInitial);
+            if (parent.afficherLabel()){
+                if (getAfficherPosition()) {
+                    g2d.setColor(Color.DARK_GRAY);
+                    g2d.drawString(this.toString(), (float) parent.getPositionSouris().getX() + 30, (float) parent.getPositionSouris().getY() - 30);
+                }}
+
+            if (getType() != TypeComposante.AIDE_AU_DESIGN){
+                Composite compositeInitial = g2d.getComposite();
+                g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, getTransparence()));
+                double[] positionEcran = parent.getPositionEcran(new PointPouce(centre.getX().diff(longueur.diviser(2)),
+                        centre.getY().diff(largeur.diviser(2))));
+                g2d.drawImage(getType().getImage(), (int) positionEcran[0], (int) positionEcran[1],(int) (longueur.toPixel(parent.getPixelsToInchesRatio()) * parent.getScale()), (int) (largeur.toPixel(parent.getPixelsToInchesRatio()) * parent.getScale()), null);
+                g2d.setComposite(compositeInitial);}
+            else {
+                Area area = getArea();
+                Composite compositeInitial = g2d.getComposite();
+                g2d.setComposite(definirComposite(getTransparence()));
+                g2d.setPaint(getCouleur());
+                g2d.fill(area);
+                g2d.setComposite(compositeInitial);
+                g2d.setColor(getStrokeCouleur());
+                //g2d.setStroke(getStroke());
+                g2d.draw(area);
+            }
         }
     }
 

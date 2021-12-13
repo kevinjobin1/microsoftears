@@ -130,6 +130,9 @@ public class BarreOnglet extends JTabbedPane {
        if (composante.toString().equals("Fenêtre")) {
            contour = new PanelInfoOuvertureLaterales(this, composante);
        }
+       if (composante.toString().equals("Aide au design")) {
+           contour = new PanelInfoAideAuDesign(this, composante);
+       }
 
 
        JPanel panelMesure = creerPanelMesure();
