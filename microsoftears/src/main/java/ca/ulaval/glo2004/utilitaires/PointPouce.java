@@ -10,8 +10,8 @@ public class PointPouce  implements Serializable {
     private Pouce y;
 
     public PointPouce(Pouce x, Pouce y) {
-        this.x = x.st(0) ? new Pouce(0,0,1) : x;
-        this.y = y.st(0) ? new Pouce(0,0,1) : y;
+        this.x = x;
+        this.y = y;
     }
 
     public PointPouce() {
@@ -49,7 +49,7 @@ public class PointPouce  implements Serializable {
     }
 
     public void setX(Pouce x) {
-        this.x = x.st(0) ? new Pouce(0,1,0) : x;
+        this.x = x;
     }
 
     public Pouce getY() {
@@ -57,7 +57,7 @@ public class PointPouce  implements Serializable {
     }
 
     public void setY(Pouce y) {
-        this.y = y.st(0) ? new Pouce(0,1,0) : y;
+        this.y = y;
     }
 
     public Point point(double pixelParPouce)

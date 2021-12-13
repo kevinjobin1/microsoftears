@@ -30,10 +30,7 @@ public class BarreOnglet extends JTabbedPane {
     private void initialiser()
     {
         for(IComposante composante : parent.controller.getListeIComposantes()){
-            if (composante.getType() == TypeComposante.MUR_BRUTE){
-                // TODO: à traiter éventuellement
-            }
-            else{
+            if (composante.getType() != TypeComposante.MUR_BRUTE && composante.estAjoute()){
                 this.addTab(composante.toString(), creerTabPanel(composante));
             }
         }
@@ -42,14 +39,9 @@ public class BarreOnglet extends JTabbedPane {
     public void update(){
         this.removeAll();
         for(IComposante composante : parent.controller.getListeIComposantes()){
-            if (composante.getType() == TypeComposante.MUR_BRUTE){
-                // TODO: à traiter éventuellement
-            }
-            else{
+            if (composante.getType() != TypeComposante.MUR_BRUTE && composante.estAjoute()){
                 this.addTab(composante.toString(), creerTabPanel(composante));
-
             }
-            //parent.controller.updateComposante(composante.getValeurs(), composante.getType());
         }
     }
 
@@ -108,36 +100,36 @@ public class BarreOnglet extends JTabbedPane {
              if (composante.toString().equals("Mur profilé")) {
                 contour = new PanelInfoProfile(this, composante);
             }
-            if (composante.toString().equals("Ouverture latérale")) {
+            if (composante.toString().equals("Porte")) {
                 contour = new PanelInfoOuvertureLaterales(this, composante);
             }
-       if (composante.toString().equals("Ouverture latérale 2")) {
-           contour = new PanelInfoOuvertureLaterales(this, composante);
-       }
             if (composante.toString().equals("Toit")) {
                 contour = new PanelInfoToit(this, composante);
             }
            if (composante.toString().equals("Mur Séparateur")) {
                contour = new PanelInfoMurSeparateur(this, composante);
            }
-            if (composante.toString().equals("Aide au design")) {
+       if (composante.toString().equals("Ressorts")){
+           contour = new PanelInfoRessorts(this, composante);
+       }
+            if (composante.toString().equals("Roue")) {
                 contour = new PanelInfoAideAuDesign(this, composante);
             }
-       if (composante.toString().equals("Aide au design 2")) {
+       if (composante.toString().equals("Cadre (remorque)")) {
            contour = new PanelInfoAideAuDesign(this, composante);
        }
-       if (composante.toString().equals("Aide au design 3")) {
+       if (composante.toString().equals("Lit")) {
            contour = new PanelInfoAideAuDesign(this, composante);
        }
-       if (composante.toString().equals("Aide au design 4")) {
+       if (composante.toString().equals("Personne")) {
            contour = new PanelInfoAideAuDesign(this, composante);
        }
-       if (composante.toString().equals("Aide au design 5")) {
+       if (composante.toString().equals("Logo")) {
            contour = new PanelInfoAideAuDesign(this, composante);
        }
-            if (composante.toString().equals("Ressorts")){
-                contour = new PanelInfoRessorts(this, composante);
-            }
+       if (composante.toString().equals("Fenêtre")) {
+           contour = new PanelInfoOuvertureLaterales(this, composante);
+       }
 
 
        JPanel panelMesure = creerPanelMesure();

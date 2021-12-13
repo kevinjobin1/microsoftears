@@ -29,6 +29,19 @@ public class PointControle extends Composante{
         this.setType(type);
     }
 
+    public PointControle(PointControle copie, PointPouce centre) {
+        super(copie.parent);
+        this.hauteur = copie.hauteur;
+        this.longueur = copie.longueur;
+        this.centre = centre;
+        this.ellipse = new Ellipse(longueur, hauteur,
+                centre);
+        this.setCouleurInitiale(copie.getCouleurInitiale());
+        this.setCouleur(copie.getCouleur());
+        this.setPolygone(ellipse.getPolygone());
+        this.setType(copie.getType());
+    }
+
     public void setCentre(PointPouce centre) {
         this.centre = centre;
     }
@@ -80,6 +93,15 @@ public class PointControle extends Composante{
             this.centre = new PointPouce(differenceX, differenceY);
             this.ellipse = new Ellipse(this.longueur, this.hauteur, this.centre);
             this.setPolygone(ellipse.getPolygone());
+            MurProfile profil = ((MurProfile) (this.parent.getListeComposantes().get(1)));
+
+            if (getType() == TypeComposante.POINT_CONTROLE_2){
+                profil.getProfilBezier().getPointsControle().set(1, this);
+            }
+            if (getType() == TypeComposante.POINT_CONTROLE_3){
+                profil.getProfilBezier().getPointsControle().set(2, this);
+            }
+
        }
         else if (getType() == TypeComposante.POINT_CONTROLE_1){
            this.centre =  parent.getListeComposantes().get(0).getPolygone().getListePoints().get(2);
@@ -110,4 +132,12 @@ public class PointControle extends Composante{
         return new Object[]{};
     }
 
+
+    public Pouce getLongueur() {
+        return longueur;
+    }
+
+    public Pouce getHauteur() {
+        return hauteur;
+    }
 }

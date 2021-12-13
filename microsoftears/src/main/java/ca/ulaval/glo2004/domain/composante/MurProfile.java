@@ -29,22 +29,10 @@ public class MurProfile extends Composante{
     private boolean mode; // true -> profil ellipse, false -> bézier
     private ModeContreplaque modeContreplaque; // true -> si extérieur, false -> intérieur
 
-    public MurProfile(RoulotteController parent) {
-        super(parent);
-        this.mode = true; // ellipses par défaut
-        this.modeContreplaque = ModeContreplaque.COMPLET; // on affiche le profile au complet par défaut
-        this.profilEllipses = new ProfilEllipse[4];
-        this.initialiserEllipses();
-        this.profilBezier = new ProfilBezier(parent);
-        this.setCouleurInitiale(new Color(100,100,100));
-        this.setCouleur(getCouleurInitiale());
-        this.setType(TypeComposante.MUR_PROFILE);
-        this.setPolygone(getPolygone());
-    }
-    public MurProfile(RoulotteController parent, boolean mode) {
+    public MurProfile(RoulotteController parent, boolean mode, ModeContreplaque modeContreplaque) {
         super(parent);
         this.mode = mode; // ellipses par défaut
-        this.modeContreplaque = ModeContreplaque.COMPLET; // on affiche le contreplaqué extérieur par défaut
+        this.modeContreplaque = modeContreplaque; // on affiche le contreplaqué extérieur par défaut
         this.profilEllipses = new ProfilEllipse[4];
         this.initialiserEllipses();
         this.profilBezier = new ProfilBezier(parent);
@@ -54,16 +42,15 @@ public class MurProfile extends Composante{
         this.setPolygone(getPolygone());
     }
 
-
     /** Constructeur copie */
-    public MurProfile(MurProfile copie, PointPouce decalage, boolean modeProfil, ModeContreplaque afficheContreplaque){
+    public MurProfile(MurProfile copie, Pouce decalageX, Pouce decalageY, boolean modeProfil, ModeContreplaque afficheContreplaque){
         super(copie.getParent());
         this.mode = modeProfil;
         this.modeContreplaque = afficheContreplaque;
         this.profilEllipses = copie.getProfilEllipses();
-        updateProfilEllipses(decalage);
+        updateProfilEllipses(decalageX, decalageY);
         this.profilBezier = copie.getProfilBezier();
-        profilBezier.updatePointsControles();
+        profilBezier.updatePointsControles(new Pouce(), new Pouce());
         this.setCouleurInitiale(copie.getCouleurInitiale());
         this.setCouleur(copie.getCouleur());
         this.setType(copie.getType());
@@ -87,23 +74,45 @@ public class MurProfile extends Composante{
                 if (!parent.getListeOuverturesLaterales().isEmpty()) {
                     // on retranche tous les ouvertures latérales
                     for (OuvertureLaterale ouverture : parent.getListeOuverturesLaterales()) {
+                        if (ouverture.estAjoute()){
                         Area areaOuverture = ouverture.getArea();
                         area.subtract(areaOuverture);
+                        }
                     }
                 }
 
                 int indexHayon = parent.getIndexComposante(TypeComposante.HAYON);
                 Hayon hayon = ((Hayon) (parent.getListeComposantes().get(indexHayon)));
                 if (indexHayon != -1) {
-                    Area areaHayon = hayon.getArea();
-                    area.subtract(areaHayon);
+                    if (getMode()){
+                        Area areaHayon = hayon.getArea();
+                        area.subtract(areaHayon);
+                    }
+                    else {
+                    Path2D pathHayon = new Path2D.Double();
+                    LinkedList<PointPouce> pointsHayonTotal = hayon.calculerHayonBezierEpaisseurTotal();
+                    double[] point;
+                        for (int i = 0; i < pointsHayonTotal.size(); i++) {
+                            point = parent.getPositionEcran(pointsHayonTotal.get(i));
+                            if (i == 0) {
+                                pathHayon.moveTo(point[0], point[1]);
+                            } else {
+                                pathHayon.lineTo(point[0], point[1]);
+                            }
+                        }
+                        pathHayon.closePath();
+
+                        Area areaHayon = new Area(pathHayon);
+                        area.subtract(areaHayon);
+                    }
+
                 }
 
                 int indexPlancher = parent.getIndexComposante(TypeComposante.PLANCHER);
                 Plancher plancher = ((Plancher) (parent.getListeComposantes().get(indexPlancher)));
 
                 // Portion a retiré
-                Pouce epaisseurHayon = hayon.getEpaisseur();
+                Pouce epaisseurHayon = hayon.getEpaisseur().add(hayon.getEpaisseurTraitScie());
                 Pouce distancePlancher = hayon.getDistancePlancher();
                 Pouce centreXPlancher = plancher.getCentre().getX();
                 Pouce centreYPlancher = plancher.getCentre().getY();
@@ -202,14 +211,14 @@ public class MurProfile extends Composante{
 
     }
 
-    private void updateProfilEllipses(PointPouce decalage) {
+    private void updateProfilEllipses(Pouce decalageX, Pouce decalageY) {
         for (int i = 0; i < 4; i++) {
             this.profilEllipses[i] = new ProfilEllipse(parent,
                     this.profilEllipses[i].getLongueur(),
                     this.profilEllipses[i].getHauteur(),
                     new PointPouce(
-                            this.profilEllipses[i].getCentre().getX().add(decalage.getX()),
-                            this.profilEllipses[i].getCentre().getY().add(decalage.getY())
+                            this.profilEllipses[i].getCentre().getX().add(decalageX),
+                            this.profilEllipses[i].getCentre().getY().add(decalageY)
                     ), this.profilEllipses[i].getType());
         }
     }
@@ -282,7 +291,7 @@ public class MurProfile extends Composante{
     }
 
     private LinkedList<PointPouce> listePointsModeBezier() {
-        profilBezier.updatePointsControles();
+        profilBezier.updatePointsControles(new Pouce(), new Pouce());
         LinkedList<PointPouce> pointsMur = parent.getListeComposantes().get(0).getPolygone().getListePoints();
         LinkedList<PointPouce> pointsBezier = profilBezier.getPolygone().getListePoints();
         LinkedList<PointPouce> pointsModeBezier = new LinkedList<>();

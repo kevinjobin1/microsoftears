@@ -14,7 +14,7 @@ import static ca.ulaval.glo2004.utilitaires.PointPouce.toPointPouce;
 public class CourbeBezier extends Forme {
 
     private ArrayList<PointPouce> pointsControle;
-    private final double k = 0.0025; // nbPoints = 1/k x 2 côtés + 2 points début/fin (ex: si k = 0.001 alors nb=2002)
+    private final double k = 0.0005; // nbPoints = 1/k x 2 côtés + 2 points début/fin (ex: si k = 0.001 alors nb=2002)
     private double longueurCourbe;
 
     public CourbeBezier(ArrayList<PointPouce> pointsControles) {

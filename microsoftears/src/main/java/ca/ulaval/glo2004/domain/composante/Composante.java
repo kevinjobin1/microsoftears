@@ -26,6 +26,7 @@ public abstract class Composante implements IComposante, Serializable {
     private Color strokeCouleur;
     private boolean estVisible;
     private boolean estChoisie;
+    private boolean estAjoute = true;
     private boolean afficherPosition;
 
     public Composante(RoulotteController parent) {
@@ -239,5 +240,17 @@ public abstract class Composante implements IComposante, Serializable {
         
         return svgPath;
 
+    }
+
+    public int getIndex(){
+        return parent.getIndexComposante(this.getType());
+    }
+
+    public boolean estAjoute() {
+        return estAjoute;
+    }
+
+    public void estAjoute(boolean estAjoute) {
+        this.estAjoute = estAjoute;
     }
 }

@@ -28,7 +28,7 @@ public class ProfilBezier extends Composante {
         this.pointsControle.add(new PointControle(parent,
                 new Pouce(3,0,1),
                 new Pouce(3,0,1),
-                parent.getListeComposantes().get(0).getPolygone().getListePoints().get(1), TypeComposante.POINT_CONTROLE_2));
+                parent.getListeComposantes().get(0).getPolygone().getListePoints().get(1).diff(new Pouce(3), new Pouce(30)), TypeComposante.POINT_CONTROLE_2));
         // point controle 2
         this.pointsControle.add(new PointControle(parent,
                 new Pouce(3,0,1),
@@ -58,7 +58,24 @@ public class ProfilBezier extends Composante {
         return null;
     }
 
-    public void updatePointsControles(){
+    public void updatePointsControles(Pouce decalageX, Pouce decalageY){
+        // point depart courbe
+        this.pointsControle.set(0, new PointControle(pointsControle.get(0),
+                        parent.getListeComposantes().get(0).getPolygone().getListePoints().get(2)));
+        // point fin courbe
+        this.pointsControle.set(3, new PointControle(pointsControle.get(3),
+                parent.getListeComposantes().get(0).getPolygone().getListePoints().get(3)));
+
+        // point controle 1
+        this.pointsControle.set(1, new PointControle(pointsControle.get(1),
+                new PointPouce(pointsControle.get(1).getCentre().getX().add(decalageX),
+                            pointsControle.get(1).getCentre().getY().add(decalageY))));
+
+        // point controle 2
+        this.pointsControle.set(2, new PointControle(pointsControle.get(2),
+                new PointPouce(pointsControle.get(2).getCentre().getX().add(decalageX),
+                        pointsControle.get(2).getCentre().getY().add(decalageY))));
+
         ArrayList<PointPouce> points = new ArrayList<>();
         for (PointControle point : getPointsControle()){
             points.add(point.getCentre());

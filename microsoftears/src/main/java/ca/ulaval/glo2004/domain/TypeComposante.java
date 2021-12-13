@@ -1,5 +1,10 @@
 package ca.ulaval.glo2004.domain;
 
+import javax.swing.*;
+import java.awt.image.BufferedImage;
+
+import static ca.ulaval.glo2004.utilitaires.ImageDesign.toBufferedImage;
+
 public enum TypeComposante {
     HAYON {
         public String toString(){ return "Hayon"; }
@@ -33,39 +38,45 @@ public enum TypeComposante {
         }
     },
 
-    AIDE_DESIGN{
+    ROUE {
         public String toString(){
-            return "Aide au design";
+            return "Roue";
+        }
+        public BufferedImage getImage(){ return toBufferedImage(new ImageIcon("car-wheel.png").getImage()); }
+    },
+    CADRE {
+        public String toString(){
+            return "Cadre (remorque)";
+        }
+        public BufferedImage getImage(){ return toBufferedImage(new ImageIcon("trailer_frame.png").getImage()); }
+    },
+    LIT {
+        public String toString(){
+            return "Lit";
+        }
+        public BufferedImage getImage(){ return toBufferedImage(new ImageIcon("man_sleeping.png").getImage()); }
+    },
+    PERSONNE {
+        public String toString(){
+            return "Personne";
+        }
+        public BufferedImage getImage(){ return toBufferedImage(new ImageIcon("man_standing.png").getImage()); }
+
+    },
+    LOGO {
+        public String toString(){
+            return "Logo";
+        }
+        public BufferedImage getImage(){ return toBufferedImage(new ImageIcon("caravan.png").getImage()); }
+    },
+    PORTE{
+        public String toString(){
+            return "Porte";
         }
     },
-    AIDE_DESIGN_2{
+    FENETRE{
         public String toString(){
-            return "Aide au design 2";
-        }
-    },
-    AIDE_DESIGN_3{
-        public String toString(){
-            return "Aide au design 3";
-        }
-    },
-    AIDE_DESIGN_4{
-        public String toString(){
-            return "Aide au design 4";
-        }
-    },
-    AIDE_DESIGN_5{
-        public String toString(){
-            return "Aide au design 5";
-        }
-    },
-    OUVERTURE_LATERALE{
-        public String toString(){
-            return "Ouverture latérale";
-        }
-    },
-    OUVERTURE_LATERALE_2{
-        public String toString(){
-            return "Ouverture latérale 2";
+            return "Fenêtre";
         }
     },
     PROFIL_BEZIER{
@@ -131,4 +142,8 @@ public enum TypeComposante {
     PLAN{
         public String toString(){return "Plan";}
     };
+
+    public BufferedImage getImage() {
+        return this.getImage();
+    }
 }

@@ -3,6 +3,7 @@ package ca.ulaval.glo2004.gui.barres;
 import javax.swing.*;
 import java.awt.*;
 
+import ca.ulaval.glo2004.domain.TypeComposante;
 import ca.ulaval.glo2004.gui.FenetrePrincipale;
 import org.kordamp.ikonli.swing.*;
 import org.kordamp.ikonli.bootstrapicons.*;
@@ -15,9 +16,7 @@ public class BarreOutils extends JToolBar {
     private JButton selectionButton,
             zoomInButton,
             zoomOutButton,
-            dragButton,
             ajoutComposanteButton,
-            dessinerButton,
             remplirButton,
             removeComposanteButton,
             couleurButton;
@@ -44,10 +43,8 @@ public class BarreOutils extends JToolBar {
         selectionButton = creerBouton(BootstrapIcons.CURSOR, 20, Color.WHITE);
         zoomInButton = creerBouton(BootstrapIcons.ZOOM_IN, 20, Color.WHITE);
         zoomOutButton = creerBouton(BootstrapIcons.ZOOM_OUT, 20, Color.WHITE);
-        dragButton  = creerBouton(BootstrapIcons.ARROWS_MOVE, 20, Color.WHITE);
         ajoutComposanteButton  = creerBouton(BootstrapIcons.PLUS_CIRCLE, 20, Color.WHITE);
         ajoutComposantePopup = creerAjoutComposantePopup();
-        dessinerButton  = creerBouton(BootstrapIcons.PENCIL, 20, Color.WHITE);
         removeComposanteButton  = creerBouton(BootstrapIcons.TRASH, 20, Color.WHITE);
         remplirButton = creerBouton(BootstrapIcons.PAINT_BUCKET, 20, Color.WHITE);
         couleurButton = creerBouton(BootstrapIcons.SQUARE_FILL, 20, parent.controller.getCouleurChoisie());
@@ -57,7 +54,6 @@ public class BarreOutils extends JToolBar {
         selectionButton.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
                 parent.setActionChoisie(FenetrePrincipale.TypeAction.SELECTION);
-
                 parent.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             }
         });
@@ -109,6 +105,8 @@ public class BarreOutils extends JToolBar {
         removeComposanteButton.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
                 parent.controller.removeComposante();
+                parent.updateBarres();
+                parent.repaint();
             }
         });
 
@@ -121,63 +119,63 @@ public class BarreOutils extends JToolBar {
         FontIcon icone = FontIcon.of(BootstrapIcons.PLUS, 20, Color.WHITE);
 
         // item dans le popup menu (les composantes et aide au design)
-        popup.add(new JMenuItem(new AbstractAction("Aide au design", icone) {
+        popup.add(new JMenuItem(new AbstractAction("Roue", icone) {
             public void actionPerformed(ActionEvent e) {
                 parent.setActionChoisie(FenetrePrincipale.TypeAction.AJOUT);
-                parent.controller.addAideDesign();
+                parent.controller.ajouterComposante(TypeComposante.ROUE);
                 parent.setActionChoisie(FenetrePrincipale.TypeAction.SELECTION);
                 parent.updateBarres();
             }
         }));
 
-        popup.add(new JMenuItem(new AbstractAction("Aide au design 2", icone) {
+        popup.add(new JMenuItem(new AbstractAction("Cadre (remorque)", icone) {
             public void actionPerformed(ActionEvent e) {
                 parent.setActionChoisie(FenetrePrincipale.TypeAction.AJOUT);
-                parent.controller.addAideDesign2();
+                parent.controller.ajouterComposante(TypeComposante.CADRE);
                 parent.setActionChoisie(FenetrePrincipale.TypeAction.SELECTION);
                 parent.updateBarres();
             }
         }));
 
-        popup.add(new JMenuItem(new AbstractAction("Aide au design 3", icone) {
+        popup.add(new JMenuItem(new AbstractAction("Lit", icone) {
             public void actionPerformed(ActionEvent e) {
                 parent.setActionChoisie(FenetrePrincipale.TypeAction.AJOUT);
-                parent.controller.addAideDesign3();
+                parent.controller.ajouterComposante(TypeComposante.LIT);
                 parent.setActionChoisie(FenetrePrincipale.TypeAction.SELECTION);
                 parent.updateBarres();
             }
         }));
 
-        /*popup.add(new JMenuItem(new AbstractAction("Aide au design 4", icone) {
+        popup.add(new JMenuItem(new AbstractAction("Personne", icone) {
             public void actionPerformed(ActionEvent e) {
                 parent.setActionChoisie(FenetrePrincipale.TypeAction.AJOUT);
-                parent.controller.addAideDesign4();
+                parent.controller.ajouterComposante(TypeComposante.PERSONNE);
                 parent.setActionChoisie(FenetrePrincipale.TypeAction.SELECTION);
                 parent.updateBarres();
             }
         }));
-        popup.add(new JMenuItem(new AbstractAction("Aide au design 5", icone) {
+        popup.add(new JMenuItem(new AbstractAction("Logo", icone) {
             public void actionPerformed(ActionEvent e) {
                 parent.setActionChoisie(FenetrePrincipale.TypeAction.AJOUT);
-                parent.controller.addAideDesign5();
-                parent.setActionChoisie(FenetrePrincipale.TypeAction.SELECTION);
-                parent.updateBarres();
-            }
-        }));*/
-
-        popup.add(new JMenuItem(new AbstractAction("Ouvertures Latérales", icone) {
-            public void actionPerformed(ActionEvent e) {
-                parent.setActionChoisie(FenetrePrincipale.TypeAction.AJOUT);
-                parent.controller.addOuvertureLateral();
+                parent.controller.ajouterComposante(TypeComposante.LOGO);
                 parent.setActionChoisie(FenetrePrincipale.TypeAction.SELECTION);
                 parent.updateBarres();
             }
         }));
 
-        popup.add(new JMenuItem(new AbstractAction("Ouvertures Latérales 2", icone) {
+        popup.add(new JMenuItem(new AbstractAction("Porte", icone) {
             public void actionPerformed(ActionEvent e) {
                 parent.setActionChoisie(FenetrePrincipale.TypeAction.AJOUT);
-                parent.controller.addOuvertureLateral2();
+                parent.controller.ajouterComposante(TypeComposante.PORTE);
+                parent.setActionChoisie(FenetrePrincipale.TypeAction.SELECTION);
+                parent.updateBarres();
+            }
+        }));
+
+        popup.add(new JMenuItem(new AbstractAction("Fenêtre", icone) {
+            public void actionPerformed(ActionEvent e) {
+                parent.setActionChoisie(FenetrePrincipale.TypeAction.AJOUT);
+                parent.controller.ajouterComposante(TypeComposante.FENETRE);
                 parent.setActionChoisie(FenetrePrincipale.TypeAction.SELECTION);
                 parent.updateBarres();
             }

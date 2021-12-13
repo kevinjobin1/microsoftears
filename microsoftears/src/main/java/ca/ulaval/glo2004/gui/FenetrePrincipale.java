@@ -48,76 +48,12 @@ public class FenetrePrincipale extends JFrame {
         this.barreMenu.update();
         this.barreBoutons.update();
         this.barreOnglets.update();
+
         IComposante composanteChoisie = getComposanteChoisie();
         if (composanteChoisie != null){
-            switch (composanteChoisie.getType()) {
-                case HAYON:
-                    this.barreOnglets.setSelectedIndex(7);
-                    break;
-                case PLANCHER:
-                    this.barreOnglets.setSelectedIndex(5);
-                    break;
-                case POUTRE_ARRIERE:
-                    this.barreOnglets.setSelectedIndex(6);
-                    break;
-                case MUR_PROFILE:
-                    this.barreOnglets.setSelectedIndex(0);
-                    break;
-                case PROFIL_ELLIPSE_1:
-                    this.barreOnglets.setSelectedIndex(1);
-                    break;
-                case PROFIL_ELLIPSE_2:
-                    this.barreOnglets.setSelectedIndex(2);
-                    break;
-                case PROFIL_ELLIPSE_3:
-                    this.barreOnglets.setSelectedIndex(3);
-                    break;
-                case PROFIL_ELLIPSE_4:
-                    this.barreOnglets.setSelectedIndex(4);
-                    break;
-                case POINT_CONTROLE_1:
-                    this.barreOnglets.setSelectedIndex(1);
-                    break;
-                case POINT_CONTROLE_2:
-                    this.barreOnglets.setSelectedIndex(2);
-                    break;
-                case POINT_CONTROLE_3:
-                    this.barreOnglets.setSelectedIndex(3);
-                    break;
-                case POINT_CONTROLE_4:
-                    this.barreOnglets.setSelectedIndex(4);
-                    break;
-                case MUR_SEPARATEUR:
-                    this.barreOnglets.setSelectedIndex(8);
-                    break;
-                case TOIT:
-                    this.barreOnglets.setSelectedIndex(9);
-                    break;
-                case RESSORTS:
-                    this.barreOnglets.setSelectedIndex(10);
-                    break;
-                case OUVERTURE_LATERALE:
-                    this.barreOnglets.setSelectedIndex(11);
-                    break;
-                case AIDE_DESIGN:
-                    this.barreOnglets.setSelectedIndex(12);
-                    break;
-                case AIDE_DESIGN_2:
-                    this.barreOnglets.setSelectedIndex(13);
-                    break;
-                case AIDE_DESIGN_3:
-                    this.barreOnglets.setSelectedIndex(14);
-                    break;
-                case AIDE_DESIGN_4:
-                    this.barreOnglets.setSelectedIndex(15);
-                    break;
-                case AIDE_DESIGN_5:
-                    this.barreOnglets.setSelectedIndex(16);
-                    break;
-                case OUVERTURE_LATERALE_2:
-                    this.barreOnglets.setSelectedIndex(17);
-                    break;
-
+            int index = this.barreOnglets.indexOfTab(composanteChoisie.toString());
+            if (index != -1) {
+                this.barreOnglets.setSelectedIndex(index);
             }
         }
 

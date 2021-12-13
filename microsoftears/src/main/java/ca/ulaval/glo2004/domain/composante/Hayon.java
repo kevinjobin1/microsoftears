@@ -21,6 +21,7 @@ public class Hayon extends Composante {
     private Pouce rayonArcCercle;
     private LinkedList<PointPouce> pointsInterieurHayon = new LinkedList<>();
     private PointPouce pointRotation = null;
+    private int indexPointRotation;
     private PointPouce pointFinHayon = null;
 
     public Hayon(RoulotteController parent, Pouce epaisseur, Pouce distancePoutre, Pouce distancePlancher, Pouce epaisseurTraitScie, Pouce rayonArcCercle) {
@@ -298,7 +299,138 @@ public class Hayon extends Composante {
         }
     }
 
+    public LinkedList<PointPouce> calculerHayonBezierEpaisseurTotal() {
+        Rectangle plancher = ((Plancher) (parent.getListeComposantes().get(6))).getRectangle();
+        MurBrute mur = (MurBrute) parent.getListeComposantes().get(0);
+        PoutreArriere poutre = (PoutreArriere) parent.getListeComposantes().get(7);
+        MurProfile profil = (MurProfile) parent.getListeComposantes().get(1);
+
+        Pouce epaisseurTotale = this.epaisseur.add(this.epaisseurTraitScie);
+
+        if (pointsInterieurHayon != null){
+            pointsInterieurHayon.clear(); // vider les points qui seraient encore là du profil en mode ellipse
+        }
+
+        LinkedList<PointPouce> pointsHayon = new LinkedList<>();
+        // Le dernier point sur la courbe est celui qui est à une distance fixe de la poutre
+        // On calcule son déplacement en X à l'aide de Pythagore et le centre en X de la poutre
+        Pouce centreXPoutre = poutre.getCentre().getX();
+
+        // deltaX = racine(a^2 + b^2)
+        double a2 = Math.pow(distancePoutre.add(poutre.getLongueur().diviser(2)).diff(epaisseurTraitScie).toDouble(),2);
+        double b2 = Math.pow(epaisseur.diviser(2).toDouble(), 2);
+        double deltaX = Math.sqrt(a2 + b2);
+        Pouce x = new Pouce(centreXPoutre.toDouble() - deltaX);
+        LinkedList<PointPouce> profilPoints = profil.getPolygone().getListePoints();
+        int indexDernierPoint = 0;
+        // centre en X doit être le point le plus proche du centre en X de la poutre - deltaX
+        // on ajoute tous les autres points avant
+        for(int i = 0; i < profilPoints.size();i++){
+            if(profilPoints.get(i).getX().ste(x)){
+                pointsHayon.add(profilPoints.get(i));
+                indexDernierPoint = i;
+            }
+        }
+        
+        PointPouce p1, p2, dernierPointCourbe= profilPoints.get(indexDernierPoint);
+        
+        // calcul de la tangente à ce point en utilisant une approximation par les deux points voisins
+        p1 = profilPoints.get(indexDernierPoint - 1);
+        p2 = profilPoints.get(indexDernierPoint + 1);
+        double y1 = p1.getY().toDouble();
+        double y2 = p2.getY().toDouble();
+        double x1 = p1.getX().toDouble();
+        double x2 = p2.getX().toDouble();
+        double angle = Math.acos((y1-y2)/(Math.sqrt((Math.pow((x1-x2),2) + Math.pow((y1-y2),2)))));
+
+        // deltaX = sin(angle) * epaisseur et deltaY = cos(angle) * epaisseur
+        deltaX = Math.cos(angle) * epaisseurTotale.toDouble();
+        double deltaY = Math.sin(angle) * epaisseurTotale.toDouble();
+        PointPouce coinFinHayon = new PointPouce(new Pouce(dernierPointCourbe.getX().toDouble() + deltaX),
+                new Pouce(dernierPointCourbe.getY().toDouble() + deltaY));
+
+        int indexCentreArc = -1;
+        double precision = 1;
+        for(int i = indexDernierPoint - 1; i >= 0; i--){
+            if (profilPoints.get(i).toPoint2D().distance(dernierPointCourbe.toPoint2D()) <= rayonArcCercle.toDouble() + precision &&
+                    profilPoints.get(i).toPoint2D().distance(dernierPointCourbe.toPoint2D()) >= rayonArcCercle.toDouble() - precision){
+                indexCentreArc = i;
+                break;
+            }
+        }
+
+        PointPouce pointCentreArc = profilPoints.get(indexCentreArc);
+        // calcul de la tangente à ce point en utilisant une approximation par les deux points voisins
+        if (indexCentreArc != -1){
+        p1 = profilPoints.get(indexCentreArc - 1);
+        p2 = profilPoints.get(indexCentreArc + 1);
+        }
+
+        y1 = p1.getY().toDouble();
+        y2 = p2.getY().toDouble();
+        x1 = p1.getX().toDouble();
+        x2 = p2.getX().toDouble();
+        angle = Math.acos((y1-y2)/(Math.sqrt((Math.pow((x1-x2),2) + Math.pow((y1-y2),2)))));
+
+        // deltaX = sin(angle) * epaisseur et deltaY = cos(angle) * epaisseur
+        deltaX = Math.cos(angle) * epaisseurTotale.toDouble();
+        deltaY = Math.sin(angle) * epaisseurTotale.toDouble();
+        PointPouce pointFlechissement = new PointPouce(new Pouce(pointCentreArc.getX().toDouble() + deltaX),
+                new Pouce(pointCentreArc.getY().toDouble() + deltaY));
+
+
+        for (Point2D p : calculerCoinsArrondis(coinFinHayon.toPoint2D(),
+                dernierPointCourbe.toPoint2D(),
+                pointFlechissement.toPoint2D(), rayonArcCercle.toDouble())){
+            pointsHayon.add(new PointPouce(p));
+        }
+        pointsHayon.add(pointFlechissement);
+        PointPouce pointCoinBas = pointsHayon.getFirst().add(epaisseurTotale, new Pouce()).diff(new Pouce(), epaisseurTotale);
+
+        int indexPremierPoint = 0;
+        PointPouce p;
+        PointPouce pDecale;
+        
+        for(int i = indexCentreArc - 1; i > indexPremierPoint; i--){
+            p = profilPoints.get(i);
+            p1 = profilPoints.get(i - 1);
+            p2 = profilPoints.get(i + 1);
+            y1 = p1.getY().toDouble();
+            y2 = p2.getY().toDouble();
+            x1 = p1.getX().toDouble();
+            x2 = p2.getX().toDouble();
+            angle = Math.acos((y1-y2)/(Math.sqrt((Math.pow((x1-x2),2) + Math.pow((y1-y2),2)))));
+            angle = Math.PI/2 - angle;
+            // deltaX = sin(angle) * epaisseur et deltaY = cos(angle) * epaisseur
+            deltaX = Math.sin(angle) * epaisseurTotale.toDouble();
+            deltaY = Math.cos(angle) * epaisseurTotale.toDouble();
+            pDecale = new PointPouce(new Pouce(p.getX().toDouble() + deltaX),
+                    new Pouce(p.getY().toDouble() + deltaY));
+
+            // On ne veut pas les points passé le coin inférieur qui tourne à 90 degrés
+            if (pDecale.getY().ste(pointCoinBas.getY())){
+                pointsHayon.add(pDecale);
+            }
+        }
+
+        pointsHayon.add(pointCoinBas);
+
+        // coin haut côté plancher
+       pointsHayon.add(new PointPouce(plancher.getCentre().getX().diff(plancher.getLongueur().diviser(2)).diff(distancePlancher),
+                pointsHayon.getLast().getY()));
+
+        // coin bas côté plancher
+        pointsHayon.add(new PointPouce(plancher.getCentre().getX().diff(plancher.getLongueur().diviser(2)).diff(distancePlancher),
+                mur.getPolygone().getListePoints().get(2).getY()));
+
+        // point fin du hayon
+        this.pointFinHayon = new PointPouce(pointsHayon.getLast().getX(),pointsHayon.getFirst().getY());
+
+        return pointsHayon;
+    }
+
     private LinkedList<PointPouce> calculerHayonBezier(MurBrute mur, MurProfile profil, Rectangle plancher, PoutreArriere poutre) {
+
         if (pointsInterieurHayon != null){
             pointsInterieurHayon.clear(); // vider les points qui seraient encore là du profil en mode ellipse
         }
@@ -325,16 +457,11 @@ public class Hayon extends Composante {
         }
         PointPouce p1, p2, dernierPointCourbe = profilPoints.get(indexDernierPoint);
         this.pointRotation = dernierPointCourbe;
+        this.indexPointRotation = indexDernierPoint;
 
         // calcul de la tangente à ce point en utilisant une approximation par les deux points voisins
-        if(indexDernierPoint == 0){
-            p1 = profilPoints.get(indexDernierPoint);
-            p2 = profilPoints.get(indexDernierPoint + 1);}
-        else {
-            p1 = profilPoints.get(indexDernierPoint - 1);
-            p2 = profilPoints.get(indexDernierPoint + 1);
-        }
-
+        p1 = profilPoints.get(indexDernierPoint - 1);
+        p2 = profilPoints.get(indexDernierPoint + 1);
         double y1 = p1.getY().toDouble();
         double y2 = p2.getY().toDouble();
         double x1 = p1.getX().toDouble();
@@ -346,7 +473,6 @@ public class Hayon extends Composante {
         double deltaY = Math.sin(angle) * epaisseur.toDouble();
         PointPouce coinFinHayon = new PointPouce(new Pouce(dernierPointCourbe.getX().toDouble() + deltaX),
                 new Pouce(dernierPointCourbe.getY().toDouble() + deltaY));
-
 
         int indexCentreArc = -1;
         double precision = 1;
@@ -361,8 +487,8 @@ public class Hayon extends Composante {
         PointPouce pointCentreArc = profilPoints.get(indexCentreArc);
         // calcul de la tangente à ce point en utilisant une approximation par les deux points voisins
         if (indexCentreArc != -1){
-        p1 = profilPoints.get(indexCentreArc - 1);
-        p2 = profilPoints.get(indexCentreArc + 1);
+            p1 = profilPoints.get(indexCentreArc - 1);
+            p2 = profilPoints.get(indexCentreArc + 1);
         }
 
         y1 = p1.getY().toDouble();
@@ -385,10 +511,7 @@ public class Hayon extends Composante {
         }
         pointsHayon.add(pointFlechissement);
 
-        deltaY = epaisseur.toDouble() * Math.tan(Math.PI/4);
-        PointPouce pointCoinBas = pointsHayon.getFirst().add(epaisseur, new Pouce()).diff(new Pouce(), new Pouce(deltaY));
-        Pouce y = pointFlechissement.getY();
-        x = pointFlechissement.getX();
+        PointPouce pointCoinBas = pointsHayon.getFirst().add(epaisseur, new Pouce()).diff(new Pouce(), epaisseur);
 
         int indexPremierPoint = 0;
         PointPouce p;
@@ -417,13 +540,15 @@ public class Hayon extends Composante {
             }
         }
 
+        pointsHayon.add(pointCoinBas);
+
         // Il faut ajouter les pointsInterieurHayon dans le sens inverse du bas vers le haut
         for(int i = pointsHayon.size() -1; i >= dernierIndexCourant; i--){
             pointsInterieurHayon.add(pointsHayon.get(i));
         }
 
         // coin haut côté plancher
-       pointsHayon.add(new PointPouce(plancher.getCentre().getX().diff(plancher.getLongueur().diviser(2)).diff(distancePlancher),
+        pointsHayon.add(new PointPouce(plancher.getCentre().getX().diff(plancher.getLongueur().diviser(2)).diff(distancePlancher),
                 pointsHayon.getLast().getY()));
 
         // coin bas côté plancher
@@ -462,8 +587,6 @@ public class Hayon extends Composante {
 
     }
 
-
-
     @Override
     public String[] getNomsAttributs() {
         return new String[]{"Épaisseur", "Distance (poutre)","Distance (plancher)", "Épaisseur (scie)", "Rayon (arc)"};
@@ -473,8 +596,6 @@ public class Hayon extends Composante {
     public Object[] getModes(){
         return new Object[]{};
     }
-
-
 
     public LinkedList<PointPouce> getPointsInterieurHayon() {
         return pointsInterieurHayon;

@@ -67,22 +67,13 @@ public class RoulotteController implements Serializable{
         return redoController;
     }
 
-    public boolean afficherGrille() {
-        return afficherGrille;
-    }
-
-    protected void invaliderDisposition(){
-        // TODO
-    }
-
-
     protected void calculerDisposition(){
-        // TODO
         // Ordre (index): murBrute (0), murProfile(1), ellipses(2,3,4,5),
-        // plancher(6), poutre(7), hayon(8), murSeparateur(9), toit (10), ressort (11), aide design & ouvertures (11 et +)
+        // plancher(6), poutre(7), hayon(8), murSeparateur(9), toit (10), ressort (11),
+        // porte (12), roue (13), frame (14), lit (15), personne (16), logo (17), fenetre (18)
         MurBrute murBrute = new MurBrute(this);
         listeComposantes.add(murBrute);
-        MurProfile murProfile = new MurProfile(this, true);
+        MurProfile murProfile = new MurProfile(this, true, MurProfile.ModeContreplaque.COMPLET);
         listeComposantes.add(murProfile);
         if (murProfile.getMode()){
             for (ProfilEllipse ellipse : murProfile.getProfilEllipses()){
@@ -104,78 +95,34 @@ public class RoulotteController implements Serializable{
         listeComposantes.add(toit);
         Ressorts ressorts = new Ressorts(this);
         listeComposantes.add(ressorts);
-        OuvertureLaterale ouverture = new OuvertureLaterale(this);
+        OuvertureLaterale ouverture = new OuvertureLaterale(this, TypeComposante.PORTE);
         listeComposantes.add(ouverture);
         listeOuverturesLaterales.add(ouverture);
-        AideDesign aideDesign = new AideDesign(this);
+        AideDesign aideDesign = new AideDesign(this, TypeComposante.CADRE);
         listeComposantes.add(aideDesign);
         listeAidesDesign.add(aideDesign);
-    }
-
-    public void addOuvertureLateral(){
-        OuvertureLaterale ouvertureLaterale = new OuvertureLaterale(this);
-        listeComposantes.add(ouvertureLaterale);
-        listeOuverturesLaterales.add(ouvertureLaterale);
-    }
-
-    public void addOuvertureLateral2(){
-        OuvertureLaterale2 ouvertureLaterale2 = new OuvertureLaterale2(this);
-        listeComposantes.add(ouvertureLaterale2);
-    }
-
-    public void addAideDesign(){
-        AideDesign aideDesign = new AideDesign(this);
+         aideDesign = new AideDesign(this, TypeComposante.ROUE);
         listeComposantes.add(aideDesign);
         listeAidesDesign.add(aideDesign);
+         aideDesign = new AideDesign(this, TypeComposante.LIT);
+        listeComposantes.add(aideDesign);
+        listeAidesDesign.add(aideDesign);
+         aideDesign = new AideDesign(this, TypeComposante.PERSONNE);
+        listeComposantes.add(aideDesign);
+        listeAidesDesign.add(aideDesign);
+         aideDesign = new AideDesign(this, TypeComposante.LOGO);
+        listeComposantes.add(aideDesign);
+        listeAidesDesign.add(aideDesign);
+        ouverture = new OuvertureLaterale(this, TypeComposante.FENETRE);
+        listeComposantes.add(ouverture);
+        listeOuverturesLaterales.add(ouverture);
     }
 
-    public void addAideDesign2(){
-        AideDesign2 aideDesign2 = new AideDesign2(this);
-        listeComposantes.add(aideDesign2);
+    public void ajouterComposante(TypeComposante type){
+       int index = getIndexComposante(type);
+       listeComposantes.get(index).estAjoute(true);
     }
 
-    public void addAideDesign3(){
-        AideDesign3 aideDesign3 = new AideDesign3(this);
-        listeComposantes.add(aideDesign3);
-    }
-
-    /*public void addAideDesign4(){
-        AideDesign4 aideDesign4 = new AideDesign4(this);
-        listeComposantes.add(aideDesign4);
-    }
-
-
-    public void addAideDesign5(){
-        AideDesign5 aideDesign5 = new AideDesign5(this);
-        listeComposantes.add(aideDesign5);
-    }*/
-
-
-
-    /**
-     * TODO : - apres avoir trouver une facon de differencier les ouvertures laterales
-     *        - utilise pour enlever les ouvertures laterales
-     */
-    public void removeOuvertureLateral(){
-        int indexOuvertureLateral = getIndexComposante(TypeComposante.OUVERTURE_LATERALE);
-        if (indexOuvertureLateral == 12){
-            //listeOuverturesLaterales.remove(0);
-            listeComposantes.remove(12);
-        }
-        int indexOuvertureLateral2 = getIndexComposante(TypeComposante.OUVERTURE_LATERALE_2);
-        if(indexOuvertureLateral2 == 18 ){
-            listeComposantes.remove(18);
-            //listeOuverturesLaterales.remove(1);
-        }
-    }
-
-    /**
-     * TODO: - trouver comment differencier aide design
-     *       - utilise pour enlever les aides au design
-     */
-    public void removeAideDesign(){
-        typeComposantes.remove(TypeComposante.AIDE_DESIGN);
-    }
 
     public RoulotteController deepCopy(){
         RoulotteController copy = null;
@@ -201,291 +148,289 @@ public class RoulotteController implements Serializable{
         return copy;
     }
 
-    public void updateComposante(int[] valeurs, TypeComposante type){
-       undoController = this.deepCopy();
-       switch(type){
-           case MUR_PROFILE:
-               // On mets a jour le Mur Brute
-               MurBrute mur = new MurBrute(this,
-                       new Pouce(valeurs[3], valeurs[4], valeurs[5]),
-                       new Pouce(valeurs[0], valeurs[1], valeurs[2]),
-                       new PointPouce(
-                               new Pouce(valeurs[6], valeurs[7], valeurs[8]),
-                               new Pouce(valeurs[9], valeurs[10], valeurs[11])));
-               MurBrute ancienMur = (MurBrute) listeComposantes.get(0);
-               listeComposantes.set(0, mur);
+    public void updateComposante(int[] valeurs, TypeComposante type, boolean sansSauvegarde){
+        if (!sansSauvegarde) {
+            undoController = this.deepCopy();
+        }
+        switch(type){
+            case MUR_PROFILE:
+                // On mets a jour le Mur Brute
+                 MurBrute mur = new MurBrute(this,
+                        new Pouce(valeurs[3], valeurs[4], valeurs[5]),
+                        new Pouce(valeurs[0], valeurs[1], valeurs[2]),
+                        new PointPouce(
+                                new Pouce(valeurs[6], valeurs[7], valeurs[8]),
+                                new Pouce(valeurs[9], valeurs[10], valeurs[11])));
+                MurBrute ancienMur = (MurBrute) listeComposantes.get(0);
+                listeComposantes.set(0, mur);
 
-               // On mets à jour le profil
-               boolean modeProfil = valeurs[12] == 1 ? true: false;
-               MurProfile profile = new MurProfile(((MurProfile) listeComposantes.get(1)), new PointPouce(mur.getCentre().getX().diff(ancienMur.getCentre().getX()),
-                       mur.getCentre().getY().diff(ancienMur.getCentre().getY())), modeProfil, MurProfile.ModeContreplaque.COMPLET);
-               listeComposantes.set(1, profile);
+                // On mets à jour le profil
+                boolean modeProfil = valeurs[12] == 1 ? true: false;
+                MurProfile profile = new MurProfile(((MurProfile) listeComposantes.get(1)), mur.getCentre().getX().diff(ancienMur.getCentre().getX()),
+                        mur.getCentre().getY().diff(ancienMur.getCentre().getY()), modeProfil, MurProfile.ModeContreplaque.COMPLET);
+                listeComposantes.set(1, profile);
 
-               if (modeProfil){
-               // On mets à jour les ellipses
-                 for(int i = 2, j = 0; i < 6; i++, j++){
-                   listeComposantes.set(i, profile.getProfilEllipses()[j]);
+                if (modeProfil){
+                    // On mets à jour les ellipses
+                    for(int i = 2, j = 0; i < 6; i++, j++){
+                        listeComposantes.set(i, profile.getProfilEllipses()[j]);
                     }
-               }
-               // On mets à jour les points de contrôles
-               else {
-                   for(int i = 2, j = 0; i < 6; i++, j++){
-                       listeComposantes.set(i, profile.getProfilBezier().getPointsControle().get(j));
-                       profile.getProfilBezier().updatePointsControles();
-                   }
-               }
+                }
+                // On mets à jour les points de contrôles
+                else {
+                    for(int i = 2, j = 0; i < 6; i++, j++){
+                        listeComposantes.set(i, profile.getProfilBezier().getPointsControle().get(j));
+                        profile.getProfilBezier().updatePointsControles(new Pouce(), new Pouce());
+                    }
+                }
 
-               listeComposantes.set(6, new Plancher((Plancher) listeComposantes.get(6)));
-               listeComposantes.set(7, new PoutreArriere((PoutreArriere) listeComposantes.get(7)));
-               listeComposantes.set(8, new Hayon((Hayon) listeComposantes.get(8)));
-               listeComposantes.set(9,new MurSeparateur((MurSeparateur) listeComposantes.get(9)));
-               listeComposantes.set(10, new Toit((Toit) listeComposantes.get(10)));
-               listeComposantes.set(11,new Ressorts((Ressorts) listeComposantes.get(11)));
-               listeComposantes.set(12, new OuvertureLaterale((OuvertureLaterale) listeComposantes.get(12)));
-               listeComposantes.set(13, new AideDesign((AideDesign) listeComposantes.get(13)));
+                listeComposantes.set(6, new Plancher((Plancher) listeComposantes.get(6)));
+                listeComposantes.set(7, new PoutreArriere((PoutreArriere) listeComposantes.get(7)));
+                listeComposantes.set(8, new Hayon((Hayon) listeComposantes.get(8)));
+                listeComposantes.set(9,new MurSeparateur((MurSeparateur) listeComposantes.get(9)));
+                listeComposantes.set(10, new Toit((Toit) listeComposantes.get(10)));
+                listeComposantes.set(11,new Ressorts((Ressorts) listeComposantes.get(11)));
+                listeComposantes.set(12, new OuvertureLaterale((OuvertureLaterale) listeComposantes.get(12)));
+                listeComposantes.set(13, new AideDesign((AideDesign) listeComposantes.get(13)));
+                listeComposantes.set(14, new AideDesign((AideDesign) listeComposantes.get(14)));
+                listeComposantes.set(15, new AideDesign((AideDesign) listeComposantes.get(15)));
+                listeComposantes.set(16, new AideDesign((AideDesign) listeComposantes.get(16)));
+                listeComposantes.set(17, new AideDesign((AideDesign) listeComposantes.get(17)));
+                listeComposantes.set(18, new OuvertureLaterale((OuvertureLaterale) listeComposantes.get(18)));
 
-               if (listeComposantes.size() > 6){
-                   listeComposantes.set(6, new Plancher((Plancher) listeComposantes.get(6)));
-               }
-               if (listeComposantes.size() > 7) {
-                   listeComposantes.set(7, new PoutreArriere((PoutreArriere) listeComposantes.get(7)));
-               }
+                break;
+            case PROFIL_ELLIPSE_1:
+                ProfilEllipse ellipse = new ProfilEllipse(this,
+                        new Pouce(valeurs[3], valeurs[4], valeurs[5]),
+                        new Pouce(valeurs[0], valeurs[1], valeurs[2]),
+                        new PointPouce(
+                                new Pouce(valeurs[6], valeurs[7], valeurs[8]),
+                                new Pouce(valeurs[9], valeurs[10], valeurs[11]))
+                        , type);
+                ((MurProfile) listeComposantes.get(1)).getProfilEllipses()[0] = ellipse;
+                listeComposantes.set(2, ellipse);
+                break;
+            case PROFIL_ELLIPSE_2:
+                ellipse = new ProfilEllipse(this,
+                        new Pouce(valeurs[3], valeurs[4], valeurs[5]),
+                        new Pouce(valeurs[0], valeurs[1], valeurs[2]),
+                        new PointPouce(
+                                new Pouce(valeurs[6], valeurs[7], valeurs[8]),
+                                new Pouce(valeurs[9], valeurs[10], valeurs[11]))
+                        , type);
+                ((MurProfile) listeComposantes.get(1)).getProfilEllipses()[1] = ellipse;
+                listeComposantes.set(3, ellipse);
+                listeComposantes.set(7, new PoutreArriere((PoutreArriere) listeComposantes.get(7)));
+                break;
 
-               if (listeComposantes.size() > 8) {
-                   listeComposantes.set(8, new Hayon((Hayon) listeComposantes.get(8)));
-               }
-               Ressorts ressortsInvalide = (Ressorts) listeComposantes.get(11);
-               listeComposantes.set(11,new Ressorts(this,ressortsInvalide.getPoidsHayon()));
-               ressortsInvalide = (Ressorts) listeComposantes.get(11);
-               listeComposantes.set(11,new Ressorts(this,ressortsInvalide.getPoidsHayon()));
-               MurSeparateur murSeparateurInvalide = (MurSeparateur) listeComposantes.get(9);
-               listeComposantes.set(9,new MurSeparateur(this,murSeparateurInvalide.getEpaisseur(),
-                       murSeparateurInvalide.getHauteur(),murSeparateurInvalide.getDistancePoutreArriere()));
-               break;
-           case PROFIL_ELLIPSE_1:
-               ProfilEllipse ellipse = new ProfilEllipse(this,
-                       new Pouce(valeurs[3], valeurs[4], valeurs[5]),
-                       new Pouce(valeurs[0], valeurs[1], valeurs[2]),
-                       new PointPouce(
-                               new Pouce(valeurs[6], valeurs[7], valeurs[8]),
-                               new Pouce(valeurs[9], valeurs[10], valeurs[11]))
-                       , type);
-               ((MurProfile) listeComposantes.get(1)).getProfilEllipses()[0] = ellipse;
-               listeComposantes.set(2, ellipse);
-               break;
-           case PROFIL_ELLIPSE_2:
-               ellipse = new ProfilEllipse(this,
-                       new Pouce(valeurs[3], valeurs[4], valeurs[5]),
-                       new Pouce(valeurs[0], valeurs[1], valeurs[2]),
-                       new PointPouce(
-                               new Pouce(valeurs[6], valeurs[7], valeurs[8]),
-                               new Pouce(valeurs[9], valeurs[10], valeurs[11]))
-                       , type);
-               ((MurProfile) listeComposantes.get(1)).getProfilEllipses()[1] = ellipse;
-               listeComposantes.set(3, ellipse);
-               listeComposantes.set(7, new PoutreArriere((PoutreArriere) listeComposantes.get(7)));
-               break;
+            case PROFIL_ELLIPSE_3:
+                ellipse = new ProfilEllipse(this,
+                        new Pouce(valeurs[3], valeurs[4], valeurs[5]),
+                        new Pouce(valeurs[0], valeurs[1], valeurs[2]),
+                        new PointPouce(
+                                new Pouce(valeurs[6], valeurs[7], valeurs[8]),
+                                new Pouce(valeurs[9], valeurs[10], valeurs[11]))
+                        , type);
+                ((MurProfile) listeComposantes.get(1)).getProfilEllipses()[2] = ellipse;
+                listeComposantes.set(4, ellipse);
+                break;
+            case PROFIL_ELLIPSE_4:
+                ellipse = new ProfilEllipse(this,
+                        new Pouce(valeurs[3], valeurs[4], valeurs[5]),
+                        new Pouce(valeurs[0], valeurs[1], valeurs[2]),
+                        new PointPouce(
+                                new Pouce(valeurs[6], valeurs[7], valeurs[8]),
+                                new Pouce(valeurs[9], valeurs[10], valeurs[11]))
+                        , type);
+                ((MurProfile) listeComposantes.get(1)).getProfilEllipses()[3] = ellipse;
+                listeComposantes.set(5, ellipse);
+                break;
+            case POINT_CONTROLE_1:
+                PointControle pointControle = new PointControle(this,
+                        new Pouce(valeurs[3], valeurs[4], valeurs[5]),
+                        new Pouce(valeurs[0], valeurs[1], valeurs[2]),
+                        new PointPouce(
+                                new Pouce(valeurs[6], valeurs[7], valeurs[8]),
+                                new Pouce(valeurs[9], valeurs[10], valeurs[11]))
+                        , type);
+                ((MurProfile) listeComposantes.get(1)).getProfilBezier().getPointsControle().set(0, pointControle);
+                ((MurProfile) listeComposantes.get(1)).getProfilBezier().updatePointsControles(new Pouce(), new Pouce());
+                listeComposantes.set(2, pointControle);
 
-           case PROFIL_ELLIPSE_3:
-               ellipse = new ProfilEllipse(this,
-                       new Pouce(valeurs[3], valeurs[4], valeurs[5]),
-                       new Pouce(valeurs[0], valeurs[1], valeurs[2]),
-                       new PointPouce(
-                               new Pouce(valeurs[6], valeurs[7], valeurs[8]),
-                               new Pouce(valeurs[9], valeurs[10], valeurs[11]))
-                       , type);
-               ((MurProfile) listeComposantes.get(1)).getProfilEllipses()[2] = ellipse;
-               listeComposantes.set(4, ellipse);
-               break;
-           case PROFIL_ELLIPSE_4:
-               ellipse = new ProfilEllipse(this,
-                       new Pouce(valeurs[3], valeurs[4], valeurs[5]),
-                       new Pouce(valeurs[0], valeurs[1], valeurs[2]),
-                       new PointPouce(
-                               new Pouce(valeurs[6], valeurs[7], valeurs[8]),
-                               new Pouce(valeurs[9], valeurs[10], valeurs[11]))
-                       , type);
-               ((MurProfile) listeComposantes.get(1)).getProfilEllipses()[3] = ellipse;
-               listeComposantes.set(5, ellipse);
-               break;
-           case POINT_CONTROLE_1:
-               PointControle pointControle = new PointControle(this,
-                       new Pouce(valeurs[3], valeurs[4], valeurs[5]),
-                       new Pouce(valeurs[0], valeurs[1], valeurs[2]),
-                       new PointPouce(
-                               new Pouce(valeurs[6], valeurs[7], valeurs[8]),
-                               new Pouce(valeurs[9], valeurs[10], valeurs[11]))
-                       , type);
-               ((MurProfile) listeComposantes.get(1)).getProfilBezier().getPointsControle().set(0, pointControle);
-               ((MurProfile) listeComposantes.get(1)).getProfilBezier().updatePointsControles();
-               listeComposantes.set(2, pointControle);
-
-               break;
-           case POINT_CONTROLE_2:
+                break;
+            case POINT_CONTROLE_2:
                 pointControle = new PointControle(this,
-                       new Pouce(valeurs[3], valeurs[4], valeurs[5]),
-                       new Pouce(valeurs[0], valeurs[1], valeurs[2]),
-                       new PointPouce(
-                               new Pouce(valeurs[6], valeurs[7], valeurs[8]),
-                               new Pouce(valeurs[9], valeurs[10], valeurs[11]))
-                       , type);
-               ((MurProfile) listeComposantes.get(1)).getProfilBezier().getPointsControle().set(1, pointControle);
-               ((MurProfile) listeComposantes.get(1)).getProfilBezier().updatePointsControles();
-               listeComposantes.set(3, pointControle);
-               listeComposantes.set(7, new PoutreArriere((PoutreArriere) listeComposantes.get(7)));
-               listeComposantes.set(11,new Ressorts((Ressorts) listeComposantes.get(11)));
-               break;
-           case POINT_CONTROLE_3:
-               pointControle = new PointControle(this,
-                       new Pouce(valeurs[3], valeurs[4], valeurs[5]),
-                       new Pouce(valeurs[0], valeurs[1], valeurs[2]),
-                       new PointPouce(
-                               new Pouce(valeurs[6], valeurs[7], valeurs[8]),
-                               new Pouce(valeurs[9], valeurs[10], valeurs[11]))
-                       , type);
-               ((MurProfile) listeComposantes.get(1)).getProfilBezier().getPointsControle().set(2, pointControle);
-               ((MurProfile) listeComposantes.get(1)).getProfilBezier().updatePointsControles();
-               listeComposantes.set(4, pointControle);
-               listeComposantes.set(7, new PoutreArriere((PoutreArriere) listeComposantes.get(7)));
-               listeComposantes.set(11,new Ressorts((Ressorts) listeComposantes.get(11)));
-               break;
-           case POINT_CONTROLE_4:
-               pointControle = new PointControle(this,
-                       new Pouce(valeurs[3], valeurs[4], valeurs[5]),
-                       new Pouce(valeurs[0], valeurs[1], valeurs[2]),
-                       new PointPouce(
-                               new Pouce(valeurs[6], valeurs[7], valeurs[8]),
-                               new Pouce(valeurs[9], valeurs[10], valeurs[11]))
-                       , type);
-               ((MurProfile) listeComposantes.get(1)).getProfilBezier().getPointsControle().set(3, pointControle);
-               ((MurProfile) listeComposantes.get(1)).getProfilBezier().updatePointsControles();
-               listeComposantes.set(5, pointControle);
-               break;
-           case PLANCHER:
-               Plancher plancher = new Plancher(this,
-                       new Pouce(valeurs[0], valeurs[1], valeurs[2]),
-                       new Pouce(valeurs[3], valeurs[4], valeurs[5]),
-                       new Pouce(valeurs[6], valeurs[7], valeurs[8]));
-               listeComposantes.set(6, plancher);
-               break;
-           case POUTRE_ARRIERE:
-              PoutreArriere poutre = new PoutreArriere(this,
-                       new Pouce(valeurs[3], valeurs[4], valeurs[5]),
-                       new Pouce(valeurs[0], valeurs[1], valeurs[2]),
-                       new Pouce(valeurs[6], valeurs[7], valeurs[8]));
-               listeComposantes.set(7, poutre);
-               listeComposantes.set(8, new Hayon((Hayon) listeComposantes.get(8)));
-               listeComposantes.set(9,new MurSeparateur((MurSeparateur) listeComposantes.get(9)));
-               listeComposantes.set(10, new Toit((Toit) listeComposantes.get(10)));
-               listeComposantes.set(11,new Ressorts((Ressorts) listeComposantes.get(11)));
-               break;
-           case HAYON:
-               Hayon hayon = new Hayon(this,
-                       new Pouce(valeurs[0], valeurs[1], valeurs[2]),
-                       new Pouce(valeurs[3], valeurs[4], valeurs[5]),
-                       new Pouce(valeurs[6], valeurs[7], valeurs[8]),
-                       new Pouce(valeurs[9], valeurs[10], valeurs[11]),
-                       new Pouce(valeurs[12], valeurs[13], valeurs[14]));
-               listeComposantes.set(8, hayon);
-               listeComposantes.set(11,new Ressorts((Ressorts) listeComposantes.get(11)));
-               break;
+                        new Pouce(valeurs[3], valeurs[4], valeurs[5]),
+                        new Pouce(valeurs[0], valeurs[1], valeurs[2]),
+                        new PointPouce(
+                                new Pouce(valeurs[6], valeurs[7], valeurs[8]),
+                                new Pouce(valeurs[9], valeurs[10], valeurs[11]))
+                        , type);
+                ProfilBezier profileBezier = ((MurProfile) listeComposantes.get(1)).getProfilBezier();
+                listeComposantes.set(3, pointControle);
+                profileBezier.getPointsControle().set(1, pointControle);
+                profileBezier.updatePointsControles(new Pouce(), new Pouce());
+                listeComposantes.set(7, new PoutreArriere((PoutreArriere) listeComposantes.get(7)));
+                listeComposantes.set(8, new Hayon((Hayon) listeComposantes.get(8)));
+                listeComposantes.set(9,new MurSeparateur((MurSeparateur) listeComposantes.get(9)));
+                listeComposantes.set(10, new Toit((Toit) listeComposantes.get(10)));
+                listeComposantes.set(11,new Ressorts((Ressorts) listeComposantes.get(11)));
+                break;
+            case POINT_CONTROLE_3:
+                pointControle = new PointControle(this,
+                        new Pouce(valeurs[3], valeurs[4], valeurs[5]),
+                        new Pouce(valeurs[0], valeurs[1], valeurs[2]),
+                        new PointPouce(
+                                new Pouce(valeurs[6], valeurs[7], valeurs[8]),
+                                new Pouce(valeurs[9], valeurs[10], valeurs[11]))
+                        , type);
+                profileBezier = ((MurProfile) listeComposantes.get(1)).getProfilBezier();
+                profileBezier.getPointsControle().set(2, pointControle);
+                listeComposantes.set(4, pointControle);
+                profileBezier.updatePointsControles(new Pouce(), new Pouce());
+                listeComposantes.set(4, pointControle);
+                listeComposantes.set(7, new PoutreArriere((PoutreArriere) listeComposantes.get(7)));
+                listeComposantes.set(8, new Hayon((Hayon) listeComposantes.get(8)));
+                listeComposantes.set(9,new MurSeparateur((MurSeparateur) listeComposantes.get(9)));
+                listeComposantes.set(10, new Toit((Toit) listeComposantes.get(10)));
+                listeComposantes.set(11,new Ressorts((Ressorts) listeComposantes.get(11)));
+                break;
+            case POINT_CONTROLE_4:
+                pointControle = new PointControle(this,
+                        new Pouce(valeurs[3], valeurs[4], valeurs[5]),
+                        new Pouce(valeurs[0], valeurs[1], valeurs[2]),
+                        new PointPouce(
+                                new Pouce(valeurs[6], valeurs[7], valeurs[8]),
+                                new Pouce(valeurs[9], valeurs[10], valeurs[11]))
+                        , type);
+                ((MurProfile) listeComposantes.get(1)).getProfilBezier().getPointsControle().set(3, pointControle);
+                ((MurProfile) listeComposantes.get(1)).getProfilBezier().updatePointsControles(new Pouce(), new Pouce());
+                listeComposantes.set(5, pointControle);
+                break;
+            case PLANCHER:
+                Plancher plancher = new Plancher(this,
+                        new Pouce(valeurs[0], valeurs[1], valeurs[2]),
+                        new Pouce(valeurs[3], valeurs[4], valeurs[5]),
+                        new Pouce(valeurs[6], valeurs[7], valeurs[8]));
+                listeComposantes.set(6, plancher);
+                break;
+            case POUTRE_ARRIERE:
+                PoutreArriere poutre = new PoutreArriere(this,
+                        new Pouce(valeurs[3], valeurs[4], valeurs[5]),
+                        new Pouce(valeurs[0], valeurs[1], valeurs[2]),
+                        new Pouce(valeurs[6], valeurs[7], valeurs[8]));
+                listeComposantes.set(7, poutre);
+                listeComposantes.set(8, new Hayon((Hayon) listeComposantes.get(8)));
+                listeComposantes.set(9,new MurSeparateur((MurSeparateur) listeComposantes.get(9)));
+                listeComposantes.set(10, new Toit((Toit) listeComposantes.get(10)));
+                listeComposantes.set(11,new Ressorts((Ressorts) listeComposantes.get(11)));
+                break;
+            case HAYON:
+                Hayon hayon = new Hayon(this,
+                        new Pouce(valeurs[0], valeurs[1], valeurs[2]),
+                        new Pouce(valeurs[3], valeurs[4], valeurs[5]),
+                        new Pouce(valeurs[6], valeurs[7], valeurs[8]),
+                        new Pouce(valeurs[9], valeurs[10], valeurs[11]),
+                        new Pouce(valeurs[12], valeurs[13], valeurs[14]));
+                listeComposantes.set(8, hayon);
+                listeComposantes.set(11,new Ressorts((Ressorts) listeComposantes.get(11)));
+                break;
 
-           case MUR_SEPARATEUR:
-               MurSeparateur murSeparateur = new MurSeparateur(this,
-                       new Pouce(valeurs[3], valeurs[4], valeurs[5]),
-                       new Pouce(valeurs[0], valeurs[1], valeurs[2]),
-                       new Pouce(valeurs[6], valeurs[7], valeurs[8]));
-               listeComposantes.set(9, murSeparateur);
-               break;
+            case MUR_SEPARATEUR:
+                MurSeparateur murSeparateur = new MurSeparateur(this,
+                        new Pouce(valeurs[3], valeurs[4], valeurs[5]),
+                        new Pouce(valeurs[0], valeurs[1], valeurs[2]),
+                        new Pouce(valeurs[6], valeurs[7], valeurs[8]));
+                listeComposantes.set(9, murSeparateur);
+                break;
 
-           case TOIT:
-               Toit toit = new Toit(this,
-                       new Pouce(valeurs[0], valeurs[1], valeurs[2]));
-               listeComposantes.set(10, toit);
-               break;
+            case TOIT:
+                Toit toit = new Toit(this,
+                        new Pouce(valeurs[0], valeurs[1], valeurs[2]));
+                listeComposantes.set(10, toit);
+                break;
 
-           case RESSORTS:
-               Ressorts ressorts = new Ressorts(this,valeurs[0]);
-               listeComposantes.set(11,ressorts);
-               break;
+            case RESSORTS:
+                Ressorts ressorts = new Ressorts(this,valeurs[0]);
+                listeComposantes.set(11,ressorts);
+                break;
 
-           case OUVERTURE_LATERALE:
-               OuvertureLaterale ouvertureLaterale = new OuvertureLaterale( this,
-                       new Pouce(valeurs[0], valeurs[1], valeurs[2]),
-                       new Pouce(valeurs[3], valeurs[4], valeurs[5]),
-                       new PointPouce(
-                               new Pouce(valeurs[6], valeurs[7], valeurs[8]),
-                               new Pouce(valeurs[9], valeurs[10], valeurs[11])),
-                       new Pouce(valeurs[12], valeurs[13], valeurs[14]));
-               listeComposantes.set(12, ouvertureLaterale);
-               listeOuverturesLaterales.set(0, ouvertureLaterale);
-               break;
+            case PORTE:
+                OuvertureLaterale ouvertureLaterale = new OuvertureLaterale(this,
+                        new Pouce(valeurs[0], valeurs[1], valeurs[2]),
+                        new Pouce(valeurs[3], valeurs[4], valeurs[5]),
+                        new PointPouce(
+                                new Pouce(valeurs[6], valeurs[7], valeurs[8]),
+                                new Pouce(valeurs[9], valeurs[10], valeurs[11])),
+                        new Pouce(valeurs[12], valeurs[13], valeurs[14]), type, true);
+                listeComposantes.set(12, ouvertureLaterale);
+                listeOuverturesLaterales.set(0, ouvertureLaterale);
+                break;
 
-           case AIDE_DESIGN:
-               AideDesign aideDesign = new AideDesign(this,
-                       new Pouce(valeurs[0], valeurs[1], valeurs[2]),
-                       new Pouce(valeurs[3], valeurs[4], valeurs[5]),
-                       new PointPouce(
-                               new Pouce(valeurs[6], valeurs[7], valeurs[8]),
-                               new Pouce(valeurs[9], valeurs[10], valeurs[11])));
-               listeComposantes.set(13, aideDesign);
-               listeAidesDesign.set(0, aideDesign);
-               break;
+            case ROUE:
+                AideDesign aideDesign = new AideDesign(this,
+                        new Pouce(valeurs[0], valeurs[1], valeurs[2]),
+                        new Pouce(valeurs[3], valeurs[4], valeurs[5]),
+                        new PointPouce(
+                                new Pouce(valeurs[6], valeurs[7], valeurs[8]),
+                                new Pouce(valeurs[9], valeurs[10], valeurs[11])), type, true);
+                listeComposantes.set(13, aideDesign);
+                listeAidesDesign.set(0, aideDesign);
+                break;
 
-           case AIDE_DESIGN_2:
-               AideDesign2 aideDesign2 = new AideDesign2(this,
-                       new Pouce(valeurs[0], valeurs[1], valeurs[2]),
-                       new Pouce(valeurs[3], valeurs[4], valeurs[5]),
-                       new PointPouce(
-                               new Pouce(valeurs[6], valeurs[7], valeurs[8]),
-                               new Pouce(valeurs[9], valeurs[10], valeurs[11])));
-               listeComposantes.set(14, aideDesign2);
-               break;
+            case CADRE:
+                aideDesign = new AideDesign(this,
+                        new Pouce(valeurs[0], valeurs[1], valeurs[2]),
+                        new Pouce(valeurs[3], valeurs[4], valeurs[5]),
+                        new PointPouce(
+                                new Pouce(valeurs[6], valeurs[7], valeurs[8]),
+                                new Pouce(valeurs[9], valeurs[10], valeurs[11])), type, true);
+                listeComposantes.set(14, aideDesign);
+                break;
 
-           case AIDE_DESIGN_3:
-               AideDesign3 aideDesign3 = new AideDesign3(this,
-                       new Pouce(valeurs[0], valeurs[1], valeurs[2]),
-                       new Pouce(valeurs[3], valeurs[4], valeurs[5]),
-                       new PointPouce(
-                               new Pouce(valeurs[6], valeurs[7], valeurs[8]),
-                               new Pouce(valeurs[9], valeurs[10], valeurs[11])));
-               listeComposantes.set(15, aideDesign3);
-               break;
+            case LIT:
+                aideDesign = new AideDesign(this,
+                        new Pouce(valeurs[0], valeurs[1], valeurs[2]),
+                        new Pouce(valeurs[3], valeurs[4], valeurs[5]),
+                        new PointPouce(
+                                new Pouce(valeurs[6], valeurs[7], valeurs[8]),
+                                new Pouce(valeurs[9], valeurs[10], valeurs[11])), type, true);
+                listeComposantes.set(15, aideDesign);
+                break;
 
-           case AIDE_DESIGN_4:
-               AideDesign aideDesign4 = new AideDesign(this,
-                       new Pouce(valeurs[0], valeurs[1], valeurs[2]),
-                       new Pouce(valeurs[3], valeurs[4], valeurs[5]),
-                       new PointPouce(
-                               new Pouce(valeurs[6], valeurs[7], valeurs[8]),
-                               new Pouce(valeurs[9], valeurs[10], valeurs[11])));
-               listeComposantes.set(16, aideDesign4);
-               break;
+            case PERSONNE:
+                aideDesign = new AideDesign(this,
+                        new Pouce(valeurs[0], valeurs[1], valeurs[2]),
+                        new Pouce(valeurs[3], valeurs[4], valeurs[5]),
+                        new PointPouce(
+                                new Pouce(valeurs[6], valeurs[7], valeurs[8]),
+                                new Pouce(valeurs[9], valeurs[10], valeurs[11])), type, true);
+                listeComposantes.set(16, aideDesign);
+                break;
 
-           case AIDE_DESIGN_5:
-               AideDesign aideDesign5 = new AideDesign(this,
-                       new Pouce(valeurs[0], valeurs[1], valeurs[2]),
-                       new Pouce(valeurs[3], valeurs[4], valeurs[5]),
-                       new PointPouce(
-                               new Pouce(valeurs[6], valeurs[7], valeurs[8]),
-                               new Pouce(valeurs[9], valeurs[10], valeurs[11])));
-               listeComposantes.set(17, aideDesign5);
-               break;
+            case LOGO:
+                aideDesign = new AideDesign(this,
+                        new Pouce(valeurs[0], valeurs[1], valeurs[2]),
+                        new Pouce(valeurs[3], valeurs[4], valeurs[5]),
+                        new PointPouce(
+                                new Pouce(valeurs[6], valeurs[7], valeurs[8]),
+                                new Pouce(valeurs[9], valeurs[10], valeurs[11])), type, true);
+                listeComposantes.set(17, aideDesign);
+                break;
 
-           case OUVERTURE_LATERALE_2:
-               OuvertureLaterale ouvertureLaterale2 = new OuvertureLaterale( this,
-                       new Pouce(valeurs[0], valeurs[1], valeurs[2]),
-                       new Pouce(valeurs[3], valeurs[4], valeurs[5]),
-                       new PointPouce(
-                               new Pouce(valeurs[6], valeurs[7], valeurs[8]),
-                               new Pouce(valeurs[9], valeurs[10], valeurs[11])),
-                       new Pouce(valeurs[12], valeurs[13], valeurs[14]));
-               listeComposantes.set(18, ouvertureLaterale2);
-               listeOuverturesLaterales.set(1, ouvertureLaterale2);
-               break;
-       }
+            case FENETRE:
+                ouvertureLaterale = new OuvertureLaterale(this,
+                        new Pouce(valeurs[0], valeurs[1], valeurs[2]),
+                        new Pouce(valeurs[3], valeurs[4], valeurs[5]),
+                        new PointPouce(
+                                new Pouce(valeurs[6], valeurs[7], valeurs[8]),
+                                new Pouce(valeurs[9], valeurs[10], valeurs[11])),
+                        new Pouce(valeurs[12], valeurs[13], valeurs[14]), type, true);
+                listeComposantes.set(18, ouvertureLaterale);
+                listeOuverturesLaterales.set(1, ouvertureLaterale);
+                break;
+        }
     }
-
 
     public void setScale(int wheelRotation){
         // on limite à une rotation seulement
@@ -590,7 +535,7 @@ public class RoulotteController implements Serializable{
                 Composante composante = listeComposantes.get(i);
                 composante.setChoisie(false);
 
-                if (composante.getPolygone().contient(positionClic) && composante.estVisible()) {
+                if (composante.getPolygone().contient(positionClic) && composante.estVisible() && composante.estAjoute()) {
                     indexComposante = i;
                 }
             }
@@ -624,69 +569,38 @@ public class RoulotteController implements Serializable{
         }
 
         // Si une composante est sélectionnée, alors on la drag et on drag les autres composantes rattachées
-        if(composanteChoisie != null && plusProcheVoisin == null){
+        if(composanteChoisie != null && plusProcheVoisin == null) {
 
             // On drag la composante en appelant sa fonction translate
-            System.out.println("translate" + composanteChoisie);
-            composanteChoisie.translate(positionDrag);
+            System.out.println("translate : " + composanteChoisie);
 
             // cas particulier si c'est le mur brute alors on déplace les points de contrôles aussi
-            if (composanteChoisie.getType() == TypeComposante.MUR_BRUTE){
-                for (int i = 2; i < listeComposantes.size(); i++){
+             if (composanteChoisie.getType() == TypeComposante.MUR_PROFILE ||
+                    composanteChoisie.getType() == TypeComposante.MUR_BRUTE) {
+                for (int i = 0; i < listeComposantes.size(); i++) {
                     listeComposantes.get(i).translate(positionDrag);
                 }
             }
-
-            else if (composanteChoisie.getType() == TypeComposante.MUR_PROFILE){
-
-            if (composanteChoisie.getType() == TypeComposante.MUR_PROFILE ||
-                    composanteChoisie.getType() == TypeComposante.MUR_BRUTE) {
-                for (int i = 0; i < listeComposantes.size(); i++){
-                    listeComposantes.get(i).translate(positionDrag);
+            else if (composanteChoisie.getType() == TypeComposante.POUTRE_ARRIERE) {
+                for (int i = 7; i <= 11; i++) {
+                    if (Verification.verificationCentreXPoutreArriere(positionDrag.getX(), this)) {
+                        listeComposantes.get(i).translate(positionDrag);
+                        }
+                    }
                 }
+            else {
+                composanteChoisie.translate(positionDrag);
             }
 
             // On s'assure que les autres composantes sont conformes
-            updateComposante(composanteChoisie.getValeurs(), composanteChoisie.getType());
+            updateComposante(composanteChoisie.getValeurs(), composanteChoisie.getType(), true);
+
         }
-
-            }
-            else if(composanteChoisie.getType() == TypeComposante.POINT_CONTROLE_1 ||
-                    composanteChoisie.getType() == TypeComposante.POINT_CONTROLE_2 ||
-                    composanteChoisie.getType() == TypeComposante.POINT_CONTROLE_3 ||
-                    composanteChoisie.getType() == TypeComposante.POINT_CONTROLE_4){
-
-
-                for (int i = 6; i <= 11; i++){
-
-                    if (plusProcheVoisin != null){
-                        listeComposantes.get(i).snapToGrid(getPositionPlan(plusProcheVoisin));
-                    }
-                    else{listeComposantes.get(i).translate(getPositionPlan(mousePoint));}
-
-                }
-            }
-            else if(composanteChoisie.getType() == TypeComposante.POUTRE_ARRIERE){
-                for (int i = 8; i <= 11; i++){
-                    if (plusProcheVoisin != null){
-                        PointPouce position=getPositionPlan(plusProcheVoisin);
-                        if(Verification.verificationCentreXPoutreArriere(position.getX(),this)) {
-                            listeComposantes.get(i).snapToGrid(position);
-                        }
-                    }
-                    else{
-                        PointPouce position=getPositionPlan(mousePoint);
-                        if(Verification.verificationCentreXPoutreArriere(position.getX(),this)) {
-                            listeComposantes.get(i).translate(position);
-                        }
-                    }
-                }
-            }
 
        // Même drag, mais en mode magnétique
         else if (composanteChoisie != null & plusProcheVoisin != null) {
             composanteChoisie.snapToGrid(getPositionPlan(plusProcheVoisin));
-            updateComposante(composanteChoisie.getValeurs(), composanteChoisie.getType());
+            updateComposante(composanteChoisie.getValeurs(), composanteChoisie.getType(), true);
         }
 
         // Sinon, aucune composante n'a été sélectionnée alors on drag le plan
@@ -694,12 +608,11 @@ public class RoulotteController implements Serializable{
             setTranslate((int) mousePoint.getX(), (int) mousePoint.getY());
         }
 
-
         // Finalement, on mets à jour la position de la souris
         setPositionSouris(mousePoint);
 
 
-        if(composanteChoisie.getType() == TypeComposante.POINT_CONTROLE_1 ||
+       /* if(composanteChoisie.getType() == TypeComposante.POINT_CONTROLE_1 ||
                 composanteChoisie.getType() == TypeComposante.POINT_CONTROLE_2 ||
                 composanteChoisie.getType() == TypeComposante.POINT_CONTROLE_3 ||
                 composanteChoisie.getType() == TypeComposante.POINT_CONTROLE_4) {
@@ -724,7 +637,8 @@ public class RoulotteController implements Serializable{
             listeComposantes.set(10, new Toit((Toit) listeComposantes.get(10)));
             listeComposantes.set(11,new Ressorts((Ressorts) listeComposantes.get(11)));
             listeComposantes.set(7, new PoutreArriere((PoutreArriere) listeComposantes.get(7)));
-        }
+        }*/
+
     }
 
     public int getIndexComposante(TypeComposante type){
@@ -763,19 +677,19 @@ public class RoulotteController implements Serializable{
               return 10;
           case RESSORTS:
               return 11;
-          case OUVERTURE_LATERALE:
+          case PORTE:
               return 12;
-          case AIDE_DESIGN:
+          case CADRE:
               return 13;
-          case AIDE_DESIGN_2:
+          case ROUE:
               return 14;
-          case AIDE_DESIGN_3:
+          case LIT:
               return 15;
-          case AIDE_DESIGN_4:
+          case PERSONNE:
               return 16;
-          case AIDE_DESIGN_5:
+          case LOGO:
               return 17;
-          case OUVERTURE_LATERALE_2:
+          case FENETRE:
               return 18;
       }
       // si aucune composante n'est trouvée, retourne -1
@@ -904,19 +818,22 @@ public class RoulotteController implements Serializable{
     public void removeComposante() {
         // si une composante est sélectionnée, alors on la retire seulement si c'est aide au design/ouvertures
         if (composanteChoisie != null){
-            if (composanteChoisie.getType() == TypeComposante.AIDE_DESIGN ||
-                    composanteChoisie.getType() == TypeComposante.AIDE_DESIGN_2 ||
-                    composanteChoisie.getType() == TypeComposante.AIDE_DESIGN_3 ||
-                    composanteChoisie.getType() == TypeComposante.AIDE_DESIGN_4 ||
-                    composanteChoisie.getType() == TypeComposante.OUVERTURE_LATERALE ||
-                    composanteChoisie.getType() == TypeComposante.OUVERTURE_LATERALE_2){
-
-                listeComposantes.remove(composanteChoisie);
-            }
-            else {
-
+            if (composanteChoisie.getType() == TypeComposante.ROUE ||
+                    composanteChoisie.getType() == TypeComposante.CADRE ||
+                    composanteChoisie.getType() == TypeComposante.LIT ||
+                    composanteChoisie.getType() == TypeComposante.PERSONNE ||
+                    composanteChoisie.getType() == TypeComposante.PORTE ||
+                    composanteChoisie.getType() == TypeComposante.FENETRE){
+                listeComposantes.get(composanteChoisie.getIndex()).estAjoute(false);
             }
         }
     }
 
+    public int getNbOuvertures() {
+        return this.listeOuverturesLaterales.size();
+    }
+
+    public int getNbAideDesign() {
+        return this.listeAidesDesign.size();
+    }
 }

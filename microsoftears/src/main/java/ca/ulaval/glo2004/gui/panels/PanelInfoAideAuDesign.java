@@ -205,13 +205,6 @@ public class PanelInfoAideAuDesign extends PanelComposante {
                 }
             });
         }
-        addButton = creerButton( " + ", 1, 10);
-
-        addButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                creerAideActionPerformed(e);
-            }
-        });
 
     }
 
@@ -372,10 +365,5 @@ public class PanelInfoAideAuDesign extends PanelComposante {
         c.insets = new Insets(10,5,10, 5);
         this.add(bouton, c);
         return bouton;
-    }
-
-    public void creerAideActionPerformed(ActionEvent e){
-        JButton button = (JButton) e.getSource();
-        parent.parent.controller.addAideDesign();
     }
 }

@@ -68,15 +68,6 @@ public class Plancher extends Composante {
             }}
 
             Composite compositeInitial = g2d.getComposite();
-            g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.6f));
-            BufferedImage roue = toBufferedImage(new ImageIcon("trailer_wheel.png").getImage());
-            double[] pos = parent.getPositionEcran(new PointPouce(this.getCentre().getX().diff(new Pouce(35,0,1)),
-                    this.getCentre().getY().diff(new Pouce(7,0,1))));
-
-            g2d.drawImage(roue, (int) (pos[0] + (100 * parent.getScale())), (int) pos[1],(int) (152 * parent.getScale()), (int) (152 * parent.getScale()), null);
-            BufferedImage trailer = toBufferedImage(new ImageIcon("trailer_frame.png").getImage());
-            g2d.drawImage(trailer, (int) (pos[0] - (105 * parent.getScale())), (int) pos[1],(int) (1050 * parent.getScale()), (int) (152 * parent.getScale()), null);
-            g2d.setComposite(compositeInitial);
             Area area = getArea();
             g2d.setComposite(definirComposite(getTransparence()));
             g2d.setPaint(getCouleur());
@@ -113,28 +104,11 @@ public class Plancher extends Composante {
 
     @Override
     public PointPouce getCentre(){
-        MurProfile profil = (MurProfile) parent.getListeComposantes().get(1);
-        //if (profil.getMode()){
         MurBrute mur = (MurBrute) parent.getListeComposantes().get(0);
         Pouce x = mur.getCentre().getX().add(mur.getLongueur().diviser(2)).diff(margeAvant).diff(getLongueur().diviser(2));
         Pouce y = mur.getLargeur().diviser(2).add(mur.getCentre().getY()).diff(this.epaisseur.diviser(2));
         return new PointPouce(x,y);
-        //}
-        //else {
-        //    return calculerPositionBezier(profil);
-        //}
-    }
 
-    private PointPouce calculerPositionBezier(MurProfile profil){
-        LinkedList<PointPouce> pointsProfil = profil.getProfilBezier().getPolygone().getListePoints();
-        PointPouce p0 = pointsProfil.getFirst();
-        PointPouce p3 = pointsProfil.getLast();
-        Pouce longueur = (p3.getX().diff(p0.getX()));
-        PointPouce centreProfil = new PointPouce(p0.getX().add(longueur.diviser(2)), p0.getY());
-
-        Pouce x = centreProfil.getX().add(longueur.diviser(2)).diff(margeAvant).diff(getLongueur().diviser(2));
-        Pouce y = centreProfil.getY().diff(this.epaisseur.diviser(2));
-        return new PointPouce(x,y);
     }
 
     @Override

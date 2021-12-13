@@ -52,7 +52,7 @@ public class RoulotteAfficheur
             for (Composante composante : composantes) {
                     composante.afficher(g2d);
             }
-            if (!(boolean) composantes.get(1).getModes()[0]){ // mode bézier
+            if (!(boolean) composantes.get(1).getModes()[0] && composantes.get(1).estVisible()){ // mode bézier
                 ArrayList<PointControle> points = ((MurProfile) composantes.get(1)).getProfilBezier().getPointsControle();
                 ArrayList<PointPouce> pointsPouce = new ArrayList<>();
                 for (PointControle pointControle : points){
@@ -102,7 +102,7 @@ public class RoulotteAfficheur
             for (int i =0; i < composantes.size(); i++){
                 composante = composantes.get(i);
                 System.out.println(composante);
-                if (composante.estVisible()){
+                if (composante.estVisible() && composante.estAjoute()){
                svg += composantes.get(i).getSVG();
                 }
             }

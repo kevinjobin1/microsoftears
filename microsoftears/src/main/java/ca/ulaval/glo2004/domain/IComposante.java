@@ -7,4 +7,5 @@ public interface IComposante {
     String[] getNomsAttributs();
     boolean estVisible();
     Object[] getModes();
+    boolean estAjoute();
 }

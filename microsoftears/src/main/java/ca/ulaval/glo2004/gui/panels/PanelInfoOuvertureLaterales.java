@@ -34,7 +34,7 @@ public class PanelInfoOuvertureLaterales extends PanelComposante {
             centreXSpinner,
             centreYSpinner,
             rayonSpinner;
-    private JButton addButton;
+    //private JButton addButton;
 
     public PanelInfoOuvertureLaterales(BarreOnglet parent, IComposante composante) {
         super(parent, composante);
@@ -248,13 +248,13 @@ public class PanelInfoOuvertureLaterales extends PanelComposante {
             });
         }
 
-        addButton = creerButton( " + ", 1, 12);
+       /* addButton = creerButton( " + ", 1, 12);
 
         addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 creerOuvertureActionPerformed(e);
             }
-        });
+        });*/
     }
 
     private void hauteurSpinner1ChangeListener(ChangeEvent e) {
@@ -464,8 +464,8 @@ public class PanelInfoOuvertureLaterales extends PanelComposante {
         return bouton;
     }
 
-    public void creerOuvertureActionPerformed(ActionEvent e){
+    /*public void creerOuvertureActionPerformed(ActionEvent e){
         JButton button = (JButton) e.getSource();
-        parent.parent.controller.addOuvertureLateral();
-    }
+        parent.parent.controller.addOuvertureLaterale();
+    }*/
 }

@@ -1,5 +1,6 @@
 package ca.ulaval.glo2004.utilitaires;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 

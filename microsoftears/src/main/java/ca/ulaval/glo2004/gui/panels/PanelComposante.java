@@ -129,7 +129,7 @@ public abstract class PanelComposante extends JPanel {
     }
 
     protected void updateComposante(){
-        parent.parent.controller.updateComposante(valeurs, getType());
+        parent.parent.controller.updateComposante(valeurs, getType(), false);
         parent.parent.repaint();
     }
 }

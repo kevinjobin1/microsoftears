@@ -167,10 +167,10 @@ public class BarreMenu extends JMenuBar
 
 
         if (!parent.controller.getListeComposantes().isEmpty()){
-            creerCheckBoxMenuItem("Afficher/masquer tout", true, affichageMenu);
+            creerCheckBoxMenuItem("Afficher/masquer tout", true, true, affichageMenu);
         for (IComposante composante : parent.controller.getListeIComposantes())
         {
-            creerCheckBoxMenuItem(composante.toString(), composante.estVisible(), affichageMenu);
+            creerCheckBoxMenuItem(composante.toString(), composante.estVisible(), composante.estAjoute(), affichageMenu);
 
             if ((composante.getType() == TypeComposante.MUR_PROFILE)){
                 JRadioButtonMenuItem profilComplet = new JRadioButtonMenuItem("Profil complet");
@@ -207,10 +207,10 @@ public class BarreMenu extends JMenuBar
                 affichageMenu.add(contreplaqueSubMenu);
 
                 if ((boolean) composante.getModes()[0]){
-                    creerCheckBoxMenuItem("Afficher/masquer ellipses", composante.estVisible(), affichageMenu);
+                    creerCheckBoxMenuItem("Afficher/masquer ellipses", composante.estVisible(), composante.estAjoute(), affichageMenu);
                 }
                 else {
-                    creerCheckBoxMenuItem("Afficher/masquer points de contrôles", composante.estVisible(), affichageMenu);
+                    creerCheckBoxMenuItem("Afficher/masquer points de contrôles", composante.estVisible(),composante.estAjoute(), affichageMenu);
                 }
 
             }
@@ -250,9 +250,12 @@ public class BarreMenu extends JMenuBar
         return menu;
     }
 
-    private void creerCheckBoxMenuItem(String description, boolean estSelectionne, JMenu container){
+    private void creerCheckBoxMenuItem(String description, boolean estSelectionne, boolean estAjoute, JMenu container){
         JCheckBoxMenuItem checkbox = new JCheckBoxMenuItem(description);
         checkbox.setSelected(estSelectionne);
+        if (!estAjoute){
+            checkbox.setEnabled(false);
+        }
         checkbox.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 showComposanteActionPerformed(e);
@@ -470,7 +473,8 @@ public class BarreMenu extends JMenuBar
     }
 
     public void update() {
-
-    }
+            this.removeAll();
+            initialiser();
+        }
 
 }

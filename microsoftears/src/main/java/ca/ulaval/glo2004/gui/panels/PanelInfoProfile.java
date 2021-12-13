@@ -3,6 +3,7 @@ package ca.ulaval.glo2004.gui.panels;
 import ca.ulaval.glo2004.domain.IComposante;
 import ca.ulaval.glo2004.domain.TypeComposante;
 import ca.ulaval.glo2004.domain.composante.Hayon;
+import ca.ulaval.glo2004.gui.barres.BarreMenu;
 import ca.ulaval.glo2004.gui.barres.BarreOnglet;
 import ca.ulaval.glo2004.utilitaires.Pouce;
 import ca.ulaval.glo2004.utilitaires.Verification;
@@ -411,5 +412,6 @@ public class PanelInfoProfile extends PanelComposante{
         System.out.println(valeurs[12]);
         updateComposante();
         parent.parent.updateBarres();
+        parent.parent.setJMenuBar(new BarreMenu(parent.parent));
     }
     }
