@@ -6,6 +6,7 @@ import ca.ulaval.glo2004.gui.FenetrePrincipale;
 import com.formdev.flatlaf.FlatDarculaLaf;
 
 import java.awt.*;
+import java.net.URL;
 
 public class Microsoftears {
 
@@ -20,11 +21,13 @@ public class Microsoftears {
             e.printStackTrace();
         }
         FenetrePrincipale fenetrePrincipale = new FenetrePrincipale();
-        Image icon = Toolkit.getDefaultToolkit().getImage("caravan.png");
-        fenetrePrincipale.setIconImage(icon);
+        System.out.println("Path: " + (fenetrePrincipale.getClass().getClassLoader().getResource("caravan.png")).getPath());
+        ImageIcon icon = new ImageIcon(fenetrePrincipale.getClass().getClassLoader().getResource("caravan.png"));
+        fenetrePrincipale.setIconImage(icon.getImage());
         fenetrePrincipale.setTitle("Microsoftears");
         fenetrePrincipale.setExtendedState(fenetrePrincipale.getExtendedState() | JFrame.MAXIMIZED_BOTH);
         fenetrePrincipale.setVisible(true);
     }
+
 }
 

@@ -2,6 +2,7 @@ package ca.ulaval.glo2004.domain;
 
 import javax.swing.*;
 import java.awt.image.BufferedImage;
+import java.net.URL;
 
 import static ca.ulaval.glo2004.utilitaires.ImageDesign.toBufferedImage;
 
@@ -42,32 +43,46 @@ public enum TypeComposante {
         public String toString(){
             return "Roue";
         }
-        public BufferedImage getImage(){ return toBufferedImage(new ImageIcon("trailer_wheel.png").getImage()); }
+        public BufferedImage getImage(){
+            URL image = this.getClass().getClassLoader().getResource("trailer_wheel.png");
+            ImageIcon icon = new ImageIcon(image);
+            return toBufferedImage(icon.getImage()); }
     },
     CADRE {
         public String toString(){
             return "Cadre (remorque)";
         }
-        public BufferedImage getImage(){ return toBufferedImage(new ImageIcon("trailer_frame.png").getImage()); }
+        public BufferedImage getImage(){
+            URL image = this.getClass().getClassLoader().getResource("trailer_frame.png");
+            ImageIcon icon = new ImageIcon(image);
+            return toBufferedImage(icon.getImage()); }
     },
     LIT {
         public String toString(){
             return "Lit";
         }
-        public BufferedImage getImage(){ return toBufferedImage(new ImageIcon("man_sleeping.png").getImage()); }
+        public BufferedImage getImage(){
+            URL image = this.getClass().getClassLoader().getResource("man_sleeping.png");
+            ImageIcon icon = new ImageIcon(image);
+            return toBufferedImage(icon.getImage()); }
     },
     PERSONNE {
         public String toString(){
             return "Personne";
         }
-        public BufferedImage getImage(){ return toBufferedImage(new ImageIcon("man_standing.png").getImage()); }
-
+        public BufferedImage getImage(){
+            URL image = this.getClass().getClassLoader().getResource("man.png");
+            ImageIcon icon = new ImageIcon(image);
+            return toBufferedImage(icon.getImage()); }
     },
     LOGO {
         public String toString(){
             return "Logo";
         }
-        public BufferedImage getImage(){ return toBufferedImage(new ImageIcon("caravan.png").getImage()); }
+        public BufferedImage getImage(){
+            URL image = this.getClass().getClassLoader().getResource("caravan.png");
+            ImageIcon icon = new ImageIcon(image);
+            return toBufferedImage(icon.getImage()); }
     },
     PORTE{
         public String toString(){

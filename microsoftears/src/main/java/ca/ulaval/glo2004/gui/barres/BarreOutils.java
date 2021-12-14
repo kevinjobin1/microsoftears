@@ -123,6 +123,7 @@ public class BarreOutils extends JToolBar {
             public void actionPerformed(ActionEvent e) {
                 parent.setActionChoisie(FenetrePrincipale.TypeAction.AJOUT);
                 parent.controller.ajouterComposante(TypeComposante.ROUE);
+                parent.barreOnglets.setSelectedIndex(parent.barreOnglets.indexOfTab(TypeComposante.ROUE.toString()));
                 parent.setActionChoisie(FenetrePrincipale.TypeAction.SELECTION);
                 parent.updateBarres();
             }
@@ -132,6 +133,7 @@ public class BarreOutils extends JToolBar {
             public void actionPerformed(ActionEvent e) {
                 parent.setActionChoisie(FenetrePrincipale.TypeAction.AJOUT);
                 parent.controller.ajouterComposante(TypeComposante.CADRE);
+                parent.barreOnglets.setSelectedIndex(parent.barreOnglets.indexOfTab(TypeComposante.CADRE.toString()));
                 parent.setActionChoisie(FenetrePrincipale.TypeAction.SELECTION);
                 parent.updateBarres();
             }
@@ -141,6 +143,7 @@ public class BarreOutils extends JToolBar {
             public void actionPerformed(ActionEvent e) {
                 parent.setActionChoisie(FenetrePrincipale.TypeAction.AJOUT);
                 parent.controller.ajouterComposante(TypeComposante.LIT);
+                parent.barreOnglets.setSelectedIndex(parent.barreOnglets.indexOfTab(TypeComposante.LIT.toString()));
                 parent.setActionChoisie(FenetrePrincipale.TypeAction.SELECTION);
                 parent.updateBarres();
             }
@@ -150,6 +153,7 @@ public class BarreOutils extends JToolBar {
             public void actionPerformed(ActionEvent e) {
                 parent.setActionChoisie(FenetrePrincipale.TypeAction.AJOUT);
                 parent.controller.ajouterComposante(TypeComposante.PERSONNE);
+                parent.barreOnglets.setSelectedIndex(parent.barreOnglets.indexOfTab(TypeComposante.PERSONNE.toString()));
                 parent.setActionChoisie(FenetrePrincipale.TypeAction.SELECTION);
                 parent.updateBarres();
             }
@@ -158,6 +162,7 @@ public class BarreOutils extends JToolBar {
             public void actionPerformed(ActionEvent e) {
                 parent.setActionChoisie(FenetrePrincipale.TypeAction.AJOUT);
                 parent.controller.ajouterComposante(TypeComposante.LOGO);
+                parent.barreOnglets.setSelectedIndex(parent.barreOnglets.indexOfTab(TypeComposante.LOGO.toString()));
                 parent.setActionChoisie(FenetrePrincipale.TypeAction.SELECTION);
                 parent.updateBarres();
             }
@@ -167,6 +172,7 @@ public class BarreOutils extends JToolBar {
             public void actionPerformed(ActionEvent e) {
                 parent.setActionChoisie(FenetrePrincipale.TypeAction.AJOUT);
                 parent.controller.ajouterComposante(TypeComposante.PORTE);
+                parent.barreOnglets.setSelectedIndex(parent.barreOnglets.indexOfTab(TypeComposante.PORTE.toString()));
                 parent.setActionChoisie(FenetrePrincipale.TypeAction.SELECTION);
                 parent.updateBarres();
             }
@@ -176,6 +182,7 @@ public class BarreOutils extends JToolBar {
             public void actionPerformed(ActionEvent e) {
                 parent.setActionChoisie(FenetrePrincipale.TypeAction.AJOUT);
                 parent.controller.ajouterComposante(TypeComposante.FENETRE);
+                parent.barreOnglets.setSelectedIndex(parent.barreOnglets.indexOfTab(TypeComposante.FENETRE.toString()));
                 parent.setActionChoisie(FenetrePrincipale.TypeAction.SELECTION);
                 parent.updateBarres();
             }
@@ -185,6 +192,7 @@ public class BarreOutils extends JToolBar {
             public void actionPerformed(ActionEvent e) {
                 parent.setActionChoisie(FenetrePrincipale.TypeAction.AJOUT);
                 parent.controller.ajouterComposante(TypeComposante.AIDE_AU_DESIGN);
+                parent.barreOnglets.setSelectedIndex(parent.barreOnglets.indexOfTab(TypeComposante.AIDE_AU_DESIGN.toString()));
                 parent.setActionChoisie(FenetrePrincipale.TypeAction.SELECTION);
                 parent.updateBarres();
             }

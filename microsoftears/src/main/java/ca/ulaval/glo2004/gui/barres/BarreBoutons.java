@@ -2,7 +2,6 @@ package ca.ulaval.glo2004.gui.barres;
 
 import ca.ulaval.glo2004.domain.RoulotteController;
 import ca.ulaval.glo2004.gui.FenetrePrincipale;
-import ca.ulaval.glo2004.gui.actions.ExporterProjet;
 import ca.ulaval.glo2004.utilitaires.Pouce;
 import org.kordamp.ikonli.bootstrapicons.BootstrapIcons;
 import org.kordamp.ikonli.swing.FontIcon;
@@ -147,11 +146,10 @@ public class BarreBoutons extends JPanel {
     }
 
     private JButton creerBoutonLogo() {
-        ImageIcon imageIcon = new ImageIcon("caravan.png");
-        Image image = imageIcon.getImage();
-        Image newImage = image.getScaledInstance(40, 40,  java.awt.Image.SCALE_SMOOTH);
-        imageIcon = new ImageIcon(newImage);
-        JButton bouton = new JButton(imageIcon);
+        ImageIcon image = new ImageIcon(this.getClass().getClassLoader().getResource("caravan.png"));
+        Image newImage = image.getImage().getScaledInstance(40, 40,  java.awt.Image.SCALE_SMOOTH);
+        image = new ImageIcon(newImage);
+        JButton bouton = new JButton(image);
         bouton.setBackground(null);
         bouton.setBorder(null);
         this.add(bouton);

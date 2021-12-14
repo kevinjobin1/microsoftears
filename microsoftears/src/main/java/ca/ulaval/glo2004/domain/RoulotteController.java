@@ -122,11 +122,9 @@ public class RoulotteController implements Serializable{
     }
 
     public void ajouterComposante(TypeComposante type){
-        undoController = this.deepCopy();
        int index = getIndexComposante(type);
        listeComposantes.get(index).estAjoute(true);
     }
-
 
     public RoulotteController deepCopy(){
         RoulotteController copy = null;
@@ -594,25 +592,22 @@ public class RoulotteController implements Serializable{
             System.out.println("translate : " + composanteChoisie);
 
             // cas particulier si c'est le mur brute alors on déplace les points de contrôles aussi
-             if (composanteChoisie.getType() == TypeComposante.MUR_PROFILE ||
+            if (composanteChoisie.getType() == TypeComposante.MUR_PROFILE ||
                     composanteChoisie.getType() == TypeComposante.MUR_BRUTE) {
                 for (int i = 0; i < listeComposantes.size(); i++) {
                     listeComposantes.get(i).translate(positionDrag);
                 }
-            }
-            else if (composanteChoisie.getType() == TypeComposante.POUTRE_ARRIERE) {
+            } else if (composanteChoisie.getType() == TypeComposante.POUTRE_ARRIERE) {
                 for (int i = 7; i <= 11; i++) {
-                    if (Verification.verificationCentreXPoutreArriere(positionDrag.getX(), this)) {
-                        listeComposantes.get(i).translate(positionDrag);
-                        }
-                    }
+                    listeComposantes.get(i).translate(positionDrag);
                 }
-            else {
+            } else {
                 composanteChoisie.translate(positionDrag);
+                updateComposante(composanteChoisie.getValeurs(), composanteChoisie.getType(), true);
             }
 
-            // On s'assure que les autres composantes sont conformes
-            updateComposante(composanteChoisie.getValeurs(), composanteChoisie.getType(), true);
+           /* // On s'assure que les autres composantes sont conformes
+            updateComposante(composanteChoisie.getValeurs(), composanteChoisie.getType(), true);*/
 
         }
 
@@ -799,6 +794,7 @@ public class RoulotteController implements Serializable{
     }
 
     public Pouce getEchelleGrille(){
+
         return new Pouce(this.grille.getEchelle());
     }
 
@@ -812,6 +808,7 @@ public class RoulotteController implements Serializable{
     }
 
     public void setCouleurChoisie(Color couleur) {
+
         this.couleurChoisie = couleur;
     }
 
@@ -825,6 +822,7 @@ public class RoulotteController implements Serializable{
     }
 
     public void setEstImperial(boolean estImperial) {
+
         this.estImperial = estImperial;
     }
 
@@ -833,30 +831,23 @@ public class RoulotteController implements Serializable{
     }
 
     public void setAfficherLabel(boolean afficherLabel) {
+
         this.afficherLabel = afficherLabel;
     }
 
     public void removeComposante() {
-        undoController = this.deepCopy();
         // si une composante est sélectionnée, alors on la retire seulement si c'est aide au design/ouvertures
         if (composanteChoisie != null){
             if (composanteChoisie.getType() == TypeComposante.ROUE ||
                     composanteChoisie.getType() == TypeComposante.CADRE ||
                     composanteChoisie.getType() == TypeComposante.LIT ||
                     composanteChoisie.getType() == TypeComposante.PERSONNE ||
+                    composanteChoisie.getType() == TypeComposante.LOGO ||
                     composanteChoisie.getType() == TypeComposante.PORTE ||
                     composanteChoisie.getType() == TypeComposante.FENETRE ||
                     composanteChoisie.getType() == TypeComposante.AIDE_AU_DESIGN){
                 listeComposantes.get(composanteChoisie.getIndex()).estAjoute(false);
             }
         }
-    }
-
-    public int getNbOuvertures() {
-        return this.listeOuverturesLaterales.size();
-    }
-
-    public int getNbAideDesign() {
-        return this.listeAidesDesign.size();
     }
 }

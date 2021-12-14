@@ -126,10 +126,12 @@ public class PoutreArriere extends Composante{
 
     @Override
     public void translate(PointPouce delta) {
+        System.out.println("fonction Translate de poutre");
         this.centreX = centreX.add(delta.getX().diff(parent.getPositionPlan(parent.getPositionSouris()).getX()));
         boolean modeEllipse = ((MurProfile) (parent.getListeComposantes().get(1))).getMode();
         // Mode ellipse
         if(modeEllipse) {
+            System.out.println("Ellipse");
             Pouce centreY = getCentreY();
             MurBrute murBrute = (MurBrute) parent.getListeComposantes().get(0);
             if (centreY != null) {
@@ -141,6 +143,7 @@ public class PoutreArriere extends Composante{
             this.rectangle = new Rectangle(this.longueur, this.hauteur, this.centre, getAngle());
         }
         else {
+            System.out.println("Bézier");
             calculerPositionBezier();
         }
         this.setPolygone(rectangle.getPolygone());
@@ -211,6 +214,7 @@ public class PoutreArriere extends Composante{
     }
 
     private void calculerPositionBezier(){
+        System.out.println("calculerPositionBezier");
         LinkedList<PointPouce> murProfilePoints = parent.getListeComposantes().get(1).getPolygone().getListePoints();
        int index = -1;
        Pouce centreY;

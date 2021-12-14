@@ -89,7 +89,7 @@ public class AideDesign extends Composante{
                 this.centre = new PointPouce(centreX, centreY.add(new Pouce(26)));
                 break;
             case PERSONNE:
-                this.longueur = new Pouce(24);
+                this.longueur = new Pouce(46);
                 this.largeur = new Pouce(60);
                centreX = parent.getListeComposantes().get(0).getCentre().getX().diff(new Pouce(15));
                centreY = parent.getListeComposantes().get(0).getCentre().getY().diff(new Pouce(10));
